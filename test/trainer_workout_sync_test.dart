@@ -41,6 +41,27 @@ WorkoutRecord selfRecord({String date = '2026-09-25T10:00:00Z'}) =>
     );
 
 void main() {
+  test(
+    'server cancellation with no remaining sets cannot resurrect on restart',
+    () {
+      final own = selfRecord();
+      final trainer = reconcileTrainerWorkouts([], [
+        session('trainer-1'),
+      ], userA).single;
+      final rows = [
+        session('trainer-1', canceledAt: '2026-09-27T00:00:00Z')..['sets'] = [],
+      ];
+      final deleted = reconcileTrainerWorkouts([own, trainer], rows, userA);
+      final restarted = decodeWorkoutHistory(
+        jsonEncode(deleted.map((w) => w.toJson()).toList()),
+      );
+      expect(
+        reconcileTrainerWorkouts(restarted, rows, userA).map((w) => w.toJson()),
+        [own.toJson()],
+      );
+    },
+  );
+
   test('trainer save becomes official history and stays idempotent', () {
     final own = selfRecord();
     final first = reconcileTrainerWorkouts(

@@ -28,7 +28,6 @@ class ExerciseFormDefinition {
   String get loadMode => _value['loadMode']! as String;
   String get status => _value['status']! as String;
   String? get assetPath => _value['assetPath'] as String?;
-  String? get thumbnailAssetPath => _value['thumbnailAssetPath'] as String?;
   bool get isPreview =>
       status == 'authored' &&
       _value['previewEnabled'] == true &&

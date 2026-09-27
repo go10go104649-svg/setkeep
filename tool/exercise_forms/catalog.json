@@ -47,7 +47,6 @@
       "priority": 0,
       "status": "verified",
       "assetPath": "assets/models/bench_press.glb",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/bench_press.png",
       "equipmentLabel": "フリーウェイト",
       "tags": [],
       "englishName": "Bench Press",
@@ -101,7 +100,6 @@
       "priority": 0,
       "status": "verified",
       "assetPath": "assets/models/incline_dumbbell_press.glb",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/incline_dumbbell_press.png",
       "equipmentLabel": "ダンベル",
       "tags": [],
       "englishName": "Incline Dumbbell Press",
@@ -164,7 +162,6 @@
       "priority": 2,
       "status": "verified",
       "assetPath": "assets/models/forms/incline_barbell_press.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/incline_barbell_press.png",
       "equipmentLabel": "フリーウェイト",
       "tags": [],
       "englishName": "Incline Barbell Press",
@@ -238,7 +235,6 @@
       "priority": 2,
       "status": "verified",
       "assetPath": "assets/models/forms/flat_dumbbell_press.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/flat_dumbbell_press.png",
       "equipmentLabel": "ダンベル",
       "tags": [],
       "englishName": "Flat Dumbbell Press",
@@ -1218,7 +1214,6 @@
       "priority": 1,
       "status": "verified",
       "assetPath": "assets/models/forms/assisted_chin_up.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/assisted_chin_up.png",
       "references": [
         "https://www.youtube.com/watch?v=acMgjzqo5AI",
         "https://www.lifefitness.com/en-gb/catalog/strength-training/selectorized/insignia-series-assist-dip-chin"
@@ -1690,7 +1685,6 @@
       "priority": 1,
       "status": "verified",
       "assetPath": "assets/models/forms/dy_row.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/dy_row.png",
       "references": [
         "https://www.lifefitness.com/ja-jp/catalog/strength-training/plate-loaded/plate-loaded-iso-lateral-d-y-row",
         "https://player.vimeo.com/video/1050766924"
@@ -1790,7 +1784,6 @@
       "priority": 1,
       "status": "verified",
       "assetPath": "assets/models/forms/low_row.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/low_row.png",
       "references": [
         "https://www.lifefitness.com/en-us/catalog/strength-training/plate-loaded/plate-loaded-iso-lateral-low-row",
         "https://player.vimeo.com/video/1089148269"
@@ -1882,7 +1875,6 @@
       "priority": 1,
       "status": "verified",
       "assetPath": "assets/models/forms/linear_row.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/linear_row.png",
       "references": [
         "https://www.deltafitness.shop/product/907",
         "https://act-energy.co.jp/20260406-2/"
@@ -1988,7 +1980,6 @@
       "priority": 1,
       "status": "verified",
       "assetPath": "assets/models/forms/high_row.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/high_row.png",
       "references": [
         "https://www.lifefitness.com/ja-jp/catalog/strength-training/plate-loaded/plate-loaded-iso-lateral-high-row",
         "https://player.vimeo.com/video/1064752886"
@@ -2082,7 +2073,6 @@
       "priority": 1,
       "status": "verified",
       "assetPath": "assets/models/forms/cable_row.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/cable_row.png",
       "equipmentLabel": "ケーブル",
       "tags": [],
       "englishName": "Seated Cable Row",
@@ -2360,7 +2350,6 @@
       "priority": 2,
       "status": "verified",
       "assetPath": "assets/models/forms/dumbbell_shoulder_press.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/dumbbell_shoulder_press.png",
       "equipmentLabel": "ダンベル",
       "tags": [],
       "englishName": "Dumbbell Shoulder Press",
@@ -2878,7 +2867,6 @@
       "priority": 2,
       "status": "verified",
       "assetPath": "assets/models/forms/barbell_curl.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/barbell_curl.png",
       "equipmentLabel": "フリーウェイト",
       "tags": [],
       "englishName": "Barbell Curl",
@@ -2948,7 +2936,6 @@
       "priority": 2,
       "status": "verified",
       "assetPath": "assets/models/forms/dumbbell_curl.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/dumbbell_curl.png",
       "equipmentLabel": "ダンベル",
       "tags": [],
       "englishName": "Dumbbell Curl",
@@ -3021,7 +3008,6 @@
       "priority": 2,
       "status": "verified",
       "assetPath": "assets/models/forms/hammer_curl.form.json",
-      "thumbnailAssetPath": "assets/exercise_thumbnails/hammer_curl.png",
       "equipmentLabel": "ダンベル",
       "tags": [],
       "englishName": "Dumbbell Hammer Curl",
@@ -3047,7 +3033,8 @@
       "category": "腕",
       "aliases": [
         "プリーチャーカール",
-        "Preacher Curl"
+        "Preacher Curl",
+        "プリチャーカール"
       ],
       "modelId": "mpfb-athlete-v1",
       "animationId": "curl",
@@ -11448,6 +11435,434 @@
       "animationSpeed": 1.0,
       "rangeOfMotion": 1.0,
       "parameters": {}
+    },
+    {
+      "exerciseId": "dumbbell_skull_crusher",
+      "exerciseName": "ダンベルスカルクラッシャー",
+      "englishName": "Dumbbell Skull Crusher",
+      "category": "腕",
+      "aliases": [
+        "ライイングダンベルトライセプスエクステンション"
+      ],
+      "equipmentId": "dumbbell",
+      "equipmentLabel": "ダンベル",
+      "recordType": "weightReps",
+      "loadMode": "external",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "secondaryMuscles": [
+        "anteriorDeltoid"
+      ],
+      "tags": [
+        "腕",
+        "ダンベル"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "dumbbell_skull_crusher",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "dumbbell_skull_crusher",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {}
+    },
+    {
+      "exerciseId": "push_up_bar",
+      "exerciseName": "プッシュアップバー腕立て伏せ",
+      "englishName": "Parallettes Push Up",
+      "category": "胸",
+      "aliases": [
+        "プッシュアップバー",
+        "プッシュアップハンドル"
+      ],
+      "equipmentId": "push_up_bar",
+      "equipmentLabel": "自重",
+      "recordType": "bodyweightReps",
+      "loadMode": "bodyweight",
+      "primaryMuscles": [
+        "pectoralisMajor"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "anteriorDeltoid"
+      ],
+      "tags": [
+        "胸",
+        "自重"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "push_up_bar",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "push_up_bar",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {},
+      "startWeight": 0.0,
+      "startReps": 10
+    },
+    {
+      "exerciseId": "diamond_push_up",
+      "exerciseName": "ダイヤモンドプッシュアップ",
+      "englishName": "Diamond Push Up",
+      "category": "胸",
+      "aliases": [
+        "ダイヤモンド腕立て伏せ"
+      ],
+      "equipmentId": "bodyweight",
+      "equipmentLabel": "自重",
+      "recordType": "bodyweightReps",
+      "loadMode": "bodyweight",
+      "primaryMuscles": [
+        "pectoralisMajor"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "anteriorDeltoid"
+      ],
+      "tags": [
+        "胸",
+        "自重"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "diamond_push_up",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "diamond_push_up",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {},
+      "startWeight": 0.0,
+      "startReps": 10
+    },
+    {
+      "exerciseId": "incline_push_up",
+      "exerciseName": "インクラインプッシュアップ",
+      "englishName": "Incline Push Up",
+      "category": "胸",
+      "aliases": [
+        "台に手をつく腕立て伏せ"
+      ],
+      "equipmentId": "bench",
+      "equipmentLabel": "自重",
+      "recordType": "bodyweightReps",
+      "loadMode": "bodyweight",
+      "primaryMuscles": [
+        "pectoralisMajor"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "anteriorDeltoid"
+      ],
+      "tags": [
+        "胸",
+        "自重"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "incline_push_up",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "incline_push_up",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {},
+      "startWeight": 0.0,
+      "startReps": 10
+    },
+    {
+      "exerciseId": "decline_push_up",
+      "exerciseName": "デクラインプッシュアップ",
+      "englishName": "Decline Push Up",
+      "category": "胸",
+      "aliases": [
+        "足上げ腕立て伏せ"
+      ],
+      "equipmentId": "bench",
+      "equipmentLabel": "自重",
+      "recordType": "bodyweightReps",
+      "loadMode": "bodyweight",
+      "primaryMuscles": [
+        "pectoralisMajor"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "anteriorDeltoid"
+      ],
+      "tags": [
+        "胸",
+        "自重"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "decline_push_up",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "decline_push_up",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {},
+      "startWeight": 0.0,
+      "startReps": 10
+    },
+    {
+      "exerciseId": "v_bar_pushdown",
+      "exerciseName": "Vバープッシュダウン",
+      "englishName": "V Bar Pushdown",
+      "category": "腕",
+      "aliases": [],
+      "equipmentId": "cable",
+      "equipmentLabel": "ケーブル",
+      "recordType": "weightReps",
+      "loadMode": "external",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "secondaryMuscles": [
+        "forearms"
+      ],
+      "tags": [
+        "腕",
+        "ケーブル"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "v_bar_pushdown",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "v_bar_pushdown",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {}
+    },
+    {
+      "exerciseId": "meadows_row",
+      "exerciseName": "メドウズロー",
+      "englishName": "Meadows Row",
+      "category": "背中",
+      "aliases": [
+        "メドウズロウ"
+      ],
+      "equipmentId": "landmine",
+      "equipmentLabel": "フリーウェイト",
+      "recordType": "weightReps",
+      "loadMode": "external",
+      "primaryMuscles": [
+        "latissimusDorsi"
+      ],
+      "secondaryMuscles": [
+        "trapezius",
+        "biceps"
+      ],
+      "tags": [
+        "背中",
+        "フリーウェイト"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "meadows_row",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "meadows_row",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {}
+    },
+    {
+      "exerciseId": "gorilla_row",
+      "exerciseName": "ダンベルゴリラロー",
+      "englishName": "Dumbbell Gorilla Row",
+      "category": "背中",
+      "aliases": [
+        "ゴリラロー"
+      ],
+      "equipmentId": "dumbbell",
+      "equipmentLabel": "ダンベル",
+      "recordType": "weightReps",
+      "loadMode": "external",
+      "primaryMuscles": [
+        "latissimusDorsi"
+      ],
+      "secondaryMuscles": [
+        "biceps",
+        "trapezius"
+      ],
+      "tags": [
+        "背中",
+        "ダンベル"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "gorilla_row",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "gorilla_row",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {}
+    },
+    {
+      "exerciseId": "bird_dog",
+      "exerciseName": "バードドッグ",
+      "englishName": "Bird Dog",
+      "category": "腹筋",
+      "aliases": [],
+      "equipmentId": "bodyweight",
+      "equipmentLabel": "自重",
+      "recordType": "bodyweightReps",
+      "loadMode": "bodyweight",
+      "primaryMuscles": [
+        "erectorSpinae"
+      ],
+      "secondaryMuscles": [
+        "rectusAbdominis",
+        "gluteus"
+      ],
+      "tags": [
+        "腹筋",
+        "自重"
+      ],
+      "distanceUnit": "km",
+      "movementVariant": "bird_dog",
+      "status": "planned",
+      "assetPath": null,
+      "modelId": "mpfb-athlete-v1",
+      "animationId": "bird_dog",
+      "gripType": "unspecified",
+      "cameraPreset": "studio_oblique",
+      "cameraAngle": [
+        2.8,
+        2.5,
+        3.4
+      ],
+      "cameraTarget": [
+        0,
+        0.95,
+        0
+      ],
+      "cameraScale": 1.35,
+      "cameraDistance": 5.06,
+      "animationSpeed": 1.0,
+      "rangeOfMotion": 1.0,
+      "parameters": {},
+      "startWeight": 0.0,
+      "startReps": 10
     }
   ]
 }

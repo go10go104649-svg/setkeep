@@ -36,7 +36,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/brand/setkeep_splash_mark.png
-    - assets/exercise_thumbnails/
+    - assets/brand/setkeep_share_lockup.png
     - assets/vital_videos/
     - assets/vital_thumbnails/
     - assets/models/body_tab.glb

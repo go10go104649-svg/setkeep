@@ -1,7 +1,15 @@
 """Render category PNGs from the same CC0 MPFB human as exercise forms."""
-import os, pathlib, math, bpy
+import os, pathlib, math, runpy, bpy
 from mathutils import Vector
 root=pathlib.Path(__file__).resolve().parents[1]
+categories=os.environ.get('SETKEEP_CATEGORIES', os.environ.get('MUSCLEMORY_CATEGORIES','chest,back,shoulders,arms,legs,abs')).split(',')
+upper=[c for c in categories if c in ('chest','back','shoulders','arms','abs')]
+if upper:
+ os.environ['SETKEEP_UPPER_CATEGORIES']=','.join(upper)
+ runpy.run_path(str(root/'tool/render_upper_body_categories.py'), run_name='__main__')
+ categories=[c for c in categories if c not in upper]
+if not categories:
+ raise SystemExit(0)
 work=pathlib.Path(os.environ.get('SETKEEP_ART_WORK', os.environ.get('MUSCLEMORY_ART_WORK','/private/tmp/musclemory-3d-tools')))
 bpy.ops.wm.open_mainfile(filepath=str(work/'base.blend'))
 human=bpy.data.objects['Athlete'];scene=bpy.context.scene
@@ -30,27 +38,12 @@ for pos,power,size in [((-2,-3,3),130,2),((2,-2,1.5),35,3),((0,3,3),100,2)]:
 def smooth(a,b,v):
  t=max(0,min(1,(v-a)/(b-a)));return t*t*(3-2*t)
 def oval(x,z,cx,cz,rx,rz):return 1-smooth(.85,1.02,math.sqrt(((x-cx)/rx)**2+((z-cz)/rz)**2))
-# Subtle surface relief follows the abdominal bellies on the same human mesh.
-# This is continuous sculpted surface, never separate raised red objects.
-for v in human.data.vertices:
- x,y,z=abs(v.co.x),v.co.y,v.co.z
- belly=max(math.exp(-(((x-.040)/.030)**4+((z-cz)/rz)**4)*1.8) for cz,rz in [(1.19,.029),(1.125,.030),(1.06,.029),(1.004,.024)])
- v.co.y-=.006*belly*smooth(-.012,-.045,y)
-human.data.update()
-for category in os.environ.get('SETKEEP_CATEGORIES', os.environ.get('MUSCLEMORY_CATEGORIES','chest,back,shoulders,arms,legs,abs')).split(','):
+for category in categories:
  for v in human.data.vertices:
   x,y,z=abs(v.co.x),v.co.y,v.co.z
   front=smooth(-.012,-.045,y);back=smooth(.005,.04,y)
-  if category=='chest':w=human.data.attributes['muscle_pectoral'].data[v.index].value
-  elif category=='shoulders':w=oval(x,z,.224,1.361,.064,.084)
-  elif category=='arms':w=max(oval(x,z,.286,1.257,.058,.10),oval(x,z,.355,1.052,.051,.111))
-  elif category=='legs':w=max(oval(x,z,.116,.735,.077,.205),oval(x,z,.115,.305,.062,.143))
-  elif category=='abs':
-   w=max(1-smooth(.78,1.04,(abs((x-.040)/.032)**4+abs((z-cz)/rz)**4)**.25) for cz,rz in [(1.19,.029),(1.125,.030),(1.06,.029),(1.004,.024)])*front
-  else:
-   lats=oval(x,z,.107,1.223,.098,.175)*smooth(.02,.035,x)
-   traps=oval(x,z,.057,1.393,.094,.096)*smooth(.001,.009,x)
-   w=max(lats,traps)*back
+  assert category=='legs', 'Activity categories use render_activity_categories.py'
+  w=max(oval(x,z,.116,.735,.077,.205),oval(x,z,.115,.305,.062,.143))
   w=max(0,min(1,w));base=(.50,.52,.54);red=(.40,.006,.016)
   colors.data[v.index].color=(*(base[k]*(1-w)+red[k]*w for k in range(3)),1)
  scene.render.resolution_y=600 if category=='legs' else 480

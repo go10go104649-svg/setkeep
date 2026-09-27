@@ -16,7 +16,9 @@ void main() {
     if (!File(path!).existsSync()) return; // Purchased media is local-only.
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(body: ExerciseListThumbnail(assetPath: path)),
+        home: const Scaffold(
+          body: ExerciseListThumbnail(exerciseId: 'bench_press'),
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -40,7 +42,9 @@ void main() {
     if (!File(path).existsSync()) return;
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(body: ExerciseListThumbnail(assetPath: path)),
+        home: const Scaffold(
+          body: ExerciseListThumbnail(exerciseId: 'lat_pulldown'),
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -51,11 +55,13 @@ void main() {
     expect(find.byType(VideoPlayer), findsNothing);
   });
 
-  testWidgets('form without a still image uses muted SETKEEP mark', (
+  testWidgets('unmapped exercise never falls back to its old 3D still', (
     tester,
   ) async {
     await tester.pumpWidget(
-      const MaterialApp(home: Scaffold(body: ExerciseListThumbnail())),
+      const MaterialApp(
+        home: Scaffold(body: ExerciseListThumbnail(exerciseId: 'dy_row')),
+      ),
     );
     await tester.pumpAndSettle();
     expect(

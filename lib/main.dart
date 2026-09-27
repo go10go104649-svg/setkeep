@@ -957,11 +957,10 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     _trainerSyncRunning = true;
     try {
       final repo = TrainerRepository(client);
-      final rows = await fetchAllTrainerWorkouts(
-        (offset) => repo.recordedForMe(offset: offset),
-      );
-      if (!mounted || client.auth.currentUser?.id != userId) return;
       await _withHistoryMutation(() async {
+        final rows = await fetchAllTrainerWorkouts(
+          (offset) => repo.recordedForMe(offset: offset),
+        );
         if (!mounted || client.auth.currentUser?.id != userId) return;
         final updated = reconcileTrainerWorkouts(_history, rows, userId);
         await _persistHistory(updated);
@@ -1047,7 +1046,14 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
 
   Future<void> _saveWorkout(WorkoutRecord workout) =>
       _withHistoryMutation(() async {
-        final updated = sortWorkoutsNewestFirst([workout, ..._history]);
+        if (workout.trainerWorkoutId != null) {
+          await _trainerRecordRepository(workout)
+              .restoreRecordedWorkout(workout.trainerWorkoutId!);
+        }
+        final updated = sortWorkoutsNewestFirst([
+          workout,
+          ..._history.where((w) => !_sameWorkout(w, workout)),
+        ]);
         await _persistHistory(updated);
         if (mounted) setState(() => _history = updated);
         unawaited(_syncHistory(updated));
@@ -1079,32 +1085,52 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
 
   Future<void> _replaceWorkout(WorkoutRecord original, WorkoutRecord workout) =>
       _withHistoryMutation(() async {
-        final updated = sortWorkoutsNewestFirst(
-          _history.map((item) => identical(item, original) ? workout : item),
-        );
+        if (original.trainerWorkoutId != null) {
+          await _trainerRecordRepository(original).updateRecordedWorkout(
+            original.trainerWorkoutId!,
+            workout.sets.map((s) => s.toJson()).toList(),
+          );
+        }
+        final updated = sortWorkoutsNewestFirst([
+          if (workout.sets.isNotEmpty) workout,
+          ..._history.where((item) => !_sameWorkout(item, original)),
+        ]);
         await _persistHistory(updated);
         if (mounted) setState(() => _history = updated);
         unawaited(_syncHistory(updated));
       });
 
-  Future<bool> _deleteWorkout(WorkoutRecord workout) async {
-    try {
-      if (workout.trainerWorkoutId == null && SupabaseSyncService.canUseCloud) {
-        await SupabaseSyncService.deleteWorkout(workout.date.toIso8601String());
-      }
-    } catch (error) {
-      debugPrint('Supabase delete failed: $error');
-      return false;
+  TrainerRepository _trainerRecordRepository(WorkoutRecord workout) {
+    if (!SupabaseConfig.initialized ||
+        Supabase.instance.client.auth.currentUser?.id !=
+            workout.trainerOwnerUserId) {
+      throw StateError('記録の所有者としてログインしてください');
     }
-    return _withHistoryMutation(() async {
-      final updated = _history
-          .where((item) => !identical(item, workout))
-          .toList();
-      await _persistHistory(updated);
-      if (mounted) setState(() => _history = updated);
-      return true;
-    });
+    return TrainerRepository(Supabase.instance.client);
   }
+
+  Future<bool> _deleteWorkout(WorkoutRecord workout) =>
+      _withHistoryMutation(() async {
+        try {
+          if (workout.trainerWorkoutId != null) {
+            await _trainerRecordRepository(workout)
+                .deleteRecordedWorkout(workout.trainerWorkoutId!);
+          } else if (SupabaseSyncService.canUseCloud) {
+            await SupabaseSyncService.deleteWorkout(
+              workout.date.toIso8601String(),
+            );
+          }
+          final updated = _history
+              .where((item) => !_sameWorkout(item, workout))
+              .toList();
+          await _persistHistory(updated);
+          if (mounted) setState(() => _history = updated);
+          return true;
+        } catch (error) {
+          debugPrint('Workout delete failed: $error');
+          return false;
+        }
+      });
 
   Future<int> _importWorkouts(
     List<WorkoutRecord> imported,
@@ -1128,7 +1154,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     final addedCount = updated.length - _history.length;
     setState(() => _history = updated);
     await _persistHistory(updated);
-    await _syncHistory(updated);
+    unawaited(_syncHistory(updated));
     return addedCount;
   });
 
@@ -1180,48 +1206,50 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     return addedCount;
   }
 
-  Future<int> _syncHistory([List<WorkoutRecord>? history]) async {
-    if (!SupabaseSyncService.canUseCloud) return 0;
-    try {
-      final localHistory = history ?? _history;
-      await SupabaseSyncService.syncWorkouts(
-        localHistory
-            .where((w) => w.trainerWorkoutId == null)
-            .map((item) => item.toJson())
-            .toList(),
-      );
-      final cloudItems = await SupabaseSyncService.fetchWorkouts();
-      if (!SupabaseSyncService.isSignedIn || !SupabaseSyncService.canUseCloud) {
-        return 0;
-      }
+  Future<int> _syncHistory([List<WorkoutRecord>? history]) =>
+      _withHistoryMutation(() async {
+        if (!SupabaseSyncService.canUseCloud) return 0;
+        try {
+          final localHistory = _history;
+          await SupabaseSyncService.syncWorkouts(
+            localHistory
+                .where((w) => w.trainerWorkoutId == null)
+                .map((item) => item.toJson())
+                .toList(),
+          );
+          final cloudItems = await SupabaseSyncService.fetchWorkouts();
+          if (!SupabaseSyncService.isSignedIn ||
+              !SupabaseSyncService.canUseCloud) {
+            return 0;
+          }
 
-      final merged = <String, WorkoutRecord>{
-        for (final workout in localHistory.where(
-          (w) => w.trainerWorkoutId == null,
-        ))
-          workout.date.toIso8601String(): workout,
-      };
-      for (final item in cloudItems) {
-        final workout = WorkoutRecord.tryFromJson(item);
-        if (workout == null) continue;
-        merged[workout.date.toIso8601String()] = workout;
-      }
-      final updated = sortWorkoutsNewestFirst([
-        ...merged.values,
-        ...localHistory.where((w) => w.trainerWorkoutId != null),
-      ]);
-      final preferences = await SharedPreferences.getInstance();
-      await preferences.setString(
-        _storageKey,
-        jsonEncode(updated.map((item) => item.toJson()).toList()),
-      );
-      if (mounted) setState(() => _history = updated);
-      return updated.length;
-    } catch (error) {
-      debugPrint('Supabase sync failed: $error');
-      return 0;
-    }
-  }
+          final merged = <String, WorkoutRecord>{
+            for (final workout in localHistory.where(
+              (w) => w.trainerWorkoutId == null,
+            ))
+              workout.date.toIso8601String(): workout,
+          };
+          for (final item in cloudItems) {
+            final workout = WorkoutRecord.tryFromJson(item);
+            if (workout == null) continue;
+            merged[workout.date.toIso8601String()] = workout;
+          }
+          final updated = sortWorkoutsNewestFirst([
+            ...merged.values,
+            ...localHistory.where((w) => w.trainerWorkoutId != null),
+          ]);
+          final preferences = await SharedPreferences.getInstance();
+          await preferences.setString(
+            _storageKey,
+            jsonEncode(updated.map((item) => item.toJson()).toList()),
+          );
+          if (mounted) setState(() => _history = updated);
+          return updated.length;
+        } catch (error) {
+          debugPrint('Supabase sync failed: $error');
+          return 0;
+        }
+      });
 
   Future<void> _saveGym(String gym) async {
     await CustomGymPreference.add(gym);
@@ -1655,6 +1683,8 @@ class SavedMenusCard extends StatelessWidget {
                         ..hideCurrentSnackBar()
                         ..showSnackBar(
                           SnackBar(
+                            duration: workoutUndoDuration,
+                            persist: false,
                             content: Text('「${template.name}」を削除しました'),
                             action: SnackBarAction(
                               label: '元に戻す',
@@ -1788,6 +1818,8 @@ class _SavedMenuManagementPageState extends State<SavedMenuManagementPage> {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          duration: workoutUndoDuration,
+          persist: false,
           content: Text('「${template.name}」を削除しました'),
           action: SnackBarAction(
             label: '元に戻す',
@@ -4340,6 +4372,7 @@ String _normalizeWorkoutSearchText(String value) {
 class _HistorySearchPageState extends State<HistorySearchPage> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
+  late List<WorkoutRecord> _history = List.of(widget.history);
 
   @override
   void dispose() {
@@ -4349,7 +4382,7 @@ class _HistorySearchPageState extends State<HistorySearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final results = widget.history
+    final results = _history
         .where((workout) => workoutMatchesQuery(workout, _query))
         .toList();
     return Scaffold(
@@ -4407,9 +4440,45 @@ class _HistorySearchPageState extends State<HistorySearchPage> {
                       itemBuilder: (context, index) => HistoryCard(
                         workout: results[index],
                         selectedGym: widget.selectedGym,
-                        onWorkoutCompleted: widget.onWorkoutCompleted,
-                        onWorkoutUpdated: widget.onWorkoutUpdated,
-                        onWorkoutDeleted: widget.onWorkoutDeleted,
+                        onWorkoutCompleted: (workout) async {
+                          await widget.onWorkoutCompleted(workout);
+                          if (mounted) {
+                            setState(
+                              () => _history = sortWorkoutsNewestFirst([
+                                workout,
+                                ..._history.where(
+                                  (w) => !_sameWorkout(w, workout),
+                                ),
+                              ]),
+                            );
+                          }
+                        },
+                        onWorkoutUpdated: (original, updated) async {
+                          await widget.onWorkoutUpdated(original, updated);
+                          if (mounted) {
+                            setState(
+                              () => _history = sortWorkoutsNewestFirst([
+                                if (updated.sets.isNotEmpty) updated,
+                                ..._history.where(
+                                  (w) => !_sameWorkout(w, original),
+                                ),
+                              ]),
+                            );
+                          }
+                        },
+                        onWorkoutDeleted: (workout) async {
+                          final deleted = await widget.onWorkoutDeleted(
+                            workout,
+                          );
+                          if (deleted && mounted) {
+                            setState(
+                              () => _history.removeWhere(
+                                (w) => _sameWorkout(w, workout),
+                              ),
+                            );
+                          }
+                          return deleted;
+                        },
                       ),
                     ),
             ),
@@ -4890,6 +4959,14 @@ class HistoryCard extends StatelessWidget {
   }
 }
 
+bool _sameWorkout(WorkoutRecord a, WorkoutRecord b) =>
+    a.trainerWorkoutId != null || b.trainerWorkoutId != null
+    ? a.trainerWorkoutId == b.trainerWorkoutId &&
+          a.trainerOwnerUserId == b.trainerOwnerUserId
+    : a.date == b.date;
+
+const workoutUndoDuration = Duration(seconds: 2);
+
 void _showDeletedWorkoutUndo(
   ScaffoldMessengerState messenger,
   WorkoutRecord workout,
@@ -4899,11 +4976,21 @@ void _showDeletedWorkoutUndo(
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
+        duration: workoutUndoDuration,
+        persist: false,
         content: const Text('トレーニング記録を削除しました'),
         action: SnackBarAction(
           label: '元に戻す',
           onPressed: () async {
-            await onRestore(workout);
+            try {
+              await onRestore(workout);
+            } catch (_) {
+              messenger.showSnackBar(
+                const SnackBar(content: Text('復元できませんでした。通信状態を確認してください')),
+              );
+              return;
+            }
+            if (!messenger.mounted) return;
             messenger.showSnackBar(
               const SnackBar(content: Text('トレーニング記録を元に戻しました')),
             );
@@ -5361,39 +5448,12 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              DecoratedBox(
+                              Image.asset(
                                 key: const Key('shareBrandLogo'),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xEFFFFFFF),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 7,
-                                    vertical: 4,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Image.asset(
-                                        'assets/brand/setkeep_splash_mark.png',
-                                        width: 42,
-                                        height: 25,
-                                        fit: BoxFit.contain,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      const Text(
-                                        'SETKEEP',
-                                        style: TextStyle(
-                                          color: Color(0xFF101820),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w900,
-                                          letterSpacing: 0.6,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                'assets/brand/setkeep_share_lockup.png',
+                                width: 84,
+                                height: 52,
+                                fit: BoxFit.contain,
                               ),
                               const Spacer(),
                               Text(
@@ -5623,6 +5683,17 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     _exercises = widget.initialWorkout == null
         ? []
         : _exercisesFrom(widget.initialWorkout!, completed: widget.isEditing);
+    if (widget.isEditing) {
+      final groups = groupRecordedSets(
+        widget.initialWorkout!.sets,
+        preserveStoredIds: true,
+      ).values.toList();
+      for (var i = 0; i < _exercises.length; i++) {
+        for (var j = 0; j < _exercises[i].sets.length; j++) {
+          _originalHistorySets[_exercises[i].sets[j]] = groups[i][j];
+        }
+      }
+    }
     _noteController = TextEditingController(
       text: widget.isEditing ? widget.initialWorkout?.note ?? '' : '',
     );
@@ -5768,7 +5839,47 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     unawaited(_saveDraft());
   }
 
-  void _removeSet(int exerciseIndex, int setIndex) {
+  bool _deletingWorkoutItem = false;
+  final Map<WorkoutSet, RecordedSet> _originalHistorySets = {};
+
+  Future<void> _persistWorkoutItems() async {
+    if (!widget.isEditing) {
+      await _saveDraft();
+      return;
+    }
+    final original = widget.initialWorkout!;
+    await widget.onSave?.call(
+      WorkoutRecord.fromJson({
+        ...original.toJson(),
+        'sets': [
+          for (final exercise in _exercises)
+            for (final set in exercise.sets)
+              _originalHistorySets[set] ??
+                  RecordedSet(
+                    exerciseName: exercise.name,
+                    exerciseId: exercise.exerciseId,
+                    equipment: exercise.equipment,
+                    distanceUnit: exercise.distanceUnit,
+                    bodyPart: exercise.bodyPart,
+                    recordType: exercise.recordType,
+                    weight: set.weight,
+                    reps: set.reps,
+                    durationSeconds: set.durationSeconds,
+                    distanceKm: set.distanceKm,
+                    speedKmh: set.speedKmh,
+                    inclinePercent: set.inclinePercent,
+                    resistanceLevel: set.resistanceLevel,
+                    paceSecondsPerKm: set.paceSecondsPerKm,
+                    completed: set.completed,
+                  ),
+        ].map((set) => set.toJson()).toList(),
+      }),
+    );
+  }
+
+  Future<void> _removeSet(int exerciseIndex, int setIndex) async {
+    if (_deletingWorkoutItem) return;
+    _deletingWorkoutItem = true;
     final exercise = _exercises[exerciseIndex];
     final removed = exercise.sets[setIndex];
     setState(() {
@@ -5777,30 +5888,66 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
         _stopWorkoutTimer(keepStopped: true);
       }
     });
-    unawaited(_saveDraft());
+    try {
+      await _persistWorkoutItems();
+    } catch (_) {
+      if (mounted) {
+        setState(
+          () => exercise.sets.insert(
+            setIndex.clamp(0, exercise.sets.length),
+            removed,
+          ),
+        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('削除を保存できませんでした')));
+      }
+      return;
+    } finally {
+      _deletingWorkoutItem = false;
+    }
+    if (!mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          duration: workoutUndoDuration,
+          persist: false,
           content: Text('${exercise.name}の${setIndex + 1}セット目を削除しました'),
           action: SnackBarAction(
             label: '元に戻す',
-            onPressed: () {
-              if (!mounted || !_exercises.contains(exercise)) return;
+            onPressed: () async {
+              if (!mounted ||
+                  _deletingWorkoutItem ||
+                  !_exercises.contains(exercise)) {
+                return;
+              }
+              _deletingWorkoutItem = true;
               setState(() {
                 final restoreIndex = setIndex > exercise.sets.length
                     ? exercise.sets.length
                     : setIndex;
                 exercise.sets.insert(restoreIndex, removed);
               });
-              unawaited(_saveDraft());
+              try {
+                await _persistWorkoutItems();
+              } catch (_) {
+                if (!mounted) return;
+                setState(() => exercise.sets.remove(removed));
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('復元を保存できませんでした')));
+              } finally {
+                _deletingWorkoutItem = false;
+              }
             },
           ),
         ),
       );
   }
 
-  void _removeExercise(int exerciseIndex) {
+  Future<void> _removeExercise(int exerciseIndex) async {
+    if (_deletingWorkoutItem) return;
+    _deletingWorkoutItem = true;
     final removed = _exercises[exerciseIndex];
     setState(() {
       _exercises.removeAt(exerciseIndex);
@@ -5808,23 +5955,57 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
         _stopWorkoutTimer(keepStopped: true);
       }
     });
-    unawaited(_saveDraft());
+    try {
+      await _persistWorkoutItems();
+    } catch (_) {
+      if (mounted) {
+        setState(
+          () => _exercises.insert(
+            exerciseIndex.clamp(0, _exercises.length),
+            removed,
+          ),
+        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('削除を保存できませんでした')));
+      }
+      return;
+    } finally {
+      _deletingWorkoutItem = false;
+    }
+    if (!mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          duration: workoutUndoDuration,
+          persist: false,
           content: Text('${removed.name}を削除しました'),
           action: SnackBarAction(
             label: '元に戻す',
-            onPressed: () {
-              if (!mounted || _exercises.contains(removed)) return;
+            onPressed: () async {
+              if (!mounted ||
+                  _deletingWorkoutItem ||
+                  _exercises.contains(removed)) {
+                return;
+              }
+              _deletingWorkoutItem = true;
               setState(() {
                 final restoreIndex = exerciseIndex > _exercises.length
                     ? _exercises.length
                     : exerciseIndex;
                 _exercises.insert(restoreIndex, removed);
               });
-              unawaited(_saveDraft());
+              try {
+                await _persistWorkoutItems();
+              } catch (_) {
+                if (!mounted) return;
+                setState(() => _exercises.remove(removed));
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('復元を保存できませんでした')));
+              } finally {
+                _deletingWorkoutItem = false;
+              }
             },
           ),
         ),
@@ -6890,6 +7071,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   }
 
   Future<void> _completeWorkout() async {
+    if (_deletingWorkoutItem) return;
     if (_completing || _exiting) return;
     if (Platform.isAndroid && !widget.isEditing) {
       setState(() => _completing = true);
@@ -8372,13 +8554,7 @@ class _ExercisePickerSheetState extends State<ExercisePickerSheet> {
                           selectedTileColor: FamilyPalette.of(context).soft,
                           selectedColor: const Color(0xFF101820),
                           leading: ExerciseListThumbnail(
-                            assetPath:
-                                ExerciseMediaCatalog.forExerciseId(e.exerciseId)
-                                    ?.thumbnailAssetPath ??
-                                ExerciseFormCatalog.resolve(
-                                  e.exerciseId,
-                                  e.name,
-                                )?.thumbnailAssetPath,
+                            exerciseId: e.exerciseId,
                           ),
                           title: Text(
                             exerciseDisplayName(
@@ -9886,6 +10062,10 @@ List<WorkoutRecord> reconcileTrainerWorkouts(
     final matching = updated.indexWhere(
       (w) => w.trainerWorkoutId == id && w.trainerOwnerUserId == userId,
     );
+    if (row['canceled_at'] != null) {
+      if (matching >= 0) updated.removeAt(matching);
+      continue;
+    }
     final incoming = WorkoutRecord.fromJson({
       'date': row['performed_at'],
       'durationSeconds': row['duration_seconds'],

@@ -3708,18 +3708,28 @@ void main() {
     expect(find.text('保存'), findsOneWidget);
     final brand = find.byKey(const Key('shareBrandLogo'));
     expect(brand, findsOneWidget);
-    final mark = find.descendant(of: brand, matching: find.byType(Image));
-    expect(mark, findsOneWidget);
+    final mark = tester.widget<Image>(brand);
     expect(
-      (tester.widget<Image>(mark).image as AssetImage).assetName,
-      'assets/brand/setkeep_splash_mark.png',
+      (mark.image as AssetImage).assetName,
+      'assets/brand/setkeep_share_lockup.png',
     );
+    expect(mark.width, 84);
+    expect(mark.height, 52);
+    expect(mark.fit, BoxFit.contain);
     expect(find.textContaining('TRAIN TODAY. KEEP GROWING.'), findsNothing);
     final longTitle = tester.widget<Text>(
       find.text('インクラインダンベルプレス（スローテンポ・ワイドグリップ）'),
     );
     expect(longTitle.maxLines, 1);
     expect(longTitle.style?.fontSize, 16);
+    expect(longTitle.style?.fontWeight, FontWeight.w900);
+    final recordLine = tester.widget<Text>(
+      find.text('55 kg × 8 回  /  2 セット'),
+    );
+    expect(recordLine.style?.fontSize, 13);
+    expect(recordLine.style?.fontWeight, FontWeight.w700);
+    final date = tester.widget<Text>(find.text('2026.09.13'));
+    expect(date.style?.fontSize, 12);
     expect(tester.takeException(), isNull);
 
     expect(find.byKey(const Key('shareVolumeToggle')), findsNothing);

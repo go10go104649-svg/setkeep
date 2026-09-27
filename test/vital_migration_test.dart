@@ -36,14 +36,14 @@ void main() {
           .intersection(previous3d)
           .union(unmatched.intersection(previous3d)),
     );
-    expect(mappings, hasLength(97)); // 15 previous + 82 new exercise mappings.
+    expect(mappings, hasLength(109));
     expect(
       mappings.map((entry) => entry['providerAssetId']).toSet(),
-      hasLength(96),
+      hasLength(108),
     );
-    expect(ExerciseFormCatalog.entries, hasLength(212));
+    expect(ExerciseFormCatalog.entries, hasLength(221));
     expect(migrated.intersection(unmatched), isEmpty);
-    expect(migrated.union(unmatched).length, 191);
+    expect(migrated.union(unmatched).length, 200);
     expect(
       ExerciseMediaCatalog.forExerciseId('triceps_pushdown')?.exerciseId,
       'rope_pushdown',

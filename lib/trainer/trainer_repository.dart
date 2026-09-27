@@ -136,6 +136,24 @@ class TrainerRepository {
       .order('performed_at')
       .order('id')
       .range(offset, offset + 99);
+  // Owner mutations persist before the caller offers Undo. Attribution and
+  // trainer audit rows stay intact; deletion is a server-side cancellation.
+  Future<void> deleteRecordedWorkout(String id) => client.rpc(
+    'owner_mutate_recorded_workout',
+    params: {'p_record': id, 'p_action': 'delete'},
+  );
+  Future<void> restoreRecordedWorkout(String id) => client.rpc(
+    'owner_mutate_recorded_workout',
+    params: {'p_record': id, 'p_action': 'restore'},
+  );
+  Future<void> updateRecordedWorkout(
+    String id,
+    List<Map<String, dynamic>> sets,
+  ) => client.rpc(
+    'owner_mutate_recorded_workout',
+    params: {'p_record': id, 'p_action': 'update', 'p_sets': sets},
+  );
+
   static String requestId() {
     final random = Random.secure();
     final bytes = List<int>.generate(16, (_) => random.nextInt(256));

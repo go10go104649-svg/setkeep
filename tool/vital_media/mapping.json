@@ -181,11 +181,11 @@
     },
     {
       "exerciseId": "deadlift",
-      "providerAssetId": "0191",
-      "sourceAsset": "200 Workouts/200 Workouts/0191.mp4",
-      "vitalName": "conventional deadlift",
+      "providerAssetId": "0032",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0032.mp4",
+      "vitalName": "deadlift barbell",
       "equipment": "barbell",
-      "reason": "Deadliftとconventional deadliftの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lower back。"
+      "reason": "Gray clothing preferred after visual and metadata comparison: same implement and exercise; identity preserved."
     },
     {
       "exerciseId": "t_bar_row",
@@ -213,11 +213,11 @@
     },
     {
       "exerciseId": "military_press",
-      "providerAssetId": "0300",
-      "sourceAsset": "200 Workouts/200 Workouts/0300.mp4",
-      "vitalName": "standing overhead military press",
+      "providerAssetId": "0088",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0088.mp4",
+      "vitalName": "barbell overhead press standing",
       "equipment": "barbell",
-      "reason": "Military Pressとstanding overhead military pressの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+      "reason": "Gray clothing preferred after visual and metadata comparison: same implement and exercise; identity preserved."
     },
     {
       "exerciseId": "lateral_raise",
@@ -245,11 +245,11 @@
     },
     {
       "exerciseId": "face_pull",
-      "providerAssetId": "0136",
-      "sourceAsset": "200 Workouts/200 Workouts/0136.mp4",
+      "providerAssetId": "0030",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0030.mp4",
       "vitalName": "cable face pull",
       "equipment": "cable",
-      "reason": "両手ロープを顔へ引き、肘を外へ開く動作。Vitalの主働筋は三角筋でSETKEEPのリアデルタ中心と一致。"
+      "reason": "Gray clothing preferred after visual and metadata comparison: same implement and exercise; identity preserved."
     },
     {
       "exerciseId": "upright_row",
@@ -349,11 +349,11 @@
     },
     {
       "exerciseId": "cable_crunch",
-      "providerAssetId": "0103",
-      "sourceAsset": "200 Workouts/200 Workouts/0103.mp4",
-      "vitalName": "cable crunch",
+      "providerAssetId": "0002",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0002.mp4",
+      "vitalName": "cable crunch (kneeling)",
       "equipment": "cable",
-      "reason": "Cable Crunchとcable crunchの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+      "reason": "Gray clothing preferred after visual and metadata comparison: same implement and exercise; identity preserved."
     },
     {
       "exerciseId": "plank",
@@ -661,11 +661,11 @@
     },
     {
       "exerciseId": "glute_bridge",
-      "providerAssetId": "0111",
-      "sourceAsset": "200 Workouts/200 Workouts/0111.mp4",
+      "providerAssetId": "1139",
+      "sourceAsset": "100 Workouts/100 Workouts/1139.mp4",
       "vitalName": "glute bridge",
       "equipment": "body weight",
-      "reason": "Glute Bridgeとglute bridgeの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 glutes。"
+      "reason": "Gray clothing preferred after visual and metadata comparison: same implement and exercise; identity preserved."
     },
     {
       "exerciseId": "cable_glute_kickback",
@@ -779,6 +779,102 @@
       "equipment": "machine",
       "reason": "Rowingとrowing machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 back。",
       "sharedWith": "rowing_machine"
+    },
+    {
+      "exerciseId": "skull_crusher",
+      "providerAssetId": "0024",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0024.mp4",
+      "vitalName": "skull crushers (ez bar)",
+      "equipment": "barbell",
+      "reason": "User-confirmed EZ-bar lying skull crusher; existing identity retained."
+    },
+    {
+      "exerciseId": "preacher_curl",
+      "providerAssetId": "0022",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0022.mp4",
+      "vitalName": "preacher curl ez bar",
+      "equipment": "barbell",
+      "reason": "EZ-bar preacher curl demonstrates existing free-weight preacher curl; machine remains separate."
+    },
+    {
+      "exerciseId": "chest_supported_tbar_row",
+      "providerAssetId": "0041",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0041.mp4",
+      "vitalName": "t-bar row",
+      "equipment": "barbell",
+      "reason": "Video visibly uses chest support and plate-loaded T-bar machine. Metadata landmine instructions conflict with video; match based on reviewed video, not title. Unsupported T-bar row stays 0206."
+    },
+    {
+      "exerciseId": "dumbbell_skull_crusher",
+      "providerAssetId": "0150",
+      "sourceAsset": "200 Workouts/200 Workouts/0150.mp4",
+      "vitalName": "dumbbell skull crusher",
+      "equipment": "dumbbell",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "push_up_bar",
+      "providerAssetId": "0234",
+      "sourceAsset": "200 Workouts/200 Workouts/0234.mp4",
+      "vitalName": "parallettes push-up",
+      "equipment": "body weight",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "diamond_push_up",
+      "providerAssetId": "1128",
+      "sourceAsset": "100 Workouts/100 Workouts/1128.mp4",
+      "vitalName": "diamond push up",
+      "equipment": "body weight",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "incline_push_up",
+      "providerAssetId": "1151",
+      "sourceAsset": "100 Workouts/100 Workouts/1151.mp4",
+      "vitalName": "incline push ups",
+      "equipment": "body weight",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "decline_push_up",
+      "providerAssetId": "1126",
+      "sourceAsset": "100 Workouts/100 Workouts/1126.mp4",
+      "vitalName": "decline push ups",
+      "equipment": "body weight",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "v_bar_pushdown",
+      "providerAssetId": "0139",
+      "sourceAsset": "200 Workouts/200 Workouts/0139.mp4",
+      "vitalName": "cable triceps pushdown (v-bar attachment)",
+      "equipment": "cable",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "meadows_row",
+      "providerAssetId": "0158",
+      "sourceAsset": "200 Workouts/200 Workouts/0158.mp4",
+      "vitalName": "meadows row",
+      "equipment": "barbell",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "gorilla_row",
+      "providerAssetId": "0193",
+      "sourceAsset": "200 Workouts/200 Workouts/0193.mp4",
+      "vitalName": "gorilla row",
+      "equipment": "dumbbell",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
+    },
+    {
+      "exerciseId": "bird_dog",
+      "providerAssetId": "1111",
+      "sourceAsset": "100 Workouts/100 Workouts/1111.mp4",
+      "vitalName": "bird dog",
+      "equipment": "body weight",
+      "reason": "Reviewed video, implement, movement and muscles; new distinct selectable exercise authorized."
     }
   ],
   "reviewRequired": [
@@ -874,25 +970,11 @@
       "reason": "Vitalに追加負荷がなく荷重方法を示せない"
     },
     {
-      "exerciseId": "preacher_curl",
-      "candidateVitalIds": [
-        "0022"
-      ],
-      "reason": "VitalはEZバー専用。SETKEEPのフリーウェイト版はバー種別未確定"
-    },
-    {
       "exerciseId": "cable_curl",
       "candidateVitalIds": [
         "0011"
       ],
       "reason": "Vitalはストレートバー専用。汎用ケーブルカールのアタッチメント未確定"
-    },
-    {
-      "exerciseId": "skull_crusher",
-      "candidateVitalIds": [
-        "0024"
-      ],
-      "reason": "VitalはEZバー専用。SETKEEPは通常バーベル"
     },
     {
       "exerciseId": "lunge",
@@ -1021,13 +1103,6 @@
         "0040"
       ],
       "reason": "Vitalは専用マシンでダンベルではない"
-    },
-    {
-      "exerciseId": "chest_supported_tbar_row",
-      "candidateVitalIds": [
-        "0040"
-      ],
-      "reason": "Vitalは専用マシンでTバーではない"
     },
     {
       "exerciseId": "seal_row",
@@ -1445,5 +1520,6 @@
       ],
       "reason": "0039/0198は僧帽筋・菱形筋主働、0292はインクラインベンチ固定。SETKEEPの立位ベントオーバー・リアデルタ主働と完全一致しない。"
     }
-  ]
+  ],
+  "selectionPolicy": "Prefer gray clothing only for equivalent exercise and equipment. Do not substitute standing for seated, high plank for forearm plank, or standing ab wheel for kneeling. Exclude stretches and unused duplicate variants from user candidate lists."
 }

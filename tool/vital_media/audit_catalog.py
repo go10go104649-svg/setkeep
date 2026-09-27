@@ -169,7 +169,7 @@ def audit(source, output):
         f"正式マッピング {len(mapped)}種（Vital動画 {len(used_video_ids)}本）、旧ID互換 {len(inherited)}種、要確認 {len(review)}種、該当なし {len(catalog)-len(mapped)-len(inherited)-len(review)}種。",
         f"Vital未採用素材 {len(unused_vital)}件のうち、暫定新規・別動作候補 {len(new_candidates)}件、既存近似・重複/レビュー候補 {len(variants_or_review)}件。",
         "ID空欄のJSON 1件と0028.mp4は内容を確認したが、IDを補完せずマッピング対象外。",
-        "", "## SETKEEP全212種の判定", "",
+        "", f"## SETKEEP全{len(catalog)}種の判定", "",
         "元カタログに独立した種目説明欄はないため、器具・グリップ・動作variant・parametersと筋肉情報を照合に使用。", "",
         "| exercise_id | 日本語名 | 英語名 | 部位 | 器具 | グリップ | 動作variant | parameters | 主働筋 | 補助筋 | 3D状態 | Vital ID / 判定 | サムネイル |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
@@ -178,7 +178,7 @@ def audit(source, output):
         decision = (mapped[eid]["providerAssetId"] if eid in mapped else
                     "旧ID互換→" + inherited[eid] if eid in inherited else
                     "要確認 " + ",".join(review[eid]["candidateVitalIds"]) if eid in review else "該当なし")
-        thumb = ("assets/vital_thumbnails/" + mapped[eid]["providerAssetId"] + ".png" if eid in mapped else item.get("thumbnailAssetPath") or "—")
+        thumb = ("assets/vital_thumbnails/" + mapped[eid]["providerAssetId"] + ".png" if eid in mapped else "SETKEEP placeholder")
         lines.append("| " + " | ".join(str(value).replace("|", "/") for value in [eid,item["exerciseName"],item.get("englishName") or "—",item["category"],item.get("equipmentId") or "—",item.get("gripType") or "—",item.get("movementVariant") or "—",json.dumps(item.get("parameters") or {},ensure_ascii=False,sort_keys=True), ",".join(item.get("primaryMuscles", [])) or "—", ",".join(item.get("secondaryMuscles", [])) or "—", item.get("status") or "—",decision,thumb]) + " |")
     lines += ["", "## 新規マッピング", "", "| exercise_id | SETKEEP名 | Vital ID | Vital name | equipment | target | 判定理由 |", "|---|---|---|---|---|---|---|"]
     for entry in mapping["mappings"][15:]:
@@ -212,7 +212,7 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "build/vital_review/full_audit.md")
     args=parser.parse_args()
     new, variants=audit(args.source.resolve(),args.output.resolve())
-    print(f"Audited 212 SETKEEP exercises and 402 Vital records; {new} provisional new candidates, {variants} review/variant videos")
+    print(f"Audited SETKEEP catalog and purchased Vital records; {new} provisional new candidates, {variants} review/variant videos")
 
 if __name__ == "__main__":
     main()

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 import 'design/family_theme.dart';
+import 'exercise_media.dart';
 
 /// One fixed-size image slot for an exercise row. Only explicit thumbnails are
 /// shown; exercises without one use the existing SETKEEP mark.
 class ExerciseListThumbnail extends StatelessWidget {
-  const ExerciseListThumbnail({super.key, this.assetPath});
+  const ExerciseListThumbnail({super.key, this.exerciseId});
 
-  final String? assetPath;
+  final String? exerciseId;
 
   static const double size = 56;
 
   @override
   Widget build(BuildContext context) {
     final prefix = FamilyPalette.of(context).assetPrefix;
-    final path = assetPath;
+    final path = ExerciseMediaCatalog.forExerciseId(exerciseId)
+        ?.thumbnailAssetPath;
     return Semantics(
       label: path == null ? 'SETKEEPロゴの仮画像' : '種目画像',
       image: true,

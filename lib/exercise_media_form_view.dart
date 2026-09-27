@@ -175,18 +175,20 @@ class _ExerciseMediaFormViewState extends State<ExerciseMediaFormView>
     return ClipRRect(
       key: const Key('exerciseVitalVideoCard'),
       borderRadius: BorderRadius.circular(10),
+      clipBehavior: Clip.antiAlias,
       child: AspectRatio(
         aspectRatio: controller?.value.isInitialized == true
             ? controller!.value.aspectRatio
             : 1,
         child: _loading || controller?.value.isInitialized != true
             ? const Center(child: CircularProgressIndicator())
-            : FittedBox(
-                fit: BoxFit.contain,
-                child: SizedBox(
-                  width: controller!.value.size.width,
-                  height: controller.value.size.height,
-                  child: VideoPlayer(controller),
+            : ClipRect(
+                // Some hardware decoders expose colored padding at texture
+                // edges. Keep the outer ratio/size, sampling just inside the
+                // decoded frame on every edge (about 1% per side).
+                child: Transform.scale(
+                  scale: 1.02,
+                  child: VideoPlayer(controller!),
                 ),
               ),
       ),

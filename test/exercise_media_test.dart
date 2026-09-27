@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:setkeep/exercise_form_catalog.dart';
@@ -21,6 +23,8 @@ class _TestVideoPlatform extends VideoPlayerPlatform {
   final streams = <int, StreamController<VideoEvent>>{};
   var nextId = 1;
   bool failPlay = false;
+  Size frameSize = const Size(100, 100);
+  bool coloredDecoderEdges = false;
 
   @override
   Future<void> init() async => calls.add('init');
@@ -52,7 +56,7 @@ class _TestVideoPlatform extends VideoPlayerPlatform {
     stream.add(
       VideoEvent(
         eventType: VideoEventType.initialized,
-        size: const Size(100, 100),
+        size: frameSize,
         duration: const Duration(seconds: 2),
       ),
     );
@@ -63,7 +67,9 @@ class _TestVideoPlatform extends VideoPlayerPlatform {
   Stream<VideoEvent> videoEventsFor(int playerId) => streams[playerId]!.stream;
 
   @override
-  Widget buildView(int playerId) => const ColoredBox(color: Colors.blue);
+  Widget buildView(int playerId) => coloredDecoderEdges
+      ? const CustomPaint(painter: _DecoderEdgePainter())
+      : const ColoredBox(color: Colors.blue);
 
   @override
   Future<void> setLooping(int playerId, bool looping) async {
@@ -94,6 +100,27 @@ class _TestVideoPlatform extends VideoPlayerPlatform {
   Future<Duration> getPosition(int playerId) async => Duration.zero;
 }
 
+class _DecoderEdgePainter extends CustomPainter {
+  const _DecoderEdgePainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawRect(Offset.zero & size, Paint()..color = Colors.greenAccent);
+    canvas.drawRect(
+      Rect.fromLTRB(
+        size.width * .0075,
+        size.height * .0075,
+        size.width * .9925,
+        size.height * .9925,
+      ),
+      Paint()..color = Colors.blue,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_DecoderEdgePainter oldDelegate) => false;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -116,7 +143,7 @@ void main() {
   };
 
   test('reviewed Vital IDs map to existing SETKEEP identities only', () async {
-    expect(ExerciseMediaCatalog.entries, hasLength(97));
+    expect(ExerciseMediaCatalog.entries, hasLength(109));
     for (final entry in originalMappings.entries) {
       final media = ExerciseMediaCatalog.forExerciseId(entry.key)!;
       expect(media.exerciseId, entry.key);
@@ -151,8 +178,8 @@ void main() {
     ) as Map<String, dynamic>;
     final source = Directory('local_assets/vital_animations/gym_dataset');
     if (!source.existsSync()) return; // Licensed files are never committed.
-    expect(manifest['mappings'], hasLength(97));
-    expect(manifest['reviewRequired'], hasLength(94));
+    expect(manifest['mappings'], hasLength(109));
+    expect(manifest['reviewRequired'], hasLength(91));
     for (final item in manifest['mappings'] as List) {
       final exerciseId = item['exerciseId'] as String;
       final vitalId = item['providerAssetId'] as String;
@@ -187,6 +214,75 @@ void main() {
       VideoPlayerPlatform.instance = video = _TestVideoPlatform();
     });
     tearDown(() => VideoPlayerPlatform.instance = original);
+
+    for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
+      for (final frameSize in [
+        const Size(1080, 1080),
+        const Size(1440, 2144),
+      ]) {
+        testWidgets('video edges clipped on $platform for $frameSize', (
+          tester,
+        ) async {
+          video.frameSize = frameSize;
+          video.coloredDecoderEdges = true;
+          final capture = GlobalKey();
+          await tester.pumpWidget(
+            MaterialApp(
+              theme: ThemeData(platform: platform),
+              home: Scaffold(
+                body: Center(
+                  child: RepaintBoundary(
+                    key: capture,
+                    child: ColoredBox(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 301.25,
+                        child: ExerciseMediaFormView(
+                          media: ExerciseMediaCatalog.entries.first,
+                          assetAvailable: (_) async => true,
+                          fallback: const SizedBox(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          final viewport = find.byKey(const Key('exerciseVitalVideoCard'));
+          final size = tester.getSize(viewport);
+          expect(size.width, 301.25);
+          expect(
+            size.width / size.height,
+            closeTo(frameSize.width / frameSize.height, .00001),
+          );
+          await tester.runAsync(() async {
+            final boundary =
+                capture.currentContext!.findRenderObject()!
+                    as RenderRepaintBoundary;
+            // Fractional physical pixels exercise scaling and rounded clipping.
+            final image = await boundary.toImage(pixelRatio: 2.625);
+            final bytes = (await image.toByteData(
+              format: ui.ImageByteFormat.rawRgba,
+            ))!;
+            var greenPixels = 0;
+            var bluePixels = 0;
+            for (var i = 0; i < bytes.lengthInBytes; i += 4) {
+              final r = bytes.getUint8(i),
+                  g = bytes.getUint8(i + 1),
+                  b = bytes.getUint8(i + 2);
+              if (g > r + 20 && g > b + 20) greenPixels++;
+              if (b > r + 20 && b > g + 20) bluePixels++;
+            }
+            expect(greenPixels, 0);
+            expect(bluePixels, greaterThan(image.width * image.height * .95));
+            image.dispose();
+          });
+          expect(tester.takeException(), isNull);
+        });
+      }
+    }
 
     testWidgets('all mapped detail pages prefer muted looping video', (
       tester,

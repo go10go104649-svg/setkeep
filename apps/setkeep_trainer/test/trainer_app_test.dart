@@ -1,6 +1,7 @@
 import 'package:setkeep/main.dart'
     show ExerciseInputCard, ExercisePickerSheet, BodyMapPage;
 import 'package:setkeep/design/family_theme.dart';
+import 'package:setkeep/exercise_list_thumbnail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:setkeep_trainer/trainer_widgets.dart';
 
@@ -510,6 +511,41 @@ void main() {
     await t.tap(find.text('Add exercise'));
     await t.pumpAndSettle();
     expect(find.byType(ExercisePickerSheet), findsOneWidget);
+    await t.enterText(find.byKey(const Key('exerciseSearchField')), 'ベンチプレス');
+    await t.pumpAndSettle();
+    final vitalRow = find.byKey(const Key('selectExercisebench_press'));
+    await t.scrollUntilVisible(
+      vitalRow,
+      200,
+      scrollable: find.descendant(
+        of: find.byKey(const Key('exercisePickerListClip')),
+        matching: find.byType(Scrollable),
+      ),
+    );
+    await t.pumpAndSettle();
+    final vitalThumbnail = find.descendant(
+      of: vitalRow,
+      matching: find.byType(ExerciseListThumbnail),
+    );
+    expect(vitalThumbnail, findsOneWidget);
+    final vitalImage = t.widget<Image>(
+      find.descendant(of: vitalThumbnail, matching: find.byType(Image)),
+    );
+    expect(
+      (vitalImage.image as AssetImage).assetName,
+      endsWith('assets/vital_thumbnails/0042.png'),
+    );
+
+    await t.enterText(find.byKey(const Key('exerciseSearchField')), 'DYロー');
+    await t.pumpAndSettle();
+    final unmappedRow = find.byKey(const Key('selectExercisedy_row'));
+    final placeholder = t.widget<Image>(
+      find.descendant(of: unmappedRow, matching: find.byType(Image)),
+    );
+    expect(
+      (placeholder.image as AssetImage).assetName,
+      endsWith('assets/brand/setkeep_splash_mark.png'),
+    );
   });
   testWidgets('tenant switch discards previous routes and late responses', (
     t,

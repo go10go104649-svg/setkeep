@@ -33,10 +33,6 @@ for item in source['exercises']:
             assert item.get('references'), f'Missing reference: {item["exerciseId"]}'
             for check in ('equipmentReference', 'staticPose', 'motion', 'android', 'ios', 'productionRoute'):
                 assert item.get('review', {}).get(check) is True, f'Unreviewed {check}: {item["exerciseId"]}'
-    thumbnail = item.get('thumbnailAssetPath')
-    if thumbnail is not None:
-        assert thumbnail == f"assets/exercise_thumbnails/{item['exerciseId']}.png"
-        assert (ROOT / thumbnail).is_file(), f'Missing thumbnail: {thumbnail}'
 assert candidates <= ids, f'Unknown QA candidates: {candidates - ids}'
 by_id = {item['exerciseId']: item for item in source['exercises']}
 for item in source['exercises']:

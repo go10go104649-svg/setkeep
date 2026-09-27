@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,6 +14,22 @@ import 'package:setkeep/main.dart';
 }
 
 void main() {
+  test('SNS lockup has transparent spacing and no tagline artwork', () async {
+    final codec = await ui.instantiateImageCodec(
+      File('assets/brand/setkeep_share_lockup.png').readAsBytesSync(),
+    );
+    final image = (await codec.getNextFrame()).image;
+    final rgba = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!;
+    int alphaAt(int x, int y) => rgba.getUint8((y * image.width + x) * 4 + 3);
+    expect((image.width, image.height), (320, 174));
+    expect(alphaAt(0, 0), 0);
+    expect(alphaAt(160, 120), 0); // No white card between mark and wordmark.
+    expect(alphaAt(160, 145), greaterThan(200)); // SETKEEP wordmark.
+    expect(alphaAt(160, 173), 0); // No source tagline below it.
+    image.dispose();
+    codec.dispose();
+  });
+
   testWidgets('app theme matches the pre-brand-color theme from 1de3c7d', (
     tester,
   ) async {
