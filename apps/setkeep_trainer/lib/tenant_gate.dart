@@ -78,70 +78,134 @@ class _TenantGateState extends State<TenantGate> {
     }
   }
 
+  Future<void> openManagement(TenantRepository repository) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => TenantManagement(
+          repository: repository,
+          tenant: tenants!.firstWhere((tenant) => tenant['id'] == selected),
+        ),
+      ),
+    );
+    if (mounted) await reload();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (tenants == null || tenants!.isEmpty) {
       return Scaffold(
         appBar: AppBar(title: const Text('SETKEEP TRAINER')),
-        body: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            if (error != null) Text(error!),
-            if (tenants == null && error == null)
-              const LinearProgressIndicator(),
-            if (tenants != null) ...[
-              Text(
-                tr(
-                  context,
-                  '契約する組織・個人事業の名前',
-                  'Organization or personal business name',
+        body: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 560),
+            child: ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                if (error != null)
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Text(error!, textAlign: TextAlign.center),
+                          OutlinedButton(
+                            onPressed: reload,
+                            child: Text(tr(context, '再試行', 'Retry')),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (tenants == null && error == null)
+                  const LinearProgressIndicator(),
+                if (tenants != null) ...[
+                  TrainerSectionHeader(
+                    title: tr(context, '所属を始める', 'Join an organization'),
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            tr(
+                              context,
+                              '契約する組織・個人事業の名前',
+                              'Organization or personal business name',
+                            ),
+                          ),
+                          TextField(controller: name, maxLength: 120),
+                          FilledButton(
+                            onPressed: create,
+                            child: Text(
+                              tr(context, 'テナントを作成', 'Create tenant'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          TextField(
+                            controller: code,
+                            decoration: InputDecoration(
+                              labelText: tr(
+                                context,
+                                'スタッフ招待コード',
+                                'Staff invitation code',
+                              ),
+                            ),
+                          ),
+                          OutlinedButton(
+                            onPressed: () async {
+                              try {
+                                await widget.repository.acceptInvite(
+                                  code.text.trim(),
+                                  '',
+                                  recording: false,
+                                  heatmap: false,
+                                );
+                                await reload();
+                              } catch (_) {
+                                if (mounted) {
+                                  setState(
+                                    () => error = tr(
+                                      context,
+                                      '招待を確認できませんでした。招待先のメールでログインしてください。',
+                                      'Cannot accept invitation. Sign in using the invited email.',
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                            child: Text(
+                              tr(context, '招待を受ける', 'Accept invitation'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+                if (tenants != null)
+                  TextButton(
+                    onPressed: reload,
+                    child: Text(tr(context, '再試行', 'Retry')),
+                  ),
+                TextButton(
+                  onPressed: widget.auth.signOut,
+                  child: Text(tr(context, 'ログアウト', 'Sign out')),
                 ),
-              ),
-              TextField(controller: name, maxLength: 120),
-              FilledButton(
-                onPressed: create,
-                child: Text(tr(context, 'テナントを作成', 'Create tenant')),
-              ),
-              TextField(
-                controller: code,
-                decoration: InputDecoration(
-                  labelText: tr(context, 'スタッフ招待コード', 'Staff invitation code'),
-                ),
-              ),
-              OutlinedButton(
-                onPressed: () async {
-                  try {
-                    await widget.repository.acceptInvite(
-                      code.text.trim(),
-                      '',
-                      recording: false,
-                      heatmap: false,
-                    );
-                    await reload();
-                  } catch (_) {
-                    if (mounted) {
-                      setState(
-                        () => error = tr(
-                          context,
-                          '招待を確認できませんでした。招待先のメールでログインしてください。',
-                          'Cannot accept invitation. Sign in using the invited email.',
-                        ),
-                      );
-                    }
-                  }
-                },
-                child: Text(tr(context, '招待を受ける', 'Accept invitation')),
-              ),
-            ],
-            TextButton(
-              onPressed: reload,
-              child: Text(tr(context, '再試行', 'Retry')),
+              ],
             ),
-            TextButton(
-              onPressed: widget.auth.signOut,
-              child: Text(tr(context, 'ログアウト', 'Sign out')),
-            ),
-          ],
+          ),
         ),
       );
     }
@@ -178,19 +242,9 @@ class _TenantGateState extends State<TenantGate> {
                   IconButton(
                     tooltip: tr(context, 'テナント管理', 'Tenant settings'),
                     icon: const Icon(Icons.settings),
-                    onPressed: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => TenantManagement(
-                            repository: repo as TenantRepository,
-                            tenant: tenants!.firstWhere(
-                              (t) => t['id'] == selected,
-                            ),
-                          ),
-                        ),
-                      );
-                      if (mounted) await reload();
-                    },
+                    onPressed: repo is TenantRepository
+                        ? () => openManagement(repo)
+                        : null,
                   ),
                   IconButton(
                     tooltip: tr(context, 'テナントを追加', 'Add tenant'),
@@ -223,7 +277,13 @@ class _TenantGateState extends State<TenantGate> {
           child: Navigator(
             key: ValueKey('$selected:$generation'),
             onGenerateRoute: (_) => MaterialPageRoute<void>(
-              builder: (_) => TrainerShell(auth: widget.auth, repository: repo),
+              builder: (_) => TrainerShell(
+                auth: widget.auth,
+                repository: repo,
+                onManageTenant: repo is TenantRepository
+                    ? () => openManagement(repo)
+                    : null,
+              ),
             ),
           ),
         ),

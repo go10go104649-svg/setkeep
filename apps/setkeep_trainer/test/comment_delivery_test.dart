@@ -52,9 +52,18 @@ void main() {
         ),
       );
       await t.pumpAndSettle();
-      await t.enterText(find.byType(TextField), 'Client advice');
-      await t.ensureVisible(find.text('Save comment'));
-      await t.tap(find.text('Save comment'));
+      await t.tap(find.text('Comments'));
+      await t.pumpAndSettle();
+      await t.tap(find.text('Add comment'));
+      await t.pumpAndSettle();
+      await t.enterText(
+        find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.byType(TextField),
+        ),
+        'Client advice',
+      );
+      await t.tap(find.text('Save'));
       await t.pumpAndSettle();
       expect(repo.rows.single['client_id'], 'client-id');
       expect(repo.rows.single['shared_with_client'], true);
@@ -105,6 +114,8 @@ void main() {
         home: ClientPage(repository: repo, link: link()),
       ),
     );
+    await t.pumpAndSettle();
+    await t.tap(find.text('Comments'));
     await t.pumpAndSettle();
     await t.ensureVisible(find.byType(PopupMenuButton<String>));
     await t.tap(find.byType(PopupMenuButton<String>));

@@ -16,20 +16,13 @@ class ClientPage extends StatefulWidget {
 
 class _ClientPageState extends State<ClientPage> {
   List<Map<String, dynamic>> workouts = [], notes = [], menus = [];
-  bool loading = true, more = true, busy = false, shareNewComment = true;
+  bool loading = true, more = true, busy = false;
   String? error;
-  final note = TextEditingController();
   String get clientId => widget.link['client_id'] as String;
   @override
   void initState() {
     super.initState();
     reload();
-  }
-
-  @override
-  void dispose() {
-    note.dispose();
-    super.dispose();
   }
 
   Future<void> reload() async {
@@ -92,20 +85,30 @@ class _ClientPageState extends State<ClientPage> {
     String? date,
     Map<String, dynamic>? existing,
   }) async {
-    final result = await showDialog<(String, bool)>(
-      context: context,
-      builder: (_) => _CommentDialog(existing: existing),
-    );
+    final result = widget.repository is TenantRepository
+        ? await showDialog<(String, bool)>(
+            context: context,
+            builder: (_) => _CommentDialog(existing: existing),
+          )
+        : await showDialog<String>(
+            context: context,
+            builder: (_) =>
+                TextPromptDialog(title: tr(context, 'コメントを追加', 'Add comment')),
+          ).then((value) => value == null ? null : (value, false));
     if (!mounted || result == null || result.$1.trim().isEmpty) return;
     await act(() async {
-      await (widget.repository as TenantRepository).saveComment(
-        clientId,
-        result.$1,
-        menuId: menu,
-        date: date,
-        existing: existing,
-        shared: result.$2,
-      );
+      if (widget.repository case TenantRepository repo) {
+        await repo.saveComment(
+          clientId,
+          result.$1,
+          menuId: menu,
+          date: date,
+          existing: existing,
+          shared: result.$2,
+        );
+      } else {
+        await widget.repository.addNote(clientId, result.$1);
+      }
       await reload();
     });
   }
@@ -146,366 +149,453 @@ class _ClientPageState extends State<ClientPage> {
     });
   }
 
+  Future<void> _inviteLinkedAccount() => act(() async {
+    final token = await (widget.repository as TenantRepository).inviteClient(
+      clientId,
+    );
+    if (!mounted) return;
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(
+          tr(ctx, '本人のSETKEEPと連携', 'Link the client’s SETKEEP account'),
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              QrImageView(
+                data: 'setkeep://trainer/invite?v=1&token=$token',
+                size: 180,
+              ),
+              SelectableText(token),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(tr(ctx, '閉じる', 'Close')),
+          ),
+        ],
+      ),
+    );
+  });
+
+  Future<void> _openEditor({
+    bool recording = false,
+    Map<String, dynamic>? existing,
+  }) async {
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MenuEditor(
+          repository: widget.repository,
+          clients: [widget.link],
+          recording: recording,
+          existing: existing,
+        ),
+      ),
+    );
+    if (mounted) await reload();
+  }
+
+  Future<void> _setMenuStatus(Map<String, dynamic> menu, String status) async {
+    if (status == 'canceled') {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(tr(ctx, 'メニューを取り消しますか？', 'Cancel this menu?')),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(tr(ctx, '戻る', 'Back')),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text(tr(ctx, '取消', 'Cancel menu')),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !mounted) return;
+    }
+    await act(() async {
+      await (widget.repository as TenantRepository).menuStatus(menu, status);
+      await reload();
+    });
+  }
+
+  Future<void> _toggleRecord(Map<String, dynamic> row) async {
+    final canceled = row['canceled_at'] != null;
+    if (!canceled) {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(tr(ctx, '記録を取り消しますか？', 'Cancel this record?')),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(tr(ctx, '戻る', 'Back')),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text(tr(ctx, '記録を取消', 'Cancel record')),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !mounted) return;
+    }
+    await act(() async {
+      await (widget.repository as TenantRepository).cancelRecord(
+        clientId,
+        row['id'] as String,
+        !canceled,
+      );
+      await reload();
+    });
+  }
+
+  Widget _header(BuildContext context) => Padding(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.link['client_name'] as String,
+          style: Theme.of(context).textTheme.headlineSmall
+              ?.copyWith(fontWeight: FontWeight.w900),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          widget.link['linked_user_id'] == null
+              ? tr(context, 'SETKEEP未連携', 'Not linked to SETKEEP')
+              : tr(context, 'SETKEEP連携済み', 'Linked to SETKEEP'),
+        ),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            FilledButton.icon(
+              onPressed: widget.link['allow_recording'] == true
+                  ? () => _openEditor(recording: true)
+                  : null,
+              icon: const Icon(Icons.edit_note_rounded),
+              label: Text(tr(context, 'セッションを記録', 'Record session')),
+            ),
+            OutlinedButton.icon(
+              onPressed: () => _openEditor(),
+              icon: const Icon(Icons.playlist_add_rounded),
+              label: Text(tr(context, 'メニューを作成', 'Create menu')),
+            ),
+            OutlinedButton.icon(
+              onPressed: widget.link['share_heatmap'] == true
+                  ? () => act(() async {
+                      final repo = widget.repository;
+                      final history = repo is TenantRepository
+                          ? await repo.heatmapHistory(clientId)
+                          : workouts;
+                      if (!context.mounted) return;
+                      await Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => HeatmapPage(workouts: history),
+                        ),
+                      );
+                    })
+                  : null,
+              icon: const Icon(Icons.accessibility_new_rounded),
+              label: Text(tr(context, '部位を見る', 'Heatmap')),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+
+  Widget _overview(BuildContext context) {
+    final latest = workouts
+        .where((row) => row['canceled_at'] == null)
+        .firstOrNull;
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+      children: [
+        const TrainerSectionHeader(title: 'SETKEEP'),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tr(
+                    context,
+                    '連携日 ${dateLabel(widget.link['created_at'])}',
+                    'Linked ${dateLabel(widget.link['created_at'])}',
+                  ),
+                ),
+                Text(tr(context, '体重は共有されません', 'Body weight is private')),
+                const SizedBox(height: 8),
+                Text(
+                  tr(
+                    context,
+                    '代理記録：${widget.link['allow_recording'] == true ? '許可' : '未許可'}　部位：${widget.link['share_heatmap'] == true ? '許可' : '未許可'}',
+                    'Recording: ${widget.link['allow_recording'] == true ? 'allowed' : 'not allowed'} · Heatmap: ${widget.link['share_heatmap'] == true ? 'allowed' : 'not allowed'}',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (widget.repository is TenantRepository &&
+            widget.link['linked_user_id'] == null) ...[
+          const SizedBox(height: 12),
+          OutlinedButton(
+            onPressed: _inviteLinkedAccount,
+            child: Text(
+              tr(context, '本人アカウントへの連携コード', 'Create account linking code'),
+            ),
+          ),
+        ],
+        TrainerSectionHeader(title: tr(context, '最近のトレーニング', 'Recent workout')),
+        if (latest == null)
+          EmptyState(
+            text: tr(
+              context,
+              '共有された記録はありません。顧客がSETKEEPから記録を共有できます。',
+              'No shared workouts. The client can share records from SETKEEP.',
+            ),
+          ),
+        if (latest != null) WorkoutCard(row: latest),
+        TrainerSectionHeader(
+          title: tr(context, 'メニュー・コメント', 'Menus & comments'),
+        ),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              tr(
+                context,
+                'メニュー ${menus.length}件 · コメント ${notes.length}件',
+                '${menus.length} menus · ${notes.length} comments',
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _history(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+    children: [
+      TrainerSectionHeader(title: tr(context, 'トレーニング履歴', 'Workout history')),
+      if (workouts.isEmpty)
+        EmptyState(
+          text: tr(
+            context,
+            '共有された記録はありません。顧客がSETKEEPの連携画面から記録を共有できます。',
+            'No shared records. Clients can share workouts from the SETKEEP linking page.',
+          ),
+        ),
+      for (final row in workouts)
+        WorkoutCard(
+          row: row,
+          onComment: widget.repository is TenantRepository
+              ? () => comment(date: dateLabel(row['performed_at']))
+              : null,
+          onCancel:
+              widget.repository is TenantRepository &&
+                  row['record_source'] == 'trainer'
+              ? () => _toggleRecord(row)
+              : null,
+        ),
+      if (more)
+        OutlinedButton(
+          onPressed: busy
+              ? null
+              : () => act(() async {
+                  final next = await widget.repository.workouts(
+                    clientId,
+                    offset: workouts.length,
+                  );
+                  if (mounted) {
+                    setState(() {
+                      workouts.addAll(next);
+                      more = next.length == 100;
+                    });
+                  }
+                }),
+          child: Text(tr(context, 'さらに表示', 'Load more')),
+        ),
+    ],
+  );
+
+  Widget _menus(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+    children: [
+      TrainerSectionHeader(
+        title: tr(context, 'トレーニングメニュー', 'Training menus'),
+        action: tr(context, '新規作成', 'Create'),
+        onAction: () => _openEditor(),
+      ),
+      if (menus.isEmpty)
+        EmptyState(
+          text: tr(context, 'メニューはまだありません', 'No menus yet'),
+          action: tr(context, 'メニューを作成', 'Create menu'),
+          onAction: () => _openEditor(),
+        ),
+      for (final menu in menus)
+        MenuCard(
+          menu: menu,
+          onEdit: widget.repository is TenantRepository
+              ? () => _openEditor(existing: menu)
+              : null,
+          onComment: widget.repository is TenantRepository
+              ? () => comment(menu: menu['id'] as String)
+              : null,
+          onStatus: widget.repository is TenantRepository
+              ? (status) => _setMenuStatus(menu, status)
+              : null,
+        ),
+    ],
+  );
+
+  Widget _comments(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+    children: [
+      TrainerSectionHeader(
+        title: tr(context, 'コメント・指導メモ', 'Comments & coaching notes'),
+      ),
+      OutlinedButton.icon(
+        onPressed: () => comment(),
+        icon: const Icon(Icons.add_comment_outlined),
+        label: Text(tr(context, 'コメントを追加', 'Add comment')),
+      ),
+      const SizedBox(height: 12),
+      if (notes.isEmpty)
+        EmptyState(text: tr(context, 'コメントはまだありません', 'No comments yet')),
+      for (final item in notes)
+        Card(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      item['shared_with_client'] == true
+                          ? Icons.chat_bubble_outline
+                          : Icons.lock_outline,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        item['shared_with_client'] == true
+                            ? tr(
+                                context,
+                                '本人のSETKEEPにも表示',
+                                'Visible in client’s SETKEEP',
+                              )
+                            : tr(context, '担当者のみ', 'Trainers only'),
+                      ),
+                    ),
+                    if (widget.repository is TenantRepository)
+                      PopupMenuButton<String>(
+                        onSelected: (value) => value == 'edit'
+                            ? comment(existing: item)
+                            : deleteComment(item),
+                        itemBuilder: (_) => [
+                          PopupMenuItem(
+                            value: 'edit',
+                            child: Text(
+                              tr(context, '編集・共有設定', 'Edit / sharing'),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'delete',
+                            child: Text(tr(context, '削除', 'Delete')),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(item['body'] as String),
+                const SizedBox(height: 8),
+                Text(
+                  '${dateLabel(item['updated_at'] ?? item['created_at'])}${item['workout_date'] != null ? ' · ${item['workout_date']}' : ''}${item['menu_id'] != null ? ' · ${tr(context, 'メニュー', 'Menu')}' : ''}',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text(widget.link['client_name'] as String),
-      actions: [IconButton(onPressed: reload, icon: const Icon(Icons.refresh))],
+      actions: [
+        IconButton(
+          onPressed: reload,
+          tooltip: tr(context, '更新', 'Refresh'),
+          icon: const Icon(Icons.refresh),
+        ),
+      ],
     ),
     body: loading
         ? const Center(child: CircularProgressIndicator())
         : error != null
-        ? Center(child: Text(error!))
-        : ListView(
-            padding: const EdgeInsets.all(24),
-            children: [
-              Text(
-                tr(context, '基本情報', 'Basic information'),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              Text(
-                tr(
-                  context,
-                  '連携日 ${dateLabel(widget.link['created_at'])}\n体重：非共有',
-                  'Linked ${dateLabel(widget.link['created_at'])}\nBody weight: private',
+        ? Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(error!, textAlign: TextAlign.center),
+                FilledButton(
+                  onPressed: reload,
+                  child: Text(tr(context, '再試行', 'Retry')),
                 ),
-              ),
-              if (widget.repository is TenantRepository &&
-                  widget.link['linked_user_id'] == null)
-                OutlinedButton(
-                  onPressed: () => act(() async {
-                    final token = await (widget.repository as TenantRepository)
-                        .inviteClient(clientId);
-                    if (!context.mounted) return;
-                    await showDialog<void>(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Text(
-                          tr(
-                            ctx,
-                            '本人のSETKEEPと連携',
-                            'Link the client’s SETKEEP account',
-                          ),
-                        ),
-                        content: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              QrImageView(
-                                data:
-                                    'setkeep://trainer/invite?v=1&token=$token',
-                                size: 180,
-                              ),
-                              SelectableText(token),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(ctx),
-                            child: Text(tr(ctx, '閉じる', 'Close')),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                  child: Text(
-                    tr(
-                      context,
-                      '本人アカウントへの連携コード',
-                      'Create account linking code',
-                    ),
+              ],
+            ),
+          )
+        : DefaultTabController(
+            length: 4,
+            child: Column(
+              children: [
+                _header(context),
+                TabBar(
+                  labelStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
                   ),
-                ),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  FilledButton.icon(
-                    onPressed: widget.link['allow_recording'] == true
-                        ? () async {
-                            await Navigator.push<void>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => MenuEditor(
-                                  repository: widget.repository,
-                                  clients: [widget.link],
-                                  recording: true,
-                                ),
-                              ),
-                            );
-                            if (context.mounted) await reload();
-                          }
-                        : null,
-                    icon: const Icon(Icons.edit),
-                    label: Text(tr(context, 'セッションを記録', 'Record session')),
-                  ),
-                  OutlinedButton(
-                    onPressed: () async {
-                      await Navigator.push<void>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => MenuEditor(
-                            repository: widget.repository,
-                            clients: [widget.link],
-                          ),
-                        ),
-                      );
-                      if (context.mounted) await reload();
-                    },
-                    child: Text(tr(context, 'メニューを作成', 'Create menu')),
-                  ),
-                  OutlinedButton(
-                    onPressed: widget.link['share_heatmap'] == true
-                        ? () => act(() async {
-                            final repo = widget.repository;
-                            final history = repo is TenantRepository
-                                ? await repo.heatmapHistory(clientId)
-                                : workouts;
-                            if (!context.mounted) return;
-                            await Navigator.push<void>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => HeatmapPage(workouts: history),
-                              ),
-                            );
-                          })
-                        : null,
-                    child: Text(tr(context, 'ヒートマップ', 'Heatmap')),
-                  ),
-                ],
-              ),
-              Text(
-                tr(
-                  context,
-                  '代理記録・ヒートマップは顧客が許可した場合のみ利用できます。',
-                  'Session recording and heatmap require client permission.',
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                tr(context, 'コメント・指導メモ', 'Comments and coaching notes'),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              TextField(
-                controller: note,
-                maxLength: 10000,
-                minLines: 2,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  labelText: tr(
-                    context,
-                    'フォームの注意・次回確認事項など',
-                    'Form cues, next session reminders…',
-                  ),
-                ),
-              ),
-              if (widget.repository is TenantRepository)
-                CheckboxListTile(
-                  value: shareNewComment,
-                  onChanged: busy
-                      ? null
-                      : (v) => setState(() => shareNewComment = v!),
-                  title: Text(
-                    tr(
-                      context,
-                      '本人のSETKEEPにも表示する',
-                      'Also show in the client’s SETKEEP',
-                    ),
-                  ),
-                  subtitle: Text(
-                    tr(
-                      context,
-                      'オフの場合は担当トレーナーのみ閲覧できます。',
-                      'When off, only assigned trainers can read it.',
-                    ),
-                  ),
-                ),
-              FilledButton(
-                onPressed: busy
-                    ? null
-                    : () => act(() async {
-                        if (note.text.trim().isEmpty) return;
-                        final repo = widget.repository;
-                        if (repo is TenantRepository) {
-                          await repo.saveComment(
-                            clientId,
-                            note.text,
-                            shared: shareNewComment,
-                          );
-                        } else {
-                          await repo.addNote(clientId, note.text);
-                        }
-                        note.clear();
-                        await reload();
-                      }),
-                child: Text(tr(context, 'コメントを保存', 'Save comment')),
-              ),
-              for (final n in notes)
-                Card(
-                  child: ListTile(
-                    title: Text(n['body'] as String),
-                    leading: Icon(
-                      n['shared_with_client'] == true
-                          ? Icons.chat_bubble_outline
-                          : Icons.lock_outline,
-                    ),
-                    trailing: widget.repository is! TenantRepository
-                        ? null
-                        : PopupMenuButton<String>(
-                            onSelected: (v) => v == 'edit'
-                                ? comment(existing: n)
-                                : deleteComment(n),
-                            itemBuilder: (_) => [
-                              PopupMenuItem(
-                                value: 'edit',
-                                child: Text(
-                                  tr(context, '編集・共有設定', 'Edit / sharing'),
-                                ),
-                              ),
-                              PopupMenuItem(
-                                value: 'delete',
-                                child: Text(tr(context, '削除', 'Delete')),
-                              ),
-                            ],
-                          ),
-                    subtitle: Text(
-                      '${n['shared_with_client'] == true ? tr(context, '本人に共有', 'Shared with client') : tr(context, '担当者のみ', 'Trainers only')} · ${dateLabel(n['updated_at'] ?? n['created_at'])}${n['workout_date'] != null ? ' · ${n['workout_date']}' : ''}${n['menu_id'] != null ? ' · ${tr(context, 'メニュー', 'Menu')}' : ''}',
-                    ),
-                  ),
-                ),
-              const SizedBox(height: 24),
-              Text(
-                tr(context, 'トレーニングメニュー', 'Training menus'),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              for (final m in menus)
-                Column(
-                  children: [
-                    MenuCard(menu: m),
-                    if (widget.repository is TenantRepository)
-                      Wrap(
-                        children: [
-                          if (m['status'] == 'planned')
-                            TextButton(
-                              onPressed: () async {
-                                await Navigator.push<void>(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => MenuEditor(
-                                      repository: widget.repository,
-                                      clients: [widget.link],
-                                      existing: m,
-                                    ),
-                                  ),
-                                );
-                                if (context.mounted) await reload();
-                              },
-                              child: Text(tr(context, '編集', 'Edit')),
-                            ),
-                          for (final status in [
-                            'completed',
-                            'canceled',
-                            'planned',
-                          ])
-                            if ((m['status'] == 'planned' &&
-                                    status == 'completed') ||
-                                (m['status'] != 'canceled' &&
-                                    status == 'canceled') ||
-                                (m['status'] == 'canceled' &&
-                                    status == 'planned'))
-                              TextButton(
-                                onPressed: () => act(() async {
-                                  await (widget.repository as TenantRepository)
-                                      .menuStatus(m, status);
-                                  await reload();
-                                }),
-                                child: Text(
-                                  status == 'completed'
-                                      ? tr(context, '実施済み', 'Complete')
-                                      : status == 'canceled'
-                                      ? tr(context, '取消', 'Cancel')
-                                      : tr(context, '復元', 'Restore'),
-                                ),
-                              ),
-                          TextButton(
-                            onPressed: () => comment(menu: m['id'] as String),
-                            child: Text(tr(context, 'コメント', 'Comment')),
-                          ),
-                        ],
-                      ),
+                  labelPadding: EdgeInsets.zero,
+                  tabs: [
+                    Tab(text: tr(context, '概要', 'Overview')),
+                    Tab(text: tr(context, '履歴', 'History')),
+                    Tab(text: tr(context, 'メニュー', 'Menus')),
+                    Tab(text: tr(context, 'コメント', 'Comments')),
                   ],
                 ),
-              if (menus.isEmpty)
-                Text(tr(context, 'メニューはまだありません', 'No menus yet')),
-              const SizedBox(height: 24),
-              Text(
-                tr(context, '最近のトレーニング・履歴', 'Recent workouts and history'),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              if (workouts.isEmpty)
-                EmptyState(
-                  text: tr(
-                    context,
-                    '共有された記録はありません。顧客がSETKEEPの連携画面から記録を共有できます。',
-                    'No shared records. Clients can share workouts from the SETKEEP linking page.',
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      _overview(context),
+                      _history(context),
+                      _menus(context),
+                      _comments(context),
+                    ],
                   ),
                 ),
-              for (final row in workouts)
-                Column(
-                  children: [
-                    WorkoutCard(row: row),
-                    if (widget.repository is TenantRepository)
-                      Wrap(
-                        children: [
-                          TextButton(
-                            onPressed: () =>
-                                comment(date: dateLabel(row['performed_at'])),
-                            child: Text(
-                              tr(context, 'この日のコメント', 'Comment on this day'),
-                            ),
-                          ),
-                          if (row['record_source'] == 'trainer')
-                            TextButton(
-                              onPressed: () => act(() async {
-                                await (widget.repository as TenantRepository)
-                                    .cancelRecord(
-                                      clientId,
-                                      row['id'] as String,
-                                      row['canceled_at'] == null,
-                                    );
-                                await reload();
-                              }),
-                              child: Text(
-                                row['canceled_at'] == null
-                                    ? tr(context, '記録を取消', 'Cancel record')
-                                    : tr(context, '記録を復元', 'Restore record'),
-                              ),
-                            ),
-                        ],
-                      ),
-                  ],
-                ),
-              if (more)
-                TextButton(
-                  onPressed: busy
-                      ? null
-                      : () => act(() async {
-                          final next = await widget.repository.workouts(
-                            clientId,
-                            offset: workouts.length,
-                          );
-                          if (context.mounted) {
-                            setState(() {
-                              workouts.addAll(next);
-                              more = next.length == 100;
-                            });
-                          }
-                        }),
-                  child: Text(tr(context, 'さらに表示', 'Load more')),
-                ),
-            ],
+              ],
+            ),
           ),
   );
 }

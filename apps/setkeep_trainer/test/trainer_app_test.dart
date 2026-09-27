@@ -237,6 +237,8 @@ void main() {
     repo.fail = false;
     await t.tap(find.text('Retry'));
     await t.pumpAndSettle();
+    await t.tap(find.text('Clients'));
+    await t.pumpAndSettle();
     expect(find.textContaining('No clients yet'), findsOneWidget);
   });
   testWidgets('client recording and heatmap disabled without consent', (
@@ -281,6 +283,13 @@ void main() {
     );
     await t.pumpAndSettle();
     expect(find.byType(ExerciseInputCard), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byType(ExerciseInputCard),
+        matching: find.byType(ExerciseListThumbnail),
+      ),
+      findsOneWidget,
+    );
     expect(find.byKey(const Key('toggleAllSets0')), findsNothing);
     await t.enterText(find.byType(TextField).first, 'Strength A');
     await t.scrollUntilVisible(
@@ -560,6 +569,8 @@ void main() {
     await t.pump(const Duration(milliseconds: 300));
     await t.tap(find.text('Tenant B').last);
     await t.pumpAndSettle();
+    await t.tap(find.text('Clients'));
+    await t.pumpAndSettle();
     expect(find.text('Tenant B Client'), findsOneWidget);
     repo.first.pending.complete([
       {...link(), 'client_name': 'Tenant A Secret'},
@@ -572,6 +583,8 @@ void main() {
     await t.tap(find.byType(DropdownButton<String>));
     await t.pumpAndSettle();
     await t.tap(find.text('Tenant A').last);
+    await t.pumpAndSettle();
+    await t.tap(find.text('Clients'));
     await t.pumpAndSettle();
     expect(find.byType(ClientPage), findsNothing);
     expect(find.text('Tenant B Client'), findsNothing);
@@ -610,6 +623,11 @@ void main() {
         250,
         scrollable: find.byType(Scrollable).first,
       );
+      await Scrollable.ensureVisible(
+        t.element(find.byKey(const Key('applyPrevious0'))),
+        alignment: 0.4,
+      );
+      await t.pumpAndSettle();
       await t.tap(find.byKey(const Key('applyPrevious0')));
       await t.pumpAndSettle();
       final exercise = t

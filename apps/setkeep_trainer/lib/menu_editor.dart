@@ -262,16 +262,39 @@ class _MenuEditorState extends State<MenuEditor> {
       title: Text(
         widget.recording
             ? tr(context, 'セッションを記録', 'Record session')
+            : widget.existing == null
+            ? tr(context, 'メニューを作成', 'Create menu')
             : tr(context, 'メニューを編集', 'Edit menu'),
       ),
     ),
-    bottomNavigationBar: numericInput.keypad,
+    bottomNavigationBar: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        numericInput.keypad,
+        SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: busy ? null : save,
+                child: Text(tr(context, '保存', 'Save')),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
     body: numericInput.wrap(
       AbsorbPointer(
         absorbing: busy,
         child: ListView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
           children: [
+            TrainerSectionHeader(
+              title: tr(context, '対象と設定', 'Client & settings'),
+            ),
             DropdownButtonFormField<String>(
               initialValue: clientId,
               isExpanded: true,
@@ -331,14 +354,6 @@ class _MenuEditorState extends State<MenuEditor> {
                   if (mounted && d != null) setState(() => due = d);
                 },
               ),
-              TextField(
-                controller: note,
-                maxLength: 10000,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: tr(context, 'メモ', 'Notes'),
-                ),
-              ),
               if (widget.repository is TenantRepository)
                 OutlinedButton(
                   onPressed: template,
@@ -358,18 +373,10 @@ class _MenuEditorState extends State<MenuEditor> {
                   if (mounted && d != null) setState(() => date = d);
                 },
               ),
-              TextField(
-                key: const Key('sessionCommentField'),
-                controller: sessionComment,
-                minLines: 3,
-                maxLines: 5,
-                maxLength: 10000,
-                decoration: InputDecoration(
-                  labelText: tr(context, 'トレーナーコメント', 'Trainer comment'),
-                  alignLabelWithHint: true,
-                ),
-              ),
             ],
+            TrainerSectionHeader(
+              title: tr(context, '種目とセット', 'Exercises & sets'),
+            ),
             for (var i = 0; i < exercises.length; i++)
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
@@ -408,12 +415,34 @@ class _MenuEditorState extends State<MenuEditor> {
               icon: const Icon(Icons.add),
               label: Text(tr(context, '種目を追加', 'Add exercise')),
             ),
+            TrainerSectionHeader(
+              title: widget.recording
+                  ? tr(context, 'トレーナーコメント', 'Trainer comment')
+                  : tr(context, 'メモ', 'Notes'),
+            ),
+            if (widget.recording)
+              TextField(
+                key: const Key('sessionCommentField'),
+                controller: sessionComment,
+                minLines: 3,
+                maxLines: 5,
+                maxLength: 10000,
+                decoration: InputDecoration(
+                  labelText: tr(context, 'トレーナーコメント', 'Trainer comment'),
+                  alignLabelWithHint: true,
+                ),
+              )
+            else
+              TextField(
+                controller: note,
+                maxLength: 10000,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  labelText: tr(context, 'メモ', 'Notes'),
+                ),
+              ),
             if (error != null) Text(error!),
             if (busy) const LinearProgressIndicator(),
-            FilledButton(
-              onPressed: busy ? null : save,
-              child: Text(tr(context, '保存', 'Save')),
-            ),
             if (!widget.recording && widget.repository is TenantRepository)
               TextButton(
                 onPressed: () async {

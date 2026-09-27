@@ -9313,6 +9313,8 @@ class WorkoutExerciseCardHeader extends StatelessWidget {
     ),
     child: Row(
       children: [
+        ExerciseListThumbnail(exerciseId: exerciseId),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

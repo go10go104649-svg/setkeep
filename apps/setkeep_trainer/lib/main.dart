@@ -234,15 +234,22 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class TrainerShell extends StatefulWidget {
-  const TrainerShell({super.key, required this.auth, required this.repository});
+  const TrainerShell({
+    super.key,
+    required this.auth,
+    required this.repository,
+    this.onManageTenant,
+  });
   final AccountAuthService auth;
   final TrainerRepository repository;
+  final VoidCallback? onManageTenant;
   @override
   State<TrainerShell> createState() => _TrainerShellState();
 }
 
 class _TrainerShellState extends State<TrainerShell> {
   int tab = 0;
+  String clientQuery = '';
   bool loading = true, busy = false;
   String? error;
   Map<String, dynamic>? profile;
@@ -367,6 +374,356 @@ class _TrainerShellState extends State<TrainerShell> {
     if (mounted) await reload();
   }
 
+  List<Map<String, dynamic>> get coachableClients =>
+      clients.where((client) => client['can_coach'] != false).toList();
+
+  List<Map<String, dynamic>> get recordableClients => coachableClients
+      .where((client) => client['allow_recording'] == true)
+      .toList();
+
+  Future<void> openEditor({bool recording = false}) async {
+    final eligible = recording ? recordableClients : coachableClients;
+    if (eligible.isEmpty) return;
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MenuEditor(
+          repository: widget.repository,
+          clients: eligible,
+          recording: recording,
+        ),
+      ),
+    );
+    if (mounted) await reload();
+  }
+
+  Widget clientTile(Map<String, dynamic> client) => Card(
+    margin: const EdgeInsets.only(bottom: 10),
+    clipBehavior: Clip.antiAlias,
+    child: ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      leading: CircleAvatar(
+        backgroundColor: FamilyPalette.of(context).soft,
+        child: const Icon(Icons.person_outline),
+      ),
+      title: Text(
+        client['client_name'] as String? ?? '',
+        style: const TextStyle(fontWeight: FontWeight.w800),
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            client['linked_user_id'] == null
+                ? tr(context, '未連携', 'Not linked')
+                : tr(context, 'SETKEEP連携済み', 'Linked to SETKEEP'),
+          ),
+          if (client['can_coach'] == false)
+            Text(tr(context, '担当割当が必要です', 'Trainer assignment required'))
+          else if (client['linked_user_id'] != null &&
+              client['share_workouts'] == false)
+            Text(tr(context, '履歴は非共有', 'History is private'))
+          else
+            LatestWorkout(
+              repository: widget.repository,
+              clientId: client['client_id'] as String,
+            ),
+        ],
+      ),
+      trailing: const Icon(Icons.chevron_right_rounded),
+      onTap: client['can_coach'] == false ? null : () => openClient(client),
+    ),
+  );
+
+  Widget _content(BuildContext context) {
+    if (loading) return const Center(child: CircularProgressIndicator());
+    if (error != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(error!, textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              FilledButton(
+                onPressed: reload,
+                child: Text(tr(context, '再試行', 'Retry')),
+              ),
+              TextButton(
+                onPressed: widget.auth.signOut,
+                child: Text(tr(context, 'ログアウト', 'Sign out')),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    if (profile == null) {
+      return ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
+          Text(
+            tr(context, 'トレーナープロフィール', 'Trainer profile'),
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Text(
+            tr(
+              context,
+              '同じユーザーIDにトレーナープロフィールを追加します。',
+              'Add a trainer profile to your existing user ID.',
+            ),
+          ),
+          TextField(
+            controller: name,
+            maxLength: 80,
+            decoration: InputDecoration(
+              labelText: tr(context, '表示名', 'Display name'),
+            ),
+          ),
+          FilledButton(
+            onPressed: busy
+                ? null
+                : () => action(() async {
+                    if (name.text.trim().isEmpty) return;
+                    await widget.repository.saveProfile(name.text);
+                    await reload();
+                  }),
+            child: Text(tr(context, '指導を始める', 'Start coaching')),
+          ),
+          TextButton(
+            onPressed: widget.auth.signOut,
+            child: Text(tr(context, 'ログアウト', 'Sign out')),
+          ),
+        ],
+      );
+    }
+    final children = switch (tab) {
+      0 => _home(context),
+      1 => _clients(context),
+      2 => _menus(context),
+      _ => _profile(context),
+    };
+    return RefreshIndicator(
+      onRefresh: reload,
+      child: ListView(
+        key: ValueKey('trainerTab$tab'),
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 32),
+        children: children,
+      ),
+    );
+  }
+
+  List<Widget> _home(BuildContext context) => [
+    Text(
+      tr(
+        context,
+        '${profile!['display_name']}さん、こんにちは',
+        'Hello, ${profile!['display_name']}',
+      ),
+      style: Theme.of(context).textTheme.headlineSmall
+          ?.copyWith(fontWeight: FontWeight.w900),
+    ),
+    const SizedBox(height: 4),
+    Text(tr(context, '今日の指導をここから始めましょう', 'Start today’s coaching here')),
+    const SizedBox(height: 20),
+    Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        title: Text(
+          tr(context, '担当顧客 ${clients.length}人', '${clients.length} clients'),
+          style: Theme.of(context).textTheme.titleMedium
+              ?.copyWith(fontWeight: FontWeight.w800),
+        ),
+        subtitle: Text(tr(context, '顧客を確認', 'View clients')),
+        trailing: const Icon(Icons.chevron_right_rounded),
+        onTap: () => setState(() => tab = 1),
+      ),
+    ),
+    const SizedBox(height: 10),
+    Card(
+      child: ListTile(
+        title: Text(
+          tr(context, '作成済みメニュー ${menus.length}件', '${menus.length} menus'),
+          style: const TextStyle(fontWeight: FontWeight.w800),
+        ),
+        trailing: const Icon(Icons.chevron_right_rounded),
+        onTap: () => setState(() => tab = 2),
+      ),
+    ),
+    TrainerSectionHeader(title: tr(context, 'クイックアクション', 'Quick actions')),
+    FilledButton.icon(
+      onPressed: busy ? null : invite,
+      icon: const Icon(Icons.qr_code_rounded),
+      label: Text(tr(context, '顧客を招待', 'Invite a client')),
+    ),
+    const SizedBox(height: 8),
+    OutlinedButton.icon(
+      onPressed: recordableClients.isEmpty
+          ? null
+          : () => openEditor(recording: true),
+      icon: const Icon(Icons.edit_note_rounded),
+      label: Text(tr(context, 'セッションを記録', 'Record session')),
+    ),
+    const SizedBox(height: 8),
+    OutlinedButton.icon(
+      onPressed: coachableClients.isEmpty ? null : () => openEditor(),
+      icon: const Icon(Icons.playlist_add_rounded),
+      label: Text(tr(context, 'メニューを作成', 'Create menu')),
+    ),
+    TrainerSectionHeader(
+      title: tr(context, '担当顧客', 'Your clients'),
+      action: tr(context, '全顧客を見る', 'See all'),
+      onAction: () => setState(() => tab = 1),
+    ),
+    if (clients.isEmpty)
+      EmptyState(
+        text: tr(
+          context,
+          '担当顧客はまだいません。招待コードを共有し、顧客の承認を待ちましょう。',
+          'No clients yet. Share an invitation and wait for approval.',
+        ),
+        action: tr(context, '顧客を招待', 'Invite a client'),
+        onAction: invite,
+      ),
+    for (final client in clients.take(3)) clientTile(client),
+  ];
+
+  List<Widget> _clients(BuildContext context) {
+    final filtered = clients
+        .where(
+          (client) => '${client['client_name']}'.toLowerCase().contains(
+            clientQuery.toLowerCase(),
+          ),
+        )
+        .toList();
+    return [
+      Text(
+        tr(context, '顧客', 'Clients'),
+        style: Theme.of(context).textTheme.headlineSmall
+            ?.copyWith(fontWeight: FontWeight.w900),
+      ),
+      Text(tr(context, '${clients.length}人の顧客', '${clients.length} clients')),
+      const SizedBox(height: 16),
+      TextField(
+        key: const Key('clientSearchField'),
+        decoration: InputDecoration(
+          labelText: tr(context, '顧客を検索', 'Search clients'),
+          prefixIcon: const Icon(Icons.search_rounded),
+        ),
+        onChanged: (value) => setState(() => clientQuery = value.trim()),
+      ),
+      const SizedBox(height: 12),
+      FilledButton.icon(
+        onPressed: busy ? null : invite,
+        icon: const Icon(Icons.qr_code_rounded),
+        label: Text(tr(context, '顧客を招待', 'Invite a client')),
+      ),
+      const SizedBox(height: 16),
+      if (filtered.isEmpty)
+        EmptyState(
+          text: clients.isEmpty
+              ? tr(
+                  context,
+                  '担当顧客はまだいません。招待コードを共有し、顧客の承認を待ちましょう。',
+                  'No clients yet. Share an invitation and wait for approval.',
+                )
+              : tr(context, '該当する顧客がいません', 'No matching clients'),
+          action: clients.isEmpty
+              ? tr(context, '顧客を招待', 'Invite a client')
+              : null,
+          onAction: clients.isEmpty ? invite : null,
+        ),
+      for (final client in filtered) clientTile(client),
+    ];
+  }
+
+  List<Widget> _menus(BuildContext context) => [
+    Text(
+      tr(context, 'メニュー', 'Menus'),
+      style: Theme.of(context).textTheme.headlineSmall
+          ?.copyWith(fontWeight: FontWeight.w900),
+    ),
+    Text(tr(context, '${menus.length}件のメニュー', '${menus.length} menus')),
+    const SizedBox(height: 16),
+    FilledButton.icon(
+      onPressed: coachableClients.isEmpty ? null : () => openEditor(),
+      icon: const Icon(Icons.add_rounded),
+      label: Text(tr(context, '新規作成', 'Create menu')),
+    ),
+    const SizedBox(height: 16),
+    if (menus.isEmpty)
+      EmptyState(
+        text: tr(
+          context,
+          'メニューはまだありません。顧客と連携して作成しましょう。',
+          'No menus yet. Link a client to create one.',
+        ),
+        action: coachableClients.isEmpty
+            ? null
+            : tr(context, 'メニューを作成', 'Create menu'),
+        onAction: coachableClients.isEmpty ? null : () => openEditor(),
+      ),
+    for (final menu in menus)
+      MenuCard(
+        menu: menu,
+        clientName:
+            clients
+                    .where((client) => client['client_id'] == menu['client_id'])
+                    .firstOrNull?['client_name']
+                as String?,
+      ),
+  ];
+
+  List<Widget> _profile(BuildContext context) => [
+    Text(
+      tr(context, 'マイページ', 'Profile'),
+      style: Theme.of(context).textTheme.headlineSmall
+          ?.copyWith(fontWeight: FontWeight.w900),
+    ),
+    TrainerSectionHeader(title: tr(context, 'アカウント', 'Account')),
+    Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person_outline),
+            title: Text(profile!['display_name'] as String),
+            subtitle: Text(widget.auth.email ?? ''),
+          ),
+          ListTile(
+            leading: const Icon(Icons.verified_user_outlined),
+            title: Text(
+              tr(context, 'SETKEEPと共通のアカウント', 'Shared SETKEEP account'),
+            ),
+            subtitle: Text(
+              tr(context, '顧客の体重は公開されません', 'Client body weight is private'),
+            ),
+          ),
+        ],
+      ),
+    ),
+    TrainerSectionHeader(
+      title: tr(context, '所属・管理', 'Organization & management'),
+    ),
+    Card(
+      child: ListTile(
+        leading: const Icon(Icons.business_outlined),
+        title: Text(tr(context, 'テナント管理', 'Tenant management')),
+        subtitle: Text(
+          tr(context, 'スタッフ・顧客・契約を管理', 'Manage staff, clients and billing'),
+        ),
+        trailing: const Icon(Icons.chevron_right_rounded),
+        onTap: widget.onManageTenant,
+      ),
+    ),
+    TrainerSectionHeader(title: tr(context, 'セッション', 'Session')),
+    OutlinedButton.icon(
+      onPressed: busy ? null : () => action(widget.auth.signOut),
+      icon: const Icon(Icons.logout_rounded),
+      label: Text(tr(context, 'ログアウト', 'Sign out')),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final labels = [
@@ -381,208 +738,7 @@ class _TrainerShellState extends State<TrainerShell> {
       Icons.list_alt,
       Icons.person_outline,
     ];
-    final content = loading
-        ? const Center(child: CircularProgressIndicator())
-        : error != null
-        ? Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(error!),
-                TextButton(
-                  onPressed: reload,
-                  child: Text(tr(context, '再試行', 'Retry')),
-                ),
-                TextButton(
-                  onPressed: widget.auth.signOut,
-                  child: Text(tr(context, 'ログアウト', 'Sign out')),
-                ),
-              ],
-            ),
-          )
-        : profile == null
-        ? ListView(
-            padding: const EdgeInsets.all(24),
-            children: [
-              Text(
-                tr(context, 'トレーナープロフィール', 'Trainer profile'),
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Text(
-                tr(
-                  context,
-                  '同じユーザーIDにトレーナープロフィールを追加します。',
-                  'Add a trainer profile to your existing user ID.',
-                ),
-              ),
-              TextField(
-                controller: name,
-                maxLength: 80,
-                decoration: InputDecoration(
-                  labelText: tr(context, '表示名', 'Display name'),
-                ),
-              ),
-              FilledButton(
-                onPressed: busy
-                    ? null
-                    : () => action(() async {
-                        if (name.text.trim().isEmpty) return;
-                        await widget.repository.saveProfile(name.text);
-                        await reload();
-                      }),
-                child: Text(tr(context, '指導を始める', 'Start coaching')),
-              ),
-              TextButton(
-                onPressed: widget.auth.signOut,
-                child: Text(tr(context, 'ログアウト', 'Sign out')),
-              ),
-            ],
-          )
-        : RefreshIndicator(
-            onRefresh: reload,
-            child: ListView(
-              padding: const EdgeInsets.all(24),
-              children: [
-                if (tab == 0) ...[
-                  Text(
-                    tr(
-                      context,
-                      '${profile!['display_name']}さん、こんにちは',
-                      'Hello, ${profile!['display_name']}',
-                    ),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 20),
-                  Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.people),
-                      title: Text(
-                        tr(
-                          context,
-                          '担当顧客 ${clients.length}人',
-                          '${clients.length} clients',
-                        ),
-                      ),
-                      subtitle: Text(
-                        tr(
-                          context,
-                          '作成済みメニュー ${menus.length}件',
-                          '${menus.length} menus',
-                        ),
-                      ),
-                      onTap: () => setState(() => tab = 1),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    tr(context, '担当顧客', 'Your clients'),
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ],
-                if (tab <= 1) ...[
-                  const SizedBox(height: 12),
-                  FilledButton.icon(
-                    onPressed: busy ? null : invite,
-                    icon: const Icon(Icons.qr_code),
-                    label: Text(tr(context, '招待コードを発行', 'Create invitation')),
-                  ),
-                  if (clients.isEmpty)
-                    EmptyState(
-                      text: tr(
-                        context,
-                        '担当顧客はまだいません。招待コードを共有し、顧客の承認を待ちましょう。',
-                        'No clients yet. Share an invitation and wait for approval.',
-                      ),
-                    ),
-                  for (final c in clients)
-                    Card(
-                      child: ListTile(
-                        leading: const CircleAvatar(child: Icon(Icons.person)),
-                        title: Text(c['client_name'] as String),
-                        subtitle: c['can_coach'] == false
-                            ? Text(
-                                tr(
-                                  context,
-                                  '担当者の割当はテナント管理から変更できます',
-                                  'Manage assignments in tenant settings',
-                                ),
-                              )
-                            : LatestWorkout(
-                                repository: widget.repository,
-                                clientId: c['client_id'] as String,
-                              ),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: c['can_coach'] == false
-                            ? null
-                            : () => openClient(c),
-                      ),
-                    ),
-                ],
-                if (tab == 2) ...[
-                  FilledButton.icon(
-                    onPressed:
-                        clients.where((c) => c['can_coach'] != false).isEmpty
-                        ? null
-                        : () async {
-                            await Navigator.push<void>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => MenuEditor(
-                                  repository: widget.repository,
-                                  clients: clients
-                                      .where((c) => c['can_coach'] != false)
-                                      .toList(),
-                                ),
-                              ),
-                            );
-                            if (mounted) await reload();
-                          },
-                    icon: const Icon(Icons.add),
-                    label: Text(tr(context, 'メニューを作成', 'Create menu')),
-                  ),
-                  if (menus.isEmpty)
-                    EmptyState(
-                      text: tr(
-                        context,
-                        'メニューはまだありません。顧客と連携して作成しましょう。',
-                        'No menus yet. Link a client to create one.',
-                      ),
-                    ),
-                  for (final m in menus)
-                    MenuCard(
-                      menu: m,
-                      clientName:
-                          clients
-                                  .where(
-                                    (c) => c['client_id'] == m['client_id'],
-                                  )
-                                  .firstOrNull?['client_name']
-                              as String?,
-                    ),
-                ],
-                if (tab == 3) ...[
-                  Text(
-                    profile!['display_name'] as String,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Text(widget.auth.email ?? ''),
-                  const SizedBox(height: 20),
-                  Text(
-                    tr(
-                      context,
-                      'SETKEEPと共通のアカウントです。\n顧客の体重は公開されません。指導メモは同じ担当者と共有します。',
-                      'Your account is shared with SETKEEP.\nClient body weight is private. Coaching notes are shared with assigned trainers.',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton(
-                    onPressed: busy ? null : () => action(widget.auth.signOut),
-                    child: Text(tr(context, 'ログアウト', 'Sign out')),
-                  ),
-                ],
-              ],
-            ),
-          );
+    final content = _content(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('SETKEEP TRAINER'),

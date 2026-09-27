@@ -1,21 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:setkeep/trainer/trainer_repository.dart';
 import 'package:setkeep/main.dart' show WorkoutRecord, BodyMapPage, RecordedSet;
+import 'package:setkeep/exercise_list_thumbnail.dart';
+import 'package:setkeep/exercise_form_catalog.dart';
+import 'package:setkeep/design/family_theme.dart';
 
 String tr(BuildContext context, String ja, String en) =>
     Localizations.localeOf(context).languageCode == 'ja' ? ja : en;
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({super.key, required this.text});
+  const EmptyState({super.key, required this.text, this.action, this.onAction});
   final String text;
+  final String? action;
+  final VoidCallback? onAction;
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 40),
+  Widget build(BuildContext context) => Container(
+    width: double.infinity,
+    margin: const EdgeInsets.symmetric(vertical: 12),
+    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 36),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+    ),
     child: Column(
       children: [
-        const Icon(Icons.inbox_outlined, size: 44),
+        Icon(
+          Icons.inbox_outlined,
+          size: 44,
+          color: FamilyPalette.of(context).accent,
+        ),
         const SizedBox(height: 12),
         Text(text, textAlign: TextAlign.center),
+        if (action != null && onAction != null) ...[
+          const SizedBox(height: 16),
+          OutlinedButton(onPressed: onAction, child: Text(action!)),
+        ],
+      ],
+    ),
+  );
+}
+
+class TrainerSectionHeader extends StatelessWidget {
+  const TrainerSectionHeader({
+    super.key,
+    required this.title,
+    this.action,
+    this.onAction,
+  });
+  final String title;
+  final String? action;
+  final VoidCallback? onAction;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: 16, bottom: 10),
+    child: Row(
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleLarge
+                ?.copyWith(fontWeight: FontWeight.w800),
+          ),
+        ),
+        if (action != null)
+          TextButton(onPressed: onAction, child: Text(action!)),
       ],
     ),
   );
@@ -50,7 +99,10 @@ class _LatestWorkoutState extends State<LatestWorkout> {
   @override
   void didUpdateWidget(covariant LatestWorkout oldWidget) {
     super.didUpdateWidget(oldWidget);
-    future = widget.repository.workouts(widget.clientId);
+    if (oldWidget.repository != widget.repository ||
+        oldWidget.clientId != widget.clientId) {
+      future = widget.repository.workouts(widget.clientId);
+    }
   }
 
   @override
@@ -66,7 +118,7 @@ class _LatestWorkoutState extends State<LatestWorkout> {
       }
       final w = decodeWorkout(snapshot.data!.first);
       return Text(
-        '${dateLabel(w.date)} · ${w.exerciseNames.join(' / ')}',
+        '${dateLabel(w.date)} · ${w.exerciseNames.map(exerciseDisplayName).join(' / ')}',
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       );
@@ -75,28 +127,88 @@ class _LatestWorkoutState extends State<LatestWorkout> {
 }
 
 class WorkoutCard extends StatelessWidget {
-  const WorkoutCard({super.key, required this.row});
+  const WorkoutCard({
+    super.key,
+    required this.row,
+    this.onComment,
+    this.onCancel,
+  });
   final Map<String, dynamic> row;
+  final VoidCallback? onComment;
+  final VoidCallback? onCancel;
   @override
   Widget build(BuildContext context) {
     final w = decodeWorkout(row);
     return Card(
+      margin: const EdgeInsets.only(bottom: 10),
+      clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
-        title: Text(dateLabel(w.date)),
+        title: Text(
+          dateLabel(w.date),
+          style: const TextStyle(fontWeight: FontWeight.w800),
+        ),
         subtitle: Text(
-          '${w.exerciseNames.join(' / ')} · ${w.sets.length} ${tr(context, 'セット', 'sets')}',
+          '${w.exerciseNames.map(exerciseDisplayName).join(' / ')}\n${w.sets.length} ${tr(context, 'セット', 'sets')} · ${row['record_source'] == 'trainer' ? tr(context, 'トレーナー記録', 'Trainer record') : tr(context, '本人記録', 'Client record')}${row['canceled_at'] == null ? '' : ' · ${tr(context, '取消済み', 'Canceled')}'}',
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
         ),
         children: [
           for (final group in w.exerciseGroups.values)
             Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
+              padding: const EdgeInsets.fromLTRB(16, 6, 16, 10),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(group.first.exerciseName),
-                  for (var i = 0; i < group.length; i++)
-                    Text(
-                      '${i + 1}. ${group[i].weight} kg × ${group[i].reps} ${tr(context, '回', 'reps')}',
+                  ExerciseListThumbnail(exerciseId: group.first.exerciseId),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          exerciseDisplayName(
+                            group.first.exerciseName,
+                            exerciseId: group.first.exerciseId,
+                            languageCode: Localizations.localeOf(context)
+                                .languageCode,
+                          ),
+                          style: const TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                        for (var i = 0; i < group.length; i++)
+                          Text('${i + 1}. ${group[i].displaySummary}'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          if (onComment != null || onCancel != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+              child: Row(
+                children: [
+                  if (onComment != null)
+                    OutlinedButton(
+                      onPressed: onComment,
+                      child: Text(
+                        tr(context, 'この日のコメント', 'Comment on this day'),
+                      ),
+                    ),
+                  const Spacer(),
+                  if (onCancel != null)
+                    PopupMenuButton<String>(
+                      tooltip: tr(context, '記録の操作', 'Record actions'),
+                      onSelected: (_) => onCancel!(),
+                      itemBuilder: (_) => [
+                        PopupMenuItem(
+                          value: 'status',
+                          child: Text(
+                            row['canceled_at'] == null
+                                ? tr(context, '記録を取消', 'Cancel record')
+                                : tr(context, '記録を復元', 'Restore record'),
+                          ),
+                        ),
+                      ],
                     ),
                 ],
               ),
@@ -108,20 +220,63 @@ class WorkoutCard extends StatelessWidget {
 }
 
 class MenuCard extends StatelessWidget {
-  const MenuCard({super.key, required this.menu, this.clientName});
+  const MenuCard({
+    super.key,
+    required this.menu,
+    this.clientName,
+    this.onEdit,
+    this.onComment,
+    this.onStatus,
+  });
   final Map<String, dynamic> menu;
   final String? clientName;
+  final VoidCallback? onEdit;
+  final VoidCallback? onComment;
+  final ValueChanged<String>? onStatus;
   @override
   Widget build(BuildContext context) => Card(
+    margin: const EdgeInsets.only(bottom: 10),
+    clipBehavior: Clip.antiAlias,
     child: ExpansionTile(
-      title: Text(menu['name'] as String),
+      title: Text(
+        menu['name'] as String,
+        style: const TextStyle(fontWeight: FontWeight.w800),
+      ),
       subtitle: Text(
-        '${clientName ?? dateLabel(menu['created_at'])} · ${menu['status'] ?? 'planned'} · ${menu['schedule'] ?? 'single'}',
+        '${clientName == null ? '' : '$clientName · '}${dateLabel(menu['created_at'])} · ${(menu['items'] as List?)?.length ?? 0} ${tr(context, '種目', 'exercises')} · ${switch (menu['status']) {
+          'completed' => tr(context, '実施済み', 'Completed'),
+          'canceled' => tr(context, '取消', 'Canceled'),
+          _ => tr(context, '未実施', 'Planned'),
+        }}',
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Chip(
+              label: Text(switch (menu['status']) {
+                'completed' => tr(context, '実施済み', 'Completed'),
+                'canceled' => tr(context, '取消', 'Canceled'),
+                _ => tr(context, '未実施', 'Planned'),
+              }),
+              backgroundColor: menu['status'] == 'canceled'
+                  ? Theme.of(context).colorScheme.surfaceContainerHighest
+                  : FamilyPalette.of(context).soft,
+            ),
+          ),
+        ),
         for (final i in menu['items'] as List)
           ListTile(
-            title: Text('${i['exercise_name']}'),
+            title: Text(
+              exerciseDisplayName(
+                '${i['exercise_name']}',
+                exerciseId: i['exercise_id'] as String?,
+                languageCode: Localizations.localeOf(context).languageCode,
+              ),
+            ),
             subtitle: Text(
               i['set_values'] is List
                   ? (i['set_values'] as List)
@@ -134,10 +289,56 @@ class MenuCard extends StatelessWidget {
                   : '${i['sets']} ${tr(context, 'セット', 'sets')} · ${i['target_weight']} kg × ${i['target_reps']}',
             ),
           ),
-        if ('${menu['note']}'.isNotEmpty)
+        if ((menu['note'] as String? ?? '').isNotEmpty)
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(menu['note'] as String),
+          ),
+        if (onEdit != null || onComment != null || onStatus != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            child: Row(
+              children: [
+                if (onComment != null)
+                  OutlinedButton(
+                    onPressed: onComment,
+                    child: Text(tr(context, 'コメント', 'Comment')),
+                  ),
+                const Spacer(),
+                PopupMenuButton<String>(
+                  tooltip: tr(context, 'メニューの操作', 'Menu actions'),
+                  onSelected: (value) {
+                    if (value == 'edit') {
+                      onEdit?.call();
+                    } else {
+                      onStatus?.call(value);
+                    }
+                  },
+                  itemBuilder: (_) => [
+                    if (onEdit != null && menu['status'] == 'planned')
+                      PopupMenuItem(
+                        value: 'edit',
+                        child: Text(tr(context, '編集', 'Edit')),
+                      ),
+                    if (onStatus != null && menu['status'] == 'planned')
+                      PopupMenuItem(
+                        value: 'completed',
+                        child: Text(tr(context, '実施済みにする', 'Mark completed')),
+                      ),
+                    if (onStatus != null && menu['status'] != 'canceled')
+                      PopupMenuItem(
+                        value: 'canceled',
+                        child: Text(tr(context, '取消', 'Cancel')),
+                      ),
+                    if (onStatus != null && menu['status'] == 'canceled')
+                      PopupMenuItem(
+                        value: 'planned',
+                        child: Text(tr(context, '復元', 'Restore')),
+                      ),
+                  ],
+                ),
+              ],
+            ),
           ),
       ],
     ),

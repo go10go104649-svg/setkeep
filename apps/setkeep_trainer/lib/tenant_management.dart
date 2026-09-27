@@ -54,6 +54,7 @@ class _TenantManagementState extends State<TenantManagement> {
       final b = owner ? await widget.repository.billing() : null;
       if (mounted) {
         setState(() {
+          error = null;
           members = m;
           clients = c;
           assignments = a;
@@ -125,202 +126,428 @@ class _TenantManagementState extends State<TenantManagement> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(widget.tenant['name'] as String)),
-    body: AbsorbPointer(
-      absorbing: busy,
-      child: ListView(
-        padding: const EdgeInsets.all(24),
-        children: [
-          if (error != null) Text(error!),
-          if (busy || members == null) const LinearProgressIndicator(),
-          TextField(
-            controller: code,
-            decoration: InputDecoration(
-              labelText: tr(
-                context,
-                '別テナントのスタッフ招待コード',
-                'Staff invitation to another tenant',
-              ),
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () => run(() async {
-              await widget.repository.acceptInvite(
-                code.text.trim(),
-                '',
-                recording: false,
-                heatmap: false,
-              );
-              if (context.mounted) Navigator.pop(context);
-            }),
-            child: Text(tr(context, '招待を受ける', 'Accept invitation')),
-          ),
-          if (billing != null) ...[
-            Text(
-              tr(context, '契約・請求', 'Subscription & billing'),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            Text(
-              '${billing!['status']} · ${billing!['active_trainers']} Trainer IDs\n¥${billing!['monthly_jpy']} / ${tr(context, '月', 'month')}',
-            ),
-            Text(
-              tr(
-                context,
-                '月額3,980円（5名まで）、追加1名500円。14日間のトライアルはカード登録後に開始し、5名までです。決済画面の接続は準備中です。',
-                '¥3,980/month includes 5 trainers, then ¥500 per trainer. The 14-day trial requires a card and allows 5 trainers. Checkout integration is pending.',
-              ),
-            ),
-          ],
-          if (admin) ...[
-            const SizedBox(height: 24),
-            Text(
-              tr(context, 'オフライン顧客を登録', 'Create an offline client'),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            TextField(
-              controller: name,
-              maxLength: 80,
-              decoration: InputDecoration(
-                labelText: tr(context, '顧客名', 'Client name'),
-              ),
+  Future<bool> confirm(String title) async =>
+      await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(title),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(tr(ctx, '戻る', 'Back')),
             ),
             FilledButton(
-              onPressed: () => run(() async {
-                await widget.repository.mutate('client', {
-                  'name': name.text.trim(),
-                });
-                name.clear();
-              }),
-              child: Text(tr(context, '登録', 'Create')),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              tr(context, 'スタッフを招待', 'Invite staff'),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            TextField(
-              controller: email,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: tr(context, '招待先メール', 'Invited email'),
-              ),
-            ),
-            CheckboxListTile(
-              value: inviteAdmin,
-              onChanged: (v) => setState(() => inviteAdmin = v!),
-              title: const Text('Admin'),
-            ),
-            CheckboxListTile(
-              value: inviteTrainer,
-              onChanged: (v) => setState(() => inviteTrainer = v!),
-              title: const Text('Trainer'),
-            ),
-            FilledButton(
-              onPressed: !inviteAdmin && !inviteTrainer
-                  ? null
-                  : () => run(() async {
-                      final r = await widget.repository.mutate('staff_invite', {
-                        'email': email.text.trim(),
-                        'admin': inviteAdmin,
-                        'trainer': inviteTrainer,
-                      });
-                      await showCode(r['id'] as String);
-                    }),
-              child: Text(tr(context, 'コードを発行', 'Create code')),
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text(tr(ctx, '続ける', 'Continue')),
             ),
           ],
-          for (final m in members ?? <Map<String, dynamic>>[])
-            Card(
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(m['display_name'] as String? ?? 'Member'),
-                    subtitle: Text(
-                      '${m['status']}${widget.tenant['billing_owner_id'] == m['user_id'] ? ' · Billing Owner' : ''}',
-                    ),
+        ),
+      ) ??
+      false;
+
+  Widget _staff(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
+    children: [
+      TrainerSectionHeader(title: tr(context, '招待を受ける', 'Accept invitation')),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TextField(
+                controller: code,
+                decoration: InputDecoration(
+                  labelText: tr(
+                    context,
+                    '別テナントのスタッフ招待コード',
+                    'Staff invitation to another tenant',
                   ),
-                  if (admin) ...[
+                ),
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                onPressed: () => run(() async {
+                  await widget.repository.acceptInvite(
+                    code.text.trim(),
+                    '',
+                    recording: false,
+                    heatmap: false,
+                  );
+                  if (context.mounted) Navigator.pop(context);
+                }),
+                child: Text(tr(context, '招待を受ける', 'Accept invitation')),
+              ),
+            ],
+          ),
+        ),
+      ),
+      if (admin) ...[
+        TrainerSectionHeader(title: tr(context, 'スタッフを招待', 'Invite staff')),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                TextField(
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: tr(context, '招待先メール', 'Invited email'),
+                  ),
+                ),
+                CheckboxListTile(
+                  value: inviteAdmin,
+                  onChanged: (v) => setState(() => inviteAdmin = v!),
+                  title: const Text('Admin'),
+                ),
+                CheckboxListTile(
+                  value: inviteTrainer,
+                  onChanged: (v) => setState(() => inviteTrainer = v!),
+                  title: const Text('Trainer'),
+                ),
+                FilledButton(
+                  onPressed: !inviteAdmin && !inviteTrainer
+                      ? null
+                      : () => run(() async {
+                          final result = await widget.repository.mutate(
+                            'staff_invite',
+                            {
+                              'email': email.text.trim(),
+                              'admin': inviteAdmin,
+                              'trainer': inviteTrainer,
+                            },
+                          );
+                          await showCode(result['id'] as String);
+                        }),
+                  child: Text(tr(context, 'コードを発行', 'Create code')),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+      TrainerSectionHeader(title: tr(context, '所属スタッフ', 'Members')),
+      for (final member in members ?? <Map<String, dynamic>>[])
+        Card(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: ExpansionTile(
+            title: Text(
+              member['display_name'] as String? ?? 'Member',
+              style: const TextStyle(fontWeight: FontWeight.w800),
+            ),
+            subtitle: Text(
+              '${member['status']}${widget.tenant['billing_owner_id'] == member['user_id'] ? ' · Billing Owner' : ''}',
+            ),
+            children: admin
+                ? [
                     for (final role in ['admin', 'trainer'])
                       CheckboxListTile(
                         title: Text(role == 'admin' ? 'Admin' : 'Trainer'),
-                        value: m['is_$role'] == true,
-                        onChanged: (v) => run(() async {
-                          await widget.repository.mutate('member', {
-                            'user_id': m['user_id'],
-                            'admin': role == 'admin' ? v : m['is_admin'],
-                            'trainer': role == 'trainer' ? v : m['is_trainer'],
-                            'status': m['status'],
-                          });
-                        }),
+                        value: member['is_$role'] == true,
+                        onChanged: (value) async {
+                          if (value == false &&
+                              !await confirm(
+                                tr(context, '権限を解除しますか？', 'Remove this role?'),
+                              )) {
+                            return;
+                          }
+                          await run(
+                            () => widget.repository
+                                .mutate('member', {
+                                  'user_id': member['user_id'],
+                                  'admin': role == 'admin'
+                                      ? value
+                                      : member['is_admin'],
+                                  'trainer': role == 'trainer'
+                                      ? value
+                                      : member['is_trainer'],
+                                  'status': member['status'],
+                                })
+                                .then((_) {}),
+                          );
+                        },
                       ),
-                    TextButton(
-                      onPressed: () => run(() async {
-                        await widget.repository.mutate('member', {
-                          'user_id': m['user_id'],
-                          'admin': m['is_admin'],
-                          'trainer': m['is_trainer'],
-                          'status': m['status'] == 'active'
-                              ? 'removed'
-                              : 'active',
-                        });
-                      }),
-                      child: Text(
-                        m['status'] == 'active'
+                    ListTile(
+                      leading: Icon(
+                        member['status'] == 'active'
+                            ? Icons.person_remove_outlined
+                            : Icons.person_add_outlined,
+                      ),
+                      title: Text(
+                        member['status'] == 'active'
                             ? tr(context, '所属を解除', 'Remove membership')
                             : tr(context, '再有効化', 'Reactivate'),
                       ),
+                      onTap: () async {
+                        if (member['status'] == 'active' &&
+                            !await confirm(
+                              tr(
+                                context,
+                                '所属を解除しますか？',
+                                'Remove this membership?',
+                              ),
+                            )) {
+                          return;
+                        }
+                        await run(
+                          () => widget.repository
+                              .mutate('member', {
+                                'user_id': member['user_id'],
+                                'admin': member['is_admin'],
+                                'trainer': member['is_trainer'],
+                                'status': member['status'] == 'active'
+                                    ? 'removed'
+                                    : 'active',
+                              })
+                              .then((_) {}),
+                        );
+                      },
                     ),
                     if (owner &&
-                        m['user_id'] != widget.repository.userId &&
-                        m['status'] == 'active')
-                      TextButton(
-                        onPressed: () => run(() async {
-                          await widget.repository.mutate('owner', {
-                            'user_id': m['user_id'],
-                          });
-                          if (context.mounted) Navigator.pop(context);
-                        }),
-                        child: Text(
-                          tr(
-                            context,
-                            '請求責任者をこのメンバーに移譲',
-                            'Transfer billing ownership',
-                          ),
+                        member['user_id'] != widget.repository.userId &&
+                        member['status'] == 'active')
+                      ListTile(
+                        leading: const Icon(
+                          Icons.account_balance_wallet_outlined,
                         ),
+                        title: Text(
+                          tr(context, '請求責任者を移譲', 'Transfer billing ownership'),
+                        ),
+                        onTap: () async {
+                          if (!await confirm(
+                            tr(
+                              context,
+                              '請求責任者を移譲しますか？',
+                              'Transfer billing ownership?',
+                            ),
+                          )) {
+                            return;
+                          }
+                          await run(() async {
+                            await widget.repository.mutate('owner', {
+                              'user_id': member['user_id'],
+                            });
+                            if (context.mounted) Navigator.pop(context);
+                          });
+                        },
                       ),
-                  ],
-                ],
+                  ]
+                : [],
+          ),
+        ),
+    ],
+  );
+
+  Widget _clients(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
+    children: [
+      TrainerSectionHeader(title: tr(context, '顧客管理', 'Client management')),
+      if (!admin)
+        EmptyState(text: tr(context, '管理者権限が必要です', 'Admin access required')),
+      if (admin) ...[
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                TextField(
+                  controller: name,
+                  maxLength: 80,
+                  decoration: InputDecoration(
+                    labelText: tr(context, 'オフライン顧客名', 'Offline client name'),
+                  ),
+                ),
+                FilledButton(
+                  onPressed: () => run(() async {
+                    await widget.repository.mutate('client', {
+                      'name': name.text.trim(),
+                    });
+                    name.clear();
+                  }),
+                  child: Text(tr(context, '顧客を登録', 'Create client')),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 14),
+        for (final client in clients ?? <Map<String, dynamic>>[])
+          Card(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: ListTile(
+              leading: const Icon(Icons.person_outline),
+              title: Text(client['client_name'] as String),
+              subtitle: Text(
+                client['linked_user_id'] == null
+                    ? tr(context, 'SETKEEP未連携', 'Not linked to SETKEEP')
+                    : tr(context, 'SETKEEP連携済み', 'Linked to SETKEEP'),
               ),
             ),
-          if (admin)
-            for (final c in clients ?? <Map<String, dynamic>>[])
-              Card(
-                child: ExpansionTile(
-                  title: Text(c['client_name'] as String),
-                  subtitle: Text(tr(context, '担当者の割当', 'Trainer assignments')),
+          ),
+        if (clients?.isEmpty == true)
+          EmptyState(text: tr(context, '顧客はまだいません', 'No clients yet')),
+      ],
+    ],
+  );
+
+  Widget _assignments(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
+    children: [
+      TrainerSectionHeader(title: tr(context, '担当割当', 'Trainer assignments')),
+      if (!admin)
+        EmptyState(text: tr(context, '管理者権限が必要です', 'Admin access required')),
+      if (admin)
+        for (final client in clients ?? <Map<String, dynamic>>[])
+          Card(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: ExpansionTile(
+              title: Text(client['client_name'] as String),
+              subtitle: Text(
+                tr(context, '担当トレーナーを選択', 'Choose assigned trainers'),
+              ),
+              children: [
+                for (final member in members ?? <Map<String, dynamic>>[])
+                  if (member['is_trainer'] == true &&
+                      member['status'] == 'active')
+                    CheckboxListTile(
+                      title: Text(
+                        member['display_name'] as String? ?? 'Member',
+                      ),
+                      value: (assignments ?? []).any(
+                        (assignment) =>
+                            assignment['client_id'] == client['id'] &&
+                            assignment['user_id'] == member['user_id'],
+                      ),
+                      onChanged: (value) async {
+                        if (value == false &&
+                            !await confirm(
+                              tr(
+                                context,
+                                '担当を解除しますか？',
+                                'Remove this assignment?',
+                              ),
+                            )) {
+                          return;
+                        }
+                        await run(
+                          () => widget.repository
+                              .mutate(value! ? 'assign' : 'unassign', {
+                                'client_id': client['id'],
+                                'user_id': member['user_id'],
+                              })
+                              .then((_) {}),
+                        );
+                      },
+                    ),
+              ],
+            ),
+          ),
+    ],
+  );
+
+  Widget _billing(BuildContext context) => ListView(
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
+    children: [
+      TrainerSectionHeader(
+        title: tr(context, '契約・請求', 'Subscription & billing'),
+      ),
+      if (billing == null)
+        EmptyState(
+          text: tr(context, '請求責任者のみ確認できます', 'Billing owner access required'),
+        ),
+      if (billing != null)
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${billing!['status']} · ${billing!['active_trainers']} Trainer IDs',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '¥${billing!['monthly_jpy']} / ${tr(context, '月', 'month')}',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 14),
+                Text(
+                  tr(
+                    context,
+                    '月額3,980円（5名まで）、追加1名500円。14日間のトライアルはカード登録後に開始し、5名までです。決済画面の接続は準備中です。',
+                    '¥3,980/month includes 5 trainers, then ¥500 per trainer. The 14-day trial requires a card and allows 5 trainers. Checkout integration is pending.',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+    ],
+  );
+
+  @override
+  Widget build(BuildContext context) => DefaultTabController(
+    length: 4,
+    child: Scaffold(
+      appBar: AppBar(
+        title: Text(widget.tenant['name'] as String),
+        actions: [
+          IconButton(
+            onPressed: reload,
+            tooltip: tr(context, '更新', 'Refresh'),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
+      body: AbsorbPointer(
+        absorbing: busy,
+        child: Column(
+          children: [
+            if (error != null)
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
                   children: [
-                    for (final m in members ?? <Map<String, dynamic>>[])
-                      if (m['is_trainer'] == true && m['status'] == 'active')
-                        CheckboxListTile(
-                          title: Text(m['display_name'] as String? ?? 'Member'),
-                          value: assignments!.any(
-                            (a) =>
-                                a['client_id'] == c['id'] &&
-                                a['user_id'] == m['user_id'],
-                          ),
-                          onChanged: (v) => run(() async {
-                            await widget.repository.mutate(
-                              v! ? 'assign' : 'unassign',
-                              {'client_id': c['id'], 'user_id': m['user_id']},
-                            );
-                          }),
-                        ),
+                    Expanded(child: Text(error!)),
+                    TextButton(
+                      onPressed: reload,
+                      child: Text(tr(context, '再試行', 'Retry')),
+                    ),
                   ],
                 ),
               ),
-        ],
+            if (busy || (members == null && error == null))
+              const LinearProgressIndicator(),
+            TabBar(
+              labelStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+              labelPadding: EdgeInsets.zero,
+              tabs: [
+                Tab(text: tr(context, 'スタッフ', 'Staff')),
+                Tab(text: tr(context, '顧客', 'Clients')),
+                Tab(text: tr(context, '担当割当', 'Assignments')),
+                Tab(text: tr(context, '契約', 'Billing')),
+              ],
+            ),
+            Expanded(
+              child: members == null
+                  ? error == null
+                        ? const Center(child: CircularProgressIndicator())
+                        : EmptyState(text: error!)
+                  : TabBarView(
+                      children: [
+                        _staff(context),
+                        _clients(context),
+                        _assignments(context),
+                        _billing(context),
+                      ],
+                    ),
+            ),
+          ],
+        ),
       ),
     ),
   );
