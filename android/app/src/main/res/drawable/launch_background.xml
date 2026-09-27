@@ -7,4 +7,9 @@
             android:gravity="center"
             android:src="@drawable/launch_logo" />
     </item>
+    <item android:bottom="60dp">
+        <bitmap
+            android:gravity="bottom|center_horizontal"
+            android:src="@drawable/launch_progress" />
+    </item>
 </layer-list>

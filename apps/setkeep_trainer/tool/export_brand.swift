@@ -28,15 +28,11 @@ for item in catalog["images"] as! [[String: String]] {
     let scale = Double(item["scale"]!.dropLast())!
     export("\(ios)/AppIcon.appiconset/\(item["filename"]!)", Int(point*scale))
 }
-for scale in 1...3 {
-    export("\(ios)/LaunchImage.imageset/LaunchImage\(scale == 1 ? "" : "@\(scale)x").png", 180*scale)
-}
 let res = "android/app/src/main/res"
 for (density, scale) in [("mdpi",1.0),("hdpi",1.5),("xhdpi",2.0),("xxhdpi",3.0),("xxxhdpi",4.0)] {
     export("\(res)/mipmap-\(density)/ic_launcher.png", Int(48*scale))
     export("\(res)/mipmap-\(density)/ic_launcher_round.png", Int(48*scale), round: true)
     // Symbol width 80%; 0.75 scale => 65dp; outer plates fit the safe circle.
     export("\(res)/drawable-\(density)/trainer_foreground.png", Int(108*scale), inset: 0.125)
-    export("\(res)/drawable-\(density)/launch_logo.png", Int(180*scale))
 }
-print("Exported TRAINER native icons and splash assets")
+print("Exported TRAINER native icons; use tool/export_native_splash.swift for splash assets")

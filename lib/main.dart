@@ -2935,11 +2935,12 @@ class _BodyMapPageState extends State<BodyMapPage> {
 
 enum MuscleMannequinAngle {
   front('正面'),
-  side('側面'),
   back('背面');
 
   const MuscleMannequinAngle(this.label);
   final String label;
+
+  int get bodyViewAngle => this == front ? 0 : 2;
 }
 
 class MuscleMannequinView extends StatefulWidget {
@@ -2948,14 +2949,14 @@ class MuscleMannequinView extends StatefulWidget {
     required this.scores,
     this.fallbackBodyPartCounts = const {},
     this.active = true,
-    this.showAngleControls = true,
+    this.tapToFlip = true,
   });
 
   /// Relative muscle intensities in [0, 1]; independent of period length.
   final Map<MuscleRegion, double> scores;
   final Map<String, int> fallbackBodyPartCounts;
   final bool active;
-  final bool showAngleControls;
+  final bool tapToFlip;
 
   @override
   State<MuscleMannequinView> createState() => _MuscleMannequinViewState();
@@ -2965,6 +2966,54 @@ class _MuscleMannequinViewState extends State<MuscleMannequinView> {
   final _controller = Interactive3dController();
   bool _ready = false;
   MuscleMannequinAngle _angle = MuscleMannequinAngle.front;
+  int? _tapPointer;
+  Offset? _tapPosition;
+  DateTime? _tapStartedAt;
+
+  void _toggleAngle() => setState(() {
+    _angle = _angle == MuscleMannequinAngle.front
+        ? MuscleMannequinAngle.back
+        : MuscleMannequinAngle.front;
+  });
+
+  Widget _tapFrame(Widget child) {
+    if (!widget.tapToFlip) return child;
+    return Semantics(
+      button: true,
+      label: '3D筋肉マネキン',
+      value: _angle.label,
+      hint: 'タップして反対側を見る',
+      onTap: _toggleAngle,
+      child: Listener(
+        key: const Key('muscleMannequinFrame'),
+        behavior: HitTestBehavior.opaque,
+        onPointerDown: (event) {
+          _tapPointer = event.pointer;
+          _tapPosition = event.position;
+          _tapStartedAt = DateTime.now();
+        },
+        onPointerCancel: (_) {
+          _tapPointer = null;
+          _tapPosition = null;
+          _tapStartedAt = null;
+        },
+        onPointerUp: (event) {
+          final tapped =
+              _tapPointer == event.pointer &&
+              _tapPosition != null &&
+              (event.position - _tapPosition!).distance < 12 &&
+              _tapStartedAt != null &&
+              DateTime.now().difference(_tapStartedAt!) <
+                  const Duration(milliseconds: 450);
+          _tapPointer = null;
+          _tapPosition = null;
+          _tapStartedAt = null;
+          if (tapped) _toggleAngle();
+        },
+        child: child,
+      ),
+    );
+  }
 
   List<MaterialOverride> get _materialOverrides {
     return [
@@ -2995,78 +3044,48 @@ class _MuscleMannequinViewState extends State<MuscleMannequinView> {
   Widget build(BuildContext context) {
     // IndexedStack keeps tab state, but a hidden platform view must be disposed.
     if (!widget.active) return const SizedBox.expand();
-    final angleControl = Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: SegmentedButton<MuscleMannequinAngle>(
-        key: const Key('muscleMannequinAngle'),
-        showSelectedIcon: false,
-        style: SegmentedButton.styleFrom(
-          foregroundColor: Colors.white70,
-          selectedForegroundColor: const Color(0xFF101820),
-          selectedBackgroundColor: FamilyPalette.of(context).accent,
-          visualDensity: VisualDensity.compact,
-        ),
-        segments: [
-          for (final angle in MuscleMannequinAngle.values)
-            ButtonSegment(value: angle, label: Text(angle.label)),
-        ],
-        selected: {_angle},
-        onSelectionChanged: (selection) =>
-            setState(() => _angle = selection.single),
-      ),
-    );
     if (Platform.isIOS || Platform.isAndroid) {
-      return Column(
-        children: [
-          if (widget.showAngleControls) angleControl,
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: Interactive3d(
-                key: const ValueKey('body-tab-continuous'),
-                controller: _controller,
-                modelPath:
-                    '${FamilyPalette.of(context).assetPrefix}assets/models/body_tab.glb',
-                formAnimation: true,
-                animationPlaying: false,
-                bodyViewAngle: _angle.index,
-                onModelReady: () {
-                  if (!mounted || !widget.active) return;
-                  _ready = true;
-                  _controller.setEntityMaterials(_materialOverrides);
-                },
-                solidBackgroundColor: const [0.035, 0.047, 0.055, 1],
-                backgroundColor: const Color(0xFF091219),
+      return _tapFrame(
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Interactive3d(
+            key: const ValueKey('body-tab-continuous'),
+            controller: _controller,
+            modelPath:
+                '${FamilyPalette.of(context).assetPrefix}assets/models/body_tab.glb',
+            formAnimation: true,
+            animationPlaying: false,
+            bodyViewAngle: _angle.bodyViewAngle,
+            onModelReady: () {
+              if (!mounted || !widget.active) return;
+              _ready = true;
+              _controller.setEntityMaterials(_materialOverrides);
+            },
+            solidBackgroundColor: const [0.035, 0.047, 0.055, 1],
+            backgroundColor: const Color(0xFF091219),
 
-                selectionColor: const [0.84, 0.03, 0.05, 1],
-                initialMaterialOverrides: _materialOverrides,
-                loadingWidget: const Center(
-                  child: CircularProgressIndicator(color: Color(0xFFE33A46)),
-                ),
-              ),
+            selectionColor: const [0.84, 0.03, 0.05, 1],
+            initialMaterialOverrides: _materialOverrides,
+            loadingWidget: const Center(
+              child: CircularProgressIndicator(color: Color(0xFFE33A46)),
             ),
           ),
-        ],
+        ),
       );
     }
 
     final maximum = widget.fallbackBodyPartCounts.values.fold<int>(1, math.max);
-    return Column(
-      children: [
-        if (widget.showAngleControls) angleControl,
-        Expanded(
-          child: Center(
-            child: CustomPaint(
-              key: const Key('bodyMannequinFallback'),
-              size: const Size(210, 300),
-              painter: _MuscleBodyPainter(
-                counts: widget.fallbackBodyPartCounts,
-                maximum: maximum,
-              ),
-            ),
+    return _tapFrame(
+      Center(
+        child: CustomPaint(
+          key: const Key('bodyMannequinFallback'),
+          size: const Size(210, 300),
+          painter: _MuscleBodyPainter(
+            counts: widget.fallbackBodyPartCounts,
+            maximum: maximum,
           ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -5342,13 +5361,38 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                appDisplayName,
-                                style: TextStyle(
-                                  color: AppColors.primaryGreen,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900,
-                                  letterSpacing: 1.2,
+                              DecoratedBox(
+                                key: const Key('shareBrandLogo'),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xEFFFFFFF),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 7,
+                                    vertical: 4,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Image.asset(
+                                        'assets/brand/setkeep_splash_mark.png',
+                                        width: 42,
+                                        height: 25,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      const Text(
+                                        'SETKEEP',
+                                        style: TextStyle(
+                                          color: Color(0xFF101820),
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w900,
+                                          letterSpacing: 0.6,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const Spacer(),
@@ -5439,7 +5483,7 @@ List<Widget> _exerciseShareRows(WorkoutRecord workout) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 27,
+            height: 23,
             width: 290,
             child: FittedBox(
               fit: BoxFit.scaleDown,
@@ -5450,7 +5494,7 @@ List<Widget> _exerciseShareRows(WorkoutRecord workout) {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -8609,7 +8653,7 @@ class ExerciseMuscleDetailPage extends StatelessWidget {
     ),
     clipBehavior: Clip.antiAlias,
     child: MuscleMannequinView(
-      showAngleControls: false,
+      tapToFlip: false,
       scores: scores,
       fallbackBodyPartCounts: {exercise.bodyPart: 1},
     ),

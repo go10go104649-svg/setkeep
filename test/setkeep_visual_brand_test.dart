@@ -79,21 +79,77 @@ void main() {
     }
   });
 
-  test('native splash screens use the app background and SETKEEP artwork', () {
+  test('native splash lockups use the approved general and trainer artwork', () {
     final android = File(
       'android/app/src/main/res/drawable/launch_background.xml',
     ).readAsStringSync();
     final ios = File('ios/Runner/Base.lproj/LaunchScreen.storyboard')
         .readAsStringSync();
+    final trainerAndroid = File(
+      'apps/setkeep_trainer/android/app/src/main/res/drawable/launch_background.xml',
+    ).readAsStringSync();
+    final trainerIos = File(
+      'apps/setkeep_trainer/ios/Runner/Base.lproj/LaunchScreen.storyboard',
+    ).readAsStringSync();
+    final artwork = File('tool/export_native_splash.swift').readAsStringSync();
 
     expect(android, contains('@color/setkeep_background'));
     expect(android, contains('@drawable/launch_logo'));
+    expect(android, contains('@drawable/launch_progress'));
     expect(ios, contains('image="LaunchImage"'));
-    expect(
-      pngSize(
-        'ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png',
-      ),
-      (540, 540),
-    );
+    expect(ios, contains('splash-track'));
+    expect(ios, contains('splash-accent'));
+    for (final theme in [
+      'android/app/src/main/res/values-v31/styles.xml',
+      'android/app/src/main/res/values-night-v31/styles.xml',
+    ]) {
+      expect(
+        File(theme).readAsStringSync(),
+        contains('windowSplashScreenBrandingImage'),
+      );
+    }
+    expect(trainerAndroid, contains('@color/trainer_background'));
+    expect(trainerAndroid, contains('@drawable/launch_logo'));
+    expect(trainerIos, contains('image="LaunchImage"'));
+    expect(artwork, contains('assets/brand/setkeep_splash_lockup_source.png'));
+    expect(artwork, contains('drawWord("TRAINER"'));
+    expect(pngSize('assets/brand/setkeep_splash_lockup_source.png'), (
+      460,
+      270,
+    ));
+    for (final prefix in ['', 'apps/setkeep_trainer/']) {
+      final logicalSize = prefix.isEmpty ? 240 : 180;
+      for (final scale in [1, 2, 3]) {
+        final suffix = scale == 1 ? '' : '@${scale}x';
+        expect(
+          pngSize(
+            '${prefix}ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage$suffix.png',
+          ),
+          (logicalSize * scale, logicalSize * scale),
+        );
+      }
+      for (final density in {
+        'mdpi': 180,
+        'hdpi': 270,
+        'xhdpi': 360,
+        'xxhdpi': 540,
+        'xxxhdpi': 720,
+      }.entries) {
+        expect(
+          pngSize(
+            '${prefix}android/app/src/main/res/drawable-${density.key}/launch_logo.png',
+          ),
+          (density.value, density.value),
+        );
+        if (prefix.isEmpty) {
+          expect(
+            pngSize(
+              'android/app/src/main/res/drawable-${density.key}/launch_progress.png',
+            ),
+            ((density.value * 200 ~/ 180), (density.value * 80 ~/ 180)),
+          );
+        }
+      }
+    }
   });
 }

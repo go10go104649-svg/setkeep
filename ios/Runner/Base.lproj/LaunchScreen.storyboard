@@ -18,11 +18,25 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
                             </imageView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="splash-track">
+                                <color key="backgroundColor" red="0.8666666667" green="0.8784313725" blue="0.8705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="splash-accent">
+                                <color key="backgroundColor" red="0" green="0.8156862745" blue="0.5176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.9568627451" green="0.9607843137" blue="0.9411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
+                            <constraint firstItem="splash-track" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="splash-track-center"/>
+                            <constraint firstItem="Ze5-6b-2t3" firstAttribute="bottom" secondItem="splash-track" secondAttribute="bottom" constant="104" id="splash-track-bottom"/>
+                            <constraint firstItem="splash-track" firstAttribute="width" constant="172" id="splash-track-width"/>
+                            <constraint firstItem="splash-track" firstAttribute="height" constant="4" id="splash-track-height"/>
+                            <constraint firstItem="splash-accent" firstAttribute="leading" secondItem="splash-track" secondAttribute="leading" id="splash-accent-leading"/>
+                            <constraint firstItem="splash-accent" firstAttribute="top" secondItem="splash-track" secondAttribute="top" id="splash-accent-top"/>
+                            <constraint firstItem="splash-accent" firstAttribute="width" constant="43" id="splash-accent-width"/>
+                            <constraint firstItem="splash-accent" firstAttribute="height" constant="4" id="splash-accent-height"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -32,6 +46,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="180" height="180"/>
+        <image name="LaunchImage" width="240" height="240"/>
     </resources>
 </document>

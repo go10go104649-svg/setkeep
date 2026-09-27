@@ -14,8 +14,10 @@ Export on macOS from `apps/setkeep_trainer`:
 
     swift tool/export_brand.swift
 
-This exports iOS catalog sizes, Android legacy/round/adaptive foreground and
-native splash sizes. Adaptive foreground is an opaque dark layer, scaled so
+This exports iOS catalog sizes and Android legacy/round/adaptive foreground.
+Run `swift tool/export_native_splash.swift` from the repository root to update
+the SETKEEP and TRAINER launch logos without changing either app icon.
+Adaptive foreground is an opaque dark layer, scaled so
 symbol fits the OS mask; background uses the same charcoal token. Do not use
 launcher artwork as an Android notification small icon: TRAINER currently has
 no native notification producer and no notification icon is required.

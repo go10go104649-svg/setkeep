@@ -224,6 +224,12 @@ void main() {
         ),
       ),
     );
+    expect(MuscleMannequinAngle.values, [
+      MuscleMannequinAngle.front,
+      MuscleMannequinAngle.back,
+    ]);
+    expect(MuscleMannequinAngle.front.bodyViewAngle, 0);
+    expect(MuscleMannequinAngle.back.bodyViewAngle, 2);
     var expected = MuscleMannequinAngle.front;
     for (final active in [false, true, false, true]) {
       await show(active);
@@ -233,27 +239,18 @@ void main() {
         active ? findsOneWidget : findsNothing,
       );
       expect(find.byKey(const Key('body-tab-continuous')), findsNothing);
-      final control = find.byKey(const Key('muscleMannequinAngle'));
-      expect(control, active ? findsOneWidget : findsNothing);
-      for (final angle in MuscleMannequinAngle.values) {
-        expect(find.text(angle.label), active ? findsOneWidget : findsNothing);
-      }
+      final frame = find.byKey(const Key('muscleMannequinFrame'));
+      expect(frame, active ? findsOneWidget : findsNothing);
+      expect(find.byKey(const Key('muscleMannequinAngle')), findsNothing);
+      expect(find.byType(SegmentedButton<MuscleMannequinAngle>), findsNothing);
       if (active) {
-        expect(
-          tester
-              .widget<SegmentedButton<MuscleMannequinAngle>>(control)
-              .selected,
-          {expected},
-        );
-        await tester.tap(find.text('背面'));
+        expect(tester.getSemantics(frame).value, expected.label);
+        await tester.tap(frame);
         await tester.pumpAndSettle();
-        expected = MuscleMannequinAngle.back;
-        expect(
-          tester
-              .widget<SegmentedButton<MuscleMannequinAngle>>(control)
-              .selected,
-          {expected},
-        );
+        expected = expected == MuscleMannequinAngle.front
+            ? MuscleMannequinAngle.back
+            : MuscleMannequinAngle.front;
+        expect(tester.getSemantics(frame).value, expected.label);
       }
     }
   });
@@ -1320,30 +1317,32 @@ void main() {
     expect(find.text('3D筋肉マネキン'), findsOneWidget);
     expect(find.byKey(const Key('muscleModel3D')), findsOneWidget);
 
-    final control = find.byKey(const Key('muscleMannequinAngle'));
-    Set<MuscleMannequinAngle> selected() =>
-        tester.widget<SegmentedButton<MuscleMannequinAngle>>(control).selected;
-    expect(selected(), {MuscleMannequinAngle.front});
-    await tester.tap(find.text('背面'));
+    final frame = find.byKey(const Key('muscleMannequinFrame'));
+    String selected() => tester.getSemantics(frame).value;
+    expect(selected(), '正面');
+    expect(find.byKey(const Key('muscleMannequinAngle')), findsNothing);
+    expect(find.text('側面'), findsNothing);
+    expect(find.text('背面'), findsNothing);
+    await tester.tapAt(tester.getTopLeft(frame) + const Offset(12, 12));
     await tester.pumpAndSettle();
-    expect(selected(), {MuscleMannequinAngle.back});
+    expect(selected(), '背面');
     await tester.tap(find.byKey(const Key('musclePeriodmonth')));
     await tester.pumpAndSettle();
     expect(find.text('1ヶ月 ・ 1セット'), findsOneWidget);
-    expect(selected(), {MuscleMannequinAngle.back});
+    expect(selected(), '背面');
     expect(find.text('3方向表示'), findsNothing);
-    await tester.tap(find.text('側面'));
+    await tester.tap(frame);
     await tester.pumpAndSettle();
-    expect(selected(), {MuscleMannequinAngle.side});
+    expect(selected(), '正面');
     await tester.tap(find.byKey(const Key('musclePeriodweek')));
     await tester.pumpAndSettle();
     expect(find.text('1週間 ・ 0セット'), findsOneWidget);
-    expect(selected(), {MuscleMannequinAngle.side});
+    expect(selected(), '正面');
     expect(find.byKey(const Key('muscleModel3D')), findsOneWidget);
     expect(find.byKey(const Key('bodyMannequinFallback')), findsOneWidget);
     await tester.tap(find.byKey(const Key('musclePeriodmonth')));
     await tester.pumpAndSettle();
-    expect(selected(), {MuscleMannequinAngle.side});
+    expect(selected(), '正面');
 
     await tester.scrollUntilVisible(
       find.byKey(const Key('muscleCount背中')),
@@ -3707,6 +3706,20 @@ void main() {
     expect(find.byKey(const Key('chooseSharePhotoButton')), findsOneWidget);
     expect(find.byKey(const Key('shareWorkoutImageButton')), findsOneWidget);
     expect(find.text('保存'), findsOneWidget);
+    final brand = find.byKey(const Key('shareBrandLogo'));
+    expect(brand, findsOneWidget);
+    final mark = find.descendant(of: brand, matching: find.byType(Image));
+    expect(mark, findsOneWidget);
+    expect(
+      (tester.widget<Image>(mark).image as AssetImage).assetName,
+      'assets/brand/setkeep_splash_mark.png',
+    );
+    expect(find.textContaining('TRAIN TODAY. KEEP GROWING.'), findsNothing);
+    final longTitle = tester.widget<Text>(
+      find.text('インクラインダンベルプレス（スローテンポ・ワイドグリップ）'),
+    );
+    expect(longTitle.maxLines, 1);
+    expect(longTitle.style?.fontSize, 16);
     expect(tester.takeException(), isNull);
 
     expect(find.byKey(const Key('shareVolumeToggle')), findsNothing);

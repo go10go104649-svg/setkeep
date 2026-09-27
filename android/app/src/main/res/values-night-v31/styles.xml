@@ -3,6 +3,7 @@
     <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowSplashScreenBackground">@color/setkeep_background</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/launch_logo</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/launch_progress</item>
         <item name="android:windowSplashScreenIconBackgroundColor">@color/setkeep_background</item>
     </style>
 </resources>
