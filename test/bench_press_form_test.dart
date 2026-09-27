@@ -2,13 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:interactive_3d/interactive_3d.dart';
 import 'package:interactive_3d/src/form_model.dart';
 import 'package:setkeep/bench_press_form.dart';
-import 'package:setkeep/exercise_form_catalog.dart';
 
 void main() {
   test(
@@ -167,118 +163,4 @@ void main() {
     );
   }
 
-  testWidgets(
-    'form controls preserve pause and default speed across lifecycle changes and dispose the scene',
-    (tester) async {
-      tester.view.physicalSize = const Size(430, 932);
-      tester.view.devicePixelRatio = 1;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-      final calls = <MethodCall>[];
-      final messenger =
-          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
-      messenger.setMockMethodCallHandler(
-        const MethodChannel('interactive_3d_plugin'),
-        (call) async {
-          calls.add(call);
-          return call.method == 'createTexture' ? {'textureId': 99} : null;
-        },
-      );
-      messenger.setMockMethodCallHandler(
-        const MethodChannel('interactive_3d_events_99'),
-        (_) async => null,
-      );
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: AppBar(title: const Text('ベンチプレス')),
-            body: const SingleChildScrollView(child: BenchPressFormView()),
-          ),
-        ),
-      );
-      final card = find.byKey(const Key('benchPressForm3D'));
-      for (final label in ['ループ再生', '0.5倍速', '1倍速', '1.5倍速', 'ベンチプレス']) {
-        expect(find.descendant(of: card, matching: find.text(label)), findsNothing);
-      }
-      expect(find.byKey(const Key('benchPressPlaybackSpeed')), findsNothing);
-      expect(find.byType(DropdownButton<double>), findsNothing);
-      expect(find.descendant(of: find.byType(AppBar), matching: find.text('ベンチプレス')), findsOneWidget);
-      final playPause = find.byKey(const Key('benchPressPlayPause'));
-      expect(playPause, findsOneWidget);
-      expect(tester.widget<FilledButton>(playPause).onPressed, isNull);
-      final defaultSpeed = ExerciseFormCatalog.forName('ベンチプレス')!.animationSpeed;
-      // Exercise the Flutter controls independently from native renderer readiness.
-      final native = tester.widget<Interactive3d>(find.byType(Interactive3d));
-      native.onModelReady!();
-      await tester.pump();
-      await tester.tap(find.byKey(const Key('benchPressPlayPause')));
-      await tester.pump();
-      expect(
-        tester
-            .widget<Interactive3d>(find.byType(Interactive3d))
-            .animationPlaying,
-        isFalse,
-      );
-      expect(
-        tester.widget<Interactive3d>(find.byType(Interactive3d)).animationSpeed,
-        defaultSpeed,
-      );
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
-      await tester.pump();
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      await tester.pump();
-      expect(
-        tester
-            .widget<Interactive3d>(find.byType(Interactive3d))
-            .animationPlaying,
-        isFalse,
-      );
-      await tester.tap(find.byKey(const Key('benchPressPlayPause')));
-      await tester.pump();
-      expect(
-        tester
-            .widget<Interactive3d>(find.byType(Interactive3d))
-            .animationPlaying,
-        isTrue,
-      );
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
-      await tester.pump();
-      expect(
-        tester
-            .widget<Interactive3d>(find.byType(Interactive3d))
-            .animationPlaying,
-        isFalse,
-      );
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      await tester.pump();
-      expect(
-        tester.widget<Interactive3d>(find.byType(Interactive3d)).animationSpeed,
-        defaultSpeed,
-      );
-      tester.widget<Interactive3d>(find.byType(Interactive3d)).onModelError!('test failure');
-      await tester.pump();
-      expect(tester.widget<FilledButton>(playPause).onPressed, isNull);
-      expect(find.textContaining('3Dフォームを読み込めませんでした'), findsOneWidget);
-      await tester.pumpWidget(const SizedBox.shrink());
-      await tester.pumpAndSettle();
-      expect(find.byType(Interactive3d), findsNothing);
-      await tester.runAsync(() async {
-        await Future<void>.delayed(const Duration(milliseconds: 10));
-      });
-      expect(
-        calls.any((c) => c.method == 'disposeTexture'),
-        isTrue,
-        reason: calls.map((c) => c.method).join(', '),
-      );
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      messenger.setMockMethodCallHandler(
-        const MethodChannel('interactive_3d_plugin'),
-        null,
-      );
-      messenger.setMockMethodCallHandler(
-        const MethodChannel('interactive_3d_events_99'),
-        null,
-      );
-    },
-  );
 }

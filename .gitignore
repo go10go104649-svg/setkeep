@@ -73,7 +73,13 @@ android/key.properties
 /docs/qa/**/*.mp4
 /docs/qa/**/*.mov
 
-# Licensed Vital trial media stays on the local machine.
-/local_assets/vital_animations/**/*.mp4
-/local_assets/vital_animations/**/*.json
-/local_assets/vital_animations/**/*.png
+# Licensed Vital media and locally staged app assets stay on this machine.
+/local_assets/vital_animations/
+/assets/vital_videos/*.mp4
+/assets/vital_thumbnails/*.png
+
+# Licensed Vital media - keep only local
+/assets/vital_videos/*
+!/assets/vital_videos/.gitkeep
+/assets/vital_thumbnails/*
+!/assets/vital_thumbnails/.gitkeep

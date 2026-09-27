@@ -836,9 +836,10 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(home: ExerciseMuscleDetailPage(exercise: exercise)),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
 
-    expect(find.byKey(const Key('exerciseMuscleModel3D')), findsOneWidget);
+    expect(find.byKey(const Key('exerciseVitalVideoCard')), findsOneWidget);
     expect(find.text('主に使う筋肉'), findsOneWidget);
     expect(find.text('大胸筋'), findsOneWidget);
     expect(find.text('三角筋前部'), findsOneWidget);
@@ -909,10 +910,11 @@ void main() {
       expect(tester.widget<Text>(title).maxLines, 2);
       final favoritesBefore = await ExerciseFavoritePreference.load();
       await tester.tap(detail);
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
       expect(find.byType(ExerciseMuscleDetailPage), findsOneWidget);
       expect(find.text(exercise.name), findsWidgets);
-      expect(find.byKey(const Key('exerciseMuscleModel3D')), findsOneWidget);
+      expect(find.byKey(const Key('exerciseMuscleModel3D')), findsNothing);
       await tester.pageBack();
       await tester.pumpAndSettle();
       expect(find.text('0種目選択中'), findsOneWidget);

@@ -8,7 +8,7 @@ import 'exercise_media.dart';
 final RouteObserver<PageRoute<dynamic>> exerciseMediaRouteObserver =
     RouteObserver<PageRoute<dynamic>>();
 
-/// Read-only trial player; a failed or absent source keeps the existing guide.
+/// Read-only form video player with a non-3D fallback for missing media.
 class ExerciseMediaFormView extends StatefulWidget {
   const ExerciseMediaFormView({
     super.key,
@@ -116,11 +116,17 @@ class _ExerciseMediaFormViewState extends State<ExerciseMediaFormView>
       setState(() => _loading = false);
       await _syncPlayback();
     } catch (_) {
-      if (mounted && widget.media == media) {
-        setState(() {
-          _loading = false;
-          _failed = true;
-        });
+      if (widget.media == media) {
+        final controller = _controller;
+        _controller = null;
+        controller?.removeListener(_onPlayerChange);
+        if (controller != null) await controller.dispose();
+        if (mounted) {
+          setState(() {
+            _loading = false;
+            _failed = true;
+          });
+        }
       }
     }
   }
@@ -165,45 +171,24 @@ class _ExerciseMediaFormViewState extends State<ExerciseMediaFormView>
   @override
   Widget build(BuildContext context) {
     if (_failed) return widget.fallback;
-    return Container(
+    final controller = _controller;
+    return ClipRRect(
       key: const Key('exerciseVitalVideoCard'),
-      decoration: BoxDecoration(
-        color: const Color(0xFF111820),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 18, 18, 8),
-            child: Text(
-              Localizations.localeOf(context).languageCode == 'en'
-                  ? 'Form guide · Trial video'
-                  : 'フォームガイド ・ 試用動画',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
+      borderRadius: BorderRadius.circular(10),
+      child: AspectRatio(
+        aspectRatio: controller?.value.isInitialized == true
+            ? controller!.value.aspectRatio
+            : 1,
+        child: _loading || controller?.value.isInitialized != true
+            ? const Center(child: CircularProgressIndicator())
+            : FittedBox(
+                fit: BoxFit.contain,
+                child: SizedBox(
+                  width: controller!.value.size.width,
+                  height: controller.value.size.height,
+                  child: VideoPlayer(controller),
+                ),
               ),
-            ),
-          ),
-          AspectRatio(
-            aspectRatio: 1,
-            child: _loading || _controller?.value.isInitialized != true
-                ? const Center(child: CircularProgressIndicator())
-                : ClipRect(
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: SizedBox(
-                        width: _controller!.value.size.width,
-                        height: _controller!.value.size.height,
-                        child: VideoPlayer(_controller!),
-                      ),
-                    ),
-                  ),
-          ),
-        ],
       ),
     );
   }

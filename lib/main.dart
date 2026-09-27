@@ -38,7 +38,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config/supabase_config.dart';
 import 'body_part_illustration.dart';
 import 'body_weight.dart';
-import 'bench_press_form.dart';
 import 'muscle_targets.dart';
 import 'services/supabase_sync_service.dart';
 import 'services/account_auth_service.dart';
@@ -8535,10 +8534,12 @@ class ExerciseMuscleDetailPage extends StatelessWidget {
             ExerciseMediaFormView(
               key: ValueKey(exercise.identity),
               media: media,
-              fallback: _existingGuide(form, scores),
+              fallback: _formUnavailable('フォームガイド動画を再生できませんでした'),
             )
+          else if (form?.available == true)
+            _formUnavailable('この種目のフォームガイド動画を確認中です')
           else
-            _existingGuide(form, scores),
+            _muscleTargetGuide(scores),
           const SizedBox(height: 18),
           const Text(
             '主に使う筋肉',
@@ -8593,32 +8594,26 @@ class ExerciseMuscleDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _existingGuide(
-    ExerciseFormDefinition? form,
-    Map<MuscleRegion, double> scores,
-  ) {
-    if (form?.available == true && (Platform.isIOS || Platform.isAndroid)) {
-      return ExerciseFormView(
-        key: ValueKey(exercise.identity),
-        exerciseName: exercise.name,
-        definition: form,
-      );
-    }
-    return Container(
-      key: const Key('exerciseMuscleModel3D'),
-      height: 470,
-      decoration: BoxDecoration(
-        color: const Color(0xFF091219),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: MuscleMannequinView(
-        showAngleControls: false,
-        scores: scores,
-        fallbackBodyPartCounts: {exercise.bodyPart: 1},
-      ),
-    );
-  }
+  Widget _formUnavailable(String message) => Padding(
+    key: const Key('exerciseFormUnavailable'),
+    padding: const EdgeInsets.symmetric(vertical: 28),
+    child: Text(message, textAlign: TextAlign.center),
+  );
+
+  Widget _muscleTargetGuide(Map<MuscleRegion, double> scores) => Container(
+    key: const Key('exerciseMuscleModel3D'),
+    height: 470,
+    decoration: BoxDecoration(
+      color: const Color(0xFF091219),
+      borderRadius: BorderRadius.circular(24),
+    ),
+    clipBehavior: Clip.antiAlias,
+    child: MuscleMannequinView(
+      showAngleControls: false,
+      scores: scores,
+      fallbackBodyPartCounts: {exercise.bodyPart: 1},
+    ),
+  );
 }
 
 class CustomExerciseManagementPage extends StatefulWidget {

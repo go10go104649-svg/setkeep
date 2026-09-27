@@ -312,7 +312,10 @@ void main() {
     await t.enterText(find.byKey(const Key('exerciseSearchField')), 'ベンチプレス');
     await t.pumpAndSettle();
     await t.tap(find.byKey(const Key('exerciseDetailsbench_press')));
-    await t.pumpAndSettle();
+    // The video player's loading indicator animates until its platform
+    // controller is ready; the detail content does not depend on that event.
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 400));
     expect(find.text('この店舗で使用可能'), findsOneWidget);
     expect(find.text('パワーラック ＋ アジャスタブルベンチ'), findsOneWidget);
   });

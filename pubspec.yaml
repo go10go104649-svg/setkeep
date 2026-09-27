@@ -37,11 +37,8 @@ flutter:
   assets:
     - assets/brand/setkeep_splash_mark.png
     - assets/exercise_thumbnails/
-    - local_assets/vital_animations/free50/videos/
+    - assets/vital_videos/
+    - assets/vital_thumbnails/
     - assets/models/body_tab.glb
-    - assets/models/forms/
-    - assets/models/form_chunks/
-    - assets/models/bench_press.glb
-    - assets/models/incline_dumbbell_press.glb
     - assets/category_muscles/
     - assets/sounds/rest_complete.wav

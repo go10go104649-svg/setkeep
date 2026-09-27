@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:setkeep/exercise_form_catalog.dart';
+import 'package:setkeep/bench_press_form.dart';
 import 'package:setkeep/exercise_media.dart';
 import 'package:setkeep/exercise_media_form_view.dart';
 import 'package:setkeep/main.dart';
@@ -96,7 +97,17 @@ class _TestVideoPlatform extends VideoPlayerPlatform {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const mapped = {
+  const originalMappings = {
+    'bench_press': '0042',
+    'incline_dumbbell_press': '0048',
+    'incline_barbell_press': '0043',
+    'flat_dumbbell_press': '0046',
+    'assisted_chin_up': '0102',
+    'cable_row': '0163',
+    'dumbbell_shoulder_press': '0257',
+    'barbell_curl': '0009',
+    'dumbbell_curl': '0015',
+    'hammer_curl': '0016',
     'pec_fly': '0051',
     'barbell_squat': '0054',
     'leg_press': '0074',
@@ -104,9 +115,9 @@ void main() {
     'machine_lateral_raise': '0097',
   };
 
-  test('five Vital IDs map to existing SETKEEP identities only', () async {
-    expect(ExerciseMediaCatalog.trialEntries, hasLength(5));
-    for (final entry in mapped.entries) {
+  test('reviewed Vital IDs map to existing SETKEEP identities only', () async {
+    expect(ExerciseMediaCatalog.entries, hasLength(97));
+    for (final entry in originalMappings.entries) {
       final media = ExerciseMediaCatalog.forExerciseId(entry.key)!;
       expect(media.exerciseId, entry.key);
       expect(media.provider, 'vital_animations');
@@ -119,46 +130,55 @@ void main() {
       ExerciseMediaCatalog.forExerciseId('triceps_pushdown')?.exerciseId,
       'rope_pushdown',
     );
-    expect(ExerciseMediaCatalog.forExerciseId('bench_press'), isNull);
-    expect(ExerciseMediaCatalog.forExerciseId('lateral_raise'), isNull);
-    final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+    expect(ExerciseMediaCatalog.forExerciseId('dy_row'), isNull);
+    expect(ExerciseMediaCatalog.forExerciseId('cable_lateral_raise'), isNull);
     expect(
-      manifest.listAssets(),
-      contains(ExerciseMediaCatalog.forExerciseId('pec_fly')!.assetPath),
+      ExerciseMediaCatalog.forExerciseId('single_arm_cable_lateral_raise')
+          ?.providerAssetId,
+      '0137',
     );
-    expect(
-      manifest.listAssets(),
-      contains(
-        ExerciseMediaCatalog.forExerciseId('pec_fly')!.thumbnailAssetPath,
-      ),
-    );
+    final benchMedia = ExerciseMediaCatalog.forExerciseId('bench_press')!;
+    if (File(benchMedia.assetPath).existsSync()) {
+      final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+      expect(manifest.listAssets(), contains(benchMedia.assetPath));
+      expect(manifest.listAssets(), contains(benchMedia.thumbnailAssetPath));
+    }
   });
 
-  test('local Free50 source and selected videos match the real metadata', () {
-    final jsonFile = File(
-      'local_assets/vital_animations/free50/50gymworkouts.json',
-    );
-    if (!jsonFile.existsSync()) return; // Licensed files are never committed.
-    final entries = jsonDecode(jsonFile.readAsStringSync()) as List;
-    expect(entries, hasLength(50));
-    expect(entries.map((e) => e['id']).toSet(), hasLength(50));
-    for (final entry in mapped.entries) {
-      final vital = entries.singleWhere((e) => e['id'] == entry.value);
-      expect(vital['name'], isNotEmpty);
+  test('purchased source and staged videos match reviewed IDs', () {
+    final manifest = jsonDecode(
+      File('tool/vital_media/mapping.json').readAsStringSync(),
+    ) as Map<String, dynamic>;
+    final source = Directory('local_assets/vital_animations/gym_dataset');
+    if (!source.existsSync()) return; // Licensed files are never committed.
+    expect(manifest['mappings'], hasLength(97));
+    expect(manifest['reviewRequired'], hasLength(94));
+    for (final item in manifest['mappings'] as List) {
+      final exerciseId = item['exerciseId'] as String;
+      final vitalId = item['providerAssetId'] as String;
+      expect(
+        ExerciseMediaCatalog.forExerciseId(exerciseId)?.providerAssetId,
+        vitalId,
+      );
+      expect(
+        File('${source.path}/${item['sourceAsset']}').existsSync(),
+        isTrue,
+      );
       final video = File(
-        ExerciseMediaCatalog.forExerciseId(entry.key)!.assetPath,
+        ExerciseMediaCatalog.forExerciseId(exerciseId)!.assetPath,
       );
       expect(video.existsSync(), isTrue);
       expect(video.lengthSync(), greaterThan(100000));
       expect(
-        File(ExerciseMediaCatalog.forExerciseId(entry.key)!.thumbnailAssetPath!)
-            .existsSync(),
+        File(
+          ExerciseMediaCatalog.forExerciseId(exerciseId)!.thumbnailAssetPath!,
+        ).existsSync(),
         isTrue,
       );
     }
   });
 
-  group('trial form video', () {
+  group('purchased form video', () {
     late VideoPlayerPlatform original;
     late _TestVideoPlatform video;
 
@@ -168,10 +188,11 @@ void main() {
     });
     tearDown(() => VideoPlayerPlatform.instance = original);
 
-    testWidgets('all five detail pages prefer muted looping video', (
+    testWidgets('all mapped detail pages prefer muted looping video', (
       tester,
     ) async {
-      for (final id in mapped.keys) {
+      for (final media in ExerciseMediaCatalog.entries) {
+        final id = media.exerciseId;
         final form = ExerciseFormCatalog.byId[id]!;
         await tester.pumpWidget(
           MaterialApp(
@@ -187,6 +208,8 @@ void main() {
           reason: id,
         );
         expect(find.byType(VideoPlayer), findsOneWidget, reason: id);
+        expect(find.textContaining('試用動画'), findsNothing);
+        expect(find.byType(ExerciseFormView), findsNothing);
         expect(
           video.sources.last.asset,
           ExerciseMediaCatalog.forExerciseId(id)!.assetPath,
@@ -199,12 +222,13 @@ void main() {
           () async => Future<void>.delayed(const Duration(milliseconds: 10)),
         );
       }
-      expect(video.calls.where((call) => call == 'dispose'), hasLength(5));
+      expect(
+        video.calls.where((call) => call == 'dispose'),
+        hasLength(ExerciseMediaCatalog.entries.length),
+      );
     });
 
-    testWidgets('absent Vital asset keeps the existing 3D guide', (
-      tester,
-    ) async {
+    testWidgets('absent Vital asset uses a non-3D fallback', (tester) async {
       final media = ExerciseMediaCatalog.forExerciseId('barbell_squat')!;
       await tester.pumpWidget(
         MaterialApp(
@@ -214,7 +238,10 @@ void main() {
                 ExerciseMediaFormView(
                   media: media,
                   assetAvailable: (_) async => false,
-                  fallback: const SizedBox(height: 100, key: Key('existing3D')),
+                  fallback: const SizedBox(
+                    height: 100,
+                    key: Key('unavailable'),
+                  ),
                 ),
               ],
             ),
@@ -222,7 +249,8 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('existing3D')), findsOneWidget);
+      expect(find.byKey(const Key('unavailable')), findsOneWidget);
+      expect(find.byType(ExerciseFormView), findsNothing);
       expect(find.byType(VideoPlayer), findsNothing);
     });
 
@@ -314,18 +342,79 @@ void main() {
       expect(video.calls.where((call) => call == 'play'), hasLength(2));
     });
 
-    testWidgets('unmapped exercise detail has no video', (tester) async {
-      final form = ExerciseFormCatalog.byId['bench_press']!;
+    testWidgets('video pauses in background and resumes in foreground', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: ExerciseMuscleDetailPage(
-            exercise: ExerciseTemplate.fromForm(form),
+          home: Scaffold(
+            body: ExerciseMediaFormView(
+              media: ExerciseMediaCatalog.forExerciseId('lat_pulldown')!,
+              assetAvailable: (_) async => true,
+              fallback: const SizedBox.shrink(),
+            ),
           ),
         ),
       );
+      await tester.pumpAndSettle();
+      expect(video.calls.where((call) => call == 'play'), hasLength(1));
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
       await tester.pump();
-      expect(find.byKey(const Key('exerciseVitalVideoCard')), findsNothing);
-      expect(find.byKey(const Key('exerciseMuscleModel3D')), findsOneWidget);
+      expect(video.calls, contains('pause'));
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      expect(video.calls.where((call) => call == 'play'), hasLength(2));
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+
+    for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
+      testWidgets('long detail title and form fit a small $platform screen', (
+        tester,
+      ) async {
+        tester.view.physicalSize = const Size(320, 568);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+        final form =
+            ExerciseFormCatalog.byId['single_arm_cable_lateral_raise']!;
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: ThemeData(platform: platform),
+            home: ExerciseMuscleDetailPage(
+              exercise: ExerciseTemplate.fromForm(form),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key('exerciseVitalVideoCard')), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      });
+    }
+
+    testWidgets('unmatched former 3D guide is not shown', (tester) async {
+      for (final id in ['dy_row', 'low_row', 'linear_row', 'high_row']) {
+        final form = ExerciseFormCatalog.byId[id]!;
+        await tester.pumpWidget(
+          MaterialApp(
+            home: ExerciseMuscleDetailPage(
+              exercise: ExerciseTemplate.fromForm(form),
+            ),
+          ),
+        );
+        await tester.pump();
+        expect(
+          find.byKey(const Key('exerciseVitalVideoCard')),
+          findsNothing,
+          reason: id,
+        );
+        expect(
+          find.byKey(const Key('exerciseFormUnavailable')),
+          findsOneWidget,
+          reason: id,
+        );
+        expect(find.byType(ExerciseFormView), findsNothing, reason: id);
+        await tester.pumpWidget(const SizedBox.shrink());
+      }
     });
   });
 }

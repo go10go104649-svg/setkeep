@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:setkeep/exercise_form_catalog.dart';
 import 'package:setkeep/exercise_list_thumbnail.dart';
+import 'package:setkeep/exercise_media.dart';
+import 'package:video_player/video_player.dart';
 
 void main() {
-  testWidgets('verified 3D form uses its still image in a square slot', (
+  testWidgets('mapped form uses its Vital still image in a square slot', (
     tester,
   ) async {
-    final path = ExerciseFormCatalog.byId['bench_press']!.thumbnailAssetPath;
-    expect(path, 'assets/exercise_thumbnails/bench_press.png');
+    final path = ExerciseMediaCatalog.forExerciseId('bench_press')!
+        .thumbnailAssetPath;
+    expect(path, 'assets/vital_thumbnails/0042.png');
+    if (!File(path!).existsSync()) return; // Purchased media is local-only.
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(body: ExerciseListThumbnail(assetPath: path)),
@@ -22,7 +27,28 @@ void main() {
     final image = tester.widget<Image>(find.byType(Image));
     expect((image.image as AssetImage).assetName, path);
     expect(image.fit, BoxFit.contain);
+    expect(find.byType(VideoPlayer), findsNothing);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('new Vital mapping uses a still image without video playback', (
+    tester,
+  ) async {
+    final path = ExerciseMediaCatalog.forExerciseId('lat_pulldown')!
+        .thumbnailAssetPath!;
+    expect(path, 'assets/vital_thumbnails/0037.png');
+    if (!File(path).existsSync()) return;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(body: ExerciseListThumbnail(assetPath: path)),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(
+      (tester.widget<Image>(find.byType(Image)).image as AssetImage).assetName,
+      path,
+    );
+    expect(find.byType(VideoPlayer), findsNothing);
   });
 
   testWidgets('form without a still image uses muted SETKEEP mark', (

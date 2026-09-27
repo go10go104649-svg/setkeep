@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:setkeep/bench_press_form.dart';
+import 'package:video_player/video_player.dart';
 import 'package:setkeep/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,14 +33,14 @@ void main() {
       findsOneWidget,
     );
 
-    await tester.tap(find.byKey(const Key('exerciseMusclesベンチプレス')));
+    await tester.tap(find.byKey(const Key('exerciseDetailsbench_press')));
     await tester.pumpAndSettle();
-    expect(find.byType(BenchPressFormView), findsOneWidget);
-    await binding.takeScreenshot('android_bench_press_3d');
+    expect(find.byType(VideoPlayer), findsOneWidget);
+    await binding.takeScreenshot('android_bench_press_vital');
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byKey(const Key('exerciseMusclesチェストプレス')));
+    await tester.tap(find.byKey(const Key('exerciseDetailschest_press')));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('exerciseMuscleModel3D')), findsOneWidget);
     await binding.takeScreenshot('android_chest_press_3d');

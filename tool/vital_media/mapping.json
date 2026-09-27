@@ -1,0 +1,1449 @@
+{
+  "schemaVersion": 1,
+  "provider": "vital_animations",
+  "sourceRoot": "local_assets/vital_animations/gym_dataset",
+  "mappings": [
+    {
+      "exerciseId": "bench_press",
+      "providerAssetId": "0042",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0042.mp4",
+      "vitalName": "barbell bench press flat",
+      "equipment": "barbell",
+      "reason": "flat barbell bench, pronated press"
+    },
+    {
+      "exerciseId": "incline_dumbbell_press",
+      "providerAssetId": "0048",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0048.mp4",
+      "vitalName": "dumbbell bench press incline",
+      "equipment": "dumbbell",
+      "reason": "incline bench, pair of dumbbells, pronated press"
+    },
+    {
+      "exerciseId": "incline_barbell_press",
+      "providerAssetId": "0043",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0043.mp4",
+      "vitalName": "barbell incline bench press",
+      "equipment": "barbell",
+      "reason": "incline bench and barbell press"
+    },
+    {
+      "exerciseId": "flat_dumbbell_press",
+      "providerAssetId": "0046",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0046.mp4",
+      "vitalName": "dumbbell bench press (bench)",
+      "equipment": "dumbbell",
+      "reason": "flat bench and pair of dumbbells"
+    },
+    {
+      "exerciseId": "assisted_chin_up",
+      "providerAssetId": "0102",
+      "sourceAsset": "200 Workouts/200 Workouts/0102.mp4",
+      "vitalName": "assisted pull up",
+      "equipment": "assisted",
+      "reason": "assisted machine, overhand pull; matches existing pronated definition"
+    },
+    {
+      "exerciseId": "cable_row",
+      "providerAssetId": "0163",
+      "sourceAsset": "200 Workouts/200 Workouts/0163.mp4",
+      "vitalName": "seated cable row",
+      "equipment": "cable",
+      "reason": "seated low-cable row with neutral handles and foot platform"
+    },
+    {
+      "exerciseId": "dumbbell_shoulder_press",
+      "providerAssetId": "0257",
+      "sourceAsset": "200 Workouts/200 Workouts/0257.mp4",
+      "vitalName": "dumbbell shoulder press",
+      "equipment": "dumbbell",
+      "reason": "seated overhead dumbbell press with back support"
+    },
+    {
+      "exerciseId": "barbell_curl",
+      "providerAssetId": "0009",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0009.mp4",
+      "vitalName": "barbell curl standard",
+      "equipment": "barbell",
+      "reason": "standing underhand straight-bar curl"
+    },
+    {
+      "exerciseId": "dumbbell_curl",
+      "providerAssetId": "0015",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0015.mp4",
+      "vitalName": "dumbbell curl",
+      "equipment": "dumbbell",
+      "reason": "standing two-dumbbell supinated curl"
+    },
+    {
+      "exerciseId": "hammer_curl",
+      "providerAssetId": "0016",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0016.mp4",
+      "vitalName": "dumbbell hammer curl",
+      "equipment": "dumbbell",
+      "reason": "standing two-dumbbell neutral-grip curl"
+    },
+    {
+      "exerciseId": "pec_fly",
+      "providerAssetId": "0051",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0051.mp4",
+      "vitalName": "pec deck machine fly",
+      "equipment": "machine",
+      "reason": "existing Vital trial mapping; pec deck machine fly"
+    },
+    {
+      "exerciseId": "barbell_squat",
+      "providerAssetId": "0054",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0054.mp4",
+      "vitalName": "barbell back squat",
+      "equipment": "barbell",
+      "reason": "existing Vital trial mapping; barbell back squat"
+    },
+    {
+      "exerciseId": "leg_press",
+      "providerAssetId": "0074",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0074.mp4",
+      "vitalName": "leg press machine",
+      "equipment": "machine",
+      "reason": "existing Vital trial mapping; leg press machine"
+    },
+    {
+      "exerciseId": "rope_pushdown",
+      "providerAssetId": "0085",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0085.mp4",
+      "vitalName": "triceps pushdown (cable - rope)",
+      "equipment": "cable",
+      "reason": "existing Vital trial mapping; rope cable pushdown"
+    },
+    {
+      "exerciseId": "machine_lateral_raise",
+      "providerAssetId": "0097",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0097.mp4",
+      "vitalName": "lateral raise machine",
+      "equipment": "machine",
+      "reason": "existing Vital trial mapping; lateral raise machine"
+    },
+    {
+      "exerciseId": "chest_press",
+      "providerAssetId": "0237",
+      "sourceAsset": "200 Workouts/200 Workouts/0237.mp4",
+      "vitalName": "seated machine chest press",
+      "equipment": "machine",
+      "reason": "Chest Press Machineとseated machine chest pressの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 pectorals。"
+    },
+    {
+      "exerciseId": "dips",
+      "providerAssetId": "0045",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0045.mp4",
+      "vitalName": "dips (chest focus - leaning forward)",
+      "equipment": "body weight",
+      "reason": "Dipsとdips (chest focus - leaning forward)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 chest。"
+    },
+    {
+      "exerciseId": "push_up",
+      "providerAssetId": "1192",
+      "sourceAsset": "100 Workouts/100 Workouts/1192.mp4",
+      "vitalName": "standard push up",
+      "equipment": "body weight",
+      "reason": "Push Upとstandard push upの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 chest。"
+    },
+    {
+      "exerciseId": "chin_up",
+      "providerAssetId": "0038",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0038.mp4",
+      "vitalName": "pull up",
+      "equipment": "body weight",
+      "reason": "Chin Upとpull upの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "seated_row",
+      "providerAssetId": "0157",
+      "sourceAsset": "200 Workouts/200 Workouts/0157.mp4",
+      "vitalName": "machine seated row",
+      "equipment": "machine",
+      "reason": "Seated Row Machineとmachine seated rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "bent_over_row",
+      "providerAssetId": "0188",
+      "sourceAsset": "200 Workouts/200 Workouts/0188.mp4",
+      "vitalName": "bent over barbell row",
+      "equipment": "barbell",
+      "reason": "Bent Over Rowとbent over barbell rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "one_arm_dumbbell_row",
+      "providerAssetId": "0203",
+      "sourceAsset": "200 Workouts/200 Workouts/0203.mp4",
+      "vitalName": "single arm dumbbell row",
+      "equipment": "dumbbell",
+      "reason": "One Arm Dumbbell Rowとsingle arm dumbbell rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "deadlift",
+      "providerAssetId": "0191",
+      "sourceAsset": "200 Workouts/200 Workouts/0191.mp4",
+      "vitalName": "conventional deadlift",
+      "equipment": "barbell",
+      "reason": "Deadliftとconventional deadliftの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lower back。"
+    },
+    {
+      "exerciseId": "t_bar_row",
+      "providerAssetId": "0206",
+      "sourceAsset": "200 Workouts/200 Workouts/0206.mp4",
+      "vitalName": "t-bar row",
+      "equipment": "barbell",
+      "reason": "T Bar Rowとt-bar rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "back_extension",
+      "providerAssetId": "0036",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0036.mp4",
+      "vitalName": "hyperextensions (back extensions)",
+      "equipment": "body weight",
+      "reason": "Back Extensionとhyperextensions (back extensions)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lower back。"
+    },
+    {
+      "exerciseId": "shoulder_press",
+      "providerAssetId": "0166",
+      "sourceAsset": "200 Workouts/200 Workouts/0166.mp4",
+      "vitalName": "seated shoulder press machine",
+      "equipment": "machine",
+      "reason": "Shoulder Press Machineとseated shoulder press machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "military_press",
+      "providerAssetId": "0300",
+      "sourceAsset": "200 Workouts/200 Workouts/0300.mp4",
+      "vitalName": "standing overhead military press",
+      "equipment": "barbell",
+      "reason": "Military Pressとstanding overhead military pressの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "lateral_raise",
+      "providerAssetId": "0096",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0096.mp4",
+      "vitalName": "lateral raises (dumbbell)",
+      "equipment": "dumbbell",
+      "reason": "Dumbbell Lateral Raiseとlateral raises (dumbbell)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "front_raise",
+      "providerAssetId": "0092",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0092.mp4",
+      "vitalName": "front raise (dumbbell)",
+      "equipment": "dumbbell",
+      "reason": "Dumbbell Front Raiseとfront raise (dumbbell)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "rear_delt",
+      "providerAssetId": "0099",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0099.mp4",
+      "vitalName": "rear delt fly (reverse pec deck)",
+      "equipment": "machine",
+      "reason": "Rear Delt Machineとrear delt fly (reverse pec deck)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "face_pull",
+      "providerAssetId": "0136",
+      "sourceAsset": "200 Workouts/200 Workouts/0136.mp4",
+      "vitalName": "cable face pull",
+      "equipment": "cable",
+      "reason": "両手ロープを顔へ引き、肘を外へ開く動作。Vitalの主働筋は三角筋でSETKEEPのリアデルタ中心と一致。"
+    },
+    {
+      "exerciseId": "upright_row",
+      "providerAssetId": "0089",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0089.mp4",
+      "vitalName": "barbell upright row",
+      "equipment": "barbell",
+      "reason": "Upright Rowとbarbell upright rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "french_press",
+      "providerAssetId": "0021",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0021.mp4",
+      "vitalName": "overhead triceps extension (dumbbell)",
+      "equipment": "dumbbell",
+      "reason": "Dumbbell French Pressとoverhead triceps extension (dumbbell)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 triceps。"
+    },
+    {
+      "exerciseId": "overhead_triceps_extension",
+      "providerAssetId": "0140",
+      "sourceAsset": "200 Workouts/200 Workouts/0140.mp4",
+      "vitalName": "cable overhead triceps extension",
+      "equipment": "cable",
+      "reason": "Cable Overhead Triceps Extensionとcable overhead triceps extensionの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 triceps。"
+    },
+    {
+      "exerciseId": "hack_squat",
+      "providerAssetId": "0068",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0068.mp4",
+      "vitalName": "hack squat machine",
+      "equipment": "machine",
+      "reason": "Hack Squatとhack squat machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "bulgarian_split_squat",
+      "providerAssetId": "0063",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0063.mp4",
+      "vitalName": "dumbbell bulgarian split squat",
+      "equipment": "dumbbell",
+      "reason": "Bulgarian Split Squatとdumbbell bulgarian split squatの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "leg_extension",
+      "providerAssetId": "0073",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0073.mp4",
+      "vitalName": "leg extension machine",
+      "equipment": "machine",
+      "reason": "Leg Extensionとleg extension machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "romanian_deadlift",
+      "providerAssetId": "0060",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0060.mp4",
+      "vitalName": "barbell romanian deadlift",
+      "equipment": "barbell",
+      "reason": "Romanian Deadliftとbarbell romanian deadliftの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 upper legs。"
+    },
+    {
+      "exerciseId": "hip_thrust",
+      "providerAssetId": "0057",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0057.mp4",
+      "vitalName": "barbell hip thrust",
+      "equipment": "barbell",
+      "reason": "Barbell Hip Thrustとbarbell hip thrustの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 glutes。"
+    },
+    {
+      "exerciseId": "hip_abduction",
+      "providerAssetId": "0069",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0069.mp4",
+      "vitalName": "hip abduction machine",
+      "equipment": "machine",
+      "reason": "Hip Abductionとhip abduction machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 glutes。"
+    },
+    {
+      "exerciseId": "crunch",
+      "providerAssetId": "0125",
+      "sourceAsset": "200 Workouts/200 Workouts/0125.mp4",
+      "vitalName": "standard crunch",
+      "equipment": "body weight",
+      "reason": "Crunchとstandard crunchの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "leg_raise",
+      "providerAssetId": "0273",
+      "sourceAsset": "200 Workouts/200 Workouts/0273.mp4",
+      "vitalName": "lying leg raise",
+      "equipment": "body weight",
+      "reason": "Leg Raiseとlying leg raiseの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "hanging_leg_raise",
+      "providerAssetId": "0115",
+      "sourceAsset": "200 Workouts/200 Workouts/0115.mp4",
+      "vitalName": "hanging leg raise",
+      "equipment": "body weight",
+      "reason": "Hanging Leg Raiseとhanging leg raiseの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "cable_crunch",
+      "providerAssetId": "0103",
+      "sourceAsset": "200 Workouts/200 Workouts/0103.mp4",
+      "vitalName": "cable crunch",
+      "equipment": "cable",
+      "reason": "Cable Crunchとcable crunchの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "plank",
+      "providerAssetId": "0126",
+      "sourceAsset": "200 Workouts/200 Workouts/0126.mp4",
+      "vitalName": "standard plank",
+      "equipment": "body weight",
+      "reason": "Plankとstandard plankの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "ab_wheel",
+      "providerAssetId": "0101",
+      "sourceAsset": "200 Workouts/200 Workouts/0101.mp4",
+      "vitalName": "ab wheel rollout (kneeling)",
+      "equipment": "body weight",
+      "reason": "Ab Wheelとab wheel rollout (kneeling)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "dumbbell_fly",
+      "providerAssetId": "0049",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0049.mp4",
+      "vitalName": "dumbbell flys flat",
+      "equipment": "dumbbell",
+      "reason": "Dumbbell Flyとdumbbell flys flatの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 chest。"
+    },
+    {
+      "exerciseId": "sit_up",
+      "providerAssetId": "1188",
+      "sourceAsset": "100 Workouts/100 Workouts/1188.mp4",
+      "vitalName": "sit ups version 1",
+      "equipment": "body weight",
+      "reason": "Sit Upとsit ups version 1の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "side_plank",
+      "providerAssetId": "1186",
+      "sourceAsset": "100 Workouts/100 Workouts/1186.mp4",
+      "vitalName": "side plank hold on elbow",
+      "equipment": "body weight",
+      "reason": "Side Plankとside plank hold on elbowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 obliques。"
+    },
+    {
+      "exerciseId": "exercise_bike",
+      "providerAssetId": "0062",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0062.mp4",
+      "vitalName": "cycling",
+      "equipment": "machine",
+      "reason": "Exercise Bikeとcyclingの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "cross_trainer",
+      "providerAssetId": "0067",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0067.mp4",
+      "vitalName": "elliptical hiit machine",
+      "equipment": "machine",
+      "reason": "Cross Trainerとelliptical hiit machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "stair_climber",
+      "providerAssetId": "0083",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0083.mp4",
+      "vitalName": "stepmill machine",
+      "equipment": "machine",
+      "reason": "Stair Climberとstepmill machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "rowing_machine",
+      "providerAssetId": "0077",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0077.mp4",
+      "vitalName": "rowing machine",
+      "equipment": "machine",
+      "reason": "Rowing Machineとrowing machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 back。"
+    },
+    {
+      "exerciseId": "running",
+      "providerAssetId": "0220",
+      "sourceAsset": "200 Workouts/200 Workouts/0220.mp4",
+      "vitalName": "run",
+      "equipment": "body weight",
+      "reason": "Runningとrunの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 cardio。"
+    },
+    {
+      "exerciseId": "decline_dumbbell_press",
+      "providerAssetId": "0047",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0047.mp4",
+      "vitalName": "dumbbell bench press (decline)",
+      "equipment": "dumbbell",
+      "reason": "Decline Dumbbell Pressとdumbbell bench press (decline)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 chest。"
+    },
+    {
+      "exerciseId": "incline_dumbbell_fly",
+      "providerAssetId": "0050",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0050.mp4",
+      "vitalName": "dumbbell flys incline",
+      "equipment": "dumbbell",
+      "reason": "Incline Dumbbell Flyとdumbbell flys inclineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 chest。"
+    },
+    {
+      "exerciseId": "high_cable_fly",
+      "providerAssetId": "0044",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0044.mp4",
+      "vitalName": "high to low cable crossover",
+      "equipment": "cable",
+      "reason": "High Cable Flyとhigh to low cable crossoverの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lower chest。"
+    },
+    {
+      "exerciseId": "pendlay_row",
+      "providerAssetId": "0195",
+      "sourceAsset": "200 Workouts/200 Workouts/0195.mp4",
+      "vitalName": "pendlay row",
+      "equipment": "barbell",
+      "reason": "Pendlay Rowとpendlay rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "inverted_row",
+      "providerAssetId": "0194",
+      "sourceAsset": "200 Workouts/200 Workouts/0194.mp4",
+      "vitalName": "inverted row",
+      "equipment": "body weight",
+      "reason": "Inverted Rowとinverted rowの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "single_arm_landmine_press",
+      "providerAssetId": "0020",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0020.mp4",
+      "vitalName": "landmine press (single arm)",
+      "equipment": "barbell",
+      "reason": "Single Arm Landmine Pressとlandmine press (single arm)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 shoulders。"
+    },
+    {
+      "exerciseId": "single_arm_cable_lateral_raise",
+      "providerAssetId": "0137",
+      "sourceAsset": "200 Workouts/200 Workouts/0137.mp4",
+      "vitalName": "cable lateral raise",
+      "equipment": "cable",
+      "reason": "Single Arm Cable Lateral Raiseとcable lateral raiseの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "cable_rear_delt_fly",
+      "providerAssetId": "0100",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0100.mp4",
+      "vitalName": "rear delt cable fly",
+      "equipment": "cable",
+      "reason": "Cable Rear Delt Flyとrear delt cable flyの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 rear delts。"
+    },
+    {
+      "exerciseId": "dumbbell_shrug",
+      "providerAssetId": "0034",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0034.mp4",
+      "vitalName": "dumbbell shrug",
+      "equipment": "dumbbell",
+      "reason": "Dumbbell Shrugとdumbbell shrugの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 traps。"
+    },
+    {
+      "exerciseId": "barbell_shrug",
+      "providerAssetId": "0029",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0029.mp4",
+      "vitalName": "barbell shrug",
+      "equipment": "barbell",
+      "reason": "Barbell Shrugとbarbell shrugの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 traps。"
+    },
+    {
+      "exerciseId": "ez_bar_curl",
+      "providerAssetId": "0155",
+      "sourceAsset": "200 Workouts/200 Workouts/0155.mp4",
+      "vitalName": "ez bar curl",
+      "equipment": "barbell",
+      "reason": "Ez Bar Curlとez bar curlの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 biceps。"
+    },
+    {
+      "exerciseId": "incline_dumbbell_curl",
+      "providerAssetId": "0019",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0019.mp4",
+      "vitalName": "incline dumbbell curl",
+      "equipment": "dumbbell",
+      "reason": "Incline Dumbbell Curlとincline dumbbell curlの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 biceps。"
+    },
+    {
+      "exerciseId": "concentration_curl",
+      "providerAssetId": "0014",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0014.mp4",
+      "vitalName": "concentration curl (seated)",
+      "equipment": "dumbbell",
+      "reason": "Concentration Curlとconcentration curl (seated)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 biceps。"
+    },
+    {
+      "exerciseId": "spider_curl",
+      "providerAssetId": "0018",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0018.mp4",
+      "vitalName": "dumbbell spider curl",
+      "equipment": "dumbbell",
+      "reason": "Spider Curlとdumbbell spider curlの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 biceps。"
+    },
+    {
+      "exerciseId": "machine_preacher_curl",
+      "providerAssetId": "0159",
+      "sourceAsset": "200 Workouts/200 Workouts/0159.mp4",
+      "vitalName": "preacher curl machine",
+      "equipment": "machine",
+      "reason": "Preacher Curl Machineとpreacher curl machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 biceps。"
+    },
+    {
+      "exerciseId": "zottman_curl",
+      "providerAssetId": "0183",
+      "sourceAsset": "200 Workouts/200 Workouts/0183.mp4",
+      "vitalName": "zottman curl",
+      "equipment": "dumbbell",
+      "reason": "Zottman Curlとzottman curlの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 biceps。"
+    },
+    {
+      "exerciseId": "close_grip_bench_press",
+      "providerAssetId": "0013",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0013.mp4",
+      "vitalName": "close-grip bench press barbell",
+      "equipment": "barbell",
+      "reason": "Close Grip Bench Pressとclose-grip bench press barbellの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 triceps。"
+    },
+    {
+      "exerciseId": "straight_bar_pushdown",
+      "providerAssetId": "0025",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0025.mp4",
+      "vitalName": "triceps pushdown (cable - straight bar)",
+      "equipment": "cable",
+      "reason": "Straight Bar Pushdownとtriceps pushdown (cable - straight bar)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 triceps。"
+    },
+    {
+      "exerciseId": "triceps_kickback",
+      "providerAssetId": "0146",
+      "sourceAsset": "200 Workouts/200 Workouts/0146.mp4",
+      "vitalName": "dumbbell triceps kickback",
+      "equipment": "dumbbell",
+      "reason": "Triceps Kickbackとdumbbell triceps kickbackの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 triceps。"
+    },
+    {
+      "exerciseId": "front_squat",
+      "providerAssetId": "0056",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0056.mp4",
+      "vitalName": "barbell front squat",
+      "equipment": "barbell",
+      "reason": "Front Squatとbarbell front squatの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "goblet_squat",
+      "providerAssetId": "0064",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0064.mp4",
+      "vitalName": "dumbbell goblet squat",
+      "equipment": "dumbbell",
+      "reason": "Goblet Squatとdumbbell goblet squatの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "smith_squat",
+      "providerAssetId": "0279",
+      "sourceAsset": "200 Workouts/200 Workouts/0279.mp4",
+      "vitalName": "smith machine squat",
+      "equipment": "machine",
+      "reason": "Smith Squatとsmith machine squatの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "sumo_deadlift",
+      "providerAssetId": "0033",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0033.mp4",
+      "vitalName": "deadlift sumo barbell",
+      "equipment": "barbell",
+      "reason": "Sumo Deadliftとdeadlift sumo barbellの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lower back。"
+    },
+    {
+      "exerciseId": "step_up",
+      "providerAssetId": "0081",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0081.mp4",
+      "vitalName": "step-ups (weighted)",
+      "equipment": "dumbbell",
+      "reason": "Step Upとstep-ups (weighted)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "lying_leg_curl",
+      "providerAssetId": "0075",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0075.mp4",
+      "vitalName": "lying leg curl machine",
+      "equipment": "machine",
+      "reason": "Lying Leg Curlとlying leg curl machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 upper legs。"
+    },
+    {
+      "exerciseId": "seated_leg_curl",
+      "providerAssetId": "0079",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0079.mp4",
+      "vitalName": "seated leg curl machine",
+      "equipment": "machine",
+      "reason": "Seated Leg Curlとseated leg curl machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 upper legs。"
+    },
+    {
+      "exerciseId": "good_morning",
+      "providerAssetId": "0035",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0035.mp4",
+      "vitalName": "good morning barbell",
+      "equipment": "barbell",
+      "reason": "Good Morningとgood morning barbellの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lower back。"
+    },
+    {
+      "exerciseId": "single_leg_rdl",
+      "providerAssetId": "0204",
+      "sourceAsset": "200 Workouts/200 Workouts/0204.mp4",
+      "vitalName": "dumbbell single leg deadlift",
+      "equipment": "dumbbell",
+      "reason": "Single Leg Romanian Deadliftとdumbbell single leg deadliftの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 hamstrings。"
+    },
+    {
+      "exerciseId": "glute_bridge",
+      "providerAssetId": "0111",
+      "sourceAsset": "200 Workouts/200 Workouts/0111.mp4",
+      "vitalName": "glute bridge",
+      "equipment": "body weight",
+      "reason": "Glute Bridgeとglute bridgeの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 glutes。"
+    },
+    {
+      "exerciseId": "cable_glute_kickback",
+      "providerAssetId": "0061",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0061.mp4",
+      "vitalName": "cable leg kickback",
+      "equipment": "cable",
+      "reason": "Cable Glute Kickbackとcable leg kickbackの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 glutes。"
+    },
+    {
+      "exerciseId": "bicycle_crunch",
+      "providerAssetId": "0135",
+      "sourceAsset": "200 Workouts/200 Workouts/0135.mp4",
+      "vitalName": "bicycle crunches",
+      "equipment": "body weight",
+      "reason": "Bicycle Crunchとbicycle crunchesの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "russian_twist",
+      "providerAssetId": "0121",
+      "sourceAsset": "200 Workouts/200 Workouts/0121.mp4",
+      "vitalName": "russian twist dumbbell",
+      "equipment": "dumbbell",
+      "reason": "Russian Twistとrussian twist dumbbellの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "cable_woodchop",
+      "providerAssetId": "0012",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0012.mp4",
+      "vitalName": "cable wood chop",
+      "equipment": "cable",
+      "reason": "Cable Woodchopとcable wood chopの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 obliques。"
+    },
+    {
+      "exerciseId": "captain_chair_leg_raise",
+      "providerAssetId": "0003",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0003.mp4",
+      "vitalName": "captain's chair leg raises",
+      "equipment": "body weight",
+      "reason": "Captain Chair Leg Raiseとcaptain's chair leg raisesの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "dead_bug",
+      "providerAssetId": "0105",
+      "sourceAsset": "200 Workouts/200 Workouts/0105.mp4",
+      "vitalName": "dead bug",
+      "equipment": "body weight",
+      "reason": "Dead Bugとdead bugの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 abs。"
+    },
+    {
+      "exerciseId": "jump_rope",
+      "providerAssetId": "0214",
+      "sourceAsset": "200 Workouts/200 Workouts/0214.mp4",
+      "vitalName": "jump rope",
+      "equipment": "body weight",
+      "reason": "Jump Ropeとjump ropeの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 cardio。"
+    },
+    {
+      "exerciseId": "battle_rope",
+      "providerAssetId": "0076",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0076.mp4",
+      "vitalName": "rope wave",
+      "equipment": "body weight",
+      "reason": "Battle Ropeとrope waveの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 shoulders。"
+    },
+    {
+      "exerciseId": "seated_dip_machine",
+      "providerAssetId": "0167",
+      "sourceAsset": "200 Workouts/200 Workouts/0167.mp4",
+      "vitalName": "seated triceps dip machine",
+      "equipment": "machine",
+      "reason": "Seated Dip Machineとseated triceps dip machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 triceps。"
+    },
+    {
+      "exerciseId": "assault_bike",
+      "providerAssetId": "0053",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0053.mp4",
+      "vitalName": "air bike sprint",
+      "equipment": "machine",
+      "reason": "Assault Bikeとair bike sprintの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 quads。"
+    },
+    {
+      "exerciseId": "arnold_press",
+      "providerAssetId": "0087",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0087.mp4",
+      "vitalName": "arnold press dumbbell",
+      "equipment": "dumbbell",
+      "reason": "Arnold Pressとarnold press dumbbellの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "lat_pulldown",
+      "providerAssetId": "0037",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0037.mp4",
+      "vitalName": "lat pull down wide grip",
+      "equipment": "cable",
+      "reason": "Cable Lat Pulldownとlat pull down wide gripの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 lats。"
+    },
+    {
+      "exerciseId": "smith_shoulder_press",
+      "providerAssetId": "0098",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0098.mp4",
+      "vitalName": "military press (seated - smith machine)",
+      "equipment": "machine",
+      "reason": "Smith Shoulder Pressとmilitary press (seated - smith machine)の器具・姿勢・軌道を手順と動画フレームで照合。主働筋 delts。"
+    },
+    {
+      "exerciseId": "hyrox_rowing",
+      "providerAssetId": "0077",
+      "sourceAsset": "100 Gym Workouts/100gymworkouts/0077.mp4",
+      "vitalName": "rowing machine",
+      "equipment": "machine",
+      "reason": "Rowingとrowing machineの器具・姿勢・軌道を手順と動画フレームで照合。主働筋 back。",
+      "sharedWith": "rowing_machine"
+    }
+  ],
+  "reviewRequired": [
+    {
+      "exerciseId": "dy_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "不採用確定。逆手プレートロード式DYローに対しVitalはウェイトスタック式の水平ロー"
+    },
+    {
+      "exerciseId": "low_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "不採用確定。低軌道プレートロード式に対しVitalはウェイトスタック式の水平ロー"
+    },
+    {
+      "exerciseId": "linear_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "不採用確定。専用リニア軌道に対しVitalは一般的な水平ロー"
+    },
+    {
+      "exerciseId": "high_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "不採用確定。高所から引くプレートロード式に対しVitalは水平ロー"
+    },
+    {
+      "exerciseId": "cable_fly",
+      "candidateVitalIds": [
+        "0044"
+      ],
+      "reason": "Vitalは高所から低所への軌道。汎用ケーブルフライの高さを固定できない"
+    },
+    {
+      "exerciseId": "incline_press_machine",
+      "candidateVitalIds": [
+        "0237"
+      ],
+      "reason": "Vitalはフラットのシーテッドチェストプレス"
+    },
+    {
+      "exerciseId": "decline_fly_machine",
+      "candidateVitalIds": [
+        "0051"
+      ],
+      "reason": "Vitalは標準ペックデックでデクライン軌道ではない"
+    },
+    {
+      "exerciseId": "decline_press_machine",
+      "candidateVitalIds": [
+        "0237"
+      ],
+      "reason": "Vitalは水平プレスでデクライン軌道ではない"
+    },
+    {
+      "exerciseId": "mag_narrow",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "MAG専用グリップではなく幅広のストレートバー"
+    },
+    {
+      "exerciseId": "mag_medium",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "MAG専用グリップではなく幅広のストレートバー"
+    },
+    {
+      "exerciseId": "mag_wide",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "MAG専用グリップではなく通常の幅広バー"
+    },
+    {
+      "exerciseId": "straight_arm_pulldown",
+      "candidateVitalIds": [
+        "0023"
+      ],
+      "reason": "Vitalは片手動作。SETKEEPは両手の通常版"
+    },
+    {
+      "exerciseId": "weighted_back_extension",
+      "candidateVitalIds": [
+        "0036"
+      ],
+      "reason": "Vitalに追加負荷がなく荷重方法を示せない"
+    },
+    {
+      "exerciseId": "preacher_curl",
+      "candidateVitalIds": [
+        "0022"
+      ],
+      "reason": "VitalはEZバー専用。SETKEEPのフリーウェイト版はバー種別未確定"
+    },
+    {
+      "exerciseId": "cable_curl",
+      "candidateVitalIds": [
+        "0011"
+      ],
+      "reason": "Vitalはストレートバー専用。汎用ケーブルカールのアタッチメント未確定"
+    },
+    {
+      "exerciseId": "skull_crusher",
+      "candidateVitalIds": [
+        "0024"
+      ],
+      "reason": "VitalはEZバー専用。SETKEEPは通常バーベル"
+    },
+    {
+      "exerciseId": "lunge",
+      "candidateVitalIds": [
+        "0283"
+      ],
+      "reason": "Vitalは自重ウォーキングランジ。SETKEEPはダンベルの汎用ランジ"
+    },
+    {
+      "exerciseId": "leg_curl",
+      "candidateVitalIds": [
+        "0075",
+        "0079"
+      ],
+      "reason": "旧汎用IDをライイング又はシーテッドへ推測して割り当てない"
+    },
+    {
+      "exerciseId": "calf_raise",
+      "candidateVitalIds": [
+        "0281"
+      ],
+      "reason": "旧汎用IDに立位自重の具体種目を推測して割り当てない"
+    },
+    {
+      "exerciseId": "abdominal_crunch",
+      "candidateVitalIds": [
+        "0125"
+      ],
+      "reason": "Vitalは床上の自重クランチでマシンではない"
+    },
+    {
+      "exerciseId": "incline_fly_machine",
+      "candidateVitalIds": [
+        "0050"
+      ],
+      "reason": "Vitalはダンベルフライでマシンではない"
+    },
+    {
+      "exerciseId": "treadmill",
+      "candidateVitalIds": [
+        "0078",
+        "0086"
+      ],
+      "reason": "走る/歩くの両方を含む汎用マシンID。片方の動画へ固定しない"
+    },
+    {
+      "exerciseId": "walking",
+      "candidateVitalIds": [
+        "0086"
+      ],
+      "reason": "Vitalはトレッドミル歩行。SETKEEPのウォーキングは屋外も含む"
+    },
+    {
+      "exerciseId": "cycling",
+      "candidateVitalIds": [
+        "0062"
+      ],
+      "reason": "Vitalは室内エアロバイク。SETKEEPのサイクリングは一般走行"
+    },
+    {
+      "exerciseId": "smith_bench_press",
+      "candidateVitalIds": [
+        "0042"
+      ],
+      "reason": "Vitalはフリーのバーベルでスミスマシンではない"
+    },
+    {
+      "exerciseId": "smith_incline_press",
+      "candidateVitalIds": [
+        "0043"
+      ],
+      "reason": "Vitalはフリーのバーベルでスミスマシンではない"
+    },
+    {
+      "exerciseId": "smith_decline_press",
+      "candidateVitalIds": [
+        "0047"
+      ],
+      "reason": "Vitalはダンベルでスミスマシンではない"
+    },
+    {
+      "exerciseId": "plate_loaded_chest_press",
+      "candidateVitalIds": [
+        "0237"
+      ],
+      "reason": "Vitalはウェイトスタック式でプレートロード式ではない"
+    },
+    {
+      "exerciseId": "selectorized_incline_chest_press",
+      "candidateVitalIds": [
+        "0237"
+      ],
+      "reason": "Vitalはフラットでインクラインではない"
+    },
+    {
+      "exerciseId": "plate_loaded_incline_chest_press",
+      "candidateVitalIds": [
+        "0237"
+      ],
+      "reason": "Vitalはフラットのウェイトスタック式で両条件が違う"
+    },
+    {
+      "exerciseId": "weighted_dip",
+      "candidateVitalIds": [
+        "0045"
+      ],
+      "reason": "Vitalは追加荷重なし"
+    },
+    {
+      "exerciseId": "rack_pull",
+      "candidateVitalIds": [
+        "0191"
+      ],
+      "reason": "Vitalは床からの通常デッドリフトでラック開始ではない"
+    },
+    {
+      "exerciseId": "snatch_grip_deadlift",
+      "candidateVitalIds": [
+        "0191"
+      ],
+      "reason": "Vitalは標準手幅でスナッチ幅ではない"
+    },
+    {
+      "exerciseId": "chest_supported_dumbbell_row",
+      "candidateVitalIds": [
+        "0040"
+      ],
+      "reason": "Vitalは専用マシンでダンベルではない"
+    },
+    {
+      "exerciseId": "chest_supported_tbar_row",
+      "candidateVitalIds": [
+        "0040"
+      ],
+      "reason": "Vitalは専用マシンでTバーではない"
+    },
+    {
+      "exerciseId": "seal_row",
+      "candidateVitalIds": [
+        "0188"
+      ],
+      "reason": "Vitalは胸をベンチへ固定しないベントオーバーロー"
+    },
+    {
+      "exerciseId": "neutral_grip_lat_pulldown",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "Vitalは幅広の順手でニュートラルグリップではない"
+    },
+    {
+      "exerciseId": "reverse_grip_lat_pulldown",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "Vitalは順手で逆手ではない"
+    },
+    {
+      "exerciseId": "single_arm_lat_pulldown",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "Vitalは両手で片手ではない"
+    },
+    {
+      "exerciseId": "plate_loaded_lat_pulldown",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "Vitalはケーブル・ウェイトスタック式"
+    },
+    {
+      "exerciseId": "plate_loaded_seated_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "Vitalはウェイトスタック式"
+    },
+    {
+      "exerciseId": "iso_lateral_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "Vitalは独立レバー式ではない"
+    },
+    {
+      "exerciseId": "kneeling_lat_pulldown",
+      "candidateVitalIds": [
+        "0037"
+      ],
+      "reason": "Vitalは座位でニーリングではない"
+    },
+    {
+      "exerciseId": "cable_pullover",
+      "candidateVitalIds": [
+        "0023"
+      ],
+      "reason": "Vitalは片手ストレートアームプルダウンで汎用の両手プルオーバーではない"
+    },
+    {
+      "exerciseId": "weighted_chin_up",
+      "candidateVitalIds": [
+        "0038"
+      ],
+      "reason": "Vitalは追加荷重なし"
+    },
+    {
+      "exerciseId": "plate_loaded_shoulder_press",
+      "candidateVitalIds": [
+        "0166"
+      ],
+      "reason": "Vitalはウェイトスタック式"
+    },
+    {
+      "exerciseId": "landmine_press",
+      "candidateVitalIds": [
+        "0020",
+        "0298"
+      ],
+      "reason": "Vitalは片手版。SETKEEPには片手専用IDが別に存在"
+    },
+    {
+      "exerciseId": "cable_shoulder_press",
+      "candidateVitalIds": [
+        "0166"
+      ],
+      "reason": "Vitalはマシンでケーブルではない"
+    },
+    {
+      "exerciseId": "cable_lateral_raise",
+      "candidateVitalIds": [
+        "0137"
+      ],
+      "reason": "Vitalは片手版。片手専用IDへ採用済み"
+    },
+    {
+      "exerciseId": "cable_front_raise",
+      "candidateVitalIds": [
+        "0092"
+      ],
+      "reason": "Vitalはダンベルでケーブルではない"
+    },
+    {
+      "exerciseId": "reverse_curl",
+      "candidateVitalIds": [
+        "0009"
+      ],
+      "reason": "Vitalは逆手カールで順手のリバースカールではない"
+    },
+    {
+      "exerciseId": "cable_hammer_curl",
+      "candidateVitalIds": [
+        "0016"
+      ],
+      "reason": "Vitalはダンベルでケーブルではない"
+    },
+    {
+      "exerciseId": "machine_arm_curl",
+      "candidateVitalIds": [
+        "0159"
+      ],
+      "reason": "Vitalはプリーチャー専用マシン。汎用マシンカールとは断定できない"
+    },
+    {
+      "exerciseId": "bayesian_curl",
+      "candidateVitalIds": [
+        "0169"
+      ],
+      "reason": "Vitalは高位置ケーブル。ベイジアンは腕を体後方へ置く低位置ケーブル"
+    },
+    {
+      "exerciseId": "jm_press",
+      "candidateVitalIds": [
+        "0013"
+      ],
+      "reason": "VitalはナローベンチでJMプレスの肘軌道と異なる"
+    },
+    {
+      "exerciseId": "single_arm_pushdown",
+      "candidateVitalIds": [
+        "0025"
+      ],
+      "reason": "Vitalは両手ストレートバー"
+    },
+    {
+      "exerciseId": "reverse_grip_pushdown",
+      "candidateVitalIds": [
+        "0025"
+      ],
+      "reason": "Vitalは順手"
+    },
+    {
+      "exerciseId": "machine_triceps_extension",
+      "candidateVitalIds": [
+        "0167"
+      ],
+      "reason": "Vitalはディップマシンでエクステンションではない"
+    },
+    {
+      "exerciseId": "wrist_curl",
+      "candidateVitalIds": [
+        "0148"
+      ],
+      "reason": "VitalはダンベルでSETKEEPはバーベル"
+    },
+    {
+      "exerciseId": "reverse_wrist_curl",
+      "candidateVitalIds": [
+        "0148"
+      ],
+      "reason": "Vitalは順手ではなくリバース動作を示さない"
+    },
+    {
+      "exerciseId": "pendulum_squat",
+      "candidateVitalIds": [
+        "0280"
+      ],
+      "reason": "Vitalは汎用スクワットマシンで振り子軌道ではない"
+    },
+    {
+      "exerciseId": "belt_squat",
+      "candidateVitalIds": [
+        "0280"
+      ],
+      "reason": "Vitalは肩パッド負荷でベルト負荷ではない"
+    },
+    {
+      "exerciseId": "trap_bar_deadlift",
+      "candidateVitalIds": [
+        "0191"
+      ],
+      "reason": "Vitalはストレートバーベル"
+    },
+    {
+      "exerciseId": "split_squat",
+      "candidateVitalIds": [
+        "0063"
+      ],
+      "reason": "Vitalは後脚をベンチに置くブルガリアン版"
+    },
+    {
+      "exerciseId": "smith_bulgarian_split_squat",
+      "candidateVitalIds": [
+        "0063"
+      ],
+      "reason": "Vitalはダンベル版でスミスではない"
+    },
+    {
+      "exerciseId": "reverse_lunge",
+      "candidateVitalIds": [
+        "0059"
+      ],
+      "reason": "Vitalはバーベル版でSETKEEPはダンベル"
+    },
+    {
+      "exerciseId": "walking_lunge",
+      "candidateVitalIds": [
+        "0283"
+      ],
+      "reason": "Vitalは自重でSETKEEPはダンベル"
+    },
+    {
+      "exerciseId": "horizontal_leg_press",
+      "candidateVitalIds": [
+        "0074"
+      ],
+      "reason": "Vitalは斜めレッグプレスで水平式と断定できない"
+    },
+    {
+      "exerciseId": "single_leg_press",
+      "candidateVitalIds": [
+        "0074"
+      ],
+      "reason": "Vitalは両脚"
+    },
+    {
+      "exerciseId": "standing_leg_curl",
+      "candidateVitalIds": [
+        "0075"
+      ],
+      "reason": "Vitalはうつ伏せで立位ではない"
+    },
+    {
+      "exerciseId": "machine_hip_thrust",
+      "candidateVitalIds": [
+        "0057"
+      ],
+      "reason": "Vitalはバーベル版で専用マシンではない"
+    },
+    {
+      "exerciseId": "standing_calf_raise",
+      "candidateVitalIds": [
+        "0281"
+      ],
+      "reason": "Vitalは自重。SETKEEPは専用器具"
+    },
+    {
+      "exerciseId": "seated_calf_raise",
+      "candidateVitalIds": [
+        "0281"
+      ],
+      "reason": "Vitalは立位自重"
+    },
+    {
+      "exerciseId": "decline_sit_up",
+      "candidateVitalIds": [
+        "0106"
+      ],
+      "reason": "Vitalは可動域の短いクランチでシットアップではない"
+    },
+    {
+      "exerciseId": "weighted_crunch",
+      "candidateVitalIds": [
+        "0125"
+      ],
+      "reason": "Vitalは追加負荷なし"
+    },
+    {
+      "exerciseId": "reverse_crunch",
+      "candidateVitalIds": [
+        "0112"
+      ],
+      "reason": "Vitalはハーフ可動域"
+    },
+    {
+      "exerciseId": "hanging_knee_raise",
+      "candidateVitalIds": [
+        "0114"
+      ],
+      "reason": "Vitalはキャプテンズチェアで懸垂バーからぶら下がらない"
+    },
+    {
+      "exerciseId": "spin_bike",
+      "candidateVitalIds": [
+        "0062"
+      ],
+      "reason": "Vitalは一般的なエアロバイクでスピンバイクと断定できない"
+    },
+    {
+      "exerciseId": "hyrox_burpee_broad_jump",
+      "candidateVitalIds": [
+        "0211"
+      ],
+      "reason": "Vitalはバーピーのみで幅跳び動作がない"
+    },
+    {
+      "exerciseId": "hyrox_sandbag_lunge",
+      "candidateVitalIds": [
+        "0283"
+      ],
+      "reason": "Vitalは自重でサンドバッグを担がない"
+    },
+    {
+      "exerciseId": "assisted_dips",
+      "candidateVitalIds": [
+        "0045"
+      ],
+      "reason": "Vitalは補助機構なし"
+    },
+    {
+      "exerciseId": "standing_machine_fly",
+      "candidateVitalIds": [
+        "0051"
+      ],
+      "reason": "Vitalは座位で立位ではない"
+    },
+    {
+      "exerciseId": "back_extension_machine",
+      "candidateVitalIds": [
+        "0184"
+      ],
+      "reason": "Vitalは45度ローマンチェアでSETKEEPの専用マシンと器具構造が異なる"
+    },
+    {
+      "exerciseId": "v_squat",
+      "candidateVitalIds": [
+        "0280"
+      ],
+      "reason": "Vitalは一般スクワットマシンでV軌道を確認できない"
+    },
+    {
+      "exerciseId": "standing_hip_abduction",
+      "candidateVitalIds": [
+        "0069"
+      ],
+      "reason": "Vitalは座位"
+    },
+    {
+      "exerciseId": "multi_hip_abduction",
+      "candidateVitalIds": [
+        "0069"
+      ],
+      "reason": "Vitalは座位の専用アブダクションでマルチヒップではない"
+    },
+    {
+      "exerciseId": "multi_hip_adduction",
+      "candidateVitalIds": [
+        "0069"
+      ],
+      "reason": "Vitalはアブダクションで内転ではない"
+    },
+    {
+      "exerciseId": "multi_hip_extension",
+      "candidateVitalIds": [
+        "0069"
+      ],
+      "reason": "Vitalはアブダクションで股関節伸展ではない"
+    },
+    {
+      "exerciseId": "dual_power_smith_shoulder_press",
+      "candidateVitalIds": [
+        "0098"
+      ],
+      "reason": "Vitalは標準スミスでデュアルパワー型の器具と同一とは確認できない"
+    },
+    {
+      "exerciseId": "kneeling_leg_curl",
+      "candidateVitalIds": [
+        "0075"
+      ],
+      "reason": "Vitalはうつ伏せでニーリングではない"
+    },
+    {
+      "exerciseId": "deadlift_machine",
+      "candidateVitalIds": [
+        "0084"
+      ],
+      "reason": "Vitalはスティッフレッグ用マシンで通常デッドリフトではない"
+    },
+    {
+      "exerciseId": "selectorized_decline_chest_press",
+      "candidateVitalIds": [
+        "0237"
+      ],
+      "reason": "Vitalはフラットプレスでデクラインではない"
+    },
+    {
+      "exerciseId": "selectorized_high_row",
+      "candidateVitalIds": [
+        "0157"
+      ],
+      "reason": "Vitalは水平ローでハイロー軌道ではない"
+    },
+    {
+      "exerciseId": "rear_raise",
+      "candidateVitalIds": [
+        "0039",
+        "0198",
+        "0292"
+      ],
+      "reason": "0039/0198は僧帽筋・菱形筋主働、0292はインクラインベンチ固定。SETKEEPの立位ベントオーバー・リアデルタ主働と完全一致しない。"
+    }
+  ]
+}
