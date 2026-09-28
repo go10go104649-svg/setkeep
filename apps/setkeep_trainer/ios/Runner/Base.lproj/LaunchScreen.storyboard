@@ -18,11 +18,18 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
                             </imageView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="splash-track">
+                                <color key="backgroundColor" red="0.8627450980" green="0.8980392157" blue="0.9176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.9529411765" green="0.9686274510" blue="0.9803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
+                            <constraint firstItem="splash-track" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="splash-track-center"/>
+                            <constraint firstItem="Ze5-6b-2t3" firstAttribute="bottom" secondItem="splash-track" secondAttribute="bottom" constant="104" id="splash-track-bottom"/>
+                            <constraint firstItem="splash-track" firstAttribute="width" constant="172" id="splash-track-width"/>
+                            <constraint firstItem="splash-track" firstAttribute="height" constant="4" id="splash-track-height"/>
                         </constraints>
                     </view>
                 </viewController>

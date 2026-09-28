@@ -115,10 +115,12 @@ void main() {
     expect(android, contains('@drawable/launch_progress'));
     expect(ios, contains('image="LaunchImage"'));
     expect(ios, contains('splash-track'));
-    expect(ios, contains('splash-accent'));
+    expect(ios, isNot(contains('splash-accent')));
     for (final theme in [
       'android/app/src/main/res/values-v31/styles.xml',
       'android/app/src/main/res/values-night-v31/styles.xml',
+      'apps/setkeep_trainer/android/app/src/main/res/values-v31/styles.xml',
+      'apps/setkeep_trainer/android/app/src/main/res/values-night-v31/styles.xml',
     ]) {
       expect(
         File(theme).readAsStringSync(),
@@ -127,7 +129,10 @@ void main() {
     }
     expect(trainerAndroid, contains('@color/trainer_background'));
     expect(trainerAndroid, contains('@drawable/launch_logo'));
+    expect(trainerAndroid, contains('@drawable/launch_progress'));
     expect(trainerIos, contains('image="LaunchImage"'));
+    expect(trainerIos, contains('splash-track'));
+    expect(trainerIos, isNot(contains('splash-accent')));
     expect(artwork, contains('assets/brand/setkeep_splash_lockup_source.png'));
     expect(artwork, contains('drawWord("TRAINER"'));
     expect(pngSize('assets/brand/setkeep_splash_lockup_source.png'), (
@@ -158,15 +163,40 @@ void main() {
           ),
           (density.value, density.value),
         );
-        if (prefix.isEmpty) {
-          expect(
-            pngSize(
-              'android/app/src/main/res/drawable-${density.key}/launch_progress.png',
-            ),
-            ((density.value * 200 ~/ 180), (density.value * 80 ~/ 180)),
-          );
-        }
+        expect(
+          pngSize(
+            '${prefix}android/app/src/main/res/drawable-${density.key}/launch_progress.png',
+          ),
+          ((density.value * 200 ~/ 180), (density.value * 80 ~/ 180)),
+        );
       }
+    }
+  });
+
+  test('native progress artwork starts with an empty track', () async {
+    for (final prefix in ['', 'apps/setkeep_trainer/']) {
+      final codec = await ui.instantiateImageCodec(
+        File(
+          '${prefix}android/app/src/main/res/drawable-mdpi/launch_progress.png',
+        ).readAsBytesSync(),
+      );
+      final image = (await codec.getNextFrame()).image;
+      final bytes = (await image.toByteData(
+        format: ui.ImageByteFormat.rawRgba,
+      ))!;
+      (int, int, int) rgb(int x, int y) {
+        final i = (y * image.width + x) * 4;
+        return (
+          bytes.getUint8(i),
+          bytes.getUint8(i + 1),
+          bytes.getUint8(i + 2),
+        );
+      }
+
+      expect(rgb(15, 39), rgb(100, 39));
+      expect(rgb(100, 39), rgb(185, 39));
+      image.dispose();
+      codec.dispose();
     }
   });
 }

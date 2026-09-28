@@ -43,6 +43,7 @@ import 'services/supabase_sync_service.dart';
 import 'services/account_auth_service.dart';
 import 'services/workout_draft_store.dart';
 import 'services/android_workout_draft.dart';
+import 'startup/startup_splash.dart';
 
 const activeWorkoutDraftStorageKey = AndroidWorkoutDraft.key;
 const appDisplayName = 'SETKEEP';
@@ -153,11 +154,7 @@ Future<bool> discardDraftBeforeNewWorkout(BuildContext context) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await RestTimerPreference.load();
-  await WorkoutUiPreference.load();
-  await CustomExercisePreference.load();
-  await SupabaseConfig.initialize();
-  runApp(const SetkeepApp());
+  runApp(const SetkeepApp(showStartup: true));
 }
 
 class RestNotificationService {
@@ -425,7 +422,9 @@ class WorkoutUiPreference {
 }
 
 class SetkeepApp extends StatelessWidget {
-  const SetkeepApp({super.key});
+  const SetkeepApp({super.key, this.showStartup = false});
+
+  final bool showStartup;
 
   @override
   Widget build(BuildContext context) {
@@ -437,8 +436,80 @@ class SetkeepApp extends StatelessWidget {
       supportedLocales: const [Locale('ja', 'JP')],
       theme: familyTheme(),
       navigatorObservers: [exerciseMediaRouteObserver],
-      home: const _OnboardingGate(),
+      home: showStartup ? const _SetkeepStartup() : const _OnboardingGate(),
     );
+  }
+}
+
+class _SetkeepStartup extends StatelessWidget {
+  const _SetkeepStartup();
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) => StartupSplash<({bool onboarded, bool consented})>(
+    background: const Color(0xFFF4F5F0),
+    track: const Color(0xFFDDE0DE),
+    accent: const Color(0xFF00D084),
+    androidLogo: 'android/app/src/main/res/drawable-xxxhdpi/launch_logo.png',
+    iosLogo:
+        'ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png',
+    initialize: (progress, offline) async {
+      await RestTimerPreference.load();
+      progress(0.17);
+      await WorkoutUiPreference.load();
+      progress(0.34);
+      await CustomExercisePreference.load();
+      progress(0.51);
+      if (!offline) {
+        await SupabaseConfig.initialize();
+        if (SupabaseConfig.initializationError != null) {
+          throw SupabaseConfig.initializationError!;
+        }
+      }
+      progress(0.70);
+      final onboarded = await OnboardingPreference.load();
+      progress(0.84);
+      final consented = await LegalConsentPreference.load();
+      return (onboarded: onboarded, consented: consented);
+    },
+    destination: (result) => _SetkeepInitialScreen(
+      onboarded: result.onboarded,
+      consented: result.consented,
+    ),
+  );
+}
+
+class _SetkeepInitialScreen extends StatefulWidget {
+  const _SetkeepInitialScreen({
+    required this.onboarded,
+    required this.consented,
+  });
+
+  final bool onboarded;
+  final bool consented;
+
+  @override
+  State<_SetkeepInitialScreen> createState() => _SetkeepInitialScreenState();
+}
+
+class _SetkeepInitialScreenState extends State<_SetkeepInitialScreen> {
+  late bool _onboarded = widget.onboarded;
+  late bool _consented = widget.consented;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_onboarded) {
+      return _OnboardingPage(
+        onFinished: () => setState(() => _onboarded = true),
+      );
+    }
+    if (!_consented) {
+      return _LegalConsentPage(
+        onFinished: () => setState(() => _consented = true),
+      );
+    }
+    return const HomeShell();
   }
 }
 

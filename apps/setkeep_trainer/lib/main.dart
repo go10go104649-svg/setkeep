@@ -17,31 +17,24 @@ import 'package:setkeep/config/supabase_config.dart';
 import 'package:setkeep/config/auth_redirects.dart';
 import 'package:setkeep/services/account_auth_service.dart';
 import 'package:setkeep/trainer/trainer_repository.dart';
+import 'package:setkeep/startup/startup_splash.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SupabaseConfig.initialize();
-  runApp(
-    TrainerApp(
-      auth: SupabaseConfig.initialized
-          ? SupabaseAccountAuthService(
-              Supabase.instance.client,
-              SupabaseConfig.authStorage!,
-              redirectUrl: AuthRedirects.trainer,
-            )
-          : null,
-      repository: SupabaseConfig.initialized
-          ? TrainerRepository(Supabase.instance.client)
-          : null,
-    ),
-  );
+  runApp(const TrainerApp(showStartup: true));
 }
 
 class TrainerApp extends StatelessWidget {
-  const TrainerApp({super.key, this.auth, this.repository});
+  const TrainerApp({
+    super.key,
+    this.auth,
+    this.repository,
+    this.showStartup = false,
+  });
   final AccountAuthService? auth;
   final TrainerRepository? repository;
+  final bool showStartup;
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'SETKEEP TRAINER',
@@ -49,10 +42,54 @@ class TrainerApp extends StatelessWidget {
     supportedLocales: const [Locale('ja'), Locale('en')],
     localizationsDelegates: GlobalMaterialLocalizations.delegates,
     theme: familyTheme(FamilyPalette.trainer),
-    home: auth == null || repository == null
+    home: showStartup
+        ? const _TrainerStartup()
+        : auth == null || repository == null
         ? const SetupPage()
         : AuthGate(auth: auth!, repository: repository!),
   );
+}
+
+class _TrainerStartup extends StatelessWidget {
+  const _TrainerStartup();
+
+  @override
+  Widget build(BuildContext context) =>
+      StartupSplash<
+        ({AccountAuthService? auth, TrainerRepository? repository})
+      >(
+        background: const Color(0xFFF3F7FA),
+        track: const Color(0xFFDCE5EA),
+        accent: const Color(0xFF38C6FF),
+        androidLogo:
+            'android/app/src/main/res/drawable-xxxhdpi/launch_logo.png',
+        iosLogo: 'ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png',
+        iosLogoSize: 180,
+        initialize: (progress, offline) async {
+          if (!offline) {
+            await SupabaseConfig.initialize();
+            if (SupabaseConfig.initializationError != null) {
+              throw SupabaseConfig.initializationError!;
+            }
+          }
+          progress(0.75);
+          if (!SupabaseConfig.initialized || offline) {
+            return (auth: null, repository: null);
+          }
+          final client = Supabase.instance.client;
+          final auth = SupabaseAccountAuthService(
+            client,
+            SupabaseConfig.authStorage!,
+            redirectUrl: AuthRedirects.trainer,
+          );
+          final repository = TrainerRepository(client);
+          return (auth: auth, repository: repository);
+        },
+        destination: (result) =>
+            result.auth == null || result.repository == null
+            ? const SetupPage()
+            : AuthGate(auth: result.auth!, repository: result.repository!),
+      );
 }
 
 class SetupPage extends StatelessWidget {

@@ -180,6 +180,15 @@ void main() {
     expect(find.text('SETKEEP TRAINER'), findsOneWidget);
     expect(find.textContaining('Supabase configuration'), findsOneWidget);
   });
+  testWidgets('trainer startup moves from native-matched splash to setup', (
+    t,
+  ) async {
+    await t.pumpWidget(const TrainerApp(showStartup: true));
+    expect(find.byKey(const Key('startupProgressFill')), findsOneWidget);
+    await t.pumpAndSettle();
+    expect(find.textContaining('Supabase configuration'), findsOneWidget);
+    expect(find.byKey(const Key('startupProgressFill')), findsNothing);
+  });
   for (final size in [const Size(390, 844), const Size(1024, 768)]) {
     testWidgets('empty navigation at $size and logout', (t) async {
       t.view.physicalSize = size;

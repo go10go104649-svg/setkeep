@@ -42,6 +42,8 @@ class SupabaseConfig {
   }
 
   static Future<void> initialize() async {
+    if (initialized) return;
+    initializationError = null;
     if (!isConfigured) return;
 
     try {

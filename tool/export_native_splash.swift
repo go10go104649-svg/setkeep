@@ -111,7 +111,7 @@ func export(_ path: URL, scale: Double, trainer: Bool, ios: Bool) {
     precondition(CGImageDestinationFinalize(destination))
 }
 
-func exportProgress(_ path: URL, scale: Double) {
+func exportProgress(_ path: URL, scale: Double, trainer: Bool) {
     let context = CGContext(
         data: nil, width: Int(200 * scale), height: Int(80 * scale),
         bitsPerComponent: 8, bytesPerRow: 0,
@@ -119,10 +119,10 @@ func exportProgress(_ path: URL, scale: Double) {
         bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
     )!
     context.scaleBy(x: CGFloat(scale), y: CGFloat(scale))
-    context.setFillColor(CGColor(red: 0.86, green: 0.88, blue: 0.87, alpha: 1))
+    context.setFillColor(trainer
+        ? CGColor(red: 220/255, green: 229/255, blue: 234/255, alpha: 1)
+        : CGColor(red: 221/255, green: 224/255, blue: 222/255, alpha: 1))
     context.fill(CGRect(x: 14, y: 38, width: 172, height: 4))
-    context.setFillColor(CGColor(red: 0, green: 208/255, blue: 132/255, alpha: 1))
-    context.fill(CGRect(x: 14, y: 38, width: 43, height: 4))
     let destination = CGImageDestinationCreateWithURL(path as CFURL, "public.png" as CFString, 1, nil)!
     CGImageDestinationAddImage(destination, context.makeImage()!, nil)
     precondition(CGImageDestinationFinalize(destination))
@@ -138,10 +138,8 @@ for (app, trainer) in [(root, false), (trainerRoot, true)] {
     for (density, scale) in [("mdpi", 1.0), ("hdpi", 1.5), ("xhdpi", 2.0), ("xxhdpi", 3.0), ("xxxhdpi", 4.0)] {
         export(android.appendingPathComponent("drawable-\(density)/launch_logo.png"),
                scale: scale, trainer: trainer, ios: false)
-        if !trainer {
-            exportProgress(android.appendingPathComponent("drawable-\(density)/launch_progress.png"),
-                           scale: scale)
-        }
+        exportProgress(android.appendingPathComponent("drawable-\(density)/launch_progress.png"),
+                       scale: scale, trainer: trainer)
     }
 }
 print("Exported SETKEEP and SETKEEP TRAINER native splash lockups")
