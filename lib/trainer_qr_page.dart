@@ -46,7 +46,7 @@ class _TrainerQrPageState extends State<TrainerQrPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: const Key('trainerQrPage'),
-      appBar: AppBar(title: const Text('Trainerと連携')),
+      appBar: AppBar(title: const Text('SETKEEP TRAINERと連携')),
       body: SafeArea(
         child: _invite != null
             ? SingleChildScrollView(
@@ -57,7 +57,7 @@ class _TrainerQrPageState extends State<TrainerQrPage> {
                     const Icon(Icons.check_circle_outline, size: 64),
                     const SizedBox(height: 24),
                     const Text(
-                      'Trainer招待QRを読み取りました',
+                      'SETKEEP TRAINERの招待QRを読み取りました',
                       key: Key('trainerInviteRecognized'),
                       style: TextStyle(
                         fontSize: 24,
@@ -68,7 +68,7 @@ class _TrainerQrPageState extends State<TrainerQrPage> {
                     const Text(
                       '招待情報を認識しました。\n'
                       '招待の有効性はまだ確認していません。\n'
-                      '実際のTrainer接続は今後のアップデートで対応します。',
+                      '連携画面で招待内容を確認してください。',
                     ),
                     const SizedBox(height: 24),
                     FilledButton(
@@ -83,7 +83,7 @@ class _TrainerQrPageState extends State<TrainerQrPage> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(16),
-                    child: Text('TrainerのQRコードを読み取ってください'),
+                    child: Text('SETKEEP TRAINERのQRコードを読み取ってください'),
                   ),
                   Expanded(
                     child:
@@ -128,7 +128,7 @@ class _TrainerQrPageState extends State<TrainerQrPage> {
                     const Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(
-                        'Trainer用のQRコードではありません。別のQRコードを読み取ってください。',
+                        'SETKEEP TRAINERの招待QRコードではありません。別のQRコードを読み取ってください。',
                         key: Key('invalidTrainerQr'),
                         style: TextStyle(color: Color(0xFFB3261E)),
                       ),

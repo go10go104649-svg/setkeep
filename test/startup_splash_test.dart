@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:setkeep/main.dart';
+import 'package:setkeep/design/app_colors.dart';
 import 'package:setkeep/startup/startup_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +18,10 @@ void main() {
     (tester) async {
       SharedPreferences.setMockInitialValues({});
       await tester.pumpWidget(const SetkeepApp(showStartup: true));
+      final splash = tester.widget(
+        find.byWidgetPredicate((widget) => widget is StartupSplash),
+      ) as StartupSplash;
+      expect(splash.accent, AppColors.primaryGreen);
       await tester.pumpAndSettle();
       expect(find.text('ジムと一緒にトレーニングを記録'), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsNothing);

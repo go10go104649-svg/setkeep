@@ -198,12 +198,17 @@ void main() {
       if (page == 1) {
         expect(find.text('ジムと一緒にトレーニングを記録'), findsOneWidget);
         expect(
-          find.textContaining('今後は店舗のマシン情報と連動し、そのジムで使えるマシンや種目を探しやすくする予定です。'),
+          find.textContaining('店舗の設備情報と連動し、そのジムでできる種目も探せます。'),
           findsOneWidget,
         );
+      } else if (page == 2) {
+        expect(find.textContaining('フォームガイド動画で動きも確認できます。'), findsOneWidget);
       } else if (page == 3) {
-        expect(find.textContaining('招待QRコードをSETKEEPで読み取れます。'), findsOneWidget);
-        expect(find.textContaining('共有は今後対応予定です。'), findsOneWidget);
+        expect(find.text('SETKEEP TRAINERと連携'), findsOneWidget);
+        expect(find.textContaining('メニューやコメントを受け取ったり'), findsOneWidget);
+      } else {
+        expect(find.text('アカウントでSETKEEPをもっと便利に'), findsOneWidget);
+        expect(find.textContaining('クラウドバックアップは現在準備中です。'), findsOneWidget);
       }
       expect(tester.takeException(), isNull);
       if (page < 4) {
@@ -1655,6 +1660,8 @@ void main() {
     expect(find.byKey(const Key('editProfileDisplayName')), findsOneWidget);
     expect(find.byKey(const Key('trainingSettingsButton')), findsOneWidget);
     expect(find.byKey(const Key('trainerQrButton')), findsOneWidget);
+    expect(find.text('SETKEEP TRAINER連携'), findsOneWidget);
+    expect(find.text('SETKEEP TRAINERと連携'), findsOneWidget);
     expect(find.byKey(const Key('contactButton')), findsOneWidget);
     expect(find.byKey(const Key('appAboutButton')), findsOneWidget);
     expect(find.byKey(const Key('locationSettingsButton')), findsNothing);
@@ -3723,9 +3730,7 @@ void main() {
     expect(longTitle.maxLines, 1);
     expect(longTitle.style?.fontSize, 16);
     expect(longTitle.style?.fontWeight, FontWeight.w900);
-    final recordLine = tester.widget<Text>(
-      find.text('55 kg × 8 回  /  2 セット'),
-    );
+    final recordLine = tester.widget<Text>(find.text('55 kg × 8 回  /  2 セット'));
     expect(recordLine.style?.fontSize, 13);
     expect(recordLine.style?.fontWeight, FontWeight.w700);
     final date = tester.widget<Text>(find.text('2026.09.13'));

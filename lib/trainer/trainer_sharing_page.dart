@@ -99,7 +99,9 @@ class _TrainerSharingPageState extends State<TrainerSharingPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     key: const Key('trainerSharingPage'),
-    appBar: AppBar(title: Text(text('Trainerと連携', 'Trainer sharing'))),
+    appBar: AppBar(
+      title: Text(text('SETKEEP TRAINERと連携', 'Connect to SETKEEP TRAINER')),
+    ),
     body: repo == null
         ? Center(
             child: Padding(

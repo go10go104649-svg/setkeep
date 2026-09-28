@@ -10,6 +10,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:setkeep/services/account_auth_service.dart';
+import 'package:setkeep/startup/startup_splash.dart';
 import 'package:setkeep/trainer/trainer_repository.dart';
 import 'package:setkeep_trainer/main.dart';
 
@@ -184,6 +185,10 @@ void main() {
     t,
   ) async {
     await t.pumpWidget(const TrainerApp(showStartup: true));
+    final splash = t.widget(
+      find.byWidgetPredicate((widget) => widget is StartupSplash),
+    ) as StartupSplash;
+    expect(splash.accent, const Color(0xFF38C6FF));
     expect(find.byKey(const Key('startupProgressFill')), findsOneWidget);
     await t.pumpAndSettle();
     expect(find.textContaining('Supabase configuration'), findsOneWidget);

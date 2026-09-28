@@ -450,7 +450,7 @@ class _SetkeepStartup extends StatelessWidget {
   ) => StartupSplash<({bool onboarded, bool consented})>(
     background: const Color(0xFFF4F5F0),
     track: const Color(0xFFDDE0DE),
-    accent: const Color(0xFF00D084),
+    accent: AppColors.primaryGreen,
     androidLogo: 'android/app/src/main/res/drawable-xxxhdpi/launch_logo.png',
     iosLogo:
         'ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png',
@@ -793,29 +793,28 @@ class _OnboardingPageState extends State<_OnboardingPage> {
       body:
           '種目・重量・回数・セットをかんたんに記録。'
           '\nジムを選んで、その日の場所も記録。未登録の場所も追加できます。'
-          '\n今後は店舗のマシン情報と連動し、そのジムで使えるマシンや種目を探しやすくする予定です。',
+          '\n店舗の設備情報と連動し、そのジムでできる種目も探せます。',
     ),
     (
       icon: Icons.insights_rounded,
       title: '成長を可視化',
       body:
           '履歴と筋肉ヒートマップで、積み重ねを振り返りましょう。'
-          '\n対応種目の3Dフォームガイドで動きも確認できます。',
+          '\n対応種目のフォームガイド動画で動きも確認できます。',
     ),
     (
       icon: Icons.qr_code_rounded,
-      title: 'Trainerと連携',
+      title: 'SETKEEP TRAINERと連携',
       body:
-          'Trainerが表示する招待QRコードをSETKEEPで読み取れます。'
-          '\nTrainerとの接続や、メニュー・トレーニング情報の共有は今後対応予定です。',
+          'SETKEEP TRAINERが表示する招待QRコードを読み取れます。'
+          '\nメニューやコメントを受け取ったり、トレーニング記録を共有できます。',
     ),
     (
       icon: Icons.cloud_outlined,
-      title: 'アカウントでデータを引き継ぐ',
+      title: 'アカウントでSETKEEPをもっと便利に',
       body:
-          '機種変更や別端末での利用に備えて。'
-          '\nアカウントを使うクラウドバックアップで、データを引き継げます。'
-          '\nクラウド機能はPremium限定です。',
+          'アカウントを使ってSETKEEP TRAINERとの連携などの機能を利用できます。'
+          '\nクラウドバックアップは現在準備中です。',
     ),
   ];
   final _controller = PageController();
@@ -11669,12 +11668,12 @@ class ProfilePage extends StatelessWidget {
               },
             ),
           ),
-          _sectionTitle('Trainer連携'),
+          _sectionTitle('SETKEEP TRAINER連携'),
           Card(
             child: ListTile(
               key: const Key('trainerQrButton'),
               leading: const Icon(Icons.qr_code_scanner_rounded),
-              title: const Text('Trainerと連携'),
+              title: const Text('SETKEEP TRAINERと連携'),
               subtitle: const Text('招待の承認・記録の共有・代理記録の自動同期'),
               trailing: const Icon(Icons.chevron_right_rounded),
               onTap: () => Navigator.of(context).push<void>(
