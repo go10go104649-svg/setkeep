@@ -79,6 +79,7 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
   String type = 'exercise';
   String? status = 'pending', error;
   List<AdminReport> rows = [];
+  List<AdminCandidate> candidates = [];
   Map<String, int> counts = {};
   bool busy = true, admin = false, more = false;
   int request = 0;
@@ -99,6 +100,7 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
       error = null;
       if (!append) {
         rows = [];
+        candidates = [];
         counts = {};
       }
     });
@@ -110,6 +112,18 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
           admin = false;
           busy = false;
           rows = [];
+          candidates = [];
+        });
+        return;
+      }
+      if (type == 'candidate') {
+        final batch = await repo.listCandidates(append ? candidates.length : 0);
+        if (!mounted || version != request) return;
+        setState(() {
+          admin = true;
+          candidates = append ? [...candidates, ...batch] : batch;
+          more = batch.length == 50;
+          busy = false;
         });
         return;
       }
@@ -175,6 +189,7 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
                 segments: const [
                   ButtonSegment(value: 'exercise', label: Text('対応種目')),
                   ButtonSegment(value: 'equipment', label: Text('設備情報')),
+                  ButtonSegment(value: 'candidate', label: Text('変更候補')),
                 ],
                 selected: {type},
                 onSelectionChanged: busy
@@ -185,83 +200,118 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
                       },
               ),
             ),
-            SizedBox(
-              height: 48,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  for (final entry in {...reportStatuses, 'all': 'すべて'}.entries)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: ChoiceChip(
-                        key: ValueKey('reportStatus${entry.key}'),
-                        label: Text(
-                          '${entry.value} ${entry.key == 'all' ? counts.values.fold(0, (a, b) => a + b) : counts[entry.key] ?? 0}',
-                        ),
-                        selected: (status ?? 'all') == entry.key,
-                        onSelected: busy
-                            ? null
-                            : (_) {
-                                status = entry.key == 'all' ? null : entry.key;
-                                load();
-                              },
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TextField(
-                controller: search,
-                key: const Key('reportAdminSearch'),
-                decoration: const InputDecoration(
-                  labelText: '店舗名・種目名・設備名で検索',
-                  prefixIcon: Icon(Icons.search),
-                ),
-                onChanged: (_) {
-                  debounce?.cancel();
-                  debounce = Timer(
-                    const Duration(milliseconds: 300),
-                    () => load(),
-                  );
-                },
-              ),
-            ),
-            Expanded(
-              child: rows.isEmpty
-                  ? const Center(child: Text('報告はありません'))
-                  : ListView.builder(
-                      itemCount: rows.length + (more ? 1 : 0),
-                      itemBuilder: (context, index) {
-                        if (index == rows.length) {
-                          return TextButton(
-                            onPressed: busy ? null : () => load(append: true),
-                            child: const Text('さらに表示'),
-                          );
-                        }
-                        final r = rows[index];
-                        return ListTile(
-                          key: ValueKey('adminReport${r.id}'),
-                          title: Text('${r.storeName}\n${r.targetName}'),
-                          subtitle: Text(
-                            '${r.kindLabel}\n${r.data['comment']}\n${r.dateLabel} ・ ${reportStatuses[r.status]}',
-                          ),
-                          isThreeLine: true,
-                          onTap: () async {
-                            await Navigator.push<void>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    _ReportDetail(report: r, repo: repo),
-                              ),
+            if (type == 'candidate')
+              Expanded(
+                child: candidates.isEmpty
+                    ? const Center(child: Text('変更候補はありません'))
+                    : ListView.builder(
+                        itemCount: candidates.length + (more ? 1 : 0),
+                        itemBuilder: (context, index) {
+                          if (index == candidates.length) {
+                            return TextButton(
+                              onPressed: busy ? null : () => load(append: true),
+                              child: const Text('さらに表示'),
                             );
-                            if (mounted) load();
-                          },
-                        );
-                      },
-                    ),
-            ),
+                          }
+                          final candidate = candidates[index];
+                          return ListTile(
+                            key: ValueKey('adminCandidate${candidate.id}'),
+                            title: Text(
+                              '${candidate.storeName}\n${candidate.changeLabel} ・ ${candidate.targetName}',
+                            ),
+                            subtitle: Text(
+                              '${candidate.statusLabel}  支持 ${candidate.supportScore} / 反対 ${candidate.opposeScore}  報告者 ${candidate.uniqueReporters}人\n'
+                              '初回 ${candidate.dateLabel('first_seen_at')}  最終 ${candidate.dateLabel('last_seen_at')}',
+                            ),
+                            isThreeLine: true,
+                          );
+                        },
+                      ),
+              ),
+            if (type != 'candidate') ...[
+              SizedBox(
+                height: 48,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    for (final entry in {
+                      ...reportStatuses,
+                      'all': 'すべて',
+                    }.entries)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: ChoiceChip(
+                          key: ValueKey('reportStatus${entry.key}'),
+                          label: Text(
+                            '${entry.value} ${entry.key == 'all' ? counts.values.fold(0, (a, b) => a + b) : counts[entry.key] ?? 0}',
+                          ),
+                          selected: (status ?? 'all') == entry.key,
+                          onSelected: busy
+                              ? null
+                              : (_) {
+                                  status = entry.key == 'all'
+                                      ? null
+                                      : entry.key;
+                                  load();
+                                },
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: TextField(
+                  controller: search,
+                  key: const Key('reportAdminSearch'),
+                  decoration: const InputDecoration(
+                    labelText: '店舗名・種目名・設備名で検索',
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                  onChanged: (_) {
+                    debounce?.cancel();
+                    debounce = Timer(
+                      const Duration(milliseconds: 300),
+                      () => load(),
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                child: rows.isEmpty
+                    ? const Center(child: Text('報告はありません'))
+                    : ListView.builder(
+                        itemCount: rows.length + (more ? 1 : 0),
+                        itemBuilder: (context, index) {
+                          if (index == rows.length) {
+                            return TextButton(
+                              onPressed: busy ? null : () => load(append: true),
+                              child: const Text('さらに表示'),
+                            );
+                          }
+                          final r = rows[index];
+                          return ListTile(
+                            key: ValueKey('adminReport${r.id}'),
+                            title: Text('${r.storeName}\n${r.targetName}'),
+                            subtitle: Text(
+                              '${r.kindLabel}\n${r.data['comment']}\n${r.dateLabel} ・ ${reportStatuses[r.status]}',
+                            ),
+                            isThreeLine: true,
+                            onTap: () async {
+                              await Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      _ReportDetail(report: r, repo: repo),
+                                ),
+                              );
+                              if (mounted) load();
+                            },
+                          );
+                        },
+                      ),
+              ),
+            ],
           ],
         ],
       ),

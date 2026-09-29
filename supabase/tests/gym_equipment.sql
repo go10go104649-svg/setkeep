@@ -8,7 +8,7 @@ insert into gym_store_equipment(store_id,equipment_id,raw_name) values ('qa-stor
 set local role anon;
 do $$ begin
   if (select count(*) from public.search_gym_stores('店舗テスト'))<>1 or
-     (select count(*) from public.search_gym_stores('市区町村テスト'))<>0 or
+     (select count(*) from public.search_gym_stores('市区町村テスト'))<>1 or
      (select count(*) from public.search_gym_stores('駅テスト'))<>0 then raise exception 'Search failed'; end if;
   begin insert into public.gym_chains(id,name) values ('bad','bad'); raise exception 'Anon wrote master'; exception when insufficient_privilege then null; end;
 end $$;

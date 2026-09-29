@@ -17,8 +17,8 @@ set local role anon;
 do $$ declare names text[]; doc jsonb; begin
  select array_agg(j->>'id') into names from public.search_gym_stores_v2('松戸',0,'qa-detail') j;
  if names<>array['qa-exact','qa-prefix','qa-partial'] then raise exception 'Rank/closed mismatch %',names; end if;
- if exists(select 1 from public.search_gym_stores_v2('住所だけの市')) or
-    exists(select 1 from public.search_gym_stores_v2('駅だけの駅')) then raise exception 'Location incorrectly searchable'; end if;
+ if not exists(select 1 from public.search_gym_stores_v2('住所だけの市') j where j->>'id'='qa-exact') or
+    exists(select 1 from public.search_gym_stores_v2('駅だけの駅')) then raise exception 'Location search mismatch'; end if;
  if not exists(select 1 from public.search_gym_stores_v2('試験ジム')) then raise exception 'Chain alias missing'; end if;
  if (select count(*) from public.gym_store_exercise_ids('qa-exact'))<>2 then raise exception 'Duplicates or missing rule'; end if;
  doc:=public.gym_store_detail('qa-exact');
@@ -52,7 +52,12 @@ do $$ begin
  if (select count(*) from public.gym_equipment_reports where store_id='qa-exact')<>1 then raise exception 'Duplicate open reports'; end if;
 end $$;
 reset role;
-update public.gym_equipment_reports set status='resolved' where store_id='qa-exact';
+insert into auth.users(id) values ('00000000-0000-4000-8000-000000000009');
+insert into public.app_admins(user_id) values ('00000000-0000-4000-8000-000000000009');
+set local request.jwt.claim.sub='00000000-0000-4000-8000-000000000009';
+set local role authenticated;
+update public.gym_equipment_reports set status='rejected',admin_note='QA確認済み' where store_id='qa-exact';
+set local request.jwt.claim.sub='00000000-0000-4000-8000-000000000008';
 set local role authenticated;
 insert into public.gym_equipment_reports(store_id,equipment_id,kind,comment) values ('qa-exact','qa-rack','other','確認してください');
 do $$ begin

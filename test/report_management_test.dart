@@ -5,6 +5,23 @@ import 'package:setkeep/admin/report_management_page.dart';
 
 class FakeReports implements ReportRepository {
   bool admin = true, fail = false;
+  final candidates = [
+    AdminCandidate({
+      'id': 'candidate-1',
+      'store_id': 'store',
+      'store_name': 'KANEKIN FITNESS GYM 松戸店',
+      'equipment_id': 'rack',
+      'equipment_name': 'パワーラック',
+      'change_type': 'removed',
+      'proposed_value': {'equipment_id': 'rack'},
+      'status': 'collecting',
+      'support_score': 3,
+      'oppose_score': 0,
+      'unique_reporters': 3,
+      'first_seen_at': '2026-09-24T12:34:00Z',
+      'last_seen_at': '2026-09-25T12:34:00Z',
+    }),
+  ];
   final reports = [
     for (final type in ['exercise', 'equipment'])
       AdminReport({
@@ -48,6 +65,12 @@ class FakeReports implements ReportRepository {
           s: all.where((r) => r.status == s).length,
       },
     );
+  }
+
+  @override
+  Future<List<AdminCandidate>> listCandidates(int offset) async {
+    if (fail || !admin) throw StateError('denied');
+    return candidates.skip(offset).take(50).toList();
   }
 
   @override
@@ -159,4 +182,25 @@ void main() {
     await t.pumpAndSettle();
     expect(find.byKey(const Key('adminReportexercise')), findsOneWidget);
   });
+  testWidgets(
+    'admin sees candidate decision without changing report workflow',
+    (t) async {
+      await t.pumpWidget(const MaterialApp(home: ReportManagementPage()));
+      await t.pumpAndSettle();
+      await t.tap(find.text('変更候補'));
+      await t.pumpAndSettle();
+      expect(
+        find.byKey(const Key('adminCandidatecandidate-1')),
+        findsOneWidget,
+      );
+      expect(find.textContaining('情報収集中'), findsOneWidget);
+      expect(find.textContaining('支持 3 / 反対 0'), findsOneWidget);
+      expect(find.textContaining('報告者 3人'), findsOneWidget);
+      expect(find.textContaining('初回 2026/'), findsOneWidget);
+      expect(find.textContaining('最終 2026/'), findsOneWidget);
+      await t.tap(find.text('設備情報'));
+      await t.pumpAndSettle();
+      expect(find.byKey(const Key('adminReportequipment')), findsOneWidget);
+    },
+  );
 }

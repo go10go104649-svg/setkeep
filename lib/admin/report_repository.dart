@@ -18,6 +18,47 @@ const reportKinds = {
   'wrong_name': '名称が違う',
   'other': 'その他',
 };
+const candidateStatuses = {
+  'collecting': '情報収集中',
+  'needs_review': '管理者確認が必要',
+  'auto_ready': '自動反映条件を達成',
+  'auto_applied': '自動反映済み',
+  'admin_applied': '管理者反映済み',
+  'rejected': '却下',
+  'expired': '期限切れ',
+  'superseded': '更新済み',
+  'rolled_back': '差し戻し',
+};
+
+class AdminCandidate {
+  AdminCandidate(this.data);
+  final Map<String, dynamic> data;
+  String get id => data['id'] as String;
+  String get status => data['status'] as String;
+  String get statusLabel => candidateStatuses[status] ?? status;
+  String get changeType => data['change_type'] as String;
+  String get changeLabel => reportKinds[changeType] ?? changeType;
+  String get storeName =>
+      data['store_name'] as String? ?? data['store_id'] as String;
+  String get targetName {
+    final proposed = Map<String, dynamic>.from(
+      data['proposed_value'] as Map? ?? {},
+    );
+    return proposed['equipment_name'] as String? ??
+        data['equipment_name'] as String? ??
+        data['equipment_id'] as String? ??
+        '設備指定なし';
+  }
+
+  num get supportScore => data['support_score'] as num;
+  num get opposeScore => data['oppose_score'] as num;
+  int get uniqueReporters => data['unique_reporters'] as int;
+  String dateLabel(String field) {
+    final d = DateTime.parse(data[field] as String).toLocal();
+    String pad(int n) => n.toString().padLeft(2, '0');
+    return '${d.year}/${pad(d.month)}/${pad(d.day)} ${pad(d.hour)}:${pad(d.minute)}';
+  }
+}
 
 class AdminReport {
   AdminReport(this.data);
@@ -60,6 +101,7 @@ abstract class ReportRepository {
     String query,
     int offset,
   );
+  Future<List<AdminCandidate>> listCandidates(int offset);
   Future<void> update(AdminReport report, String status, String note);
 }
 
@@ -117,6 +159,18 @@ class SupabaseReportRepository implements ReportRepository {
           .toList(),
       Map<String, int>.from(result['counts'] as Map? ?? {}),
     );
+  }
+
+  @override
+  Future<List<AdminCandidate>> listCandidates(int offset) async {
+    final rows = await client
+        .from('admin_gym_change_candidates')
+        .select()
+        .order('last_seen_at', ascending: false)
+        .range(offset, offset + 49);
+    return rows
+        .map((row) => AdminCandidate(Map<String, dynamic>.from(row)))
+        .toList();
   }
 
   @override
