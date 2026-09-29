@@ -738,11 +738,13 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
                       title: Text(e.name),
                       subtitle: Text(
                         [
-                          if (e.quantity != null) '${e.quantity}台',
-                          if (e.unavailableQuantity != null &&
-                              e.unavailableQuantity! > 0)
-                            '${e.quantity! - e.unavailableQuantity!}台利用可能',
                           if (!e.usable) '一時利用不可',
+                          if (e.usable &&
+                              e.quantity != null &&
+                              (e.unavailableQuantity ?? 0) > 0)
+                            '${e.quantity}台中${e.quantity! - e.unavailableQuantity!}台利用可能'
+                          else if (e.quantity != null)
+                            '${e.quantity}台',
                           '対応${availableForms(_detail!.forEquipment(e.id).map((r) => r.exerciseId)).length}種目',
                           if (_detail!.forEquipment(e.id).isEmpty)
                             '対応種目は現在準備中です',
@@ -769,7 +771,7 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
                             ),
                           ),
                         );
-                        await _loadReports();
+                        await _load(force: true);
                       },
                     ),
                   ),
@@ -962,7 +964,20 @@ class _GymEquipmentExercisesPageState extends State<GymEquipmentExercisesPage> {
                     widget.store,
                     widget.equipment,
                   );
-                  if (sent && mounted) setState(() => _pending = true);
+                  if (sent && mounted) {
+                    try {
+                      final pending = await GymServices.repository
+                          .pendingEquipment(widget.store.id);
+                      if (mounted) {
+                        setState(
+                          () =>
+                              _pending = pending.contains(widget.equipment.id),
+                        );
+                      }
+                    } catch (_) {
+                      if (mounted) setState(() => _pending = true);
+                    }
+                  }
                 },
                 icon: const Icon(Icons.outlined_flag),
                 label: const Text('設備情報の誤りを報告'),
@@ -1023,12 +1038,18 @@ class _ReportDialog extends StatefulWidget {
 class _ReportDialogState extends State<_ReportDialog> {
   late String _kind = widget.equipment == null ? 'added' : 'not_present';
   final _name = TextEditingController(), _comment = TextEditingController();
+  final _quantity = TextEditingController(),
+      _unavailableQuantity = TextEditingController();
+  String _unavailableScope = 'all';
   bool _busy = false;
   String? _error;
   static const _kinds = {
     'not_present': '設置されていない',
     'removed': '撤去された',
     'added': '新しく追加された',
+    'quantity_changed': '台数が違う',
+    'temporarily_unavailable': '現在利用できない',
+    'available_again': '利用可能に戻った',
     'wrong_name': '名称が違う',
     'other': 'その他',
   };
@@ -1036,6 +1057,8 @@ class _ReportDialogState extends State<_ReportDialog> {
   void dispose() {
     _name.dispose();
     _comment.dispose();
+    _quantity.dispose();
+    _unavailableQuantity.dispose();
     super.dispose();
   }
 
@@ -1043,6 +1066,21 @@ class _ReportDialogState extends State<_ReportDialog> {
     if (_busy) return;
     if (_kind == 'added' && _name.text.trim().isEmpty) {
       setState(() => _error = '追加された設備名を入力してください');
+      return;
+    }
+    final quantity = int.tryParse(_quantity.text.trim());
+    final unavailableQuantity = int.tryParse(_unavailableQuantity.text.trim());
+    if (_kind == 'quantity_changed' &&
+        (quantity == null || quantity < 1 || quantity > 100)) {
+      setState(() => _error = '現在の総台数を1〜100で入力してください');
+      return;
+    }
+    if (_kind == 'temporarily_unavailable' &&
+        _unavailableScope == 'partial' &&
+        (unavailableQuantity == null ||
+            unavailableQuantity < 1 ||
+            unavailableQuantity >= (widget.equipment?.quantity ?? 0))) {
+      setState(() => _error = '利用不可台数を、総台数より少ない数で入力してください');
       return;
     }
     setState(() {
@@ -1056,11 +1094,19 @@ class _ReportDialogState extends State<_ReportDialog> {
         kind: _kind,
         equipmentName: _name.text.trim().isEmpty ? null : _name.text.trim(),
         comment: _comment.text,
+        reportedQuantity: _kind == 'quantity_changed' ? quantity : null,
+        unavailableScope: _kind == 'temporarily_unavailable'
+            ? _unavailableScope
+            : null,
+        reportedUnavailableQuantity:
+            _kind == 'temporarily_unavailable' && _unavailableScope == 'partial'
+            ? unavailableQuantity
+            : null,
       );
       if (mounted) {
         Navigator.pop(context, true);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('報告を受け付けました。確認後に情報を更新します。')),
+          const SnackBar(content: Text('報告を受け付けました。設備情報を確認・更新します。')),
         );
       }
     } catch (_) {
@@ -1087,7 +1133,16 @@ class _ReportDialogState extends State<_ReportDialog> {
               isExpanded: true,
               items: [
                 for (final entry in _kinds.entries)
-                  DropdownMenuItem(value: entry.key, child: Text(entry.value)),
+                  if (widget.equipment != null ||
+                      !{
+                        'quantity_changed',
+                        'temporarily_unavailable',
+                        'available_again',
+                      }.contains(entry.key))
+                    DropdownMenuItem(
+                      value: entry.key,
+                      child: Text(entry.value),
+                    ),
               ],
               onChanged: _busy ? null : (v) => setState(() => _kind = v!),
             ),
@@ -1100,6 +1155,47 @@ class _ReportDialogState extends State<_ReportDialog> {
                   labelText: _kind == 'added' ? '設備名（必須）' : '正しい設備名（任意）',
                 ),
               ),
+            if (_kind == 'quantity_changed')
+              TextField(
+                key: const Key('gymReportedQuantity'),
+                controller: _quantity,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: '現在の総台数（必須）',
+                  hintText: '例：3台',
+                ),
+              ),
+            if (_kind == 'temporarily_unavailable') ...[
+              DropdownButtonFormField<String>(
+                key: const Key('gymUnavailableScope'),
+                initialValue: _unavailableScope,
+                decoration: const InputDecoration(labelText: '利用できない範囲'),
+                items: [
+                  const DropdownMenuItem(value: 'all', child: Text('全台利用不可')),
+                  if ((widget.equipment?.quantity ?? 0) > 1)
+                    const DropdownMenuItem(
+                      value: 'partial',
+                      child: Text('一部利用不可'),
+                    ),
+                ],
+                onChanged: _busy
+                    ? null
+                    : (v) => setState(() => _unavailableScope = v!),
+              ),
+              if (_unavailableScope == 'partial')
+                TextField(
+                  key: const Key('gymReportedUnavailableQuantity'),
+                  controller: _unavailableQuantity,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: '利用不可台数（必須）',
+                    helperText: widget.equipment?.quantity == null
+                        ? '総台数が未登録のため、一部利用不可は報告できません'
+                        : '登録総台数：${widget.equipment!.quantity}台',
+                  ),
+                ),
+            ],
+            if (_kind == 'available_again') const Text('全台が再び利用できる状態として報告します。'),
             TextField(
               key: const Key('gymReportComment'),
               controller: _comment,

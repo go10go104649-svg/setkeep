@@ -83,6 +83,9 @@ class DetailRepo extends FakeGyms {
     required String kind,
     String? equipmentName,
     required String comment,
+    int? reportedQuantity,
+    int? reportedUnavailableQuantity,
+    String? unavailableScope,
   }) async {
     if (equipmentId != null) pending.add(equipmentId);
     await super.report(
@@ -91,6 +94,9 @@ class DetailRepo extends FakeGyms {
       kind: kind,
       equipmentName: equipmentName,
       comment: comment,
+      reportedQuantity: reportedQuantity,
+      reportedUnavailableQuantity: reportedUnavailableQuantity,
+      unavailableScope: unavailableScope,
     );
   }
 }
@@ -145,6 +151,62 @@ void main() {
       expect(cached.detail.equipment.first.unavailableQuantity, 1);
       expect(cached.detail.evidence.first.equipmentIds, ['rack', 'bench']);
       expect(cached.detail.store.officialUrl, detailedStore.officialUrl);
+    },
+  );
+  testWidgets(
+    'equipment state reports require values and submit distinct payloads',
+    (t) async {
+      await open(
+        t,
+        Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              onPressed: () =>
+                  showGymEquipmentReport(context, detailedStore, rack),
+              child: const Text('報告を開く'),
+            ),
+          ),
+        ),
+      );
+      Future<void> choose(String label) async {
+        await t.tap(find.text('報告を開く'));
+        await t.pumpAndSettle();
+        await t.tap(find.byKey(const Key('gymReportKind')));
+        await t.pumpAndSettle();
+        await t.tap(find.text(label).last);
+        await t.pumpAndSettle();
+      }
+
+      await choose('台数が違う');
+      await t.tap(find.byKey(const Key('submitGymEquipmentReport')));
+      await t.pumpAndSettle();
+      expect(repo.reportValues, isEmpty);
+      expect(find.textContaining('総台数を1〜100'), findsOneWidget);
+      await t.enterText(find.byKey(const Key('gymReportedQuantity')), '4');
+      await t.tap(find.byKey(const Key('submitGymEquipmentReport')));
+      await t.pumpAndSettle();
+      expect(repo.reportValues.last['reported_quantity'], 4);
+
+      await choose('現在利用できない');
+      await t.tap(find.byKey(const Key('gymUnavailableScope')));
+      await t.pumpAndSettle();
+      await t.tap(find.text('一部利用不可').last);
+      await t.pumpAndSettle();
+      await t.enterText(
+        find.byKey(const Key('gymReportedUnavailableQuantity')),
+        '1',
+      );
+      await t.tap(find.byKey(const Key('submitGymEquipmentReport')));
+      await t.pumpAndSettle();
+      expect(repo.reportValues.last['unavailable_scope'], 'partial');
+      expect(repo.reportValues.last['reported_unavailable_quantity'], 1);
+
+      await choose('利用可能に戻った');
+      expect(find.textContaining('全台が再び利用できる'), findsOneWidget);
+      await t.tap(find.byKey(const Key('submitGymEquipmentReport')));
+      await t.pumpAndSettle();
+      expect(repo.reportValues.last['kind'], 'available_again');
+      expect(repo.reportValues.last['reported_quantity'], isNull);
     },
   );
   test(

@@ -40,6 +40,42 @@ class FakeReports implements ReportRepository {
       'before_data': {'presence_status': 'present', 'available': true},
       'after_data': {'presence_status': 'removed', 'available': false},
     }),
+    for (final (id, kind, current, proposed) in [
+      (
+        'quantity',
+        'quantity_changed',
+        {'quantity': 2},
+        {'reported_quantity': 3},
+      ),
+      (
+        'unavailable',
+        'temporarily_unavailable',
+        {'available': true},
+        {'unavailable_scope': 'all'},
+      ),
+      (
+        'recovery',
+        'available_again',
+        {'available': false, 'unavailable_quantity': 2},
+        {'recovery_scope': 'all'},
+      ),
+    ])
+      AdminCandidate({
+        'id': 'candidate-$id',
+        'store_id': 'store',
+        'store_name': 'QA店舗',
+        'equipment_id': 'machine',
+        'equipment_name': 'マシン',
+        'change_type': kind,
+        'proposed_value': proposed,
+        'current_data': current,
+        'status': 'needs_review',
+        'support_score': 2,
+        'oppose_score': 0,
+        'unique_reporters': 2,
+        'first_seen_at': '2026-09-24T12:34:00Z',
+        'last_seen_at': '2026-09-25T12:34:00Z',
+      }),
   ];
   final reports = [
     for (final type in ['exercise', 'equipment'])
@@ -230,6 +266,15 @@ void main() {
       expect(find.byKey(const Key('adminReportequipment')), findsOneWidget);
     },
   );
+  testWidgets('admin sees current and proposed equipment state', (t) async {
+    await t.pumpWidget(const MaterialApp(home: ReportManagementPage()));
+    await t.pumpAndSettle();
+    await t.tap(find.text('変更候補'));
+    await t.pumpAndSettle();
+    expect(find.textContaining('現在値: 2台 → 変更候補: 3台'), findsOneWidget);
+    expect(find.textContaining('現在: 利用可能 → 候補: 一時利用不可'), findsOneWidget);
+    expect(find.textContaining('現在: 一時利用不可 → 候補: 利用可能（全台復旧）'), findsOneWidget);
+  });
   testWidgets(
     'auto-applied candidate requires a reason and confirms rollback',
     (t) async {
@@ -260,7 +305,7 @@ void main() {
       await t.tap(find.byKey(const Key('confirmCandidateRollback')));
       await t.pumpAndSettle();
       expect(repo.rollbackReason, '設備の撤去情報に誤り');
-      expect(repo.candidates.last.status, 'rolled_back');
+      expect(repo.candidates.firstWhere((c) => c.id == 'candidate-2').status, 'rolled_back');
     },
   );
 }

@@ -15,6 +15,9 @@ const reportKinds = {
   'not_present': '設置されていない',
   'removed': '撤去された',
   'added': '新しく追加された',
+  'quantity_changed': '台数が違う',
+  'temporarily_unavailable': '現在利用できない',
+  'available_again': '利用可能に戻った',
   'wrong_name': '名称が違う',
   'other': 'その他',
 };
@@ -61,6 +64,38 @@ class AdminCandidate {
   Map<String, dynamic>? get afterData => data['after_data'] is Map
       ? Map<String, dynamic>.from(data['after_data'] as Map)
       : null;
+  Map<String, dynamic>? get currentData => data['current_data'] is Map
+      ? Map<String, dynamic>.from(data['current_data'] as Map)
+      : null;
+  Map<String, dynamic> get proposedValue =>
+      Map<String, dynamic>.from(data['proposed_value'] as Map? ?? {});
+  String? get stateSummary {
+    final current = beforeData ?? currentData;
+    if (changeType == 'quantity_changed') {
+      return '現在値: ${current?['quantity'] ?? '不明'}台 → 変更候補: ${proposedValue['reported_quantity']}台';
+    }
+    if (changeType == 'temporarily_unavailable' ||
+        changeType == 'available_again') {
+      String status(Map<String, dynamic>? row) {
+        if (row == null) return '不明';
+        if (row['available'] == false) return '一時利用不可';
+        final unavailable = row['unavailable_quantity'] as num?;
+        if (unavailable != null && unavailable > 0) {
+          return '${unavailable.toInt()}台利用不可';
+        }
+        return '利用可能';
+      }
+
+      final proposed = changeType == 'available_again'
+          ? '利用可能（全台復旧）'
+          : proposedValue['unavailable_scope'] == 'partial'
+          ? '${proposedValue['reported_unavailable_quantity']}台利用不可'
+          : '一時利用不可';
+      return '現在: ${status(current)} → 候補: $proposed';
+    }
+    return null;
+  }
+
   String dateLabel(String field) {
     final d = DateTime.parse(data[field] as String).toLocal();
     String pad(int n) => n.toString().padLeft(2, '0');

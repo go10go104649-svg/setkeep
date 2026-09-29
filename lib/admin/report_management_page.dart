@@ -222,6 +222,7 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
                             ),
                             subtitle: Text(
                               '${candidate.statusLabel}  支持 ${candidate.supportScore} / 反対 ${candidate.opposeScore}  報告者 ${candidate.uniqueReporters}人\n'
+                              '${candidate.stateSummary == null ? '' : '${candidate.stateSummary}\n'}'
                               '初回 ${candidate.dateLabel('first_seen_at')}  最終 ${candidate.dateLabel('last_seen_at')}',
                             ),
                             isThreeLine: true,
@@ -417,6 +418,7 @@ class _CandidateDetailState extends State<_CandidateDetail> {
             Text(c.storeName, style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             Text('${c.changeLabel} ・ ${c.targetName}'),
+            if (c.stateSummary != null) Text(c.stateSummary!),
             Text('状態：${c.statusLabel}'),
             Text(
               '支持 ${c.supportScore} / 反対 ${c.opposeScore} ・ 報告者 ${c.uniqueReporters}人',

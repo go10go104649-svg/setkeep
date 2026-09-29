@@ -36,6 +36,7 @@ class FakeGyms extends GymRepository {
   bool emptyEquipment = false;
   String query = '';
   final reports = <String>[];
+  final reportValues = <Map<String, Object?>>[];
   @override
   bool get canReport => true;
   @override
@@ -90,8 +91,17 @@ class FakeGyms extends GymRepository {
     required String kind,
     String? equipmentName,
     required String comment,
+    int? reportedQuantity,
+    int? reportedUnavailableQuantity,
+    String? unavailableScope,
   }) async {
     reports.add('$storeId/$kind/$equipmentName');
+    reportValues.add({
+      'kind': kind,
+      'reported_quantity': reportedQuantity,
+      'reported_unavailable_quantity': reportedUnavailableQuantity,
+      'unavailable_scope': unavailableScope,
+    });
   }
 }
 

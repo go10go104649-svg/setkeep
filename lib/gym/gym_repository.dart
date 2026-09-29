@@ -311,6 +311,9 @@ abstract class GymRepository {
     required String kind,
     String? equipmentName,
     required String comment,
+    int? reportedQuantity,
+    int? reportedUnavailableQuantity,
+    String? unavailableScope,
   });
   bool get canReport;
   Future<Set<String>> exerciseIds(String storeId) async {
@@ -621,6 +624,9 @@ class SupabaseGymRepository extends GymRepository {
     required String kind,
     String? equipmentName,
     required String comment,
+    int? reportedQuantity,
+    int? reportedUnavailableQuantity,
+    String? unavailableScope,
   }) async {
     if (!canReport) throw StateError('報告にはアカウントへのログインが必要です');
     await _client.from('gym_equipment_reports').insert({
@@ -629,6 +635,9 @@ class SupabaseGymRepository extends GymRepository {
       'kind': kind,
       'equipment_name': equipmentName,
       'comment': comment.trim(),
+      'reported_quantity': reportedQuantity,
+      'reported_unavailable_quantity': reportedUnavailableQuantity,
+      'unavailable_scope': unavailableScope,
     });
   }
 }
