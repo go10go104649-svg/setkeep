@@ -43,6 +43,31 @@ ignore unknown exercise IDs safely. Another chain can use the same tables and UI
 normalize its source to the documented workbook columns or adapt the reader only,
 then supply its own chain ID and reviewed mapping file.
 
+## Anytime Fitness national master (2026-09-29)
+
+The authoritative workbook is kept in Google Drive at
+`SETKEEP/data/import/SETKEEP_エニタイムフィットネス_全国店舗設備マスター_v1.0.xlsx`.
+It is not committed. Import with its local synchronized path:
+
+```sh
+python3 tool/gym_import/import_anytime_master.py --input /path/to/SETKEEP_エニタイムフィットネス_全国店舗設備マスター_v1.0.xlsx
+# Review the dry-run counts, then repeat with --apply.
+```
+
+The importer validates 1,327 unique stores in 47 prefectures and the exact
+store/equipment relationships. It checks the live database for legacy Anytime
+IDs or matching store identities and stops for manual review rather than
+creating a duplicate. A checked-in, name-verified reuse map links only clear
+source equipment to existing shared equipment IDs; other source equipment gets
+a stable `anytime-fitness:` ID and `needs_review=true`, without guessed exercise
+mappings. The import is divided into idempotent batches for the Supabase query
+API; rerunning it updates existing rows and does not delete missing rows. Do
+not infer equipment absence from `not_collected` or `not_published`. Unknown
+quantity remains null. `page_status=preopening_text` is kept in store source
+metadata; those stores remain searchable but cannot be registered as a current
+training place. Store and equipment contents from this workbook are never used
+to update another chain.
+
 ## Current source audit (2026-09-23)
 
 244 stores, 219 equipment IDs, 1,582 store-equipment pairs, no duplicate keys or
