@@ -16,9 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   for (final (searchTerm, expectedChainId) in [
-    ('札幌北32条', 'fit-place24'),
+    ('野田柳沢', 'fit-place24'),
     ('上石神井', 'fastgym24'),
     ('東松山店', 'fit24'),
+    ('松戸駅前店', 'anytime-fitness'),
   ]) {
     testWidgets(
       'live $expectedChainId search equipment exercise and workout draft',
@@ -112,7 +113,9 @@ void main() {
       },
     );
   }
-  testWidgets('live FASTGYM24 store can be registered and removed', (t) async {
+  testWidgets('live FASTGYM24 and Anytime stores register and set default', (
+    t,
+  ) async {
     SharedPreferences.setMockInitialValues({});
     await SupabaseConfig.initialize();
     final repo = SupabaseGymRepository();
@@ -146,6 +149,31 @@ void main() {
       (await repo.registered()).any((saved) => saved.id == store.id),
       isFalse,
     );
+    final anytime = (await repo.search('松戸駅前店'))
+        .firstWhere((item) => item.chainId == 'anytime-fitness');
+    await t.tap(find.byKey(const Key('registerGymButton')));
+    await t.pumpAndSettle();
+    await t.enterText(find.byKey(const Key('gymStoreSearchField')), '松戸駅前店');
+    for (
+      var i = 0;
+      i < 100 &&
+          find.byKey(Key('selectGymStore${anytime.id}')).evaluate().isEmpty;
+      i++
+    ) {
+      await t.pump(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    }
+    await t.tap(find.byKey(Key('selectGymStore${anytime.id}')));
+    await t.pumpAndSettle();
+    await t.tap(find.byKey(const Key('confirmGymStoreSelection')));
+    await t.pumpAndSettle();
+    expect((await repo.registered()).any((s) => s.id == anytime.id), isTrue);
+    await t.tap(find.byKey(Key('defaultTrainingPlace${anytime.id}')));
+    await t.pumpAndSettle();
+    expect((await TrainingPlacePreference.forNewWorkout()).storeId, anytime.id);
+    await t.tap(find.byKey(Key('removeRegisteredGym${anytime.id}')));
+    await t.pumpAndSettle();
+    expect((await TrainingPlacePreference.load()).isHome, isTrue);
     await t.pumpWidget(const SizedBox());
   });
   testWidgets(

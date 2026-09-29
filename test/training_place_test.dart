@@ -1,4 +1,5 @@
 import 'support/signed_in_auth.dart';
+
 import 'dart:convert';
 
 import 'support/legal_consent_fixture.dart';
@@ -11,7 +12,8 @@ import 'package:setkeep/gym/gym_pages.dart';
 import 'package:setkeep/gym/gym_repository.dart';
 import 'package:setkeep/gym/training_place_preference.dart';
 
-import 'gym_integration_test.dart' show FakeGyms, storeA, storeB;
+import 'gym_integration_test.dart'
+    show FakeGyms, preopeningStore, storeA, storeB;
 
 class MissingDefaultStoreRepository extends FakeGyms {
   @override
@@ -64,6 +66,14 @@ void main() {
       expect((await TrainingPlacePreference.load()).isHome, isTrue);
     },
   );
+  test('preopening default cannot become a new workout location', () async {
+    repo.saved = [preopeningStore];
+    await TrainingPlacePreference.save(
+      const TrainingPlace.store(preopeningStore),
+    );
+    expect((await TrainingPlacePreference.forNewWorkout()).isHome, isTrue);
+    expect((await TrainingPlacePreference.load()).isHome, isTrue);
+  });
 
   test(
     'manual default follows its ID through rename but not replacement',

@@ -29,6 +29,35 @@ Widget gymError(VoidCallback retry) => Padding(
   ),
 );
 
+List<MapEntry<String, String>> sortedGymChainOptions(
+  Map<String, String> chains,
+) {
+  String sortKey(String name) {
+    final kanaAndAscii = String.fromCharCodes(
+      name.runes.map((code) {
+        if (code >= 0x30a1 && code <= 0x30f6) return code - 0x60;
+        if (code >= 0xff21 && code <= 0xff3a) return code - 0xff21 + 0x61;
+        if (code >= 0xff41 && code <= 0xff5a) return code - 0xff41 + 0x61;
+        return code;
+      }),
+    );
+    final normalized = kanaAndAscii.toLowerCase().replaceAll(
+      RegExp(r"[\s'’+＋・･‐‑–—−－-]"),
+      '',
+    );
+    return '${RegExp(r'^[a-z]').hasMatch(normalized) ? '0' : '1'}$normalized';
+  }
+
+  final options = chains.entries
+      .where((entry) => entry.key != 'kanekin-fitness-gym')
+      .toList();
+  options.sort((a, b) {
+    final byName = sortKey(a.value).compareTo(sortKey(b.value));
+    return byName != 0 ? byName : a.key.compareTo(b.key);
+  });
+  return options;
+}
+
 class GymStoreSearchPage extends StatefulWidget {
   const GymStoreSearchPage({super.key});
   @override
@@ -94,7 +123,9 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
       if (!mounted || request != _request) return;
       setState(() {
         _registered = registered
-            .where((s) => s.active && (_chain == null || s.chainId == _chain))
+            .where(
+              (s) => s.isSelectable && (_chain == null || s.chainId == _chain),
+            )
             .toList();
         _registeredFailed = registeredFailed;
         _stores = more ? [..._stores, ...rows] : rows;
@@ -112,7 +143,10 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
     leading: const Icon(Icons.location_on_outlined),
     title: Text(s.displayName),
     subtitle: Text(
-      [s.city].whereType<String>().where((v) => v.isNotEmpty).join(' ・ '),
+      [
+        s.city,
+        if (s.isPreopening) 'オープン準備中',
+      ].whereType<String>().where((v) => v.isNotEmpty).join(' ・ '),
     ),
     trailing: const Icon(Icons.chevron_right),
     onTap: () async {
@@ -140,7 +174,7 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
               key: const Key('gymStoreSearchField'),
               controller: _controller,
               decoration: const InputDecoration(
-                labelText: '店舗名・チェーン名で検索',
+                labelText: '店舗名・地域・チェーン名で検索',
                 prefixIcon: Icon(Icons.search),
               ),
               onChanged: (_) {
@@ -167,7 +201,7 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
                 decoration: const InputDecoration(labelText: 'チェーンで絞り込む（任意）'),
                 items: [
                   const DropdownMenuItem(value: '', child: Text('すべてのチェーン')),
-                  for (final e in _chains.entries)
+                  for (final e in sortedGymChainOptions(_chains))
                     DropdownMenuItem(value: e.key, child: Text(e.value)),
                 ],
                 onChanged: (v) {
@@ -418,6 +452,8 @@ class _RegisteredGymsPageState extends State<RegisteredGymsPage> {
                       subtitle: Text(
                         _defaultPlace.storeId == store.id
                             ? 'いつもの場所 ✓ ・ 設備を見る'
+                            : store.isPreopening
+                            ? 'オープン準備中'
                             : store.active
                             ? '設備を見る'
                             : '閉店 ・ 登録解除できます',
@@ -448,7 +484,7 @@ class _RegisteredGymsPageState extends State<RegisteredGymsPage> {
                       key: ValueKey('defaultTrainingPlace${store.id}'),
                       onPressed:
                           _busy ||
-                              !store.active ||
+                              !store.isSelectable ||
                               _defaultPlace.storeId == store.id
                           ? null
                           : () => _change(
@@ -618,6 +654,8 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
             children: [
               if (store.city != null) Text(store.city!),
               if (!store.active) const Text('この店舗は閉店しています。過去の記録は保持されます。'),
+              if (store.isPreopening)
+                const Text('この店舗はオープン準備中です。現在の利用場所には登録できません。'),
               Text('設備情報：$status', key: const Key('gymEquipmentStatus')),
               Text(
                 checked == null
@@ -637,7 +675,7 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
               if (widget.onSelect != null)
                 FilledButton(
                   key: const Key('confirmGymStoreSelection'),
-                  onPressed: store.active ? widget.onSelect : null,
+                  onPressed: store.isSelectable ? widget.onSelect : null,
                   child: const Text('この店舗を登録'),
                 ),
               const SizedBox(height: 12),
@@ -1183,7 +1221,7 @@ class _TrainingPlacePickerState extends State<TrainingPlacePicker> {
         ),
         if (_busy) const LinearProgressIndicator(),
         if (_failed) gymError(_load),
-        for (final store in _stores.where((s) => s.active))
+        for (final store in _stores.where((s) => s.isSelectable))
           ListTile(
             key: ValueKey('selectRegisteredPlace${store.id}'),
             title: Text(store.displayName),

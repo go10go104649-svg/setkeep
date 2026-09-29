@@ -18,12 +18,15 @@ class GymStore {
     this.checkedAt,
     this.active = true,
     this.equipmentStatus = 'not_collected',
+    this.pageStatus,
   });
   final String id, chainName, name, equipmentStatus;
-  final String? city, address, station, chainId, officialUrl;
+  final String? city, address, station, chainId, officialUrl, pageStatus;
   final DateTime? checkedAt;
   final bool active;
   String get displayName => '$chainName $name'.trim();
+  bool get isPreopening => pageStatus == 'preopening_text';
+  bool get isSelectable => active && !isPreopening;
   factory GymStore.fromJson(Map<String, dynamic> j) => GymStore(
     id: j['id'] as String,
     chainName:
@@ -39,6 +42,9 @@ class GymStore {
     checkedAt: DateTime.tryParse(j['checked_at'] as String? ?? ''),
     active: j['active'] != false,
     equipmentStatus: j['equipment_status'] as String? ?? 'not_collected',
+    pageStatus:
+        j['page_status'] as String? ??
+        (j['source'] as Map?)?['page_status'] as String?,
   );
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -52,6 +58,7 @@ class GymStore {
     'checked_at': checkedAt?.toIso8601String(),
     'active': active,
     'equipment_status': equipmentStatus,
+    'page_status': pageStatus,
   };
 }
 
@@ -572,6 +579,7 @@ class SupabaseGymRepository extends GymRepository {
 
   @override
   Future<void> register(GymStore store) async {
+    if (!store.isSelectable) throw StateError('この店舗は現在登録できません');
     final user = _userId;
     if (user == null) {
       final stores = await _guestStores();

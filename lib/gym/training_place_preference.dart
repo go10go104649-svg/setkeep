@@ -106,7 +106,7 @@ class TrainingPlacePreference {
     }
     try {
       final stores = await repository.searchStores('カネキン');
-      final matching = stores.where((s) => s.id == storeId && s.active);
+      final matching = stores.where((s) => s.id == storeId && s.isSelectable);
       if (matching.isEmpty) return;
       final store = matching.single;
       await repository.register(store);
@@ -134,12 +134,12 @@ class TrainingPlacePreference {
     try {
       final repo = GymServices.repository;
       final registered = await repo.registered();
-      if (!registered.any((s) => s.id == current.storeId && s.active)) {
+      if (!registered.any((s) => s.id == current.storeId && s.isSelectable)) {
         await save(const TrainingPlace.home());
         return const TrainingPlace.home();
       }
       final store = await repo.storeById(current.storeId!);
-      if (store != null && store.active) {
+      if (store != null && store.isSelectable) {
         final fresh = TrainingPlace.store(store);
         await save(fresh);
         return fresh;
@@ -169,7 +169,7 @@ class TrainingPlacePreference {
     }
     if (current.storeId == null) return current;
     for (final store in registered) {
-      if (store.id == current.storeId && store.active) {
+      if (store.id == current.storeId && store.isSelectable) {
         final fresh = TrainingPlace.store(store);
         await save(fresh);
         return fresh;

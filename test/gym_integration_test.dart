@@ -22,10 +22,18 @@ const storeB = GymStore(
   city: '柏市',
   station: '柏駅',
 );
+const preopeningStore = GymStore(
+  id: 'anytime-fitness:preopening',
+  chainName: 'エニタイムフィットネス',
+  name: '開店準備店',
+  city: '松戸市',
+  pageStatus: 'preopening_text',
+);
 
 class FakeGyms extends GymRepository {
   List<GymStore> saved = [];
   bool fail = false, failRegistered = false;
+  bool emptyEquipment = false;
   String query = '';
   final reports = <String>[];
   @override
@@ -57,6 +65,7 @@ class FakeGyms extends GymRepository {
   @override
   Future<List<GymEquipment>> equipment(String id, {int offset = 0}) async {
     if (fail) throw StateError('offline');
+    if (emptyEquipment) return const [];
     return const [
       GymEquipment(
         id: 'e',
@@ -118,6 +127,29 @@ void main() {
     await t.tap(find.text('再読み込み'));
     await t.pumpAndSettle();
     expect(find.byKey(const Key('selectGymStoreb')), findsOneWidget);
+  });
+  testWidgets('preopening store is identified and cannot be registered', (
+    t,
+  ) async {
+    final parsed = GymStore.fromJson({
+      'id': preopeningStore.id,
+      'chain_name': preopeningStore.chainName,
+      'name': preopeningStore.name,
+      'source': {'page_status': 'preopening_text'},
+    });
+    expect(parsed.isPreopening, isTrue);
+    expect(parsed.isSelectable, isFalse);
+    expect(GymStore.fromJson(parsed.toJson()).isPreopening, isTrue);
+    await page(t, GymStoreEquipmentPage(store: parsed, onSelect: () {}));
+    expect(find.textContaining('オープン準備中'), findsWidgets);
+    expect(
+      t
+          .widget<FilledButton>(
+            find.byKey(const Key('confirmGymStoreSelection')),
+          )
+          .onPressed,
+      isNull,
+    );
   });
   testWidgets('registered gym failure does not block public store search', (
     t,
@@ -236,6 +268,17 @@ void main() {
       find.byKey(const Key('selectExercisedecline_dumbbell_press')),
       findsOneWidget,
     );
+  });
+  testWidgets('empty equipment is not described as a network failure', (
+    t,
+  ) async {
+    repo.emptyEquipment = true;
+    await page(t, const Scaffold(body: ExercisePickerSheet(gymStoreId: 'a')));
+    await t.tap(find.byKey(const Key('storeExerciseFilter')));
+    await t.pumpAndSettle();
+    expect(find.textContaining('設備情報は未取得'), findsOneWidget);
+    expect(find.textContaining('取得できませんでした'), findsNothing);
+    expect(find.text('全種目を見る'), findsOneWidget);
   });
   testWidgets(
     'store filter includes mapped exercises and recovers from errors',

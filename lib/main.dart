@@ -8665,11 +8665,19 @@ class _ExercisePickerSheetState extends State<ExercisePickerSheet> {
                   ),
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
                   children: [
-                    if (_storeFailed ||
-                        (_storeOnly && (_storeIds?.isEmpty ?? true)))
+                    if (_storeFailed)
                       const Padding(
                         padding: EdgeInsets.all(8),
                         child: Text('対応種目を取得できませんでした。「全種目」からも追加できます。'),
+                      ),
+                    if (!_storeFailed &&
+                        _storeOnly &&
+                        (_storeIds?.isEmpty ?? true))
+                      const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          'この店舗の設備情報は未取得、または対応種目の登録がまだありません。「全種目」から追加できます。',
+                        ),
                       ),
                     if (_storeOnly && (_storeIds?.isEmpty ?? true))
                       TextButton(
