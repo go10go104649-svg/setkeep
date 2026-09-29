@@ -59,15 +59,13 @@ Live Activitiesは `NSSupportsLiveActivities` とWidget extensionの構成を維
 
 ### GitHub
 
-現remoteは旧リポジトリのまま。存在しないURLへ先行変更しない。
-GitHubのリポジトリ → Settings → General → Repository nameで `setkeep` へRenameした後、ローカルで次を実行する：
+リポジトリはSETKEEP用Organizationへ移管済み。Macの開発用remoteは次を使用する：
 
 ```
-git remote set-url origin https://github.com/go10go104649-svg/setkeep.git
+git remote set-url origin https://github.com/setkeep/setkeep.git
 ```
 
-READMEの旧GitHub URLは現在なし。外部ブックマーク、バッジ等はrename後に新URLへ更新。
-今回GitHub側rename / commit / pushは行っていない。
+移管後も既存commit履歴と `main` を維持。新規cloneやCodex連携ではこのURLを使用する。
 
 ### ビルド環境・ストア・アイコン
 
