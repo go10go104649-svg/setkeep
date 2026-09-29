@@ -103,3 +103,17 @@ Vital Animations動画を製品の種目フォームガイドとして使用す�
 - [TRAINERテナント対応記録](setkeep_trainer_tenants.md): テナント・ID算定・見積の経緯
 - [TRAINERメニュー・コメント連携](setkeep_trainer_delivery.md): 送信構造とRLS
 - [旧3Dフォーム再制作QA](qa/forms_rebuild_2026-09-22.md): 旧自作3Dの**履歴資料**。現行Vital公開数ではない
+
+
+## チェーン横断の設備・対応種目（2026-09-29追記）
+
+- 店舗固有equipment IDは維持し、レビュー済みcanonical設備概念を介して対応種目を共有する。
+  一般ユーザーは参照のみ。新チェーンの一致候補はレビュー後に承認する。
+- direct + canonical単体 + 既存複合 + canonical複合を共通評価器で解決する。
+  ダンベルとベンチ、バーベルとラックとベンチ等は全能力が実在する場合に成立する。
+  旧ダンベルdirectのベンチ必須種目も必要設備を確認し、元のマッピング行は維持する。
+- 共有店舗・手動場所の設備評価を共用し、撤去/利用不可設備の除外は維持する。
+  Evidenceは内部canonical IDではなく元設備名を表示する。
+- 既存の店舗・設備・数量・出典・履歴・種目IDを変更しない。曖昧なプルダウン等は推測しない。
+- 本番適用と検証の詳細は[設備共通知識QA](qa/canonical_equipment_2026-09-29/README.md)、
+  新チェーン追加時の手順は[運用手順](../tool/equipment_canonical/README.md)を参照。

@@ -1,0 +1,1102 @@
+chain,equipment_id,name,category,load_type,manufacturer,model,store_count,reason,source_needs_review,raw_names
+FIT PLACE24,fit-place24:fp_eq_0b7ade05c9c0,アジャスタブルインクラインベンチ,フリーウェイト,not_specified,,,22,requires_other_equipment,False,アジャスタブルインクラインベンチ
+FIT PLACE24,fit-place24:fp_eq_39f2145cc716,フルボディトレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,フルボディトレーナー(プレートロード)
+FIT PLACE24,fit-place24:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,6,requires_other_equipment,False,フラットベンチ
+FIT PLACE24,fit-place24:fp_eq_453fcb2d0cc8,マルチアジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,3,requires_other_equipment,False,マルチアジャスタブルデクラインベンチ
+FIT PLACE24,fit-place24:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,2,requires_other_equipment,False,アームカールラック
+FIT PLACE24,fit-place24:fp_eq_538b557739d4,アジャスタブルマルチデクラインベンチ,フリーウェイト,not_specified,,,5,requires_other_equipment,False,アジャスタブルマルチデクラインベンチ
+FIT PLACE24,fit-place24:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,24,requires_other_equipment,False,カールベンチ
+FIT PLACE24,fit-place24:fp_eq_57ab45d08062,デクラインフラットベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,デクラインフラットベンチ
+FIT PLACE24,fit-place24:fp_eq_68bdd600d543,マルチステーション type A,筋トレ,not_specified,,,1,equipment_mapping_missing,False,マルチステーション　type A
+FIT PLACE24,fit-place24:fp_eq_958968fb4ea2,デルツ,筋トレ,not_specified,,,1,equipment_ambiguous,True,デルツ
+FIT PLACE24,fit-place24:fp_eq_999e7b88bccd,アジャスタブル アームカールラック,フリーウェイト,not_specified,,,9,requires_other_equipment,False,アジャスタブル アームカールラック | アジャスタブル　アームカールラック
+FIT PLACE24,fit-place24:fp_eq_a65f144d487e,フルボディートレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,2,equipment_mapping_missing,False,フルボディートレーナー(プレートロード) | フルボディートレーナー（プレートロード）
+FIT PLACE24,fit-place24:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,アジャスタブルベンチ
+FIT PLACE24,fit-place24:fp_eq_f03fe62567c5,アジャスタブルフラット/インクラインベンチ,フリーウェイト,not_specified,,,4,requires_other_equipment,False,アジャスタブルフラット/インクラインベンチ
+KANEKIN FITNESS GYM,kanekin:bull-adjustable-bench,アジャスタブルベンチ,フリーウェイト,not_specified,BULL,Adjustable Bench,1,requires_other_equipment,False,BULL Adjustable Bench アジャスタブルベンチ
+KANEKIN FITNESS GYM,kanekin:bull-flat-bench,フラットベンチ,フリーウェイト,not_specified,BULL,Flat Bench,1,requires_other_equipment,False,BULL Flat Bench フラットベンチ
+KANEKIN FITNESS GYM,kanekin:delta-utility-bench,ユーティリティーベンチ,フリーウェイト,not_specified,DELTA FITNESS,Utility Bench,1,equipment_mapping_missing,False,DELTA FITNESS Utility Bench ユーティリティーベンチ
+KANEKIN FITNESS GYM,kanekin:rogue-adjustable-bench,アジャスタブルベンチ,フリーウェイト,not_specified,ROGUE,Adjustable Bench,1,requires_other_equipment,False,ROGUE Adjustable Bench アジャスタブルベンチ
+KANEKIN FITNESS GYM,kanekin:rogue-flat-bench,フラットベンチ,フリーウェイト,not_specified,ROGUE,Flat Bench,1,requires_other_equipment,False,ROGUE Flat Bench フラットベンチ
+AUN'S GYM,auns-gym:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,3,equipment_ambiguous,True,ラットプルダウン
+AUN'S GYM,auns-gym:fp_eq_0aa43ae8e577,ステーションエイト,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ステーションエイト
+AUN'S GYM,auns-gym:fp_eq_3d0b1115b944,ギロチンインクラインチェストプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ギロチンインクラインチェストプレス
+AUN'S GYM,auns-gym:fp_eq_436e8f8c5891,ケーブルトレーナー,フリーウェイト,cable_named,,,1,equipment_mapping_missing,False,ケーブルトレーナー
+AUN'S GYM,auns-gym:fp_eq_4cd54dca1ef8,アイソラテラルショルダープレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,アイソラテラルショルダープレス
+AUN'S GYM,auns-gym:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,1,requires_other_equipment,False,アームカールラック
+AUN'S GYM,auns-gym:fp_eq_55d990e02700,スタンディングプルバック（プレートロード）,フリーウェイト,plate_loaded_explicit,,,2,equipment_mapping_missing,False,スタンディングプルバック
+AUN'S GYM,auns-gym:fp_eq_758e41c26277,オールインワンスミスマシン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,オールインワンスミスマシン
+AUN'S GYM,auns-gym:fp_eq_7929bbdac78d,ワイドラットプルダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ワイドラットプルダウン
+AUN'S GYM,auns-gym:fp_eq_7e5779ca0423,マルチグリップラットプルダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,マルチグリップラットプルダウン
+AUN'S GYM,auns-gym:fp_eq_8c541086a15f,ヒップトレーナー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ヒップトレーナー
+AUN'S GYM,auns-gym:fp_eq_93a85a58931d,オールインワンラック,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,オールインワンラック
+AUN'S GYM,auns-gym:fp_eq_a08d82bc89a9,45°レッグプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,45°レッグプレス
+AUN'S GYM,auns-gym:fp_eq_a0bd4c339941,ローチェストプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ローチェストプレス
+AUN'S GYM,auns-gym:fp_eq_a1ec1f3043ef,ロードレッグプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ロードレッグプレス
+AUN'S GYM,auns-gym:fp_eq_a36c26cf1d01,ミッドチェストプレス,筋トレ,not_specified,,,2,equipment_ambiguous,True,ミッドチェストプレス | ミドルチェストプレス
+AUN'S GYM,auns-gym:fp_eq_ab8146219643,エリプティカルトレーナー,有酸素,cardio,,,1,equipment_mapping_missing,False,エリプティカルトレーナー
+AUN'S GYM,auns-gym:fp_eq_b7c0afcd732a,ホリゾンタルチェストプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ホリゾンタルチェストプレス
+AUN'S GYM,auns-gym:fp_eq_bc173d5f8507,チェストクロス/サイドレイズ,筋トレ,not_specified,,,2,equipment_ambiguous,True,サイドレイズ / チェストクロス | チェスタクロス＆サイドレイス
+AUN'S GYM,auns-gym:fp_eq_bfa3c1cf29cd,シュラッグ（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,シュラッグ
+AUN'S GYM,auns-gym:fp_eq_c44751df4991,3Dスミスマシン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,3Dスミスマシン
+AUN'S GYM,auns-gym:fp_eq_dba0f46afac6,チェストフライ（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,チェストフライ
+AUN'S GYM,auns-gym:fp_eq_ec8482d7dce5,ラットプルアイソラテラル,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ラットプルアイソラテラル
+AUN'S GYM,auns-gym:fp_eq_f150377a5da7,プーリーロウ,筋トレ,not_specified,,,2,equipment_ambiguous,True,プーリーロー | プーリーロウ
+FASTGYM24,fastgym24:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,41,equipment_ambiguous,True,ラットプルダウン | ラットマシン
+FASTGYM24,fastgym24:fp_eq_1fdb820b1dc9,ケトルベル（4〜16kg）,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ケトルベル4～16kg
+FASTGYM24,fastgym24:fp_eq_2207869220a7,アイソラテラル・スーパーインクラインプレス,フリーウェイト,not_specified,,,6,equipment_mapping_missing,False,アイソラテラル・スーパーインクラインプレス
+FASTGYM24,fastgym24:fp_eq_2a4dcd47776a,ハイロー,フリーウェイト,not_specified,,,5,equipment_mapping_missing,False,ハイロウ
+FASTGYM24,fastgym24:fp_eq_32cd36b1e602,アブドミナル/バックエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブドミナル/バックエクステンション
+FASTGYM24,fastgym24:fp_eq_355e2e87a8f6,ロングプル/ラットプルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ロングプル/ラットプルダウン
+FASTGYM24,fastgym24:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,72,requires_other_equipment,False,フラットベンチ
+FASTGYM24,fastgym24:fp_eq_4ef938ffd56d,Skillmill Connect,有酸素,cardio,,,1,equipment_mapping_missing,False,Skillmill Connect
+FASTGYM24,fastgym24:fp_eq_50e7839e2fea,インクラインベンチプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,2,equipment_mapping_missing,False,プレートロード・インクラインベンチプレス
+FASTGYM24,fastgym24:fp_eq_5b6848c68a39,トライセプスエクステンション,筋トレ,not_specified,,,2,equipment_mapping_missing,False,トライセプスエクステンション
+FASTGYM24,fastgym24:fp_eq_62fce1721eba,クランチベンチ,筋トレ,not_specified,,,12,equipment_mapping_missing,False,クランチベンチ
+FASTGYM24,fastgym24:fp_eq_63d2f01a84c8,ラットロー,筋トレ,not_specified,,,6,equipment_mapping_missing,False,ラット・ロー | ラットロー
+FASTGYM24,fastgym24:fp_eq_6aa9e39e233f,ロー/プルダウン,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ロー・プルダウン | ロウ/プルダウン
+FASTGYM24,fastgym24:fp_eq_6fa17aea18aa,ラットプルダウン/ラットロー,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ラットプルダウン/ラットロー
+FASTGYM24,fastgym24:fp_eq_845f8070c032,スピニングバイク,有酸素,cardio,,,5,equipment_mapping_missing,False,スピニングバイク
+FASTGYM24,fastgym24:fp_eq_8ba4e76f9a1b,レッグエクステンション/カール,筋トレ,not_specified,,,29,equipment_mapping_missing,False,レッグエクステンション/カール
+FASTGYM24,fastgym24:fp_eq_8ee6b67bb54d,チンニング,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,チンニング
+FASTGYM24,fastgym24:fp_eq_99e8bb0b168f,デルトイドフライ,筋トレ,not_specified,,,2,equipment_mapping_missing,False,デルトイドフライ
+FASTGYM24,fastgym24:fp_eq_a93a328ccbc0,ハイロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ハイロウ
+FASTGYM24,fastgym24:fp_eq_b3a7ab66330c,プリチャーカール,フリーウェイト,not_specified,,,13,equipment_mapping_missing,False,プリチャーカール
+FASTGYM24,fastgym24:fp_eq_b5e5e8efdf10,ケーブルマシン,フリーウェイト,cable_named,,,14,equipment_mapping_missing,False,ケーブルマシン
+FASTGYM24,fastgym24:fp_eq_bdd32b400e24,フライ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,フライ
+FASTGYM24,fastgym24:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,84,requires_other_equipment,False,アジャスタブルベンチ
+FASTGYM24,fastgym24:fp_eq_cc0a23b0d3d0,シーテッドプリチャーカール,筋トレ,not_specified,,,1,equipment_mapping_missing,False,シーテッドプリチャーカール
+FASTGYM24,fastgym24:fp_eq_d154fb5388f0,ROWGXトレーナー,有酸素,cardio,,,1,equipment_mapping_missing,False,ROWGXトレーナー
+FASTGYM24,fastgym24:fp_eq_d368a6831b1b,エリプティカル,有酸素,cardio,,,2,equipment_mapping_missing,False,エリプティカル
+FASTGYM24,fastgym24:fp_eq_dfd1a367082e,アジャスタブルアブドミナルベンチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アジャスタブル・アブドミナルベンチ
+FASTGYM24,fastgym24:fp_eq_e2f90d4521d0,ヒップスラスト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ヒップスラスト
+FASTGYM24,fastgym24:fp_eq_e31f34bb8d7f,ローラリートーン,筋トレ,not_specified,,,1,equipment_ambiguous,True,ローラリートーン
+FASTGYM24,fastgym24:fp_eq_ed0590f3eb5b,ケーブルマシン,筋トレ,cable_named,,,5,equipment_mapping_missing,False,ケーブルマシン
+FASTGYM24,fastgym24:fp_eq_efcc26cb8b64,プレートローディングマシン,フリーウェイト,plate_loaded_explicit,,,1,equipment_ambiguous,True,プレートローディングマシン
+FASTGYM24,fastgym24:fp_eq_f6bfac6c2fe7,アブドミナルベンチ,筋トレ,not_specified,,,3,equipment_mapping_missing,False,アブドミナルベンチ
+FASTGYM24,fastgym24:fp_eq_fad74332b404,プルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,プルダウン
+FIT-EASY,fit-easy:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,1,equipment_ambiguous,True,ラットプルダウン
+FIT-EASY,fit-easy:fp_eq_40889f8913f5,グルートトレーナー,筋トレ,not_specified,,,1,equipment_ambiguous,True,グルートトレーナー
+FIT-EASY,fit-easy:fp_eq_4245532e1d83,ワイドチェスト（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ワイドチェスト
+FIT-EASY,fit-easy:fp_eq_4d4e83dab0f4,ローイング（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ローイング
+FIT-EASY,fit-easy:fp_eq_f2ee6f355415,フロントラットプルダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,フロントラットプルダウン
+FiT24,fit24:fp_eq_07a3c14715d6,リニアハックスクワット（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,1,equipment_mapping_missing,False,PLリニアハックスクワット
+FiT24,fit24:fp_eq_07d486710408,プラットフォーム,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プラットフォーム
+FiT24,fit24:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,13,equipment_ambiguous,True,ラットプルダウン
+FiT24,fit24:fp_eq_0c3d42587514,PANATTA スーパーハックスクワット,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_mapping_missing,False,スーパーハックスクワット
+FiT24,fit24:fp_eq_0ef2f2442612,MTSフロントプルダウン,筋トレ,not_specified,,,2,equipment_mapping_missing,False,MTSフロントプルダウン
+FiT24,fit24:fp_eq_11b4f7ffabd4,レッグレイズ,フリーウェイト,not_specified,,,4,equipment_mapping_missing,False,レッグレイズ
+FiT24,fit24:fp_eq_2062884063c2,PANATTA スーパーデクラインチェストプレス,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_mapping_missing,False,スーパーデクラインチェストプレス
+FiT24,fit24:fp_eq_23e4871a6dd1,PANATTA スーパードルシーバー,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_ambiguous,True,スーパードルシーバー
+FiT24,fit24:fp_eq_24ccd20a7282,MATRIX ショルダープレス,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX ショルダープレス
+FiT24,fit24:fp_eq_2be46613b736,PANATTA ハイパーエクステンション45ベンチ,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,ハイパーエクステンション45ベンチ
+FiT24,fit24:fp_eq_2d01418e7049,PANATTA バーティカルチェストプレス,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,バーティカルチェストプレス
+FiT24,fit24:fp_eq_2fab3d44633c,ロウ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ロウ
+FiT24,fit24:fp_eq_2fc342b648aa,MATRIX プローンレッグカール,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX プローンレッグカール
+FiT24,fit24:fp_eq_320fa358aebd,PANATTA ヒップスラスト,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,ヒップスラスト
+FiT24,fit24:fp_eq_32775272cf76,MTSチェストプレス,筋トレ,not_specified,,,11,equipment_mapping_missing,False,MTSチェストプレス
+FiT24,fit24:fp_eq_34cba9398770,MATRIX チェストプレス,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX チェストプレス
+FiT24,fit24:fp_eq_34e5d7c13e35,MTSハイロウ,筋トレ,not_specified,,,5,equipment_mapping_missing,False,MTSハイロウ
+FiT24,fit24:fp_eq_39470412f7cf,ヒップ＆グルート,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ヒップ＆グルート
+FiT24,fit24:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,18,requires_other_equipment,False,フラットベンチ
+FiT24,fit24:fp_eq_4245532e1d83,ワイドチェスト（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,8,equipment_mapping_missing,False,PLワイドチェスト
+FiT24,fit24:fp_eq_447d41eb8c07,PANATTA アダクター/アブダクターマシン,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,アダクター/アブダクターマシン
+FiT24,fit24:fp_eq_44bcdafcd328,MTSロウ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,MTSロウ
+FiT24,fit24:fp_eq_5342a82df482,PANATTA アジャスタブルクランチボード,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,アジャスタブルクランチボード
+FiT24,fit24:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,18,requires_other_equipment,False,アームカールベンチ
+FiT24,fit24:fp_eq_53e4fc6cd46a,PANATTA ラットプルダウン,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,ラットプルダウン
+FiT24,fit24:fp_eq_5c66446f69d3,ブーティービルダープラチナム,フリーウェイト,not_specified,,,4,equipment_mapping_missing,False,ブーティービルダープラチナム
+FiT24,fit24:fp_eq_5db1268e5c41,トライセップスプレス,筋トレ,not_specified,,,3,equipment_mapping_missing,False,トライセップスプレス
+FiT24,fit24:fp_eq_600ce7c3d69f,MATRIX アシストチン/ディップ,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX アシストディップ/チン
+FiT24,fit24:fp_eq_61ddf228ab81,PANATTA プーリーロウ,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,プーリーロウ
+FiT24,fit24:fp_eq_671211fab6d1,MATRIX レッグエクステンション,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX レッグエクステンション
+FiT24,fit24:fp_eq_6fe7f09f07b0,MATRIX アブダクター/アダクター,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX ヒップアブダクター/アダクター
+FiT24,fit24:fp_eq_73c1f64fc6b9,デクライン/アブドミナルベンチ,フリーウェイト,not_specified,,,4,equipment_mapping_missing,False,デクライン/アブドミナルベンチ | デクラインアブベンチ | デクラインベンチ
+FiT24,fit24:fp_eq_772c1ae8b760,PANATTA ペックバック,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,ペックバック
+FiT24,fit24:fp_eq_788f9a01ca69,MATRIX ペックフライ/リアデルト,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX ペックフライ/リアデルト
+FiT24,fit24:fp_eq_78ca9669feb1,パワーミルクライマー,有酸素,not_specified,,,6,equipment_mapping_missing,False,パワーミルクライマー
+FiT24,fit24:fp_eq_7c2d2b54496e,デクライン/アブドミナルベンチ,筋トレ,not_specified,,,11,equipment_mapping_missing,False,デクライン/アブドミナルベンチ
+FiT24,fit24:fp_eq_7d94a7a75834,5スタックマルチジャングル,筋トレ,not_specified,,,1,equipment_mapping_missing,False,5スタックマルチジャングル
+FiT24,fit24:fp_eq_850590e2cc3a,ラットプルダウンロウ,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ラットプルダウンロウ
+FiT24,fit24:fp_eq_8b279e99a536,デュアルプルダウンロウ,筋トレ,not_specified,,,3,equipment_mapping_missing,False,デュアルプルダウンロウ
+FiT24,fit24:fp_eq_8d6ef887f55d,MTSニーリングレッグカール,筋トレ,not_specified,,,5,equipment_mapping_missing,False,MTSニーリングレッグカール
+FiT24,fit24:fp_eq_93241f2ef6d2,PANATTA シーテッドレッグカーリング,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,シーテッドレッグカーリング
+FiT24,fit24:fp_eq_9e542ce3fff8,ロウイング（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,2,equipment_mapping_missing,False,PLロウイング
+FiT24,fit24:fp_eq_9faf5a867473,MATRIX デュアルプルダウンロウ,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX デュアルプルダウンロウ
+FiT24,fit24:fp_eq_a426cb745e11,PANATTA ロウイングマシンサーキュラー,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,ロウイングマシンサーキュラー
+FiT24,fit24:fp_eq_a6648bb2bc67,8スタックマルチジャングル,筋トレ,not_specified,,,1,equipment_mapping_missing,False,8スタックマルチジャングル
+FiT24,fit24:fp_eq_a7c79f7a71d6,MTSショルダープレス,筋トレ,not_specified,,,11,equipment_mapping_missing,False,MTSショルダープレス
+FiT24,fit24:fp_eq_a998c5331667,PANATTA スーパーデルトイドプレス,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_mapping_missing,False,スーパーデルトイドプレス
+FiT24,fit24:fp_eq_ab8146219643,エリプティカルトレーナー,有酸素,not_specified,TECHNOGYM,,1,equipment_mapping_missing,False,エリプティカルトレーナー
+FiT24,fit24:fp_eq_ac4f0fd3f2d3,PANATTA デルトイドプレスサーキュラー,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,デルトイドプレスサーキュラー
+FiT24,fit24:fp_eq_ac59ed107fbf,ホリゾンタルベンチプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,1,equipment_mapping_missing,False,PLホリゾンタルベンチプレス
+FiT24,fit24:fp_eq_b18608e9278d,シーテッドカーフレイズ（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,2,equipment_mapping_missing,False,PLシーテッドカーフレイズ
+FiT24,fit24:fp_eq_ba3ee95a8ac8,PANATTA スーパーレッグプレス45°,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_mapping_missing,False,スーパーレッグプレス45°
+FiT24,fit24:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,18,requires_other_equipment,False,アジャストベンチ
+FiT24,fit24:fp_eq_ca6b2f62c8a7,ラテラルロー（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,1,equipment_mapping_missing,False,PL ラテラルロウ
+FiT24,fit24:fp_eq_cbc04a3533a1,PANATTA スーパーインクラインチェストプレス,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_mapping_missing,False,スーパーインクラインチェストプレス
+FiT24,fit24:fp_eq_cbf0b6098dfe,MTSバイセップスカール,筋トレ,not_specified,,,1,equipment_mapping_missing,False,MTSバイセップスカール
+FiT24,fit24:fp_eq_d2746a35b444,PANATTA チンアンドディップスカウンターバランス,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,チンアンドディップスカウンターバランス
+FiT24,fit24:fp_eq_d347ed28ce2b,アブコースター,筋トレ,not_specified,,,18,equipment_mapping_missing,False,アブコースター
+FiT24,fit24:fp_eq_db1af6d205f9,PANATTA スタンディングマルチフライト,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,スタンディングマルチフライト
+FiT24,fit24:fp_eq_dc6eb70e8955,MATRIX アブドミナルクランチ,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX アブドミナルクランチ
+FiT24,fit24:fp_eq_e10bccd026dc,PANATTA アブドミナルクランチ,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,アブドミナルクランチ
+FiT24,fit24:fp_eq_e32af98902ca,MATRIX ロータリートルソー,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX トーソローテーション
+FiT24,fit24:fp_eq_e4357ba70d9c,PANATTA レッグエクステンション,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,レッグエクステンション
+FiT24,fit24:fp_eq_e7af15ce8685,PANATTA ホリゾンタルレッグプレス,筋トレ,not_specified,PANATTA,,2,equipment_mapping_missing,False,ホリゾンタルレッグプレス
+FiT24,fit24:fp_eq_eb07e1325573,スーパーインクラインプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,5,equipment_mapping_missing,False,PLスーパーインクラインプレス
+FiT24,fit24:fp_eq_ed4926c36e8b,レッグレイズ,筋トレ,not_specified,,,13,equipment_mapping_missing,False,レッグレイズ
+FiT24,fit24:fp_eq_eed6c85fd1f5,4スタックマルチジャングル,筋トレ,not_specified,,,6,equipment_mapping_missing,False,4スタックマルチジャングル
+FiT24,fit24:fp_eq_ef75be12c949,MATRIX レッグプレス,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX レッグプレス
+FiT24,fit24:fp_eq_f2ee6f355415,フロントラットプルダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,10,equipment_mapping_missing,False,PLフロントラットプルダウン
+FiT24,fit24:fp_eq_f83747d8041d,PANATTA スーパーラットマシンコンバージェント,フリーウェイト,plate_loaded_explicit,PANATTA,,1,equipment_mapping_missing,False,スーパーラットマシンコンバージェント
+FiT24,fit24:fp_eq_f8db33dbd981,トライセップスエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,トライセップスエクステンション
+FiT24,fit24:fp_eq_fc2011fdda80,MATRIX ラットプルダウン,筋トレ,not_specified,MATRIX,,1,equipment_mapping_missing,False,MATRIX ラットプルダウン
+GOLD'S GYM,golds-gym:fp_eq_07d486710408,プラットフォーム,フリーウェイト,not_specified,,,6,equipment_mapping_missing,False,プラットフォーム | プラットホーム
+GOLD'S GYM,golds-gym:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,4,equipment_ambiguous,True,Nautilus ラットプルダウン | STRIVE Ladies Line ラットプルダウン | ラットプルダウン | 女性専用エリア ラットプルダウン
+GOLD'S GYM,golds-gym:fp_eq_1198ee66af4f,ローイング,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ローイング | 女性専用エリア ロウイング
+GOLD'S GYM,golds-gym:fp_eq_1a1b98bdc1a6,グルートドライブ,筋トレ,not_specified,,,6,equipment_mapping_missing,False,グルートドライブ
+GOLD'S GYM,golds-gym:fp_eq_22fabc62c7f4,インクライントレーナー,有酸素,cardio,,,5,equipment_mapping_missing,False,TRUE インクライントレーナー | インクライントレーナー | インクライントレーナー i11.9
+GOLD'S GYM,golds-gym:fp_eq_24af87d29c97,インクラインベンチプレス,フリーウェイト,not_specified,,,7,equipment_mapping_missing,False,インクラインオリンピックベンチ | インクラインベンチプレス
+GOLD'S GYM,golds-gym:fp_eq_27cf33988bc3,ユーティリティベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ユーティリティベンチ
+GOLD'S GYM,golds-gym:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,3,requires_other_equipment,False,フラットベンチ | 女性専用エリア フラットベンチ
+GOLD'S GYM,golds-gym:fp_eq_40a88c9a0f61,スクワットラック,フリーウェイト,not_specified,,,5,requires_other_equipment,False,スクワットラック | 女性専用エリア スクワットラック
+GOLD'S GYM,golds-gym:fp_eq_40f22919e7b9,プレート,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,クロストレーニングルーム プレート | 女性専用エリア プレート | 女性専用エリア プレート（1.25～15kg）
+GOLD'S GYM,golds-gym:fp_eq_48b0da54d05e,ブルガリアンスクワットスタンド,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,ブルガリアンスクワット台 | 女性専用エリア ブルガリアンスクワットスタンド
+GOLD'S GYM,golds-gym:fp_eq_4d4e83dab0f4,ローイング（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,Hammer Strength ローイング
+GOLD'S GYM,golds-gym:fp_eq_51c7c6561d7a,Octane XT-One,有酸素,cardio,,,4,equipment_mapping_missing,False,Octane | Octane XT-One | XTOne
+GOLD'S GYM,golds-gym:fp_eq_5c69a4c62187,ワイドチェストプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,Hammer Strength ワイドチェストプレス
+GOLD'S GYM,golds-gym:fp_eq_6957a7b38738,マルチパーパスラック,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,Torque Fitness マルチパーパスラック
+GOLD'S GYM,golds-gym:fp_eq_71142adad0b4,ケーブルマシン,筋トレ,cable_named,,,2,equipment_mapping_missing,False,ケーブルマシン
+GOLD'S GYM,golds-gym:fp_eq_7e88407eccd1,ヘックスバー,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,ALEX ヘックスバー | ヘックスバー
+GOLD'S GYM,golds-gym:fp_eq_a3a7447d59b9,インクラインベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,True,インラインベンチ台
+GOLD'S GYM,golds-gym:fp_eq_ab8146219643,エリプティカルトレーナー,有酸素,cardio,,,2,equipment_mapping_missing,False,エリプティカルトレーナー
+GOLD'S GYM,golds-gym:fp_eq_b10a36cd5119,Octane LateralX,有酸素,cardio,,,2,equipment_mapping_missing,False,Octane LateralX | ラテラルエックス
+GOLD'S GYM,golds-gym:fp_eq_bc33e54e40da,フロントプル（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,Hammer Strength フロントプル
+GOLD'S GYM,golds-gym:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,15,requires_other_equipment,False,アジャスタブルベンチ | レンタルジムスペース アジャスタブルベンチ | 女性専用エリア アジャスタブルベンチ | 女性専用エリア アジャストベンチ | 女性専用エリア ベンチ
+GOLD'S GYM,golds-gym:fp_eq_cda2d2765a10,自走式トレッドミル,有酸素,cardio,,,1,equipment_mapping_missing,False,自走式トレッドミル
+GOLD'S GYM,golds-gym:fp_eq_cfe57283fe50,デクラインベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,デクラインベンチ
+GOLD'S GYM,golds-gym:fp_eq_d4c57d280016,スピニングバイク,有酸素,cardio,,,1,equipment_mapping_missing,False,スピニングバイク
+GOLD'S GYM,golds-gym:fp_eq_d7601a0c4dcd,バイク,有酸素,cardio,,,7,equipment_mapping_missing,False,エアロバイク | エクササイズバイク | バイク
+GOLD'S GYM,golds-gym:fp_eq_e655d6073f7c,スタンディングヒップスラスト,筋トレ,not_specified,,,1,equipment_mapping_missing,False,スタンディングヒップスラスト
+GOLD'S GYM,golds-gym:fp_eq_ea7efa32ae83,POWER MAX,有酸素,cardio,,,5,equipment_mapping_missing,False,Power Max | POWER MAX VII | PowerMAX | POWERMAX-VII | パワーマックス
+GOLD'S GYM,golds-gym:fp_eq_ee69d9698ba2,バックプレスベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,バックプレスベンチ
+GOLD'S GYM,golds-gym:fp_eq_eec5e5b7a04b,ステップマシン,有酸素,cardio,,,3,equipment_mapping_missing,False,ステップマシン | ステップ系
+HYPER FIT24,hyper-fit24:fp_eq_0087f532dac6,アサルトエアランナー,有酸素,cardio,,,3,equipment_mapping_missing,False,アサルト･エア･ランナー
+HYPER FIT24,hyper-fit24:fp_eq_0351033660ef,マルチステーション/6stack cw2223,筋トレ,not_specified,,,1,equipment_mapping_missing,False,マルチステーション/6stack cw2223
+HYPER FIT24,hyper-fit24:fp_eq_049f3aa37db6,ストレッチトレーナー,筋トレ,not_specified,,,17,equipment_mapping_missing,False,ストレッチ･トレーナー
+HYPER FIT24,hyper-fit24:fp_eq_0538eb32d81f,ラットロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ラットロウ
+HYPER FIT24,hyper-fit24:fp_eq_0721a2d96fcd,ツイスト,筋トレ,not_specified,,,5,equipment_mapping_missing,False,ツイスト
+HYPER FIT24,hyper-fit24:fp_eq_099217b952cc,アイソラテラルワイドプルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル･ワイド･プルダウン
+HYPER FIT24,hyper-fit24:fp_eq_09fb77afd040,スタンディングアブダクター,筋トレ,not_specified,,,1,equipment_mapping_missing,False,スタンディング･アブダクター
+HYPER FIT24,hyper-fit24:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,5,equipment_ambiguous,True,ラット･プルダウン
+HYPER FIT24,hyper-fit24:fp_eq_0f43a663100c,グルートハムベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,グルート･ハム･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_11f99f3d9a49,デッドリフト/シュラッグ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,デッドリフト/シュラッグ
+HYPER FIT24,hyper-fit24:fp_eq_12309e05135f,バイセップカール/トライセップエクステンション,筋トレ,not_specified,,,5,equipment_mapping_missing,False,バイセップ･カール/トライセップ･エクステンション
+HYPER FIT24,hyper-fit24:fp_eq_18539d23ea47,オリンピックハーフラック,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,オリンピック･ハーフ･ラック
+HYPER FIT24,hyper-fit24:fp_eq_1d6fccfe3430,フルパワーラック,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,フルパワー･ラック
+HYPER FIT24,hyper-fit24:fp_eq_1e5bdde26664,エキサイトシンクロ,有酸素,cardio,,,1,equipment_mapping_missing,False,エキサイト･シンクロ
+HYPER FIT24,hyper-fit24:fp_eq_257d7de12eb8,インナーサイクルスピナークロノ,有酸素,cardio,,,2,equipment_mapping_missing,False,インナー･サイクル･スピナー･クロノ
+HYPER FIT24,hyper-fit24:fp_eq_25b86d776bfe,マルチステーション/4stack cw2131,筋トレ,not_specified,,,2,equipment_mapping_missing,False,マルチステーション/4stack cw2131
+HYPER FIT24,hyper-fit24:fp_eq_2c4b47d27098,アイソラテラルハイ&ロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル･ハイ＆ロウ
+HYPER FIT24,hyper-fit24:fp_eq_2d6cd91d96dc,スキルラン,有酸素,cardio,,,1,equipment_mapping_missing,False,スキルラン
+HYPER FIT24,hyper-fit24:fp_eq_2e3509d288f1,エキサイトライブラン,有酸素,cardio,,,2,equipment_mapping_missing,False,エキサイト･ライブ･ラン
+HYPER FIT24,hyper-fit24:fp_eq_2efbf4e88d66,デュアルペクトラルリバースフライ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,デュアル･ペクトラル･リバース･フライ
+HYPER FIT24,hyper-fit24:fp_eq_34f29d23e3c0,エキサイトクライム,有酸素,cardio,,,2,equipment_mapping_missing,False,エキサイト･クライム
+HYPER FIT24,hyper-fit24:fp_eq_3599ecce1a11,マルチパワー,筋トレ,not_specified,,,7,equipment_mapping_missing,False,マルチ･パワー
+HYPER FIT24,hyper-fit24:fp_eq_3db28e494bee,オリンピックフラットベンチ,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,オリンピック･フラット･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_3e7bb3d13291,FTSグライド,筋トレ,not_specified,,,19,equipment_mapping_missing,False,FTS･グライド
+HYPER FIT24,hyper-fit24:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,21,requires_other_equipment,False,フラット･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_3f3ebbabb14d,オーバーヘッドプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,オーバーヘッド･プレス
+HYPER FIT24,hyper-fit24:fp_eq_3f7062c9902f,スキルミル,有酸素,cardio,,,1,equipment_mapping_missing,False,スキルミル
+HYPER FIT24,hyper-fit24:fp_eq_44ba279d4f58,AMT オープンスライド,有酸素,cardio,,,21,equipment_mapping_missing,False,AMT オープン･スライド
+HYPER FIT24,hyper-fit24:fp_eq_4800f5a3aa4e,アイソラテラルショルダープレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル･ショルダー･プレス
+HYPER FIT24,hyper-fit24:fp_eq_499dc98fccae,ハイロー,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ハイ･ロウ
+HYPER FIT24,hyper-fit24:fp_eq_4c4f838980aa,エキサイトライブバイク,有酸素,cardio,,,2,equipment_mapping_missing,False,エキサイト･ライブ･バイク
+HYPER FIT24,hyper-fit24:fp_eq_4db2c284f7b3,パワーブロックSP EXP50lb,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,パワーブロックSP EXP50lb
+HYPER FIT24,hyper-fit24:fp_eq_4f95e656654e,アサルトエアバイク,有酸素,cardio,,,1,equipment_mapping_missing,False,アサルト･エア･バイク
+HYPER FIT24,hyper-fit24:fp_eq_5276d514a932,ペクトラル,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ペクトラル
+HYPER FIT24,hyper-fit24:fp_eq_52efd24e8044,ダイバージングラットプルダウン,筋トレ,not_specified,,,7,equipment_mapping_missing,False,ダイバージング･ラット･プルダウン
+HYPER FIT24,hyper-fit24:fp_eq_53e6f9278cea,ツイスター,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ツイスター
+HYPER FIT24,hyper-fit24:fp_eq_5436f6eeb3e0,コンパウンドロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,コンパウンド・ロウ
+HYPER FIT24,hyper-fit24:fp_eq_56d6024da704,アブドミナルバック,筋トレ,not_specified,,,2,equipment_mapping_missing,False,アブドミナル･バック | アブドミナルバック
+HYPER FIT24,hyper-fit24:fp_eq_592b624d43a8,マルチアジャスタブルベンチ,フリーウェイト,not_specified,,,18,requires_other_equipment,False,マルチ･アジャスタブル･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_5b3532215c17,エキサイトバイク,有酸素,cardio,,,1,equipment_mapping_missing,False,エキサイト･バイク
+HYPER FIT24,hyper-fit24:fp_eq_5e174cb91f33,オリンピックパワーラック,フリーウェイト,not_specified,,,5,equipment_mapping_missing,False,オリンピック･パワー･ラック
+HYPER FIT24,hyper-fit24:fp_eq_61198fa069cd,スキルロー,有酸素,cardio,,,1,equipment_mapping_missing,False,スキルロー
+HYPER FIT24,hyper-fit24:fp_eq_6143507c3242,テクノジムバイク,有酸素,cardio,Technogym,,1,equipment_mapping_missing,False,テクノジム･バイク
+HYPER FIT24,hyper-fit24:fp_eq_63d96b9e7d67,バーチカルニーアップ,筋トレ,not_specified,,,7,equipment_mapping_missing,False,バーチカル･ニー･アップ
+HYPER FIT24,hyper-fit24:fp_eq_662d67e521cc,バイセプス&トライセプス,筋トレ,not_specified,,,4,equipment_mapping_missing,False,バイセプス＆トライセプス
+HYPER FIT24,hyper-fit24:fp_eq_673418885a3f,デュアルアジャスタブルプーリーパフォーマンス,筋トレ,cable_named,,,1,equipment_mapping_missing,False,デュアル･アジャスタブル･プーリー･パフォーマンス
+HYPER FIT24,hyper-fit24:fp_eq_6b06c90cb2f5,ロー,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ロウ
+HYPER FIT24,hyper-fit24:fp_eq_6c358a88d200,スクワット,筋トレ,not_specified,,,1,equipment_mapping_missing,False,スクワット
+HYPER FIT24,hyper-fit24:fp_eq_78f84e609228,ヴァーティカルトラクション,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ヴァーティカル･トラクション
+HYPER FIT24,hyper-fit24:fp_eq_7ae7bd67b8c4,アブドミナル/バックエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブドミナル/バック･エクステンション
+HYPER FIT24,hyper-fit24:fp_eq_7e88407eccd1,ヘックスバー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ヘックスバー
+HYPER FIT24,hyper-fit24:fp_eq_7fe6abaf3957,ショルダープレス&ラットプル,筋トレ,not_specified,,,4,equipment_mapping_missing,False,ショルダープレス＆ラットプル
+HYPER FIT24,hyper-fit24:fp_eq_82a9575d01da,アブ&バックエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブ＆バックエクステンション
+HYPER FIT24,hyper-fit24:fp_eq_84e74b6b8b1c,アブドミナル&バック,筋トレ,not_specified,,,5,equipment_mapping_missing,False,アブドミナル＆バック
+HYPER FIT24,hyper-fit24:fp_eq_88433e963bf7,エルコリーナ,筋トレ,not_specified,,,2,equipment_mapping_missing,False,エルコリーナ
+HYPER FIT24,hyper-fit24:fp_eq_884e829382e9,インクラインレバーロー,筋トレ,not_specified,,,6,equipment_mapping_missing,False,インクライン･レバー･ロウ
+HYPER FIT24,hyper-fit24:fp_eq_893f9753dbcc,スクワットマシン,筋トレ,not_specified,,,10,equipment_mapping_missing,False,スクワットマシン
+HYPER FIT24,hyper-fit24:fp_eq_8afe79224cab,ロータリープルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ロータリー･プルダウン
+HYPER FIT24,hyper-fit24:fp_eq_8b463ca83955,エリプティカル,有酸素,cardio,,,2,equipment_mapping_missing,False,エリプティカル
+HYPER FIT24,hyper-fit24:fp_eq_8ec18026f0c2,プルダウン/シーテッドロー,筋トレ,not_specified,,,3,equipment_mapping_missing,False,プル･ダウン/シーテッド･ロウ
+HYPER FIT24,hyper-fit24:fp_eq_90fae8a797a5,アジャスタブルケーブルクロスオーバー,筋トレ,cable_named,,,3,equipment_mapping_missing,False,アジャスタブル･ケーブル･クロスオーバー
+HYPER FIT24,hyper-fit24:fp_eq_965ac2f6fb5d,アイソラテラルチェスト&バック,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル･チェスト＆バック
+HYPER FIT24,hyper-fit24:fp_eq_96a290e7e5b0,アブダクター&ヒップアダクター,筋トレ,not_specified,,,4,equipment_mapping_missing,False,アブダクター＆ヒップアダクター
+HYPER FIT24,hyper-fit24:fp_eq_9b1a5be4c857,デュアルバイセップカール/トライセップエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,デュアル･バイセップ･カール/トライセップ･エクステンション
+HYPER FIT24,hyper-fit24:fp_eq_9bb5babb010f,クロスオーバー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,クロスオーバー
+HYPER FIT24,hyper-fit24:fp_eq_9f459fc0b7d6,プルダウン,筋トレ,not_specified,,,15,equipment_mapping_missing,False,プルダウン
+HYPER FIT24,hyper-fit24:fp_eq_9f683f0fd0d2,レッグエクステンション&カール,筋トレ,not_specified,,,1,equipment_mapping_missing,False,レッグエクステンション＆カール
+HYPER FIT24,hyper-fit24:fp_eq_9f737b2a259c,エキサイトラン,有酸素,cardio,,,1,equipment_mapping_missing,False,エキサイト･ラン
+HYPER FIT24,hyper-fit24:fp_eq_a04a71e7c1a8,カーフマスター,筋トレ,not_specified,,,7,equipment_mapping_missing,False,カーフ･マスター
+HYPER FIT24,hyper-fit24:fp_eq_a3a7447d59b9,インクラインベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,インクライン･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_a3ab75d5a3df,ディクラインベンチ,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,ディクライン･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_a5bde3cade64,ローイングエルゴメーター,有酸素,cardio,,,5,equipment_mapping_missing,False,ローイング･エルゴメーター
+HYPER FIT24,hyper-fit24:fp_eq_a6dcbf71c8c7,アジャスタブルデクライン/アブクランチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アジャスタブル･デクライン/アブ･クランチ
+HYPER FIT24,hyper-fit24:fp_eq_a9857515733e,レッグエクステンション/レッグカール,筋トレ,not_specified,,,6,equipment_mapping_missing,False,レッグ･エクステンション/カール | レッグ･エクステンション/レッグ･カール
+HYPER FIT24,hyper-fit24:fp_eq_aea044b800cf,エキサイトライブリクライン,有酸素,cardio,,,1,equipment_mapping_missing,False,エキサイト･ライブ･リクライン
+HYPER FIT24,hyper-fit24:fp_eq_af1b70370263,アジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,18,requires_other_equipment,False,アジャスタブル･デクライン･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_b308796d3773,アブベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アブ･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_b3d865ef6caa,アームエクステンション,筋トレ,not_specified,,,2,equipment_mapping_missing,False,アーム･エクステンション
+HYPER FIT24,hyper-fit24:fp_eq_b57ff226a36b,スコットベンチ,フリーウェイト,not_specified,,,5,equipment_mapping_missing,False,スコット･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_b6d87ee68246,バーチカルチェストプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,バーチカル･チェスト･プレス
+HYPER FIT24,hyper-fit24:fp_eq_b7570cc2eb7c,Vクランチ,筋トレ,not_specified,,,9,equipment_mapping_missing,False,Vクランチ
+HYPER FIT24,hyper-fit24:fp_eq_bc1497557847,カーフレイズ,筋トレ,not_specified,,,3,equipment_mapping_missing,False,カーフ･レイズ
+HYPER FIT24,hyper-fit24:fp_eq_c1847e6c5517,エキサイトヴァリオ,有酸素,cardio,,,3,equipment_mapping_missing,False,エキサイト･ヴァリオ
+HYPER FIT24,hyper-fit24:fp_eq_c2e8b4cbe71b,ヒップスラスト,筋トレ,not_specified,,,2,equipment_ambiguous,True,ヒップ･スラスト
+HYPER FIT24,hyper-fit24:fp_eq_c63b118fdcf3,アイソラテラルD.Y.ロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル･D.Y.ロウ
+HYPER FIT24,hyper-fit24:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,5,requires_other_equipment,False,アジャスタブル･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_c68926054f9a,マルチハイパーエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,マルチ･ハイパー･エクステンション
+HYPER FIT24,hyper-fit24:fp_eq_c6e05f4f57ca,パワーブロックSP EXP90lb,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,パワーブロックSP EXP90lb
+HYPER FIT24,hyper-fit24:fp_eq_c7bdaf04b755,レッグエクステンション&レッグカール,筋トレ,not_specified,,,4,equipment_mapping_missing,False,レッグエクステンション＆レッグカール
+HYPER FIT24,hyper-fit24:fp_eq_c7f95fc4951a,プリーチャーカールベンチ,フリーウェイト,not_specified,,,15,requires_other_equipment,False,プリーチャー･カール･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_cb8cc935101e,マルチステーション 6stack cw2222,筋トレ,not_specified,,,1,equipment_mapping_missing,False,マルチ･ステーション 6stack cw2222
+HYPER FIT24,hyper-fit24:fp_eq_cb94a14520a5,バーチカルロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,バーチカル･ロウ
+HYPER FIT24,hyper-fit24:fp_eq_d29d79b5c27f,エキサイトリクライン,有酸素,cardio,,,2,equipment_mapping_missing,False,エキサイト･リクライン
+HYPER FIT24,hyper-fit24:fp_eq_d347ed28ce2b,アブコースター,筋トレ,not_specified,,,3,equipment_mapping_missing,False,アブ･コースター
+HYPER FIT24,hyper-fit24:fp_eq_d746783d2f4c,カーフ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,カーフ
+HYPER FIT24,hyper-fit24:fp_eq_d7bdbebc8e7a,ブーティービルダー,筋トレ,not_specified,,,5,equipment_mapping_missing,False,ブーティービルダー
+HYPER FIT24,hyper-fit24:fp_eq_d8d43203e2dd,オリンピックスパインベンチ,フリーウェイト,not_specified,,,11,equipment_mapping_missing,False,オリンピック･スパイン･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_dc151563aa14,コンパス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,コンパス
+HYPER FIT24,hyper-fit24:fp_eq_e0c401f1200e,ダイバージングローロー,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ダイバージング･ロー･ロウ
+HYPER FIT24,hyper-fit24:fp_eq_e8de7ad6a32c,プルオーバー,筋トレ,not_specified,,,3,equipment_mapping_missing,False,プルオーバー
+HYPER FIT24,hyper-fit24:fp_eq_ebd648ae7649,チェスト&ロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,チェスト＆ロウ
+HYPER FIT24,hyper-fit24:fp_eq_ece622678f1a,インナーサイクルスピナーシフト,有酸素,cardio,,,3,equipment_mapping_missing,False,インナー･サイクル･スピナー･シフト
+HYPER FIT24,hyper-fit24:fp_eq_eeefabc9db24,マルチファンクショナルスミスマシン,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,マルチ･ファンクショナル･スミス･マシン
+HYPER FIT24,hyper-fit24:fp_eq_f16d662035e9,アイソラテラルディクラインプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル･ディクライン･プレス
+HYPER FIT24,hyper-fit24:fp_eq_f1f504024be6,ラットマシン,筋トレ,not_specified,,,4,equipment_mapping_missing,False,ラット･マシーン | ラット･マシン
+HYPER FIT24,hyper-fit24:fp_eq_f3cbf23cbbc3,マルチパーパスベンチ,フリーウェイト,not_specified,,,4,equipment_mapping_missing,False,マルチ･パーパス･ベンチ
+HYPER FIT24,hyper-fit24:fp_eq_f6f6b38c17f1,アームカール&エクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アームカール＆エクステンション
+JOYFIT24,joyfit24:fp_eq_012dc13095e6,アイソラテラル インクライン ペックフライ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル インクライン ペックフライ
+JOYFIT24,joyfit24:fp_eq_02611d7544d4,ラテラルレイズ/リアレイズ（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,PLラテラルレイズ/リアレイズ
+JOYFIT24,joyfit24:fp_eq_0365583a248f,ラットプルダウン/シーテッドロー,筋トレ,not_specified,,,4,equipment_mapping_missing,False,ラットプル・シーテッドロー | ラットプルダウン/シーテッドロー | ラットプルダウン&ロー
+JOYFIT24,joyfit24:fp_eq_044e29d97b46,アセントトレーナー&バイク,有酸素,cardio,,,1,equipment_mapping_missing,False,アセントトレーナー&バイク
+JOYFIT24,joyfit24:fp_eq_049f3aa37db6,ストレッチトレーナー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ストレッチトレーナー
+JOYFIT24,joyfit24:fp_eq_0688ea1089f9,インドアサイクル,有酸素,cardio,,,1,equipment_mapping_missing,False,インドアサイクル
+JOYFIT24,joyfit24:fp_eq_074ecb00ba4b,クランチボード,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,クランチボード
+JOYFIT24,joyfit24:fp_eq_07a3c14715d6,リニアハックスクワット（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートロード リニアハックスクワット
+JOYFIT24,joyfit24:fp_eq_07ff36f67672,トライセプスプレス,筋トレ,not_specified,,,5,equipment_mapping_missing,False,MATRIX トライセプスプレス | トライセプスプレス
+JOYFIT24,joyfit24:fp_eq_0805a2784adc,ロータリーヒップ,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ロータリーヒップ
+JOYFIT24,joyfit24:fp_eq_09ace41b01bf,ワンハンドケーブル,フリーウェイト,cable_named,,,1,equipment_mapping_missing,False,ワンハンドケーブル
+JOYFIT24,joyfit24:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,34,equipment_ambiguous,True,MATRIX ラットプルダウン | ラットプル | ラットプルダウン | ラットプルダウン(ウエイトスタック) | ラットプルダウン(背中) | ラットプルダウン※マシン
+JOYFIT24,joyfit24:fp_eq_0b7ade05c9c0,アジャスタブルインクラインベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,アジャスタブルインクラインベンチ
+JOYFIT24,joyfit24:fp_eq_0d3f6deb13e6,ブルベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ブルベンチ
+JOYFIT24,joyfit24:fp_eq_0d540e58e0fe,マルチステーション～ケーブル～,フリーウェイト,cable_named,,,1,equipment_mapping_missing,False,マルチステーション～ケーブル～
+JOYFIT24,joyfit24:fp_eq_0ff6aed56cda,エスカレート,有酸素,cardio,,,1,equipment_mapping_missing,False,エスカレート
+JOYFIT24,joyfit24:fp_eq_1b5d9a79448d,ベンチ台,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ベンチ台
+JOYFIT24,joyfit24:fp_eq_1d2d2b51e600,ストレングスマシン(8スタック),筋トレ,not_specified,,,1,equipment_mapping_missing,False,ストレングスマシン(8スタック)
+JOYFIT24,joyfit24:fp_eq_212772c1d9d6,ラテラルレイズ/リアデルト（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートローディング ラテラルレイズ/リアデルト
+JOYFIT24,joyfit24:fp_eq_22a310337af1,8スタックマルチステーション,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,8スタックマルチステーション
+JOYFIT24,joyfit24:fp_eq_2320d045a6a4,コンバージングプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,コンバージングプレス
+JOYFIT24,joyfit24:fp_eq_24af87d29c97,インクラインベンチプレス,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,インクラインベンチプレス
+JOYFIT24,joyfit24:fp_eq_254a2da04bf2,ケーブルマシン,フリーウェイト,cable_named,,,13,equipment_mapping_missing,False,ケーブルマシン | ケーブルマシン×2
+JOYFIT24,joyfit24:fp_eq_25d6d317f2dc,シーテッドカール,筋トレ,not_specified,,,1,equipment_mapping_missing,False,シーテッドカール
+JOYFIT24,joyfit24:fp_eq_2b421722ea45,プレートマシン(パワーラック2台・スミスマシン2台・胸4台・背中7台・肩2台・脚2台・腕1台・ケーブルマシン1台),フリーウェイト,cable_named,,,1,equipment_mapping_missing,False,プレートマシン(パワーラック2台・スミスマシン2台・胸4台・背中7台・肩2台・脚2台・腕1台・ケーブルマシン1台)
+JOYFIT24,joyfit24:fp_eq_2f8de21c9804,バイクマシン・エリプティカルマシン,有酸素,cardio,,,1,equipment_mapping_missing,False,バイクマシン・エリプティカルマシン
+JOYFIT24,joyfit24:fp_eq_2ff0942e03d4,D.Y.ロー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,D.Y.ロー
+JOYFIT24,joyfit24:fp_eq_309dfdfc0588,チェストプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,チェストプレス
+JOYFIT24,joyfit24:fp_eq_30ece7a87a82,ラッドプルマシン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ラッドプルマシン
+JOYFIT24,joyfit24:fp_eq_31ea22a2147c,ヒップ&グルート,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ヒップ&グルート
+JOYFIT24,joyfit24:fp_eq_322b9b39f135,シーテッドディップ,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,シーテッドディップ
+JOYFIT24,joyfit24:fp_eq_34caf8789c50,プレスダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレスダウン(プレートロード)
+JOYFIT24,joyfit24:fp_eq_3876708a6ab8,HOISTアブドミナルクランチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,HOISTアブドミナルクランチ(腹)
+JOYFIT24,joyfit24:fp_eq_3938ac2fbfa7,グルートドライブ,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,グルートドライブ
+JOYFIT24,joyfit24:fp_eq_3db6cfe1fa25,フロントラットプル,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,フロントラットプル
+JOYFIT24,joyfit24:fp_eq_3e7c02e8c569,ディップス/レッグレイズ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ディップス/レッグレイズ
+JOYFIT24,joyfit24:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,7,requires_other_equipment,False,フラットベンチ
+JOYFIT24,joyfit24:fp_eq_40463b742cb9,レベルロー（プレートロード）,筋トレ,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートロード レベルロウ
+JOYFIT24,joyfit24:fp_eq_4245532e1d83,ワイドチェスト（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ワイドチェスト(プレートローディング)
+JOYFIT24,joyfit24:fp_eq_45f7900a526a,ショルダープレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ショルダープレス
+JOYFIT24,joyfit24:fp_eq_483e8a8b785e,バイクマシン,有酸素,cardio,,,3,equipment_mapping_missing,False,バイクマシン
+JOYFIT24,joyfit24:fp_eq_4d4e83dab0f4,ローイング（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートローディング ロウイング
+JOYFIT24,joyfit24:fp_eq_4ee636b922bc,ラットマシン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ラットマシン(プレートロード)
+JOYFIT24,joyfit24:fp_eq_5276d514a932,ペクトラル,筋トレ,not_specified,,,7,equipment_mapping_missing,False,ペクトラル
+JOYFIT24,joyfit24:fp_eq_52efd24e8044,ダイバージングラットプルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ダイバージングラットプルダウン
+JOYFIT24,joyfit24:fp_eq_56f155cd4a2c,ケーブルチェストプレス,筋トレ,cable_named,,,1,equipment_mapping_missing,False,ケーブルチェストプレス
+JOYFIT24,joyfit24:fp_eq_5a3165b094b9,プレスダウン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プレスダウン
+JOYFIT24,joyfit24:fp_eq_5b0b2c650c27,ブトックスブリッジ（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートローディング ブトックスブリッジ
+JOYFIT24,joyfit24:fp_eq_5b3366d0975e,シーテッドロー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,シーテッドロー
+JOYFIT24,joyfit24:fp_eq_5c7cb87b3bfc,アグナムVKRチン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アグナムVKRチン
+JOYFIT24,joyfit24:fp_eq_5f03ad138e66,デクラインベンチプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートローディング デクラインベンチプレス
+JOYFIT24,joyfit24:fp_eq_5fd1fb313089,パワーステーション,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,パワーステーション
+JOYFIT24,joyfit24:fp_eq_5fdf7731100e,インクラインチェスト,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,インクラインチェスト
+JOYFIT24,joyfit24:fp_eq_600596da3fef,腹筋台,筋トレ,not_specified,,,6,equipment_mapping_missing,False,腹筋台
+JOYFIT24,joyfit24:fp_eq_60df2d44401a,VKRチン,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,VKRチン
+JOYFIT24,joyfit24:fp_eq_643958164d10,アブドミナル,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アブドミナル
+JOYFIT24,joyfit24:fp_eq_64539f2bc1c8,フィックスドバーベル10～45kg,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,フィックスドバーベル10～45kg
+JOYFIT24,joyfit24:fp_eq_664c324851e4,エリプティカルマシン,有酸素,cardio,,,1,equipment_mapping_missing,False,エリプティカルマシン
+JOYFIT24,joyfit24:fp_eq_6b06c90cb2f5,ロー,筋トレ,not_specified,,,3,equipment_mapping_missing,False,ロー | ロー(背中)
+JOYFIT24,joyfit24:fp_eq_6b22f3dd88c8,アイソラテラルショルダープレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アイソラテラルショルダープレス
+JOYFIT24,joyfit24:fp_eq_71142adad0b4,ケーブルマシン,筋トレ,cable_named,,,3,equipment_mapping_missing,False,ケーブルマシン
+JOYFIT24,joyfit24:fp_eq_7459768ffb38,バックエクステンション台,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,バックエクステンション台
+JOYFIT24,joyfit24:fp_eq_74e26bb039cb,プリーチャーカール,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プリーチャーカール
+JOYFIT24,joyfit24:fp_eq_74e739626001,ハンマーストレングスチェスト,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ハンマーストレングスチェスト
+JOYFIT24,joyfit24:fp_eq_75c423a97fae,マルチファンクション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,マルチファンクション
+JOYFIT24,joyfit24:fp_eq_79520f011f18,マルチプレス(ショルダー&チェスト),筋トレ,not_specified,,,1,equipment_mapping_missing,False,マルチプレス(ショルダー&チェスト)
+JOYFIT24,joyfit24:fp_eq_7968fd63e96f,レッグカール/レッグエクステンション,筋トレ,not_specified,,,5,equipment_mapping_missing,False,エクステンション&カール | レッグカール/エクステンション | レッグカール/レッグエクステンション
+JOYFIT24,joyfit24:fp_eq_7a6b4fb9bbaf,4スタック,筋トレ,not_specified,,,2,equipment_mapping_missing,False,4スタック
+JOYFIT24,joyfit24:fp_eq_7e08cc45a895,スピンバイク,有酸素,cardio,,,1,equipment_mapping_missing,False,スピンバイク
+JOYFIT24,joyfit24:fp_eq_7e88407eccd1,ヘックスバー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ヘックスバー
+JOYFIT24,joyfit24:fp_eq_7faecba24e9f,ラットプルダウン(),筋トレ,not_specified,,,1,equipment_mapping_missing,False,ラットプルダウン(MAGグリップ完備)
+JOYFIT24,joyfit24:fp_eq_8080dbf1cd9b,チェスト&ショルダープレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,チェスト&ショルダープレス
+JOYFIT24,joyfit24:fp_eq_80898bc69c75,ダンベルエリア(1kg～50kg・ベンチ台4台・90°ベンチ1台),フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ダンベルエリア(1kg～50kg・ベンチ台4台・90°ベンチ1台)
+JOYFIT24,joyfit24:fp_eq_81cb6ef971fe,ホイスト(腹筋),筋トレ,not_specified,,,1,equipment_mapping_missing,False,ホイスト(腹筋)
+JOYFIT24,joyfit24:fp_eq_8297f51f8195,ホリゾンタルベンチプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ホリゾンタルベンチプレス
+JOYFIT24,joyfit24:fp_eq_8347a0498c15,ステッパー,有酸素,cardio,,,3,equipment_mapping_missing,False,ステッパー
+JOYFIT24,joyfit24:fp_eq_855484561719,ランニングマシン(タッチパネル式:4台 ボタン式:4台),有酸素,cardio,,,1,equipment_mapping_missing,False,ランニングマシン(タッチパネル式:4台 ボタン式:4台)
+JOYFIT24,joyfit24:fp_eq_8559f702cae2,アイソラテラルスーパーインクラインプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アイソラテラルスーパーインクラインプレス
+JOYFIT24,joyfit24:fp_eq_8a4223d521fb,アイソラテラル フロント ラットプルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル フロント ラットプルダウン
+JOYFIT24,joyfit24:fp_eq_8b463ca83955,エリプティカル,有酸素,cardio,,,2,equipment_mapping_missing,False,エリプティカル
+JOYFIT24,joyfit24:fp_eq_8c7372228a32,ディベンデントカール,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ディベンデントカール
+JOYFIT24,joyfit24:fp_eq_941b0afe4a45,ケーブル,フリーウェイト,cable_named,,,1,equipment_mapping_missing,False,ケーブル
+JOYFIT24,joyfit24:fp_eq_95205528e9bb,AMT,有酸素,cardio,,,1,equipment_mapping_missing,False,AMT
+JOYFIT24,joyfit24:fp_eq_9524cdf92a37,クロスオーバー,有酸素,cardio,,,1,equipment_mapping_missing,False,クロスオーバー
+JOYFIT24,joyfit24:fp_eq_961e290cde44,ボスウェイスクワット（プレートロード）,フリーウェイト,plate_loaded_explicit,,,2,equipment_mapping_missing,False,PLボスウェイスクワット | プレートローディング ボスウェイスクワット
+JOYFIT24,joyfit24:fp_eq_9bc417077051,アブ/バックエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブ/バックエクステンション
+JOYFIT24,joyfit24:fp_eq_9c89fa54a7c7,スクワット/ランジ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,スクワット/ランジ
+JOYFIT24,joyfit24:fp_eq_9d849bcc93e1,ストレングスマシン(お腹3台・脚4台・胸2台・背中1台・肩1台),筋トレ,not_specified,,,1,equipment_mapping_missing,False,ストレングスマシン(お腹3台・脚4台・胸2台・背中1台・肩1台)
+JOYFIT24,joyfit24:fp_eq_9f0e17eea168,マルチケーブルステーション,筋トレ,cable_named,,,1,equipment_mapping_missing,False,マルチケーブルステーション
+JOYFIT24,joyfit24:fp_eq_9f459fc0b7d6,プルダウン,筋トレ,not_specified,,,2,equipment_mapping_missing,False,プルダウン
+JOYFIT24,joyfit24:fp_eq_a08d82bc89a9,45°レッグプレス,フリーウェイト,not_specified,,,7,equipment_mapping_missing,False,45°Cレッグプレス | 45°レッグプレス | 45度レッグプレス
+JOYFIT24,joyfit24:fp_eq_a15b3a4d4ba6,アダプター/アブダクター,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アダプター/アブダクター(太もも内/外)
+JOYFIT24,joyfit24:fp_eq_a3a7447d59b9,インクラインベンチ,フリーウェイト,not_specified,,,5,requires_other_equipment,False,インクラインベンチ
+JOYFIT24,joyfit24:fp_eq_a3b1ede650d0,クライムミル,有酸素,cardio,,,5,equipment_mapping_missing,False,クライムミル
+JOYFIT24,joyfit24:fp_eq_a5a95bb18535,プリチャーカール,フリーウェイト,not_specified,,,13,equipment_mapping_missing,False,プリーチャーカール台 | プリチャーカール | プリチャーカールベンチ
+JOYFIT24,joyfit24:fp_eq_a5aecbf06270,腹筋台,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,腹筋台 | 腹筋台(2F)
+JOYFIT24,joyfit24:fp_eq_a710172844c4,トライセップ/バイセップ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,トライセップ/バイセップ
+JOYFIT24,joyfit24:fp_eq_a941c6fe353c,ハイマウンテン,有酸素,cardio,,,1,equipment_mapping_missing,False,ハイマウンテン
+JOYFIT24,joyfit24:fp_eq_a9b9756552a2,スーパースミスマシン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,スーパースミスマシン
+JOYFIT24,joyfit24:fp_eq_af95df48828c,アブドミナルベンチ,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,アブドミナルベンチ
+JOYFIT24,joyfit24:fp_eq_b168e84ce2a3,ストレートバー,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,ストレートバー
+JOYFIT24,joyfit24:fp_eq_b2bb0949f527,ヴァリオ,有酸素,cardio,,,1,equipment_mapping_missing,False,ヴァリオ
+JOYFIT24,joyfit24:fp_eq_b3d865ef6caa,アームエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アームエクステンション
+JOYFIT24,joyfit24:fp_eq_b7f9a906f0bb,イージーツイスター,有酸素,cardio,,,2,equipment_mapping_missing,False,イージーツイスター
+JOYFIT24,joyfit24:fp_eq_b8442ef65572,メガパワーラック,フリーウェイト,not_specified,,,1,requires_other_equipment,False,メガパワーラック
+JOYFIT24,joyfit24:fp_eq_bf8ca024f929,レッグプレス,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,レッグプレス
+JOYFIT24,joyfit24:fp_eq_c127b417ac3f,アセントトレーナー,有酸素,cardio,,,32,equipment_mapping_missing,False,MATRIX アセント | アセント | アセントトレーナー | アセントマシン
+JOYFIT24,joyfit24:fp_eq_c2e8b4cbe71b,ヒップスラスト,筋トレ,not_specified,,,3,equipment_ambiguous,True,ヒップスラスト
+JOYFIT24,joyfit24:fp_eq_c33b3709b9aa,リカンベント,有酸素,cardio,,,1,equipment_mapping_missing,False,MATRIX リカンベント
+JOYFIT24,joyfit24:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,10,requires_other_equipment,False,アジャスタブルベンチ | アジャスタブルベンチ×4 | アジャストベンチ
+JOYFIT24,joyfit24:fp_eq_c7f95fc4951a,プリーチャーカールベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,プリーチャーカールベンチ
+JOYFIT24,joyfit24:fp_eq_c836471a7ddb,グルートトレーナー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,グルートトレーナー
+JOYFIT24,joyfit24:fp_eq_c8645f741ed2,ストレングスマシン(お腹3台・脚4台・胸2台・背中1台),筋トレ,not_specified,,,1,equipment_mapping_missing,False,ストレングスマシン(お腹3台・脚4台・胸2台・背中1台)
+JOYFIT24,joyfit24:fp_eq_c9d235b02c40,アイソラテラルフロントラットプルダウン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アイソラテラルフロントラットプルダウン
+JOYFIT24,joyfit24:fp_eq_cad3aff9e61c,ハイブリットバイク,有酸素,cardio,,,2,equipment_mapping_missing,False,ハイブリットバイク
+JOYFIT24,joyfit24:fp_eq_cb2fd8138373,ヒップアブダクター/ヒップアダクター,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ヒップアブダクター/ヒップアダクター
+JOYFIT24,joyfit24:fp_eq_ccb8025d48c7,アイソラテラル スーパー インクライン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル スーパー インクライン
+JOYFIT24,joyfit24:fp_eq_ccdc08779135,クランチ台,筋トレ,not_specified,,,1,equipment_mapping_missing,False,クランチ台
+JOYFIT24,joyfit24:fp_eq_cd63bf08c6d1,カーフレイズ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,カーフレイズ
+JOYFIT24,joyfit24:fp_eq_cdaa6a5c82a1,フレックススライダー,有酸素,cardio,,,1,equipment_mapping_missing,False,フレックススライダー
+JOYFIT24,joyfit24:fp_eq_cf3ec0cabe0b,クランチ台,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,クランチ台
+JOYFIT24,joyfit24:fp_eq_cf417f156ed8,フライ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,フライ
+JOYFIT24,joyfit24:fp_eq_cfe57283fe50,デクラインベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,デクラインベンチ
+JOYFIT24,joyfit24:fp_eq_d012ea2b22bd,チンディップ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,チンディップ
+JOYFIT24,joyfit24:fp_eq_d02b4bdf0a4f,デュアル アクシス デクラインベンチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,デュアル アクシス デクラインベンチ
+JOYFIT24,joyfit24:fp_eq_d0e82219660d,マルチステーション～ケーブルロー～,フリーウェイト,cable_named,,,1,equipment_mapping_missing,False,マルチステーション～ケーブルロー～
+JOYFIT24,joyfit24:fp_eq_d18e0aea36f8,ラテラルX,有酸素,cardio,,,1,equipment_mapping_missing,False,ラテラルX
+JOYFIT24,joyfit24:fp_eq_d310b93337da,スクワット&ランジ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,スクワット&ランジ
+JOYFIT24,joyfit24:fp_eq_d347ed28ce2b,アブコースター,筋トレ,not_specified,,,7,equipment_mapping_missing,False,アブコースター
+JOYFIT24,joyfit24:fp_eq_d461e038a52e,ラテラルレイズ/リアデルト（プレートロード）,筋トレ,plate_loaded_explicit,,,1,equipment_mapping_missing,False,プレートロード ラテラルレイズ/リアデルト
+JOYFIT24,joyfit24:fp_eq_d4c57d280016,スピニングバイク,有酸素,cardio,,,3,equipment_mapping_missing,False,スピニングバイク
+JOYFIT24,joyfit24:fp_eq_d4cf803dec6b,インクラインベンチ ダンベル1～10kg,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,インクラインベンチ ダンベル1～10kg
+JOYFIT24,joyfit24:fp_eq_d5f7b39b4902,バイセプス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,バイセプス
+JOYFIT24,joyfit24:fp_eq_d65045934787,ロータリートルソー2,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ロータリートルソー2
+JOYFIT24,joyfit24:fp_eq_d7601a0c4dcd,バイク,有酸素,cardio,,,6,equipment_mapping_missing,False,バイク
+JOYFIT24,joyfit24:fp_eq_d77683112a1c,バックエクステンション,フリーウェイト,not_specified,,,5,equipment_mapping_missing,False,バックエクステンション
+JOYFIT24,joyfit24:fp_eq_da802d2640c1,アブドミナル/ローバック,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブドミナル/ローバック
+JOYFIT24,joyfit24:fp_eq_db54ed2aab53,デクラインプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,デクラインプレス
+JOYFIT24,joyfit24:fp_eq_dbe24037dd98,8スタックマルチステーション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,8スタックマルチステーション
+JOYFIT24,joyfit24:fp_eq_dd54d72ec485,アイソラテラル ショルダープレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル ショルダープレス
+JOYFIT24,joyfit24:fp_eq_ddf5c26d1df8,アイソラテラルロー,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,アイソラテラルロー
+JOYFIT24,joyfit24:fp_eq_e1347a0bcc1b,アームカール,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アームカール
+JOYFIT24,joyfit24:fp_eq_e14737bccb16,ローイングマシン,有酸素,cardio,,,4,equipment_mapping_missing,False,ローアー | ローイングマシン
+JOYFIT24,joyfit24:fp_eq_e2730ba9d86d,トライセプスエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,トライセプスエクステンション
+JOYFIT24,joyfit24:fp_eq_e32eb1ea0da3,リカンベントバイク(背もたれあり),有酸素,cardio,,,1,equipment_mapping_missing,False,リカンベントバイク(背もたれあり)
+JOYFIT24,joyfit24:fp_eq_eab466234f85,アイソラテラル ロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アイソラテラル ロー
+JOYFIT24,joyfit24:fp_eq_ec73cbc7153d,ラットプルダウン,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,ラットプルダウン
+JOYFIT24,joyfit24:fp_eq_ee7412c41f1f,チェストフライ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,チェストフライ(胸)
+JOYFIT24,joyfit24:fp_eq_eeb880d8e9c9,リクライン,有酸素,cardio,,,1,equipment_mapping_missing,False,リクライン
+JOYFIT24,joyfit24:fp_eq_eec5e5b7a04b,ステップマシン,有酸素,cardio,,,4,equipment_mapping_missing,False,ステップマシン
+JOYFIT24,joyfit24:fp_eq_ef582ac0cde1,エアロバイク,有酸素,cardio,,,5,equipment_mapping_missing,False,エアロバイク
+JOYFIT24,joyfit24:fp_eq_f1f504024be6,ラットマシン,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ラットマシン
+JOYFIT24,joyfit24:fp_eq_f27718462e81,クランチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,クランチ
+JOYFIT24,joyfit24:fp_eq_f2ee6f355415,フロントラットプルダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,フロントラットプルダウン(プレートローディング)
+JOYFIT24,joyfit24:fp_eq_f5b9365f9a50,アジャスタブルプーリー,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,アジャスタブルプーリー
+JOYFIT24,joyfit24:fp_eq_f5c52ed48262,プレートローイング,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プレートローイング
+JOYFIT24,joyfit24:fp_eq_f6167b84e6c6,チェスト&リアデルト,筋トレ,not_specified,,,1,equipment_mapping_missing,False,チェスト&リアデルト
+JOYFIT24,joyfit24:fp_eq_f63ae611dbc9,マルチステーション～ラットプル～,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,マルチステーション～ラットプル～
+JOYFIT24,joyfit24:fp_eq_f647d823c81c,ステップ,有酸素,cardio,,,1,equipment_mapping_missing,False,ステップ
+JOYFIT24,joyfit24:fp_eq_f707feb1e4fb,アシストチン/ディップ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,イージーディップチン
+JOYFIT24,joyfit24:fp_eq_f7ec42ae1f7e,リニアレッグプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,リニアレッグプレス
+JOYFIT24,joyfit24:fp_eq_f800ef17500d,シットアップベンチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,シットアップベンチ
+JOYFIT24,joyfit24:fp_eq_f8b4f6d44542,アップライトバイク(背もたれなし),有酸素,cardio,,,1,equipment_mapping_missing,False,アップライトバイク(背もたれなし)
+JOYFIT24,joyfit24:fp_eq_fbaeee936e40,シーテッドアームカール,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,シーテッドアームカール
+JOYFIT24,joyfit24:fp_eq_fc72595a2ca0,EZバー,フリーウェイト,not_specified,,,2,requires_other_equipment,False,EZバー
+JOYFIT24,joyfit24:fp_eq_fedf95df083c,ロータリートルソー1,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ロータリートルソー1
+JOYFIT24,joyfit24:fp_eq_ff5dcfc15cd0,アブベンチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブベンチ
+JOYFIT24,joyfit24:fp_eq_ffca57012da3,アップライト,有酸素,cardio,,,1,equipment_mapping_missing,False,MATRIX アップライト
+JOYFIT24,joyfit24:fp_eq_fff2d96f73df,プレートロードラテラルレイズ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プレートロードラテラルレイズ
+SMART FIT100,smart-fit100:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,3,equipment_ambiguous,True,ラットプルダウン
+SMART FIT100,smart-fit100:fp_eq_1198ee66af4f,ローイング,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ローイング
+SMART FIT100,smart-fit100:fp_eq_1f3d046ca04a,バーティカルロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,バーティカルロウ
+SMART FIT100,smart-fit100:fp_eq_254a2da04bf2,ケーブルマシン,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,ケーブルマシン
+SMART FIT100,smart-fit100:fp_eq_509168909a1f,ラットプルダウン/バーティカルロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ラットプルダウンバーティカルロウ
+SMART FIT100,smart-fit100:fp_eq_592b624d43a8,マルチアジャスタブルベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,マルチアジャスタブルベンチ
+SMART FIT100,smart-fit100:fp_eq_74e26bb039cb,プリーチャーカール,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プリーチャーカール
+SMART FIT100,smart-fit100:fp_eq_a9857515733e,レッグエクステンション/レッグカール,筋トレ,not_specified,,,2,equipment_mapping_missing,False,レッグエクステンション / レッグカール | レッグカール/レッグエクステンション
+SMART FIT100,smart-fit100:fp_eq_ff5dcfc15cd0,アブベンチ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,アブベンチ
+WORLD+GYM,world-plus-gym:fp_eq_0365583a248f,ラットプルダウン/シーテッドロー,筋トレ,not_specified,,,2,equipment_mapping_missing,False,ラットプルダウン/シーテッドロー | ラットプルダウン/シーデットロー
+WORLD+GYM,world-plus-gym:fp_eq_047bef9b724d,ロングプル/ラットプルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ロングプル/ラットプルダウン
+WORLD+GYM,world-plus-gym:fp_eq_0a13c23b47c0,ラットプルダウン,筋トレ,not_specified,,,19,equipment_ambiguous,True,ラットプルダウン
+WORLD+GYM,world-plus-gym:fp_eq_0c425b3383b5,ミッドロー,筋トレ,not_specified,,,16,equipment_mapping_missing,False,ミッドロウ
+WORLD+GYM,world-plus-gym:fp_eq_1b871cf05827,インクラインレバーロー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,インクラインレバーロー
+WORLD+GYM,world-plus-gym:fp_eq_22c040547e37,フィットネスツール,筋トレ,not_specified,,,1,equipment_ambiguous,True,フィットネスツール
+WORLD+GYM,world-plus-gym:fp_eq_24af87d29c97,インクラインベンチプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,インクラインベンチプレス
+WORLD+GYM,world-plus-gym:fp_eq_275fc0fb0d05,レッグプレス/カーフレイズ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,レッグプレス/カーフレイズ
+WORLD+GYM,world-plus-gym:fp_eq_31bac434d5db,アブ/ローワーバック,筋トレ,not_specified,,,3,equipment_mapping_missing,False,アブ/ローワーバック | アブ/ローワバック
+WORLD+GYM,world-plus-gym:fp_eq_34f29d23e3c0,エキサイトクライム,有酸素,not_specified,,,6,equipment_mapping_missing,False,エキサイトクライム
+WORLD+GYM,world-plus-gym:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,2,requires_other_equipment,False,フラットベンチ(ダンベル用)
+WORLD+GYM,world-plus-gym:fp_eq_40889f8913f5,グルートトレーナー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,グルートトレーナー
+WORLD+GYM,world-plus-gym:fp_eq_60df2d44401a,VKRチン,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,VKRチン
+WORLD+GYM,world-plus-gym:fp_eq_64abbf967dae,フリーダムラック,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,フリーダムラック
+WORLD+GYM,world-plus-gym:fp_eq_69d52273b46b,バーティカルベンチプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,バーティカルベンチプレス
+WORLD+GYM,world-plus-gym:fp_eq_6b06c90cb2f5,ロー,筋トレ,not_specified,,,1,equipment_ambiguous,True,ロウ
+WORLD+GYM,world-plus-gym:fp_eq_6b4465e7f46d,グルートプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,グルートプレス
+WORLD+GYM,world-plus-gym:fp_eq_71142adad0b4,ケーブルマシン,筋トレ,not_specified,,,17,equipment_mapping_missing,False,ケーブルマシン
+WORLD+GYM,world-plus-gym:fp_eq_79df6b8db9f9,ローアー,有酸素,not_specified,,,1,equipment_mapping_missing,False,ローアー
+WORLD+GYM,world-plus-gym:fp_eq_842f439e72eb,3Dスミス,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,３Ｄスミス
+WORLD+GYM,world-plus-gym:fp_eq_8b463ca83955,エリプティカル,有酸素,not_specified,,,1,equipment_mapping_missing,False,エリプティカル
+WORLD+GYM,world-plus-gym:fp_eq_94904d67bee6,マルチアジャスタブルアブベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,マルチアジャスタブルアブベンチ
+WORLD+GYM,world-plus-gym:fp_eq_94ea990049fb,S-Drive,筋トレ,not_specified,,,1,equipment_ambiguous,True,S-Drive
+WORLD+GYM,world-plus-gym:fp_eq_9f459fc0b7d6,プルダウン,筋トレ,not_specified,,,1,equipment_mapping_missing,False,プルダウン
+WORLD+GYM,world-plus-gym:fp_eq_a08d82bc89a9,45°レッグプレス,フリーウェイト,not_specified,,,2,equipment_mapping_missing,False,45°レッグプレス | ４５°レッグプレス
+WORLD+GYM,world-plus-gym:fp_eq_a1f093754548,プレートロードロー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プレートロードロウ
+WORLD+GYM,world-plus-gym:fp_eq_a3b1ede650d0,クライムミル,有酸素,not_specified,,,1,equipment_mapping_missing,False,クライムミル
+WORLD+GYM,world-plus-gym:fp_eq_a5a95bb18535,プリチャーカール,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,プリチャーカール
+WORLD+GYM,world-plus-gym:fp_eq_a9857515733e,レッグエクステンション/レッグカール,筋トレ,not_specified,,,1,equipment_mapping_missing,False,レッグエクステンション/レッグカール
+WORLD+GYM,world-plus-gym:fp_eq_b8442ef65572,メガパワーラック,フリーウェイト,not_specified,,,1,requires_other_equipment,False,メガパワーラック
+WORLD+GYM,world-plus-gym:fp_eq_bb2b7225ad87,プルアップレッグレイズ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,プルアップレッグレイズ
+WORLD+GYM,world-plus-gym:fp_eq_c2e8b4cbe71b,ヒップスラスト,筋トレ,not_specified,,,1,equipment_ambiguous,True,ヒップスラスト
+WORLD+GYM,world-plus-gym:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,5,requires_other_equipment,False,アジャスタブルベンチ | アジャスタブルベンチ(ダンベル用)
+WORLD+GYM,world-plus-gym:fp_eq_d7601a0c4dcd,バイク,有酸素,not_specified,,,12,equipment_mapping_missing,False,バイク
+WORLD+GYM,world-plus-gym:fp_eq_dc250619562c,ファンクショナルトレーナー/専用ハンドル,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ファンクショナルトレーナー/専用ハンドル
+エニタイムフィットネス,anytime-fitness:anytime_eq_01093793b1fd,アブドミナルベンチ,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,アブドミナルベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_012946d10cdc,マット,ストレッチ,not_specified,,,1,equipment_ambiguous,True,マット×4
+エニタイムフィットネス,anytime-fitness:anytime_eq_01c0a9e64900,クライムミル/ステアクライマー,有酸素,cardio,,,1,equipment_ambiguous,True,クライムミル/ステアクライマー×1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_02fa488ac9ec,プルダウン,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,プルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_02fc5b399822,"マルチジャングル（プルダウン×2,アジャスタブルプーリー×2）",マシン,not_specified,,,1,equipment_ambiguous,True,"マルチジャングル(プルダウン×2,アジャスタブルプーリー×2)"
+エニタイムフィットネス,anytime-fitness:anytime_eq_03cf3267c5d4,ハーフストレッチポール,ファンクショナル,not_specified,,,4,equipment_ambiguous,True,ハーフストレッチポール | ハーフストレッチポール 2本
+エニタイムフィットネス,anytime-fitness:anytime_eq_041bd20f7b25,アブドミナルベンチ,マシン,not_specified,,,10,equipment_ambiguous,True,アブドミナルベンチ | アブドミナルベンチ (お腹) | アブドミナルベンチ（お腹）
+エニタイムフィットネス,anytime-fitness:anytime_eq_0432be664915,アイソラテラルデクラインプレス,フリーウェイト,not_specified,,,4,equipment_ambiguous,True,アイソラテラル・デクライン・プレス | アイソラテラル・デクラインプレス | アイソラテラルデクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_04de92cbfea3,TORQUEケーブルマシン,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,TORQUEケーブルマシン(各種アタッチメント) | TORQUEケーブルマシン1台(各種アタッチメント)
+エニタイムフィットネス,anytime-fitness:anytime_eq_056a5acce9bb,ホームローラー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ホームローラー
+エニタイムフィットネス,anytime-fitness:anytime_eq_0572313c7752,トレーニングチューブ(3種),ストレッチ,not_specified,,,2,equipment_ambiguous,True,トレーニングチューブ（3種）
+エニタイムフィットネス,anytime-fitness:anytime_eq_060909d149f2,ベンチプレス用ラック,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ベンチプレス用ラック
+エニタイムフィットネス,anytime-fitness:anytime_eq_065ab0cead5a,"トーピードバッグ (5,10,15,20kg)",ファンクショナル,not_specified,,,1,equipment_ambiguous,True,"トーピードバッグ (5,10,15,20kg)"
+エニタイムフィットネス,anytime-fitness:anytime_eq_06985768d702,メディシンボール,ファンクショナル,not_specified,,,19,equipment_ambiguous,True,"メディシンボール | メディシンボール (1･2･3･4･5kg 各1) | メディシンボール 1,8㎏～5,5㎏ | メディシンボール 2kg1つ、3kg2つ、4kg2つ、5kg1つ | メディシンボール(2～5kg)"
+エニタイムフィットネス,anytime-fitness:anytime_eq_06d8d349e397,ケーブルマシン(各種アタッチメント),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ケーブルマシン2台（各種アタッチメント）
+エニタイムフィットネス,anytime-fitness:anytime_eq_0756a2635249,Xラック,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,Xラック(1～10㎏)
+エニタイムフィットネス,anytime-fitness:anytime_eq_076215fa632c,アンクルストラップ,ストレッチ,not_specified,,,1,equipment_ambiguous,True,アンクルストラップ 1組
+エニタイムフィットネス,anytime-fitness:anytime_eq_07c7dc4f5804,シットアップ台,マシン,not_specified,,,1,equipment_ambiguous,True,シットアップ台
+エニタイムフィットネス,anytime-fitness:anytime_eq_07e052695246,メディシンボール 4kg6kg8kg,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,メディシンボール　4kg・6kg・8kg
+エニタイムフィットネス,anytime-fitness:anytime_eq_0899275aa943,ケトルベル,ファンクショナル,not_specified,,,22,equipment_ambiguous,True,ケトルベル | ケトルベル 8㎏～28㎏ | ケトルベル 8kg1つ、16kg2つ、16kg2つ、20kg1つ | ケトルベル(8･12･16･20kg 各1) | ケトルベル(8kg、12kg、16kg、20kg)
+エニタイムフィットネス,anytime-fitness:anytime_eq_08c88bf63370,ヒップアブダクター/アブダクション,マシン,not_specified,,,1,equipment_ambiguous,True,ヒップアブダクター/アブダクション
+エニタイムフィットネス,anytime-fitness:anytime_eq_0a67ca304466,デッドリフトエリート,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,デッドリフトエリート
+エニタイムフィットネス,anytime-fitness:anytime_eq_0af1a94271f6,3Dマルチアブダクター,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,3Dマルチアブダクター
+エニタイムフィットネス,anytime-fitness:anytime_eq_0b6a0d2ef9a1,HDエリートiDパワーラック,フリーウェイト,not_specified,,,1,requires_other_equipment,True,HDエリートiDパワーラック
+エニタイムフィットネス,anytime-fitness:anytime_eq_0b818e820b7f,チンディップ/レッグレイズ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,チン・ディップ/レッグレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_0c4b9597c6ad,ゴムバンド,ファンクショナル,not_specified,,,8,equipment_ambiguous,True,ゴムバンド | ゴムバンド 5本 | ゴムバンド(7個) | ゴムバンド8種類
+エニタイムフィットネス,anytime-fitness:anytime_eq_0c582b5f3f2f,バランスボール (通常、ハーフドームの計),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,バランスボール (通常、ハーフドームの計2個)
+エニタイムフィットネス,anytime-fitness:anytime_eq_0cbeeb6d46d8,アジャスタブルベンチ（デクライン可能）,フリーウェイト,not_specified,,,1,requires_other_equipment,True,アジャスタブルベンチ　3台（デクライン可能）
+エニタイムフィットネス,anytime-fitness:anytime_eq_0e3943573370,AFチューブ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,AFチューブ
+エニタイムフィットネス,anytime-fitness:anytime_eq_0e4711f118ce,バーティカルニープラス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,バーティカルニープラス
+エニタイムフィットネス,anytime-fitness:anytime_eq_0fc6fcdbaae2,ヒップスラストパッド,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ヒップスラストパット
+エニタイムフィットネス,anytime-fitness:anytime_eq_106266133271,エア縄跳び,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,エア縄跳び
+エニタイムフィットネス,anytime-fitness:anytime_eq_10798399221a,45度バックエクステンション,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,45度バックエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_10d0c94bb844,トライオン,マシン,not_specified,,,1,equipment_ambiguous,True,トライオン
+エニタイムフィットネス,anytime-fitness:anytime_eq_117042d19674,TRXサスペンション,ファンクショナル,not_specified,,,7,equipment_ambiguous,True,TRXサスペンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_13630c838013,プリチャー台(EZバー、ストレートバー),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プリチャー台（EZバー、ストレートバー）
+エニタイムフィットネス,anytime-fitness:anytime_eq_136994820064,バックエクステンション,ストレッチ,not_specified,,,1,equipment_ambiguous,True,バックエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_1555f8b1533a,アイソラテラルローイング,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラルローイング
+エニタイムフィットネス,anytime-fitness:anytime_eq_1604f7fe43db,GXRowコンソール,有酸素,cardio,,,1,equipment_ambiguous,True,GXRowコンソール
+エニタイムフィットネス,anytime-fitness:anytime_eq_16614b723ca7,ラットプルダウン(マググリップ有),マシン,not_specified,,,1,equipment_ambiguous,True,ラットプルダウン2台（マググリップ有）（背中）
+エニタイムフィットネス,anytime-fitness:anytime_eq_16b317620423,ゴムバンド,ストレッチ,not_specified,,,2,equipment_ambiguous,True,ゴムバンド | ゴムバンド 3つ
+エニタイムフィットネス,anytime-fitness:anytime_eq_16d34cc0d762,トレッドミル (トレッドミル),有酸素,cardio,,,1,equipment_ambiguous,True,トレッドミル (ランニングマシン)　10台
+エニタイムフィットネス,anytime-fitness:anytime_eq_16d767bb5fcc,ロー(プレートロード),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ロー（プレートロード）
+エニタイムフィットネス,anytime-fitness:anytime_eq_173f68445736,TRX(サスペンションストラップ),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,TRX(サスペンションストラップ)
+エニタイムフィットネス,anytime-fitness:anytime_eq_199d10a74298,プルダウンカスタム,マシン,not_specified,,,2,equipment_ambiguous,True,プルダウンカスタム
+エニタイムフィットネス,anytime-fitness:anytime_eq_19f732fab2cb,ストレートバー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレートバー
+エニタイムフィットネス,anytime-fitness:anytime_eq_1a16cbe620d4,ハーフラック(),フリーウェイト,not_specified,,,1,requires_other_equipment,True,ハーフラック（1台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_1a18a04be58b,ヒップバンド,ファンクショナル,not_specified,,,4,equipment_ambiguous,True,ヒップバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_1a245aadd58e,プレートロード・インクラインプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プレートロード・インクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_1abe6363f433,GXロートレーナー,有酸素,cardio,,,1,equipment_ambiguous,True,GXロートレーナー
+エニタイムフィットネス,anytime-fitness:anytime_eq_1b23520f40a1,バランスディスク,ストレッチ,not_specified,,,1,equipment_ambiguous,True,バランスディスク
+エニタイムフィットネス,anytime-fitness:anytime_eq_1b2e342a4359,フォームローラー ×1,ストレッチ,not_specified,,,1,equipment_ambiguous,True,フォームローラー ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_1b30ad72120d,ストレッチポール,ファンクショナル,not_specified,,,23,equipment_ambiguous,True,ストレッチポール | ストレッチポール 2本 | ストレッチポール　2本 | ストレッチポール(3個) | ストレッチポール2本
+エニタイムフィットネス,anytime-fitness:anytime_eq_1d32377ca765,プルダウン(MAGグリップ3種、ストレートバー),マシン,not_specified,,,1,equipment_ambiguous,True,プルダウン（MAGグリップ3種、ストレートバー）
+エニタイムフィットネス,anytime-fitness:anytime_eq_1d80a1a36b2e,バランスドーム,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,バランスドーム
+エニタイムフィットネス,anytime-fitness:anytime_eq_1e733d0249ef,ナイロンディッピングベルト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ナイロンディッピングベルト
+エニタイムフィットネス,anytime-fitness:anytime_eq_1f83774a3a18,AMT(アダプテッドモーショントレーナー),有酸素,cardio,,,1,equipment_ambiguous,True,ＡＭＴ（アダプテッドモーショントレーナー）1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_1f9b9b53281d,EZバー×2,フリーウェイト,not_specified,,,1,requires_other_equipment,True,EZバー×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_1fb623011863,EZバー,ファンクショナル,not_specified,,,1,requires_other_equipment,True,EZバー
+エニタイムフィットネス,anytime-fitness:anytime_eq_206ddb03eda0,倒立バー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,倒立バー
+エニタイムフィットネス,anytime-fitness:anytime_eq_208afab085c3,IVANKOオリンピックカラー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,IVANKO オリンピックカラー 2.5kg 3組
+エニタイムフィットネス,anytime-fitness:anytime_eq_2093867f1ede,ケトルベル(8kg、12kg、16kg、20kg),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ケトルベル（8㎏、12㎏、16㎏、20㎏）
+エニタイムフィットネス,anytime-fitness:anytime_eq_20f5798046fd,アイソラテラルDYロー,フリーウェイト,not_specified,,,3,equipment_ambiguous,True,アイソラテラル・DYロー | アイソラテラルDYロー | アイソラテラルDYロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_212ac6eaf307,グラウンドベーススクワットランジ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,グラウンドベーススクワットランジ
+エニタイムフィットネス,anytime-fitness:anytime_eq_221292edfa0b,インクラインレバーロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,インクラインレバーロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_222d76f618f2,アイソラテラルD/Yロー,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,アイソラテラルD.Y.ロウ | アイソラテラルＤ／Ｙロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_22f11453b677,ゴムチューブ,ストレッチ,not_specified,,,3,equipment_ambiguous,True,ゴムチューブ | ゴムチューブ 3つ
+エニタイムフィットネス,anytime-fitness:anytime_eq_243f835990f0,TRXサスペンショントレーナー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,TRXサスペンショントレーナー
+エニタイムフィットネス,anytime-fitness:anytime_eq_2519e793baf1,PLインクラインプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLインクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_2566239238f5,サンドベル 4kg6kg,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,サンドベル　4㎏・6kg
+エニタイムフィットネス,anytime-fitness:anytime_eq_271a7c501cde,プレートロード・ロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プレートロード・ロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_27482fb2d9d7,D/Yロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,Ｄ／Ｙロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_2777a8628d22,ワイドプレス（プレートロード）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLワイドプレス(胸)
+エニタイムフィットネス,anytime-fitness:anytime_eq_27b70039c40f,ストレッチ用ポール,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ストレッチ用ポール
+エニタイムフィットネス,anytime-fitness:anytime_eq_29407f48d557,フレックスクッション,ストレッチ,not_specified,,,2,equipment_ambiguous,True,フレックスクッション
+エニタイムフィットネス,anytime-fitness:anytime_eq_2a585491d60d,プーリーロー,マシン,not_specified,,,1,equipment_ambiguous,True,プーリーロウ(背中)
+エニタイムフィットネス,anytime-fitness:anytime_eq_2b00804d7b80,スライドディスク,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,スライドディスク
+エニタイムフィットネス,anytime-fitness:anytime_eq_2ba89dd3ccd1,アップライトバイク(),有酸素,cardio,,,1,equipment_ambiguous,True,アップライトバイク（2台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_2c5be3e7e128,エクササイズバンド,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,エクササイズバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_2d0acf5d3705,プレートツリー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プレートツリー
+エニタイムフィットネス,anytime-fitness:anytime_eq_2d4683e2eb33,メディシンボール(1~4kg),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,メディシンボール（1～4㎏）
+エニタイムフィットネス,anytime-fitness:anytime_eq_2dc6d199c0ea,アイソラテラルレッグプレス（プレートロード）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラルレッグプレス（脚）
+エニタイムフィットネス,anytime-fitness:anytime_eq_2e213c09bd22,ストレッチマット,ストレッチ,not_specified,,,7,equipment_ambiguous,True,ストレッチマット | ストレッチマット 4枚 | ストレッチマット（4枚） | ストレッチマット（5枚） | ストレッチマット×4 | ストレッチマット4枚
+エニタイムフィットネス,anytime-fitness:anytime_eq_2fcfca186009,マググリップ,マシン,not_specified,,,2,equipment_ambiguous,True,マググリップ | マググリップ全種類 その他多数
+エニタイムフィットネス,anytime-fitness:anytime_eq_2fe4c45d7247,バランスボール66cm(各2),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,バランスボール66cm(各2)
+エニタイムフィットネス,anytime-fitness:anytime_eq_30181ce3372b,バックエクステンション,フリーウェイト,not_specified,,,21,equipment_ambiguous,True,バック エクステンション 1台 | バック・エクステンション | バックEC | バックエクステンション | バッグエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_302c6ff21752,MAGグリップ,マシン,not_specified,,,2,equipment_ambiguous,True,MAGグリップ | MAGグリップ×7
+エニタイムフィットネス,anytime-fitness:anytime_eq_30370e680826,アブドミナルクランチ台,マシン,not_specified,,,1,equipment_ambiguous,True,アブドミナルクランチ台
+エニタイムフィットネス,anytime-fitness:anytime_eq_32321b6e3a84,ゴムバンド ゴムチューブ各種,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ゴムバンド　ゴムチューブ各種
+エニタイムフィットネス,anytime-fitness:anytime_eq_33c2fd7122ef,PLアイソラテラルフロントラットプルダウン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・フロントラットプルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_35230fa7d8d0,シーテッドロー,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,シーテッドロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_354c41e781ac,ケトルベル,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ケトルベル（4kg 8kg）
+エニタイムフィットネス,anytime-fitness:anytime_eq_35596173f779,マルチジャングル・8スタック,マシン,not_specified,,,1,equipment_ambiguous,True,マルチジャングル・8スタック
+エニタイムフィットネス,anytime-fitness:anytime_eq_356b9eaf0461,ライフサイクル リカンベント,有酸素,cardio,,,1,equipment_ambiguous,True,ライフサイクル リカンベント（TV内蔵） 2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_364bd72719a9,ハーフカット ×2,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ハーフカット ×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_36b58a347bce,ICGバイク,有酸素,cardio,,,1,equipment_ambiguous,True,ICGバイク(1台)
+エニタイムフィットネス,anytime-fitness:anytime_eq_37d8d0760f39,CRANKITストラップ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,CRANKITストラップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_3877c75f40b4,EFXクロストレーナー,有酸素,cardio,,,3,equipment_ambiguous,True,EFXクロストレーナー2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_395e14aa7b7e,バックエクステンション,有酸素,cardio,,,1,equipment_ambiguous,True,バックエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_3a1054a97506,Tバーアクセサリー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,Tバー アクセサリー
+エニタイムフィットネス,anytime-fitness:anytime_eq_3a293ee3dd8a,ラットプル,マシン,not_specified,,,2,equipment_ambiguous,True,ラットプル | ラットプル×3
+エニタイムフィットネス,anytime-fitness:anytime_eq_3b0395ec8308,レッグエクステンションカール,マシン,not_specified,,,1,equipment_ambiguous,True,レッグエクステンション・カール
+エニタイムフィットネス,anytime-fitness:anytime_eq_3b85ce1ec43f,PLインクラインチェストプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLインクラインチェストプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_3bf21d2f2b6e,アジャスタブルベンチ台,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アジャスタブルベンチ台4台
+エニタイムフィットネス,anytime-fitness:anytime_eq_3c4aaa72e549,アシストディップ/チン,フリーウェイト,not_specified,,,4,equipment_ambiguous,True,アシスト・ディップ / チン | アシスト・ディップ/チン | アシストディップ/チン
+エニタイムフィットネス,anytime-fitness:anytime_eq_3cb3df414d6c,IVANKOトライセップVバー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,IVANKO トライセップVバー 1本
+エニタイムフィットネス,anytime-fitness:anytime_eq_3d1d5a768c2e,リカンベントバイク×2,有酸素,cardio,,,2,equipment_ambiguous,True,リカンベントバイク×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_3da5039abaa6,ラットレイズ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ラットレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_3eb65f9b42ab,Nabosoニューロボール,ストレッチ,not_specified,,,1,equipment_ambiguous,True,Nabosoニューロボール
+エニタイムフィットネス,anytime-fitness:anytime_eq_41b8c681ab00,プッシュアップバー ×1,ストレッチ,not_specified,,,1,equipment_ambiguous,True,プッシュアップバー ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_4275fb49501b,ドクターエアストレッチロール,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ドクターエアストレッチロール
+エニタイムフィットネス,anytime-fitness:anytime_eq_42d08f712a9d,ストレッチポールMX,ストレッチ,not_specified,,,3,equipment_ambiguous,True,ストレッチポールMX
+エニタイムフィットネス,anytime-fitness:anytime_eq_4387469ce1dc,シーテッドレッグカール,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,シーテッドレッグカール
+エニタイムフィットネス,anytime-fitness:anytime_eq_45c5d9299588,ストレッチマット,ファンクショナル,not_specified,,,14,equipment_ambiguous,True,ストレッチマット | ストレッチマット　2枚 | ストレッチマット 3枚 | ストレッチマット 5枚 | ストレッチマット(6枚) | ストレッチマット(7枚)
+エニタイムフィットネス,anytime-fitness:anytime_eq_45efb7f83794,パワーベルト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,パワーベルト(Ｓ/Ｍ/Ｌ)
+エニタイムフィットネス,anytime-fitness:anytime_eq_463cec70408e,トーソトレーナー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,トーソトレーナー
+エニタイムフィットネス,anytime-fitness:anytime_eq_466ab1f9cb92,バックエクステンション,ファンクショナル,not_specified,,,3,equipment_ambiguous,True,バック・エクステンション | バックエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_47457d651770,体組成計,ストレッチ,not_specified,,,1,equipment_ambiguous,True,体組成計
+エニタイムフィットネス,anytime-fitness:anytime_eq_47d86988ac21,TRXサスペンションストラップ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,TRXサスペンションストラップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_485ce69b4247,コンセプト2,有酸素,cardio,,,1,equipment_ambiguous,True,コンセプト2　2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_48875c1f9fe2,アジャスタブルベンチ×2,フリーウェイト,not_specified,,,1,requires_other_equipment,True,アジャスタブルベンチ×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_49738d14342a,ストレートバー,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,ストレートバー
+エニタイムフィットネス,anytime-fitness:anytime_eq_497e11d921cc,ロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_4acf59048f2d,アブドミナルベンチ,ストレッチ,not_specified,,,1,equipment_ambiguous,True,アブドミナルベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_4ada51c9002a,ストレングスバンド,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,ストレングスバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_4b3ad1916f6b,ソフトプライオボックス24ジャンプ台,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ソフトプライオボックス24ジャンプ台
+エニタイムフィットネス,anytime-fitness:anytime_eq_4bb80fb71605,プライオボックス,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,プライオボックス
+エニタイムフィットネス,anytime-fitness:anytime_eq_4bc5bfd66c86,トーピードバック,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,トーピードバック
+エニタイムフィットネス,anytime-fitness:anytime_eq_4c2be546bbbe,プリチャーカール台,フリーウェイト,not_specified,,,1,requires_other_equipment,True,プリチャーカール台
+エニタイムフィットネス,anytime-fitness:anytime_eq_4c77ac6db631,アジャスタブルベンチ×3,フリーウェイト,not_specified,,,1,requires_other_equipment,True,アジャスタブルベンチ×3
+エニタイムフィットネス,anytime-fitness:anytime_eq_4c7c04163f6f,PLD.Y.ロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLD.Y.ロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_4cdf42e2b1c0,シットアップベンチ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,シットアップベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_4d236361c6c2,ライフサイクル アップライト,有酸素,cardio,,,1,equipment_ambiguous,True,ライフサイクル アップライト（TV内蔵） 2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_4d8f104c4d4f,パワーミル,有酸素,cardio,,,11,equipment_ambiguous,True,パワーミル | パワーミル(1台) | パワーミル（1台） | パワーミル2台(無限階段)
+エニタイムフィットネス,anytime-fitness:anytime_eq_4dc5924d25fc,トレッドミル(),有酸素,cardio,,,1,equipment_ambiguous,True,トレッドミル（10台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_4f200fed2fd8,ケーブルマシン,マシン,not_specified,,,1,equipment_ambiguous,True,ケーブルマシン
+エニタイムフィットネス,anytime-fitness:anytime_eq_4fe84ff3ff09,プリーチャー台,フリーウェイト,not_specified,,,3,requires_other_equipment,True,プリーチャー台 | プリーチャー台1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_501fd5655c46,スタビリティボール,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,スタビリティボール
+エニタイムフィットネス,anytime-fitness:anytime_eq_50f7a3048b96,ハーフカットストレッチポール,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ハーフカットストレッチポール
+エニタイムフィットネス,anytime-fitness:anytime_eq_514fcf1502cd,コアバック,ファンクショナル,not_specified,,,3,equipment_ambiguous,True,コア・バック | コアバック | コアバック(5･10･15kg 各1)
+エニタイムフィットネス,anytime-fitness:anytime_eq_5160b215d762,デュアルプーリープルダウン(マググリップ7種、その他各種アタッチメント有り),マシン,not_specified,,,1,equipment_ambiguous,True,デュアルプーリープルダウン(マググリップ7種、その他各種アタッチメント有り)
+エニタイムフィットネス,anytime-fitness:anytime_eq_516f798d9c2c,TRX,ファンクショナル,not_specified,,,3,equipment_ambiguous,True,TRX | ＴＲＸ | TRX 1本
+エニタイムフィットネス,anytime-fitness:anytime_eq_517923e0aed2,IVANKOトライセップロープ,ストレッチ,not_specified,,,1,equipment_ambiguous,True,IVANKO トライセップロープ 2本
+エニタイムフィットネス,anytime-fitness:anytime_eq_53c61236addc,パワーバック,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,パワーバック
+エニタイムフィットネス,anytime-fitness:anytime_eq_53e521acde40,MAGグリップ,ストレッチ,not_specified,,,1,equipment_ambiguous,True,MAGグリップ 7種
+エニタイムフィットネス,anytime-fitness:anytime_eq_544cc2a58c7d,スタンディングアームカール,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,スタンディングアームカール
+エニタイムフィットネス,anytime-fitness:anytime_eq_54e624a21643,ケーブルマシン,ファンクショナル,not_specified,,,14,equipment_ambiguous,True,ケーブルマシン | ケーブルマシン 2台 | ケーブルマシン×3 | ケーブルマシン2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_550f54570e8a,カーフエクステンション,マシン,not_specified,,,2,equipment_ambiguous,True,カーフエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_556e032206d3,フラットベンチ(),フリーウェイト,not_specified,,,1,requires_other_equipment,True,フラットベンチ（1台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_55efdb41d48b,クライムミル,有酸素,cardio,,,3,equipment_ambiguous,True,クライムミル | クライムミル(1台)
+エニタイムフィットネス,anytime-fitness:anytime_eq_55fbe4576c5a,マシンロー,マシン,not_specified,,,1,equipment_ambiguous,True,マシンロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_56ccf89b6e34,フォームローラー,ストレッチ,not_specified,,,9,equipment_ambiguous,True,フォームローラー | フォームローラー 2本 | フォームローラー（1個） | フォームローラー（2個） | フォームローラー×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_56ff1d736515,シットアップ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,シット・アップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_57029b5b1d18,エクササイズバンド,ストレッチ,not_specified,,,6,equipment_ambiguous,True,エクササイズバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_572aa48240b4,プリチャーカールベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,True,プリチャーカールベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_57e301a38c1f,補助パット,マシン,not_specified,,,1,equipment_ambiguous,True,補助パット
+エニタイムフィットネス,anytime-fitness:anytime_eq_58fbc62d6b4a,ベンチプレス（プレートロード）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：PLベンチプレス（胸）
+エニタイムフィットネス,anytime-fitness:anytime_eq_596d18b87d42,YBell,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,YBell
+エニタイムフィットネス,anytime-fitness:anytime_eq_5a0f79dfa8ab,Tバー・ロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,Tバー・ロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_5a96cb329d45,ループバンド,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ループバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_5afecbcdcde4,バランスボール(小大),ストレッチ,not_specified,,,1,equipment_ambiguous,True,バランスボール（小・大）
+エニタイムフィットネス,anytime-fitness:anytime_eq_5b7aa1754055,ピラティスマット,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ピラティスマット
+エニタイムフィットネス,anytime-fitness:anytime_eq_5d1b1af1ab4d,プレートロード・グルートドライブ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プレートロード・グルートドライブ
+エニタイムフィットネス,anytime-fitness:anytime_eq_5dc2ad947033,トーピードバッグ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,トーピードバッグ
+エニタイムフィットネス,anytime-fitness:anytime_eq_5dcb752f9c4c,ストレングスループバンド,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレングスループバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_5e2abcc4f6e9,マルチアジャストベンチ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：マルチアジャストベンチ6台
+エニタイムフィットネス,anytime-fitness:anytime_eq_5eec3f9a4157,ケーブルロー,マシン,not_specified,,,1,equipment_ambiguous,True,ケールブルロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_5efc9c7c2857,多目的マット,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,多目的マット 2枚
+エニタイムフィットネス,anytime-fitness:anytime_eq_5f90dc98486d,ステップ台,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,ステップ台
+エニタイムフィットネス,anytime-fitness:anytime_eq_60662f8b7ceb,BOSU,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,BOSU
+エニタイムフィットネス,anytime-fitness:anytime_eq_615520c80bea,エクサチューブ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,エクサチューブ
+エニタイムフィットネス,anytime-fitness:anytime_eq_61dd3b8e5567,チューブ,ファンクショナル,not_specified,,,3,equipment_ambiguous,True,チューブ
+エニタイムフィットネス,anytime-fitness:anytime_eq_61e4def8f24a,スクワットパット,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,スクワットパット
+エニタイムフィットネス,anytime-fitness:anytime_eq_62b639b8926b,バランスボール(小中大),ストレッチ,not_specified,,,1,equipment_ambiguous,True,バランスボール（小・中・大）
+エニタイムフィットネス,anytime-fitness:anytime_eq_637e7ace7323,プッシュアップバー,ストレッチ,not_specified,,,3,equipment_ambiguous,True,プッシュアップバー
+エニタイムフィットネス,anytime-fitness:anytime_eq_63a2aecbd9a4,サスペンション,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,サスペンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_63ad50c69c26,アークレッグプレス,マシン,not_specified,,,4,equipment_ambiguous,True,アーク・レッグプレス | アークレッグプレス | ライフフィットネス（インシグニア）：アークレッグプレス（脚）
+エニタイムフィットネス,anytime-fitness:anytime_eq_63bac3175f51,バトルロープ,ファンクショナル,not_specified,,,19,equipment_ambiguous,True,バトルロープ
+エニタイムフィットネス,anytime-fitness:anytime_eq_6498aa35dc97,ストレッチ用マット×3,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチ用マット×3
+エニタイムフィットネス,anytime-fitness:anytime_eq_66dcfa09a268,クロストレーナー×2,有酸素,cardio,,,2,equipment_ambiguous,True,クロストレーナー×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_67725b173093,スラットベルトトレッドミル,有酸素,cardio,,,1,equipment_ambiguous,True,スラットベルトトレッドミル　6台
+エニタイムフィットネス,anytime-fitness:anytime_eq_67d954667568,デュアルケーブルマシン(ワイド),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,デュアルケーブルマシン(ワイド)
+エニタイムフィットネス,anytime-fitness:anytime_eq_6801f7b02b31,SYNRGY360,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,SYNRGY360
+エニタイムフィットネス,anytime-fitness:anytime_eq_687741143906,InBody,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,Inbody
+エニタイムフィットネス,anytime-fitness:anytime_eq_6959a2409688,トライセップエクステンション,マシン,not_specified,,,1,equipment_ambiguous,True,トライセップエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_6a5923d897c2,リカンベントバイク(),有酸素,cardio,,,1,equipment_ambiguous,True,リカンベントバイク（2台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_6acdb45fb046,アサルトバイク,有酸素,cardio,,,1,equipment_ambiguous,True,アサルトバイク1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_6bca7788e935,シナジー360,ファンクショナル,not_specified,,,3,equipment_ambiguous,True,シナジー360
+エニタイムフィットネス,anytime-fitness:anytime_eq_6c6e18c3fd7e,マルチスクワット（プレートロード）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：PLマルチスクワット（脚）
+エニタイムフィットネス,anytime-fitness:anytime_eq_6ccfa8cac1be,マルチジャングルMJ4,マシン,not_specified,,,1,equipment_ambiguous,True,マルチジャングルMJ4
+エニタイムフィットネス,anytime-fitness:anytime_eq_6e79fe645e19,IVANKOオリンピックアームカールバー,フリーウェイト,not_specified,,,1,requires_other_equipment,True,IVANKO オリンピックアームカールバー 2本
+エニタイムフィットネス,anytime-fitness:anytime_eq_6fe71c2f146a,GXロー,有酸素,cardio,,,3,equipment_ambiguous,True,ＧＸロー | GXロー(1台) | GXロー×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_70d83a2f59ce,バランスボール55cm(各2),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,バランスボール55cm(各2)
+エニタイムフィットネス,anytime-fitness:anytime_eq_71eb310df4f0,PLDYロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLDYロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_71f75c2afc99,ハイブリッドバイク,有酸素,cardio,,,2,equipment_ambiguous,True,ハイブリッドサイクル(2台) | ハイブリットバイク×1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_7322f09a657e,バイセップスカールディペンデント,マシン,not_specified,,,1,equipment_ambiguous,True,バイセップスカールディペンデント
+エニタイムフィットネス,anytime-fitness:anytime_eq_7458b27e97fa,アジャスタブルデクライン/アブドミナルベンチ,マシン,not_specified,,,1,equipment_ambiguous,True,ライフフィットネス：アジャスタブルデクライン/アブドミナルベンチ（お腹）
+エニタイムフィットネス,anytime-fitness:anytime_eq_7475f02a43b6,ランブルローラー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ランブルローラー
+エニタイムフィットネス,anytime-fitness:anytime_eq_752e9fa9d94c,PLアイソラテラル・インクライン・チェストプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・インクライン・チェストプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_75c86a7b5d4e,セラガン,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,セラガン
+エニタイムフィットネス,anytime-fitness:anytime_eq_773cb6b8eda0,PLアイソラテラルショルダープレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラルショルダープレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_7799101ce34d,PLシーテッドロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLシーテッドロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_7803e1c9281b,デュアルケーブルマシン(ナロー),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,デュアルケーブルマシン(ナロー)
+エニタイムフィットネス,anytime-fitness:anytime_eq_783373a58a43,ストレッチ用ポール×4,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチ用ポール×4
+エニタイムフィットネス,anytime-fitness:anytime_eq_786bde516c6a,アイソラテラルインクラインチェストプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・インクラインチェスト・プレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_79214cb2dd37,アシストディップ/アシストチン（マルチジャングル）,マシン,not_specified,,,1,equipment_ambiguous,True,アシストディップ／アシストチン（マルチジャングル）
+エニタイムフィットネス,anytime-fitness:anytime_eq_79a95d2cb154,アイソラテラルベンチプレス,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,アイソラテラルベンチプレス | アイソラテラルベンチプレス（胸）
+エニタイムフィットネス,anytime-fitness:anytime_eq_79d65b6ebfd5,スライドボード,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,スライドボード
+エニタイムフィットネス,anytime-fitness:anytime_eq_79d936031e88,ペンデュラムスクワットプロ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ペンデュラムスクワットプロ
+エニタイムフィットネス,anytime-fitness:anytime_eq_7a1be63c1ab4,SYNRG 360,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,SYNRG 360
+エニタイムフィットネス,anytime-fitness:anytime_eq_7a2df950a142,骨盤職人,ストレッチ,not_specified,,,2,equipment_ambiguous,True,骨盤職人
+エニタイムフィットネス,anytime-fitness:anytime_eq_7a550de7b8c4,プルダウン(マググリップ7種、ストレート),マシン,not_specified,,,1,equipment_ambiguous,True,プルダウン(マググリップ7種、ストレート)
+エニタイムフィットネス,anytime-fitness:anytime_eq_7a63986ff098,ハーフラック(Tバーローイング),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハーフラック（Tバー・ローイング）
+エニタイムフィットネス,anytime-fitness:anytime_eq_7a84d38a6251,ダンベルラック,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ダンベルラック(12～40㎏)
+エニタイムフィットネス,anytime-fitness:anytime_eq_7b0697abcc4b,トレッドミル×7,有酸素,cardio,,,1,equipment_ambiguous,True,トレッドミル×7
+エニタイムフィットネス,anytime-fitness:anytime_eq_7b222a26b21b,フレックスクッション,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,フレックスクッション
+エニタイムフィットネス,anytime-fitness:anytime_eq_7b926845529e,アイソラテラルハイロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・ハイロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_7c75dfa89685,PLショルダープレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLショルダープレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_7cfe769b873c,ペンデュラムXスクワット,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：ペンデュラムXスクワット（脚）
+エニタイムフィットネス,anytime-fitness:anytime_eq_7d8bcd584ac6,シーテッドロー,マシン,not_specified,,,14,equipment_ambiguous,True,シーテッド ロー 1台 | シーテッド・ロー | シーテッド・ロウ | シーテッドロー | シーテッドロー（背中） | シーテッドロウ | ハンマーストレングス：シーテッド・ロー（背中）
+エニタイムフィットネス,anytime-fitness:anytime_eq_7de7891e6e4f,ワイドチェスト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ワイドチェスト
+エニタイムフィットネス,anytime-fitness:anytime_eq_7e7658688cb9,アイソラテラルラテラルレイズ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・ラテラル・レイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_7e9c7dfe60b0,スラムベル,ファンクショナル,not_specified,,,4,equipment_ambiguous,True,スラムベル | スラムベル(2･4･6･8･10kg 各2)(12･14･16･20Kg 各1)
+エニタイムフィットネス,anytime-fitness:anytime_eq_7f7472ccf140,フレッグスクッション,ストレッチ,not_specified,,,2,equipment_ambiguous,True,フレックスクッション
+エニタイムフィットネス,anytime-fitness:anytime_eq_7fccf52a7c5c,デクライン/アブドミナルベンチ,フリーウェイト,not_specified,,,3,equipment_ambiguous,True,デクライン/アブドミナルベンチ | デクライン/アブドミナルベンチ 1台 | デクライン/アブドミナルベンンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_802fba6dce4d,トライパワーハンドル,ストレッチ,not_specified,,,1,equipment_ambiguous,True,トライパワーハンドル 1組
+エニタイムフィットネス,anytime-fitness:anytime_eq_8046c0abeac0,"ケトルベル(4,6,12,16,20,24kg)",ファンクショナル,not_specified,,,1,equipment_ambiguous,True,"ケトルベル(4,６,12,16,20,24㎏)"
+エニタイムフィットネス,anytime-fitness:anytime_eq_80aad1f83edc,ローGX,有酸素,cardio,,,1,equipment_ambiguous,True,ローGX　1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_81c1686ea0cf,アブドミナルLX,マシン,not_specified,,,1,equipment_ambiguous,True,アブドミナルLX 1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_820ff806e917,ダイバージングシーテッドロー,マシン,not_specified,,,1,equipment_ambiguous,True,ダイバージングシーテッドロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_821f39b9c595,ショルダープレス,フリーウェイト,not_specified,,,5,equipment_ambiguous,True,ショルダープレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_824f7b0a8403,アイソラテラルホリゾンタルベンチプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラルホリゾンタルベンチプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_82910f0a7aa6,バーティカルクランチ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,バーティカル・クランチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_8292567373ea,DYロー,フリーウェイト,not_specified,,,3,equipment_ambiguous,True,DYロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_83c9b1072c0b,ストレッチポールMX ×1,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ストレッチポールMX ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_843f272efe59,PLアイソラテラル・ワイドチェスト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・ワイドチェスト
+エニタイムフィットネス,anytime-fitness:anytime_eq_86443637a0c1,トレーニングチューブ,ストレッチ,not_specified,,,1,equipment_ambiguous,True,トレーニングチューブ各種
+エニタイムフィットネス,anytime-fitness:anytime_eq_87c5b489a0a8,プレートロード・ハイロウ,マシン,not_specified,,,1,equipment_ambiguous,True,プレートロード・ハイロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_87f1f1f0bfa0,ストレッチポールハーフカット,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチポールハーフカット
+エニタイムフィットネス,anytime-fitness:anytime_eq_886730e8e2b0,パワーラック×2,フリーウェイト,not_specified,,,1,requires_other_equipment,True,パワーラック×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_88ac674d5ea4,アイソラテラル・フロントラットプルダウン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・フロントラットプルダウン×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_88daefc7ac97,バイセップス/トライセップス,マシン,not_specified,,,1,equipment_ambiguous,True,バイセップス/トライセップス
+エニタイムフィットネス,anytime-fitness:anytime_eq_8921854b4a37,アブローラー,ファンクショナル,not_specified,,,24,equipment_ambiguous,True,アブドミナルローラー | アブローラー | アブローラー 2個 | アブローラー　2台 | アブローラー(2個) | アブローラー3個 | 腹筋ローラー
+エニタイムフィットネス,anytime-fitness:anytime_eq_89fb72c7e0b9,ロープーリーハンドル,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ロープーリーハンドル
+エニタイムフィットネス,anytime-fitness:anytime_eq_8a3f43c8eb3e,アイソラテラルプルダウン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラルプルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_8ab080b87a98,シットアップベンチ,マシン,not_specified,,,3,equipment_ambiguous,True,シットアップベンチ | シットアップベンチ（お腹）
+エニタイムフィットネス,anytime-fitness:anytime_eq_8ada87b849d2,バランスボール,ストレッチ,not_specified,,,7,equipment_ambiguous,True,バランスボール | バランスボール（L/M） | バランスボール（M） | バランスボール×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_8b89d7dbc149,フォームローラー,ファンクショナル,not_specified,,,14,equipment_ambiguous,True,フォームローラー | フォームローラー(2個) | フォームローラー2個
+エニタイムフィットネス,anytime-fitness:anytime_eq_8bcae315367e,ゴムチューブ,ファンクショナル,not_specified,,,9,equipment_ambiguous,True,ゴムチューブ | ゴムチューブ 2本 | ゴムチューブ(3本)
+エニタイムフィットネス,anytime-fitness:anytime_eq_8cb0da56e621,デュアルプーリープルダウン,マシン,not_specified,,,2,equipment_ambiguous,True,デュアル・プーリー・プルダウン | デュアルプーリープルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_8d4b28ae933e,アジャスタブルプーリー(ケーブルマシン),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アジャスタブルプーリー（ケーブルマシン）
+エニタイムフィットネス,anytime-fitness:anytime_eq_8e9271e76205,アイソラテラル・インクラインプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・インクラインプレス×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_8f38de9f3bae,ディップアシスト/チンアシスト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ディップアシスト/チンアシスト
+エニタイムフィットネス,anytime-fitness:anytime_eq_8f6b1e3904ec,プレートロード・フロントラットプルダウン,マシン,not_specified,,,1,equipment_ambiguous,True,プレートロード・フロントラットプルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_900dbc809c2d,3in1ソフトプライオボックス,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,3in1 ソフトプライオボックス | 3in1ソフトプライオボックス
+エニタイムフィットネス,anytime-fitness:anytime_eq_9012400ed520,ヨガマット,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,ヨガマット | ヨガマット 4枚
+エニタイムフィットネス,anytime-fitness:anytime_eq_90208f6d4e25,アブローラー,ストレッチ,not_specified,,,9,equipment_ambiguous,True,アブローラー | アブローラー 2つ | アブローラー（2個） | アブローラー×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_90287350b2ef,GRIZZLYナイロンディッピングベルト,ストレッチ,not_specified,,,1,equipment_ambiguous,True,GRIZZLY ナイロン ディッピングベルト 1本
+エニタイムフィットネス,anytime-fitness:anytime_eq_91e24c1f02b2,スーパーベンチ,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,スーパーベンチ5台 | スーパーベンチ6台
+エニタイムフィットネス,anytime-fitness:anytime_eq_927a23232cec,PLアイソラテラル・D.Y・ロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・D.Y・ロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_92f6a7dc0089,4スタックマルチステーション,マシン,not_specified,,,1,equipment_ambiguous,True,4スタックマルチステーション
+エニタイムフィットネス,anytime-fitness:anytime_eq_942e7373bec2,ラック,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ラック5台
+エニタイムフィットネス,anytime-fitness:anytime_eq_946336752737,レッグレイズ,ストレッチ,not_specified,,,1,equipment_ambiguous,True,レッグレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_94c764f8f82a,TAMオープンスライド,有酸素,cardio,,,1,equipment_ambiguous,True,TAMオープンスライド
+エニタイムフィットネス,anytime-fitness:anytime_eq_9517f66b03f9,レッグプレス,フリーウェイト,not_specified,,,3,equipment_ambiguous,True,レッグプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_95500cb2ce73,トレーニング用備品,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,トレーニング用備品
+エニタイムフィットネス,anytime-fitness:anytime_eq_96cef0425ecc,体重計,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,体重計
+エニタイムフィットネス,anytime-fitness:anytime_eq_974cd9d29c78,クランチ,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,クランチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_97a9c352a49f,PLアイソラテラル・ホリゾンタルベンチプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・ホリゾンタルベンチプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_9832c6df7872,ヒップグルート,マシン,not_specified,,,1,equipment_ambiguous,True,ヒップグルート
+エニタイムフィットネス,anytime-fitness:anytime_eq_983551b3f6a8,アブドミナルベンチ,有酸素,cardio,,,1,equipment_ambiguous,True,アブドミナルベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_98e17ae517ba,IVANKOストレートバー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,IVANKO ストレートバー 1本
+エニタイムフィットネス,anytime-fitness:anytime_eq_992a506176d2,ケーブルマシン(),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ケーブルマシン（1台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_995e9286fc41,MAGグリップ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,MAGグリップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_9988af406273,PLインクライン・レバーロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLインクライン・レバーロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_99ef1b98d941,プレートロード・ショルダープレス,マシン,not_specified,,,1,equipment_ambiguous,True,プレートロード・ショルダープレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_9a14b90c2bcb,エクササイズマット,ファンクショナル,not_specified,,,4,equipment_ambiguous,True,エクササイズマット
+エニタイムフィットネス,anytime-fitness:anytime_eq_9a6962768dd6,マッサージガン,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,マッサージガン
+エニタイムフィットネス,anytime-fitness:anytime_eq_9a80541f5ed3,シーテッドバイセップ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,シーテッド・バイセップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_9ab69ddb8b0d,ハーフラック（プラットフォーム）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハーフラック(プラットフォーム)
+エニタイムフィットネス,anytime-fitness:anytime_eq_9c60d79b0666,デュアルロー,マシン,not_specified,,,1,equipment_ambiguous,True,デュアルロー　　　　　　　　　各1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_9cb2de91e5ef,クロストレーナー(),有酸素,cardio,,,1,equipment_ambiguous,True,クロストレーナー（2台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_9cf300b4e31d,TORQUEフラットインクラインベンチ,フリーウェイト,not_specified,,,4,requires_other_equipment,True,TORQUEフラットインクラインベンチ1台 | TORQUEフラットインクラインベンチ2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_9e50b6d37426,アイソラテラルD.Yロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル D･Y ロー 1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_9f29a8e5d0ce,ヒップスラストパッド,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,ヒップスラストパッド
+エニタイムフィットネス,anytime-fitness:anytime_eq_9fecbd536a88,TRXコマーシャルサスペンション,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,TRXコマーシャルサスペンション | ＴＲＸコマーシャルサスペンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_a1bbfbe5f90a,デクライン/アブドミナルベンチ,マシン,not_specified,,,1,equipment_ambiguous,True,デクライン/アブドミナルベンンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_a378d312e0ef,チン/アシストディップス,マシン,not_specified,,,1,equipment_ambiguous,True,チン/アシストディップス
+エニタイムフィットネス,anytime-fitness:anytime_eq_a40922e3f8dc,各種アタッチメント,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,各種アタッチメント
+エニタイムフィットネス,anytime-fitness:anytime_eq_a454ff2d21e9,レッグレイズ,マシン,not_specified,,,12,equipment_ambiguous,True,ライフフィットネス：レッグレイズ（脚） | レッグ・レイズ | レッグレイズ | レッグレイズ (お腹) | レッグレイズ（お腹）
+エニタイムフィットネス,anytime-fitness:anytime_eq_a48952e3840f,アブコースター,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アブコースター
+エニタイムフィットネス,anytime-fitness:anytime_eq_a49b6cc6b9de,ストレッチポールハーフ,ストレッチ,not_specified,,,2,equipment_ambiguous,True,ストレッチポールハーフ
+エニタイムフィットネス,anytime-fitness:anytime_eq_a4d77a90c472,プレートロード・リニアレッグプレス,マシン,not_specified,,,1,equipment_ambiguous,True,プレートロード・リニアレッグプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_a57d89e38a1e,トリプルプライオ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,トリプルプライオ
+エニタイムフィットネス,anytime-fitness:anytime_eq_a6197af8c97a,デュアルアジャスタブルプーリー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,デュアルアジャスタブルプーリー
+エニタイムフィットネス,anytime-fitness:anytime_eq_a6d1e5fc5d7b,トレーニングベルトSL,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,トレーニングベルトS・L
+エニタイムフィットネス,anytime-fitness:anytime_eq_a6dd77fe28c8,"メディシンボール(4,5,6,7,8,10kg)",ファンクショナル,not_specified,,,1,equipment_ambiguous,True,"メディシンボール(4,５,6,7,8,10㎏)"
+エニタイムフィットネス,anytime-fitness:anytime_eq_a72599cac381,ローロウ（マルチジャングル）,マシン,not_specified,,,1,equipment_ambiguous,True,ローロウ（マルチジャングル）
+エニタイムフィットネス,anytime-fitness:anytime_eq_a8738d667ee8,FAT GRIP,ストレッチ,not_specified,,,1,equipment_ambiguous,True,FAT GRIP 1組
+エニタイムフィットネス,anytime-fitness:anytime_eq_aa5abecaff36,PLアイソラテラルデクラインプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・デクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_aa969fcf664e,バランスボール×2,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,バランスボール×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_ab1a4d292b61,デッドリフト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,デッドリフト
+エニタイムフィットネス,anytime-fitness:anytime_eq_ab7547397d1b,半球バランスボール,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,半球バランスボール
+エニタイムフィットネス,anytime-fitness:anytime_eq_ac3c57076703,ヒップスラストエリート,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ヒップスラストエリート
+エニタイムフィットネス,anytime-fitness:anytime_eq_acd55226cc82,パワーバンド,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,パワーバンド | パワーバンド(5本)
+エニタイムフィットネス,anytime-fitness:anytime_eq_ace9d7730ca8,ストレッチポールEX ×1,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ストレッチポールEX ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_adbc21b5f4e5,マルチジャングル,マシン,not_specified,,,2,equipment_ambiguous,True,マルチジャングル
+エニタイムフィットネス,anytime-fitness:anytime_eq_aeb2b8a3170e,シットアップベンチ,フリーウェイト,not_specified,,,3,equipment_ambiguous,True,シットアップベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_af6fcebadb8f,ジャンプボックス,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ジャンプボックス
+エニタイムフィットネス,anytime-fitness:anytime_eq_af78e03114e1,ストレッチ用備品,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチ用備品
+エニタイムフィットネス,anytime-fitness:anytime_eq_afd62f13f801,ジャンプボックス(30cm~50cm),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ジャンプボックス(30cm～50cm)
+エニタイムフィットネス,anytime-fitness:anytime_eq_b03715a2e4fb,シーテッドレッグエクステンション,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,シーテッドレッグエクステンション
+エニタイムフィットネス,anytime-fitness:anytime_eq_b0503664e0ea,GBスクワットランジ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,GBスクワットランジ
+エニタイムフィットネス,anytime-fitness:anytime_eq_b09fe1abca72,グルートブリッジ,マシン,not_specified,,,5,equipment_ambiguous,True,グルート・ブリッジ | グルートブリッジ | ライフフィットネス（インシグニア）：グルートブリッジ（お尻）
+エニタイムフィットネス,anytime-fitness:anytime_eq_b0d6a8cb4ced,プッシュアップバー,ファンクショナル,not_specified,,,4,equipment_ambiguous,True,プッシュアップバー
+エニタイムフィットネス,anytime-fitness:anytime_eq_b0de5adea7d7,ラットプル/マググリップ(7種),マシン,not_specified,,,1,equipment_ambiguous,True,ラットプル/マググリップ（7種）
+エニタイムフィットネス,anytime-fitness:anytime_eq_b18fc0a5c1da,各種アタッチメント,マシン,not_specified,,,3,equipment_ambiguous,True,各種アタッチメント
+エニタイムフィットネス,anytime-fitness:anytime_eq_b2114e2ac7a1,ライフサイクルリカンベントエクササイズバイク,有酸素,cardio,,,1,equipment_ambiguous,True,ライフサイクル・リカンベント・エクササイズ・バイク
+エニタイムフィットネス,anytime-fitness:anytime_eq_b28192ea3b81,ラットプルダウン（マルチジャングル）,マシン,not_specified,,,1,equipment_ambiguous,True,ラットプルダウン（マルチジャングル）
+エニタイムフィットネス,anytime-fitness:anytime_eq_b3e953a88cb4,Y-BELL,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,Y-BELL
+エニタイムフィットネス,anytime-fitness:anytime_eq_b59d355d7077,PLワイドプルダウン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLワイドプルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_b5e5e8efdf10,ケーブルマシン,フリーウェイト,not_specified,,,11,equipment_ambiguous,True,ケーブルマシン | ケーブルマシン　2台 | ケーブルマシン×1 | ケーブルマシン1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_b60893f0e141,アイソラテラル DY ロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル　DY　ロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_b6d9d1b098fc,アークトレーナー,有酸素,cardio,,,2,equipment_ambiguous,True,アークトレーナー | アークトレーナー(1台)
+エニタイムフィットネス,anytime-fitness:anytime_eq_b79feb4432c0,トレーニングベルト (SMLサイズ),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,トレーニングベルト (SMLサイズ)
+エニタイムフィットネス,anytime-fitness:anytime_eq_b80cbc604526,パワーラック(),フリーウェイト,not_specified,,,1,requires_other_equipment,True,パワーラック（2台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_b92042d0aeb7,アイソラテラル・D.Y. ロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・D.Y. ロウ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_ba51b214aed8,トライセップス,マシン,not_specified,,,2,equipment_ambiguous,True,トライセップス
+エニタイムフィットネス,anytime-fitness:anytime_eq_ba8493dac7ff,バランスボール ×1,ストレッチ,not_specified,,,1,equipment_ambiguous,True,バランスボール ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_bb295dc57e0f,タイヤフリップ180,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,タイヤフリップ180
+エニタイムフィットネス,anytime-fitness:anytime_eq_bb6d7afe3e7d,ストレッチポールEX,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチポールEX
+エニタイムフィットネス,anytime-fitness:anytime_eq_bbaa6cc25b9f,アジャスタブルベンチ7台,フリーウェイト,not_specified,,,1,requires_other_equipment,True,アジャスタブルベンチ7台（ラック分含む）
+エニタイムフィットネス,anytime-fitness:anytime_eq_bc59ea5ab14b,プリチャーカール (EZバー ×1),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プリチャーカール (EZバー ×1 ) (腕)
+エニタイムフィットネス,anytime-fitness:anytime_eq_bcd42ed90b71,スーパーフライ（プレートロード）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：PLスーパーフライ（胸）
+エニタイムフィットネス,anytime-fitness:anytime_eq_bd009bde8e58,ケトルベル 4~16kg,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ケトルベル　4～16kg
+エニタイムフィットネス,anytime-fitness:anytime_eq_bd2872319105,プリーチャーカール台,フリーウェイト,not_specified,,,1,requires_other_equipment,True,プリーチャーカール台
+エニタイムフィットネス,anytime-fitness:anytime_eq_bd5cfbaa6765,Queenax,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,Queenax
+エニタイムフィットネス,anytime-fitness:anytime_eq_bd667459179f,フィットネスバンドなど,ストレッチ,not_specified,,,1,equipment_ambiguous,True,フィットネスバンドなど
+エニタイムフィットネス,anytime-fitness:anytime_eq_bd85b8837784,レッグレイズ,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,レッグレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_bdfd85f4ea56,アップライトバイク×2,有酸素,cardio,,,2,equipment_ambiguous,True,アップライトバイク×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_beb093dd5318,アジャスタブルデクライン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アジャスタブルデクライン
+エニタイムフィットネス,anytime-fitness:anytime_eq_bf26c5a1f1a6,ロー,マシン,not_specified,,,22,equipment_ambiguous,True,ロー | ロー (背中) | ロー（背中） | ロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_bf301f5f60f2,TRXチューブ,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,TRXチューブ
+エニタイムフィットネス,anytime-fitness:anytime_eq_bfc57651e6bd,エリプティカルクロストレーナー,有酸素,cardio,,,1,equipment_ambiguous,True,エリプティカル・クロストレーナー
+エニタイムフィットネス,anytime-fitness:anytime_eq_c00508966b52,腹筋台,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,腹筋台
+エニタイムフィットネス,anytime-fitness:anytime_eq_c04641458478,ストレッチボール,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチボール
+エニタイムフィットネス,anytime-fitness:anytime_eq_c182e9255b2e,筋膜リリースローラー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,筋膜リリースローラー×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_c1d407dc1743,フレックスストライダー,有酸素,cardio,,,6,equipment_ambiguous,True,フレックスストライダー | フレックスストライダー(2台) | フレックスストライダー（2台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_c36d2515f994,ラテラルレイズ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ラテラルレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_c36eda7b5bbd,サスペンションストラップ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,サスペンションストラップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_c389c188ddb4,エリプティカル/クロストレーナー,有酸素,cardio,,,1,equipment_ambiguous,True,エリプティカル/クロストレーナー×2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_c42e85194d52,アブドミナルベンチ,フリーウェイト,not_specified,,,7,equipment_ambiguous,True,アブドミナル・ベンチ | アブドミナルベンチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_c43c034e06dd,バイク,有酸素,cardio,,,1,equipment_ambiguous,True,バイク3台
+エニタイムフィットネス,anytime-fitness:anytime_eq_c51d343167fe,マッサージボール,ストレッチ,not_specified,,,1,equipment_ambiguous,True,マッサージボール
+エニタイムフィットネス,anytime-fitness:anytime_eq_c5c7965dc599,バランスボール,ファンクショナル,not_specified,,,22,equipment_ambiguous,True,バランスボール | バランスボール 2個 | バランスボール 小、大 | バランスボール(2個) | バランスボール2個
+エニタイムフィットネス,anytime-fitness:anytime_eq_c693c7ba7c07,ストレッチマシン,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチマシン
+エニタイムフィットネス,anytime-fitness:anytime_eq_c6edc684d067,トライセップスプッシュダウン,マシン,not_specified,,,2,equipment_ambiguous,True,トライセップス・プッシュダウン | トライセップスプッシュダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_c6fc7c2ce595,HEXバー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,HEXバー
+エニタイムフィットネス,anytime-fitness:anytime_eq_c718606c6b50,プリ―チャーカール,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,プリ―チャーカール
+エニタイムフィットネス,anytime-fitness:anytime_eq_c71edce7ceec,ハーフストレッチポール,ストレッチ,not_specified,,,3,equipment_ambiguous,True,ハーフストレッチポール（2個） | ハーフストレッチポール×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_c7e2c5d95a0c,サンドバック,ファンクショナル,not_specified,,,4,equipment_ambiguous,True,サンドバック
+エニタイムフィットネス,anytime-fitness:anytime_eq_c82ab30b65de,シナジー,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,シナジー
+エニタイムフィットネス,anytime-fitness:anytime_eq_c883ba218350,ラットプルダウン,マシン,not_specified,,,31,equipment_ambiguous,True,ハンマーストレングス：ラットプルダウン2台（背中） | ラット・プルダウン | ラット・プルダウン×２台 | ラットプルダウン | ラットプルダウン 1台 | ラットプルダウン（背中） | ラットプルダウン×2 | ラットプルダウン2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_c92792241e20,PL45°レッグプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PL45°レッグプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_c96538390e2d,バイセップス,マシン,not_specified,,,1,equipment_ambiguous,True,バイセップス
+エニタイムフィットネス,anytime-fitness:anytime_eq_ca1b8755b583,セラガン,ストレッチ,not_specified,,,1,equipment_ambiguous,True,セラガン
+エニタイムフィットネス,anytime-fitness:anytime_eq_ca288fd0e468,ハーフカット,ストレッチ,not_specified,,,2,equipment_ambiguous,True,ハーフカット
+エニタイムフィットネス,anytime-fitness:anytime_eq_cbbe53c290f4,ヒップスラスト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ヒップスラスト
+エニタイムフィットネス,anytime-fitness:anytime_eq_cc23ed1665a5,プリチャーカール台(EZバー有り),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プリチャーカール台(EZバー有り)
+エニタイムフィットネス,anytime-fitness:anytime_eq_cc35b5373910,ライフサイクルアップライトエクササイズバイク,有酸素,cardio,,,1,equipment_ambiguous,True,ライフサイクル・アップライト・エクササイズ・バイク
+エニタイムフィットネス,anytime-fitness:anytime_eq_cc78ef68695b,ヒップバンド(6種),ストレッチ,not_specified,,,1,equipment_ambiguous,True,ヒップバンド（6種）
+エニタイムフィットネス,anytime-fitness:anytime_eq_ce174c1dea6d,ベンチ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ベンチ2台
+エニタイムフィットネス,anytime-fitness:anytime_eq_ce4b557ed4af,ストレッチポール ハーフカット,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ストレッチポール ハーフカット2個
+エニタイムフィットネス,anytime-fitness:anytime_eq_ce87ff25513e,マググリップ(7種),マシン,not_specified,,,1,equipment_ambiguous,True,マググリップ(7種)
+エニタイムフィットネス,anytime-fitness:anytime_eq_cf30420b661a,腹筋ローラー,ストレッチ,not_specified,,,3,equipment_ambiguous,True,腹筋ローラー
+エニタイムフィットネス,anytime-fitness:anytime_eq_d029a1aa333c,エクサチューブライト,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,エクサチューブライト 3種類
+エニタイムフィットネス,anytime-fitness:anytime_eq_d0707a71024b,シナジー180,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,シナジー180
+エニタイムフィットネス,anytime-fitness:anytime_eq_d07b4524c7b5,バランスディスク,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,バランスディスク
+エニタイムフィットネス,anytime-fitness:anytime_eq_d0ca4acff9c5,エルゴメーター,有酸素,cardio,,,2,equipment_ambiguous,True,エルゴメーター×2 | エルゴメーター1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_d10b55fa04fe,PRECORケーブルマシン,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,PRECORケーブルマシン
+エニタイムフィットネス,anytime-fitness:anytime_eq_d265600f7a11,PLリニアレッグプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLリニアレッグプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_d30e14d0420c,ヒップバンド(3種),ストレッチ,not_specified,,,1,equipment_ambiguous,True,ヒップバンド（3種）
+エニタイムフィットネス,anytime-fitness:anytime_eq_d368a6831b1b,エリプティカル,有酸素,cardio,,,1,equipment_ambiguous,True,エリプティカル(2台)
+エニタイムフィットネス,anytime-fitness:anytime_eq_d385e865c25c,"メディシンボール(3kg,4kg)",ストレッチ,not_specified,,,1,equipment_ambiguous,True,"メディシンボール(3kg,4kg)"
+エニタイムフィットネス,anytime-fitness:anytime_eq_d460e2c10772,DIVローロー,マシン,not_specified,,,2,equipment_ambiguous,True,DIVローロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_d46bcdcec6e0,PLグルートドライブ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLグルートドライブ
+エニタイムフィットネス,anytime-fitness:anytime_eq_d49742359987,TORQUEケーブルマシン(各種アタッチメント),ファンクショナル,not_specified,,,3,equipment_ambiguous,True,TORQUEケーブルマシン(各種アタッチメント) | TORQUEケーブルマシン（各種アタッチメント）
+エニタイムフィットネス,anytime-fitness:anytime_eq_d499b776c437,アイソラテラル ハイロー,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル　ハイロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_d4a08b9d33e3,TANITA体重計,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,TANITA体重計
+エニタイムフィットネス,anytime-fitness:anytime_eq_d6c887f1197d,MAGグリップ3種,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,MAGグリップ3種
+エニタイムフィットネス,anytime-fitness:anytime_eq_d6c9429517c8,EZバー,フリーウェイト,not_specified,,,7,requires_other_equipment,True,EZバー | EZバー 2本 | EZバー（腕） | EZバー2台 | EZバー2本
+エニタイムフィットネス,anytime-fitness:anytime_eq_d740b58aff99,アイソラテラルフロントプルダウン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラルフロントプルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_d760206a4602,PLハック・スクワット,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLハック・スクワット
+エニタイムフィットネス,anytime-fitness:anytime_eq_d801016610fb,スーパーインクラインプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：スーパーインクラインプレス（胸）
+エニタイムフィットネス,anytime-fitness:anytime_eq_da0464f0ec69,タイヤフリップ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,タイヤフリップ
+エニタイムフィットネス,anytime-fitness:anytime_eq_da335a694d1c,トレッドミル×8,有酸素,cardio,,,1,equipment_ambiguous,True,トレッドミル×8
+エニタイムフィットネス,anytime-fitness:anytime_eq_dab1ff106a1a,ヒップスラストエリート,マシン,not_specified,,,1,equipment_ambiguous,True,ヒップスラストエリート
+エニタイムフィットネス,anytime-fitness:anytime_eq_db436c9610d1,ペンデュラムXスクワット(北海道初導入!!),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ペンデュラムXスクワット（北海道初導入！！）
+エニタイムフィットネス,anytime-fitness:anytime_eq_dc4aadaeaf47,プルダウン(マググリップ3種、ストレートバー),マシン,not_specified,,,1,equipment_ambiguous,True,プルダウン(マググリップ3種、ストレートバー)
+エニタイムフィットネス,anytime-fitness:anytime_eq_dc7295a50243,ヨガマット,ストレッチ,not_specified,,,1,equipment_ambiguous,True,ヨガマット
+エニタイムフィットネス,anytime-fitness:anytime_eq_dcb5e79f2261,ローイング,マシン,not_specified,,,1,equipment_ambiguous,True,ローイング
+エニタイムフィットネス,anytime-fitness:anytime_eq_dcbf4bba694c,トライセプスバー ×1,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,トライセプスバー ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_dd220bb0ada3,アイソラテラルインクラインプレス,フリーウェイト,not_specified,,,10,equipment_ambiguous,True,ISOｰLATERALインクラインプレス | アイソラテラル インクラインプレス 1台 | アイソラテラル・インクライン・プレス | アイソラテラルインクラインプレス | アイソラテラルインクラインプレス (胸)
+エニタイムフィットネス,anytime-fitness:anytime_eq_dd596279032e,ラットプルダウン(マググリップ、ストレートバー各種アタッチメント),マシン,not_specified,,,1,equipment_ambiguous,True,ラットプルダウン(マググリップ、ストレートバー各種アタッチメント)
+エニタイムフィットネス,anytime-fitness:anytime_eq_dd7489f7ca0d,ディップス,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ディップス
+エニタイムフィットネス,anytime-fitness:anytime_eq_de03532df769,PLアイソラテラルインクラインプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLアイソラテラル・インクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_de974a73a294,ハイロー（プレートロード）,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,PLハイロー（背中） | ハンマーストレングス：PLハイロー（背中）
+エニタイムフィットネス,anytime-fitness:anytime_eq_df916c8f6e9a,ハーフラック(フラットインクラインベンチ),フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハーフラック（フラットインクラインベンチ）
+エニタイムフィットネス,anytime-fitness:anytime_eq_dfc5e59f3da2,ディビアドルシフレクション,フリーウェイト,not_specified,,,1,exercise_not_in_catalog,True,ディビアドルシフレクション
+エニタイムフィットネス,anytime-fitness:anytime_eq_e1e022feb3a7,MAGグリップ(7種),ファンクショナル,not_specified,,,1,equipment_ambiguous,True,MAGグリップ(7種)
+エニタイムフィットネス,anytime-fitness:anytime_eq_e208e66bcd7e,45°レッグプレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,45°レックプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_e3329610f502,IVANKOスクワットパッド,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,IVANKO スクワットパッド 5本
+エニタイムフィットネス,anytime-fitness:anytime_eq_e34e5fa4a91d,ウエイトツリー,フリーウェイト,not_specified,,,2,equipment_ambiguous,True,ウエイトツリー | ウエイトツリー 1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_e4fa2495a42e,ストレッチポールEX,ストレッチ,not_specified,,,3,equipment_ambiguous,True,ストレッチポールEX
+エニタイムフィットネス,anytime-fitness:anytime_eq_e5accfb98cda,クランチ,マシン,not_specified,,,1,equipment_ambiguous,True,クランチ
+エニタイムフィットネス,anytime-fitness:anytime_eq_e65f30580493,PLハイロー/フロントプルダウン,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLハイロー/フロントプルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_e82b2afbd063,レッグレイズ,フリーウェイト,not_specified,,,5,equipment_ambiguous,True,レッグレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_e911e060154a,ハーフラック×2,フリーウェイト,not_specified,,,1,requires_other_equipment,True,ハーフラック×2
+エニタイムフィットネス,anytime-fitness:anytime_eq_e97bdf4f3186,腹筋台,マシン,not_specified,,,1,equipment_ambiguous,True,腹筋台
+エニタイムフィットネス,anytime-fitness:anytime_eq_ead32b554141,ローイング,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ローイング
+エニタイムフィットネス,anytime-fitness:anytime_eq_eb4f8bef069a,プレートロード・ワイドチェスト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プレートロード・ワイドチェスト
+エニタイムフィットネス,anytime-fitness:anytime_eq_eca28d45604c,TRXバンド,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,TRXバンド
+エニタイムフィットネス,anytime-fitness:anytime_eq_ecec007ddc7f,シーテッドディップ（プレートロード）,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハンマーストレングス：PLシーテッドディップ（胸、腕）
+エニタイムフィットネス,anytime-fitness:anytime_eq_ed624195df81,骨盤職人,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,骨盤職人
+エニタイムフィットネス,anytime-fitness:anytime_eq_edc24b707bc9,インクラインプレス,フリーウェイト,not_specified,,,15,equipment_ambiguous,True,インクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_edd7a45c3c0c,TANITAタイマー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,TANITAタイマー5つ
+エニタイムフィットネス,anytime-fitness:anytime_eq_edda2679bbc1,ベルト,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ベルト 3本
+エニタイムフィットネス,anytime-fitness:anytime_eq_ee1f1df76ee9,インクラインプレス,マシン,not_specified,,,1,equipment_ambiguous,True,インクラインプレス
+エニタイムフィットネス,anytime-fitness:anytime_eq_ee5984da358d,スラムボール,ファンクショナル,not_specified,,,3,equipment_ambiguous,True,スラムボール | スラムボール(5･10･15･20kg 各1)
+エニタイムフィットネス,anytime-fitness:anytime_eq_eeae53bbf939,シーテッド・アームカール,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,シーテッド・アームカール
+エニタイムフィットネス,anytime-fitness:anytime_eq_ef0852b18e61,Tバーロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,Tバーロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f13a776e55d1,ウォーターバッグ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ウォーターバッグ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f149ba5be226,precorケーブルマシン,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,precorケーブルマシン1台
+エニタイムフィットネス,anytime-fitness:anytime_eq_f18df88e71c4,コアバッグ,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,コアバッグ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f2398adeb1de,ハイ ロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ハイ ロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f25438e4720a,ラットプルダウン(マググリップ7種、その他各種アタッチメント有),マシン,not_specified,,,1,equipment_ambiguous,True,ラットプルダウン(マググリップ7種、その他各種アタッチメント有) (背中)
+エニタイムフィットネス,anytime-fitness:anytime_eq_f309ebc1e527,IVANKOリボルビングカールバー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,IVANKO リボルビングカールバー 1本
+エニタイムフィットネス,anytime-fitness:anytime_eq_f34e8fbba460,ストレングスバンド(6種),ストレッチ,not_specified,,,1,equipment_ambiguous,True,ストレングスバンド（6種）
+エニタイムフィットネス,anytime-fitness:anytime_eq_f3873bb128e1,ウェイトバッグ,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ウェイトバッグ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f433686a6c2c,PLマルチスクワット,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,PLマルチスクワット
+エニタイムフィットネス,anytime-fitness:anytime_eq_f49ae0aa1d94,スタビリティーボール,ファンクショナル,not_specified,,,2,equipment_ambiguous,True,スタビリティーボール
+エニタイムフィットネス,anytime-fitness:anytime_eq_f4c9193b858b,ハーフポール,ファンクショナル,not_specified,,,1,equipment_ambiguous,True,ハーフポール(2個)
+エニタイムフィットネス,anytime-fitness:anytime_eq_f5a65d39e03a,トライセプスプッシュダウン,マシン,not_specified,,,1,equipment_ambiguous,True,トライセプスプッシュダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_f6377c210052,ケーブルマシン（マルチジャングル）,マシン,not_specified,,,1,equipment_ambiguous,True,ケーブルマシン（マルチジャングル）
+エニタイムフィットネス,anytime-fitness:anytime_eq_f6935aae6790,マッサージローラー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,マッサージローラー
+エニタイムフィットネス,anytime-fitness:anytime_eq_f6b8ba1fb842,ローロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,ローロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f8162892ca56,ローロー,マシン,not_specified,,,9,equipment_ambiguous,True,ロー　ロー | ロー・ロー | ローロー | ローロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f82f7583e346,D.Y.ロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,D.Y.ロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_f90fabed6c45,プルダウン,マシン,not_specified,,,14,equipment_ambiguous,True,プルダウン
+エニタイムフィットネス,anytime-fitness:anytime_eq_f98443885708,ストレッチポール,ストレッチ,not_specified,,,10,equipment_ambiguous,True,ストレッチポール | ストレッチポール 4本 | ストレッチポール（2個） | ストレッチポール（大・小・ハーフ） | ストレッチポール×2 | ストレッチポール2本 | ストレッチポール3本
+エニタイムフィットネス,anytime-fitness:anytime_eq_fb56fb507b11,スタジオデッキ,ファンクショナル,not_specified,,,8,equipment_ambiguous,True,スタジオデッキ
+エニタイムフィットネス,anytime-fitness:anytime_eq_fb5be5849949,アイソラテラル・ショルダープレス,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,アイソラテラル・ショルダープレス×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_fb5c0403f9e5,アブコースター,マシン,not_specified,,,1,equipment_ambiguous,True,アブコースター
+エニタイムフィットネス,anytime-fitness:anytime_eq_fbc097ad2dd3,アブローラー ×1,ストレッチ,not_specified,,,1,equipment_ambiguous,True,アブローラー ×1
+エニタイムフィットネス,anytime-fitness:anytime_eq_fbd616b0b7fc,ローロー,フリーウェイト,not_specified,,,6,equipment_ambiguous,True,ローロー | ローロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_fbe9155f48c0,電動筋膜ローラー,ストレッチ,not_specified,,,1,equipment_ambiguous,True,電動筋膜ローラー
+エニタイムフィットネス,anytime-fitness:anytime_eq_fc5636fc315b,プレートロード・Ｔバーロウ,フリーウェイト,not_specified,,,1,equipment_ambiguous,True,プレートロード・Ｔバーロウ
+エニタイムフィットネス,anytime-fitness:anytime_eq_fd5e1cd645bf,トレッドミル(トレッドミル),有酸素,cardio,,,3,equipment_ambiguous,True,トレッドミル（ランニングマシン）8台 | トレッドミル8台（ランニングマシン）
+エニタイムフィットネス,anytime-fitness:anytime_eq_fe37bc695aa4,ボスレッグレイズ,マシン,not_specified,,,3,equipment_ambiguous,True,ボス・レッグレイズ
+エニタイムフィットネス,anytime-fitness:anytime_eq_fe7c06c193ce,ラットプルダウン/ロウロー,マシン,not_specified,,,1,equipment_ambiguous,True,ラットプルダウン/ロウロー
+エニタイムフィットネス,anytime-fitness:anytime_eq_fef7dc7a9f8e,ストレングスバンド(5種),ストレッチ,not_specified,,,1,equipment_ambiguous,True,ストレングスバンド（5種）
+エニタイムフィットネス,anytime-fitness:anytime_eq_ff8df364e8d5,アジャスタブルベンチ(),フリーウェイト,not_specified,,,1,requires_other_equipment,True,アジャスタブルベンチ（5台）
+エニタイムフィットネス,anytime-fitness:anytime_eq_ffadbc987652,ローエルゴ,有酸素,cardio,,,1,equipment_ambiguous,True,ローエルゴ　1台
+エニタイムフィットネス,fastgym24:fp_eq_5b6848c68a39,トライセプスエクステンション,筋トレ,not_specified,,,2,equipment_mapping_missing,False,トライセプスエクステンション（腕） | ハンマーストレングス：トライセプスエクステンション（腕）
+エニタイムフィットネス,fastgym24:fp_eq_845f8070c032,スピニングバイク,有酸素,cardio,,,1,equipment_mapping_missing,False,スピニングバイク1台
+エニタイムフィットネス,fastgym24:fp_eq_b3a7ab66330c,プリチャーカール,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,プリチャーカール
+エニタイムフィットネス,fastgym24:fp_eq_cc0a23b0d3d0,シーテッドプリチャーカール,筋トレ,not_specified,,,2,equipment_mapping_missing,False,シーテッドプリチャーカール
+エニタイムフィットネス,fit-easy:fp_eq_4245532e1d83,ワイドチェスト（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ハンマーストレングス：PLワイドチェスト（胸）
+エニタイムフィットネス,fit-easy:fp_eq_4d4e83dab0f4,ローイング（プレートロード）,フリーウェイト,plate_loaded_explicit,,,1,equipment_mapping_missing,False,ハンマーストレングス：PLローイング（背中）
+エニタイムフィットネス,fit-easy:fp_eq_f2ee6f355415,フロントラットプルダウン（プレートロード）,フリーウェイト,plate_loaded_explicit,,,2,equipment_mapping_missing,False,PLフロントラットプルダウン（背中） | ハンマーストレングス：PLフロントラットプルダウン（背中）
+エニタイムフィットネス,fit-place24:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,24,requires_other_equipment,False,フラットベンチ | フラットベンチ 1台 | フラットベンチ　1台 | フラットベンチ(3台) | フラットベンチ(3台)※パワーラック等使用分含む | フラットベンチ×2台 | フラットベンチ1台
+エニタイムフィットネス,fit-place24:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,39,requires_other_equipment,False,アジャスタブル・ベンチ (5台) | アジャスタブル・ベンチ(8台) | アジャスタブル・ベンチ×2台 | アジャスタブルベンチ | アジャスタブルベンチ 2台 | アジャスタブルベンチ 4台 | アジャスタブルベンチ　4台 | アジャスタブルベンチ　5台 | アジャスタブルベンチ 6台 | アジャスタブルベンチ　7台 | アジャスタブルベンチ(5台) | アジャスタブルベンチ（5台） | アジャスタブルベンチ(8台)※パワーラック等使用分含む | アジャスタブルベンチ×3 | アジャスタブルベンチ×7 | アジャスタブルベンチ10台 | アジャスタブルベンチ1台 | アジャスタブルベンチ2台 | アジャスタブルベンチ3台 | アジャスタブルベンチ4台 | アジャスタブルベンチ5台 | アジャストブルベンチ 3台
+エニタイムフィットネス,fit24:fp_eq_07d486710408,プラットフォーム,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,プラットフォーム
+エニタイムフィットネス,fit24:fp_eq_39470412f7cf,ヒップ＆グルート,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ヒップ＆グルート
+エニタイムフィットネス,fit24:fp_eq_5db1268e5c41,トライセップスプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,トライセプスプレス
+エニタイムフィットネス,fit24:fp_eq_78ca9669feb1,パワーミルクライマー,有酸素,not_specified,,,2,equipment_mapping_missing,False,パワーミルクライマー | パワーミルクライマー2台
+エニタイムフィットネス,fit24:fp_eq_ac59ed107fbf,ホリゾンタルベンチプレス（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,1,equipment_mapping_missing,False,ハンマーストレングス：PLホリゾンタルベンチプレス（胸、腕）
+エニタイムフィットネス,fit24:fp_eq_ca6b2f62c8a7,ラテラルロー（プレートロード）,フリーウェイト,plate_loaded_explicit,HAMMER STRENGTH,,1,equipment_mapping_missing,False,PLラテラルロー(背)
+エニタイムフィットネス,fit24:fp_eq_f8db33dbd981,トライセップスエクステンション,筋トレ,not_specified,,,5,equipment_mapping_missing,False,トライセップス・エクステンション | トライセップスエクステンション | トライセプスエクステンション | トライセラトップスエクステンション
+エニタイムフィットネス,golds-gym:fp_eq_1a1b98bdc1a6,グルートドライブ,筋トレ,not_specified,,,3,equipment_mapping_missing,False,グルートドライブ
+エニタイムフィットネス,golds-gym:fp_eq_24af87d29c97,インクラインベンチプレス,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,インクラインベンチプレス
+エニタイムフィットネス,golds-gym:fp_eq_27cf33988bc3,ユーティリティベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ユーティリティベンチ
+エニタイムフィットネス,golds-gym:fp_eq_48b0da54d05e,ブルガリアンスクワットスタンド,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ブルガリアンスクワットスタンド
+エニタイムフィットネス,golds-gym:fp_eq_7e88407eccd1,ヘックスバー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,ヘックスバー
+エニタイムフィットネス,golds-gym:fp_eq_cfe57283fe50,デクラインベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,デクラインベンチ
+エニタイムフィットネス,hyper-fit24:fp_eq_099217b952cc,アイソラテラルワイドプルダウン,筋トレ,not_specified,,,7,equipment_mapping_missing,False,ISOｰLATERALワイドプルダウン | アイソラテラル ワイドプルダウン 1台 | アイソラテラル・ワイド・プルダウン | アイソラテラルワイドプルダウン | アイソラテラルワイドプルダウン (背中)
+エニタイムフィットネス,hyper-fit24:fp_eq_12309e05135f,バイセップカール/トライセップエクステンション,筋トレ,not_specified,,,1,equipment_mapping_missing,False,バイセップカール/トライセップEC
+エニタイムフィットネス,hyper-fit24:fp_eq_44ba279d4f58,AMT オープンスライド,有酸素,cardio,,,2,equipment_mapping_missing,False,AMTオープンスライド2台
+エニタイムフィットネス,hyper-fit24:fp_eq_4800f5a3aa4e,アイソラテラルショルダープレス,筋トレ,not_specified,,,7,equipment_mapping_missing,False,アイソラテラル・ショルダー・プレス | アイソラテラルショルダープレス | アイソラテラルショルダープレス 1台
+エニタイムフィットネス,hyper-fit24:fp_eq_592b624d43a8,マルチアジャスタブルベンチ,フリーウェイト,not_specified,,,3,requires_other_equipment,False,マルチ・アジャスタブル・ベンチ(4台) | マルチアジャスタブルベンチ(5台) | マルチアジャスタブルベンチ×7台
+エニタイムフィットネス,hyper-fit24:fp_eq_893f9753dbcc,スクワットマシン,筋トレ,not_specified,,,2,equipment_mapping_missing,False,スクワットマシン
+エニタイムフィットネス,hyper-fit24:fp_eq_8ec18026f0c2,プルダウン/シーテッドロー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,プルダウン/シーテッドロウ
+エニタイムフィットネス,hyper-fit24:fp_eq_af1b70370263,アジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,1,requires_other_equipment,False,アジャスタブルデクラインベンチ
+エニタイムフィットネス,hyper-fit24:fp_eq_b308796d3773,アブベンチ,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アブベンチ
+エニタイムフィットネス,hyper-fit24:fp_eq_bc1497557847,カーフレイズ,筋トレ,not_specified,,,1,equipment_mapping_missing,False,カーフレイズ
+エニタイムフィットネス,hyper-fit24:fp_eq_c7f95fc4951a,プリーチャーカールベンチ,フリーウェイト,not_specified,,,2,requires_other_equipment,False,プリーチャーカールベンチ | プリーチャーカールベンチ×1
+エニタイムフィットネス,hyper-fit24:fp_eq_d746783d2f4c,カーフ,筋トレ,not_specified,,,2,equipment_mapping_missing,False,カーフ
+エニタイムフィットネス,hyper-fit24:fp_eq_e0c401f1200e,ダイバージングローロー,筋トレ,not_specified,,,6,equipment_mapping_missing,False,ダイバージングローロウ
+エニタイムフィットネス,hyper-fit24:fp_eq_e8de7ad6a32c,プルオーバー,筋トレ,not_specified,,,1,equipment_mapping_missing,False,プル・オーバー
+エニタイムフィットネス,joyfit24:fp_eq_07ff36f67672,トライセプスプレス,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ライフフィットネス（インシグニア）：トライセプスプレス（腕）
+エニタイムフィットネス,joyfit24:fp_eq_483e8a8b785e,バイクマシン,有酸素,cardio,,,1,equipment_mapping_missing,False,バイクマシン4台
+エニタイムフィットネス,joyfit24:fp_eq_7459768ffb38,バックエクステンション台,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,バックエクステンション台
+エニタイムフィットネス,joyfit24:fp_eq_74e26bb039cb,プリーチャーカール,フリーウェイト,not_specified,,,8,equipment_mapping_missing,False,プリ―チャーカール2台 | プリーチャーカール | プリチャーカール
+エニタイムフィットネス,joyfit24:fp_eq_8a4223d521fb,アイソラテラル フロント ラットプルダウン,筋トレ,not_specified,,,2,equipment_mapping_missing,False,アイソラテラル・フロント・ラット・プルダウン | アイソラテラル・フロントラットプルダウン
+エニタイムフィットネス,joyfit24:fp_eq_941b0afe4a45,ケーブル,フリーウェイト,cable_named,,,2,equipment_mapping_missing,False,ケーブル
+エニタイムフィットネス,joyfit24:fp_eq_95205528e9bb,AMT,有酸素,cardio,,,4,equipment_mapping_missing,False,AMT 1台 | AMT×1 | AMT2台
+エニタイムフィットネス,joyfit24:fp_eq_a9b9756552a2,スーパースミスマシン,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,スーパースミスマシン | スーパースミスマシン×1 | スーパースミスマシン1台
+エニタイムフィットネス,joyfit24:fp_eq_c127b417ac3f,アセントトレーナー,有酸素,cardio,,,1,equipment_mapping_missing,False,アセントトレーナー2台
+エニタイムフィットネス,joyfit24:fp_eq_cb2fd8138373,ヒップアブダクター/ヒップアダクター,筋トレ,not_specified,,,1,equipment_mapping_missing,False,ヒップアブダクター／ヒップアダクター
+エニタイムフィットネス,joyfit24:fp_eq_ccdc08779135,クランチ台,筋トレ,not_specified,,,1,equipment_mapping_missing,False,クランチ台
+エニタイムフィットネス,joyfit24:fp_eq_db54ed2aab53,デクラインプレス,フリーウェイト,not_specified,,,3,equipment_mapping_missing,False,デクラインプレス
+エニタイムフィットネス,joyfit24:fp_eq_ddf5c26d1df8,アイソラテラルロー,フリーウェイト,not_specified,,,4,equipment_mapping_missing,False,アイソラテラル・ロー | アイソラテラルロー | アイソラテラルロー 1台
+エニタイムフィットネス,joyfit24:fp_eq_ef582ac0cde1,エアロバイク,有酸素,cardio,,,2,equipment_mapping_missing,False,エアロバイク 2台 | エアロバイク　2台
+エニタイムフィットネス,joyfit24:fp_eq_f5b9365f9a50,アジャスタブルプーリー,フリーウェイト,not_specified,,,1,equipment_mapping_missing,False,アジャスタブル・プーリー
+エニタイムフィットネス,joyfit24:fp_eq_fbaeee936e40,シーテッドアームカール,フリーウェイト,not_specified,,,16,equipment_mapping_missing,False,シーテッド アームカール 1台 | シーテッド・アーム・カール | シーテッド・アームカール | シーテッド・アームカール（腕） | シーテッド・アームカール1台 | シーテッドアームカール | ハンマーストレングス：シーテッドアームカール（腕）
+店舗への設置なし,fastgym24:fp_eq_037d2725574b,ISOライナーロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,fastgym24:fp_eq_0b7ade05c9c0,アジャスタブルインクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_2069c8ac3ff1,フィクスドプルダウン,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fastgym24:fp_eq_39f2145cc716,フルボディトレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,fastgym24:fp_eq_453fcb2d0cc8,マルチアジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_538b557739d4,アジャスタブルマルチデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_57ab45d08062,デクラインフラットベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_68bdd600d543,マルチステーション type A,筋トレ,not_specified,,,0,equipment_mapping_missing,False,
+店舗への設置なし,fastgym24:fp_eq_958968fb4ea2,デルツ,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fastgym24:fp_eq_999e7b88bccd,アジャスタブル アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fastgym24:fp_eq_a65f144d487e,フルボディートレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,fastgym24:fp_eq_b962f153802e,ISOリニアロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,fastgym24:fp_eq_c2e8b4cbe71b,ヒップスラスト,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fastgym24:fp_eq_f03fe62567c5,アジャスタブルフラット/インクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_037d2725574b,ISOライナーロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,fit-easy:fp_eq_0b7ade05c9c0,アジャスタブルインクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_2069c8ac3ff1,フィクスドプルダウン,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fit-easy:fp_eq_39f2145cc716,フルボディトレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,fit-easy:fp_eq_3e928d59ac6c,フラットベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_453fcb2d0cc8,マルチアジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_538b557739d4,アジャスタブルマルチデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_57ab45d08062,デクラインフラットベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_68bdd600d543,マルチステーション type A,筋トレ,not_specified,,,0,equipment_mapping_missing,False,
+店舗への設置なし,fit-easy:fp_eq_958968fb4ea2,デルツ,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fit-easy:fp_eq_999e7b88bccd,アジャスタブル アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_a65f144d487e,フルボディートレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,fit-easy:fp_eq_b962f153802e,ISOリニアロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,fit-easy:fp_eq_c2e8b4cbe71b,ヒップスラスト,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fit-easy:fp_eq_c66a841e9ed5,アジャスタブルベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,fit-easy:fp_eq_e2f90d4521d0,ヒップスラスト,フリーウェイト,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,fit-easy:fp_eq_f03fe62567c5,アジャスタブルフラット/インクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_037d2725574b,ISOライナーロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,golds-gym:fp_eq_0b7ade05c9c0,アジャスタブルインクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_2069c8ac3ff1,フィクスドプルダウン,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,golds-gym:fp_eq_39f2145cc716,フルボディトレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,golds-gym:fp_eq_453fcb2d0cc8,マルチアジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_538b557739d4,アジャスタブルマルチデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_57ab45d08062,デクラインフラットベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_68bdd600d543,マルチステーション type A,筋トレ,not_specified,,,0,equipment_mapping_missing,False,
+店舗への設置なし,golds-gym:fp_eq_958968fb4ea2,デルツ,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,golds-gym:fp_eq_999e7b88bccd,アジャスタブル アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,golds-gym:fp_eq_a65f144d487e,フルボディートレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,golds-gym:fp_eq_b962f153802e,ISOリニアロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,golds-gym:fp_eq_c2e8b4cbe71b,ヒップスラスト,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,golds-gym:fp_eq_e2f90d4521d0,ヒップスラスト,フリーウェイト,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,golds-gym:fp_eq_f03fe62567c5,アジャスタブルフラット/インクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_037d2725574b,ISOライナーロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,joyfit24:fp_eq_2069c8ac3ff1,フィクスドプルダウン,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,joyfit24:fp_eq_39f2145cc716,フルボディトレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,joyfit24:fp_eq_453fcb2d0cc8,マルチアジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_538b557739d4,アジャスタブルマルチデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_57ab45d08062,デクラインフラットベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_68bdd600d543,マルチステーション type A,筋トレ,not_specified,,,0,equipment_mapping_missing,False,
+店舗への設置なし,joyfit24:fp_eq_958968fb4ea2,デルツ,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,joyfit24:fp_eq_999e7b88bccd,アジャスタブル アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,joyfit24:fp_eq_a65f144d487e,フルボディートレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,joyfit24:fp_eq_b962f153802e,ISOリニアロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,joyfit24:fp_eq_e2f90d4521d0,ヒップスラスト,フリーウェイト,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,joyfit24:fp_eq_f03fe62567c5,アジャスタブルフラット/インクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_037d2725574b,ISOライナーロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,world-plus-gym:fp_eq_0b7ade05c9c0,アジャスタブルインクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_2069c8ac3ff1,フィクスドプルダウン,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,world-plus-gym:fp_eq_39f2145cc716,フルボディトレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,world-plus-gym:fp_eq_453fcb2d0cc8,マルチアジャスタブルデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_5354722256ab,アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_538b557739d4,アジャスタブルマルチデクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_53beebd50e63,カールベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_57ab45d08062,デクラインフラットベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_68bdd600d543,マルチステーション type A,筋トレ,not_specified,,,0,equipment_mapping_missing,False,
+店舗への設置なし,world-plus-gym:fp_eq_958968fb4ea2,デルツ,筋トレ,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,world-plus-gym:fp_eq_999e7b88bccd,アジャスタブル アームカールラック,フリーウェイト,not_specified,,,0,requires_other_equipment,False,
+店舗への設置なし,world-plus-gym:fp_eq_a65f144d487e,フルボディートレーナー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_mapping_missing,False,
+店舗への設置なし,world-plus-gym:fp_eq_b962f153802e,ISOリニアロー（プレートロード）,フリーウェイト,plate_loaded_explicit,,,0,equipment_ambiguous,True,
+店舗への設置なし,world-plus-gym:fp_eq_e2f90d4521d0,ヒップスラスト,フリーウェイト,not_specified,,,0,equipment_ambiguous,True,
+店舗への設置なし,world-plus-gym:fp_eq_f03fe62567c5,アジャスタブルフラット/インクラインベンチ,フリーウェイト,not_specified,,,0,requires_other_equipment,False,

@@ -495,16 +495,15 @@ class SupabaseGymRepository extends GymRepository {
 
   @override
   Future<List<GymEquipment>> equipment(String storeId, {int offset = 0}) async {
-    final rows = await _client
-        .from('gym_store_equipment')
-        .select(
-          'quantity,raw_name,available,unavailable_quantity,checked_at,equipment!inner(id,name,display_name,aliases,load_type,category,manufacturer,model,equipment_exercise_mapping(exercise_id),exercise_equipment_rule_items(rule_id))',
+    final rows = await _client.rpc(
+      'gym_store_equipment_page',
+      params: {'target_store_id': storeId, 'page_offset': offset},
+    );
+    return (rows as List)
+        .map(
+          (row) => GymEquipment.fromJson(Map<String, dynamic>.from(row as Map)),
         )
-        .eq('store_id', storeId)
-        .eq('presence_status', 'present')
-        .order('equipment_id')
-        .range(offset, offset + 49);
-    return rows.map(GymEquipment.fromJson).toList();
+        .toList();
   }
 
   @override
