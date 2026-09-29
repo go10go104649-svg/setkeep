@@ -168,6 +168,16 @@ void main() {
       expect(p.getString('workout_history'), 'unchanged');
     },
   );
+  test(
+    'fresh cached equipment is revalidated before store filtering',
+    () async {
+      final detail = await repo.detail(detailedStore);
+      await GymEquipmentCache.write(detail);
+      repo.detailCalls = 0;
+      await GymEquipmentCache.load(repo, detailedStore);
+      expect(repo.detailCalls, 1);
+    },
+  );
   testWidgets(
     'preferred store precedes home and other places without duplication',
     (t) async {

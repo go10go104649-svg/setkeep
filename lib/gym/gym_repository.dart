@@ -498,6 +498,7 @@ class SupabaseGymRepository extends GymRepository {
           'quantity,raw_name,available,unavailable_quantity,checked_at,equipment!inner(id,name,display_name,aliases,load_type,category,manufacturer,model,equipment_exercise_mapping(exercise_id),exercise_equipment_rule_items(rule_id))',
         )
         .eq('store_id', storeId)
+        .eq('presence_status', 'present')
         .order('equipment_id')
         .range(offset, offset + 49);
     return rows.map(GymEquipment.fromJson).toList();

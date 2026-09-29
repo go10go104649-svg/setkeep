@@ -564,14 +564,12 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
     });
     final cached = await GymEquipmentCache.read(widget.store.id);
     if (!mounted || request != _request) return;
-    if (cached != null) setState(() => _detail = cached.detail);
+    if (cached != null && !force) setState(() => _detail = cached.detail);
     try {
-      if (force || cached == null || cached.staleAt(DateTime.now())) {
-        final detail = await _repo.detail(widget.store);
-        if (!mounted || request != _request) return;
-        setState(() => _detail = detail);
-        await GymEquipmentCache.write(detail);
-      }
+      final detail = await _repo.detail(widget.store);
+      if (!mounted || request != _request) return;
+      setState(() => _detail = detail);
+      await GymEquipmentCache.write(detail);
     } catch (_) {
       if (mounted && request == _request) setState(() => _failed = true);
     } finally {
@@ -594,6 +592,7 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
     if (!mounted) return;
     if (sent && equipment != null) setState(() => _pending.add(equipment.id));
     await _loadReports();
+    if (sent) await _load(force: true);
   }
 
   Future<void> _openOfficial(String value) async {

@@ -1,5 +1,8 @@
 -- Phase 1 integration and RLS test. Every fixture is rolled back.
 begin;
+-- Isolate phase-1 evaluation from the phase-2 application trigger. The
+-- transaction rollback restores the trigger before this test returns.
+alter table public.gym_change_candidates disable trigger gym_candidate_auto_apply;
 insert into auth.users(id) values
  ('00000000-0000-4000-9001-000000000001'),
  ('00000000-0000-4000-9001-000000000002'),

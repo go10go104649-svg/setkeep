@@ -45,15 +45,10 @@ class GymEquipmentCache {
     }
   }
 
-  static Future<GymStoreDetail> load(
-    GymRepository repo,
-    GymStore store, {
-    bool force = false,
-  }) async {
+  static Future<GymStoreDetail> load(GymRepository repo, GymStore store) async {
     final cached = await read(store.id);
-    if (!force && cached != null && !cached.staleAt(DateTime.now())) {
-      return cached.detail;
-    }
+    // Master equipment can change automatically. Refresh on each entry and
+    // retain the cache only as an offline fallback.
     try {
       final detail = await repo.detail(store);
       await write(detail);

@@ -5,6 +5,7 @@ import 'package:setkeep/admin/report_management_page.dart';
 
 class FakeReports implements ReportRepository {
   bool admin = true, fail = false;
+  String? rollbackReason;
   final candidates = [
     AdminCandidate({
       'id': 'candidate-1',
@@ -20,6 +21,24 @@ class FakeReports implements ReportRepository {
       'unique_reporters': 3,
       'first_seen_at': '2026-09-24T12:34:00Z',
       'last_seen_at': '2026-09-25T12:34:00Z',
+    }),
+    AdminCandidate({
+      'id': 'candidate-2',
+      'store_id': 'store',
+      'store_name': 'QA店舗',
+      'equipment_id': 'machine',
+      'equipment_name': 'マシン',
+      'change_type': 'removed',
+      'proposed_value': {'equipment_id': 'machine'},
+      'status': 'auto_applied',
+      'support_score': 4,
+      'oppose_score': 0,
+      'unique_reporters': 4,
+      'first_seen_at': '2026-09-24T12:34:00Z',
+      'last_seen_at': '2026-09-25T12:34:00Z',
+      'applied_at': '2026-09-25T12:35:00Z',
+      'before_data': {'presence_status': 'present', 'available': true},
+      'after_data': {'presence_status': 'removed', 'available': false},
     }),
   ];
   final reports = [
@@ -71,6 +90,14 @@ class FakeReports implements ReportRepository {
   Future<List<AdminCandidate>> listCandidates(int offset) async {
     if (fail || !admin) throw StateError('denied');
     return candidates.skip(offset).take(50).toList();
+  }
+
+  @override
+  Future<void> rollbackCandidate(String candidateId, String reason) async {
+    if (fail || !admin || reason.trim().isEmpty) throw StateError('denied');
+    rollbackReason = reason;
+    candidates.firstWhere((c) => c.id == candidateId).data['status'] =
+        'rolled_back';
   }
 
   @override
@@ -196,11 +223,44 @@ void main() {
       expect(find.textContaining('情報収集中'), findsOneWidget);
       expect(find.textContaining('支持 3 / 反対 0'), findsOneWidget);
       expect(find.textContaining('報告者 3人'), findsOneWidget);
-      expect(find.textContaining('初回 2026/'), findsOneWidget);
-      expect(find.textContaining('最終 2026/'), findsOneWidget);
+      expect(find.textContaining('初回 2026/'), findsWidgets);
+      expect(find.textContaining('最終 2026/'), findsWidgets);
       await t.tap(find.text('設備情報'));
       await t.pumpAndSettle();
       expect(find.byKey(const Key('adminReportequipment')), findsOneWidget);
+    },
+  );
+  testWidgets(
+    'auto-applied candidate requires a reason and confirms rollback',
+    (t) async {
+      await t.pumpWidget(const MaterialApp(home: ReportManagementPage()));
+      await t.pumpAndSettle();
+      await t.tap(find.text('変更候補'));
+      await t.pumpAndSettle();
+      await t.tap(find.byKey(const Key('adminCandidatecandidate-2')));
+      await t.pumpAndSettle();
+      expect(find.textContaining('反映日時'), findsOneWidget);
+      expect(find.text('変更前'), findsOneWidget);
+      expect(find.text('変更後'), findsOneWidget);
+      await t.tap(find.byKey(const Key('rollbackCandidate')));
+      await t.pumpAndSettle();
+      expect(
+        t
+            .widget<FilledButton>(
+              find.byKey(const Key('confirmCandidateRollback')),
+            )
+            .onPressed,
+        isNull,
+      );
+      await t.enterText(
+        find.byKey(const Key('candidateRollbackReason')),
+        '設備の撤去情報に誤り',
+      );
+      await t.pumpAndSettle();
+      await t.tap(find.byKey(const Key('confirmCandidateRollback')));
+      await t.pumpAndSettle();
+      expect(repo.rollbackReason, '設備の撤去情報に誤り');
+      expect(repo.candidates.last.status, 'rolled_back');
     },
   );
 }

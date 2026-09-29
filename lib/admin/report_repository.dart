@@ -53,6 +53,14 @@ class AdminCandidate {
   num get supportScore => data['support_score'] as num;
   num get opposeScore => data['oppose_score'] as num;
   int get uniqueReporters => data['unique_reporters'] as int;
+  DateTime? get appliedAt =>
+      DateTime.tryParse(data['applied_at'] as String? ?? '');
+  Map<String, dynamic>? get beforeData => data['before_data'] is Map
+      ? Map<String, dynamic>.from(data['before_data'] as Map)
+      : null;
+  Map<String, dynamic>? get afterData => data['after_data'] is Map
+      ? Map<String, dynamic>.from(data['after_data'] as Map)
+      : null;
   String dateLabel(String field) {
     final d = DateTime.parse(data[field] as String).toLocal();
     String pad(int n) => n.toString().padLeft(2, '0');
@@ -102,6 +110,7 @@ abstract class ReportRepository {
     int offset,
   );
   Future<List<AdminCandidate>> listCandidates(int offset);
+  Future<void> rollbackCandidate(String candidateId, String reason);
   Future<void> update(AdminReport report, String status, String note);
 }
 
@@ -171,6 +180,14 @@ class SupabaseReportRepository implements ReportRepository {
     return rows
         .map((row) => AdminCandidate(Map<String, dynamic>.from(row)))
         .toList();
+  }
+
+  @override
+  Future<void> rollbackCandidate(String candidateId, String reason) async {
+    await client.rpc(
+      'rollback_gym_change_candidate',
+      params: {'target_id': candidateId, 'reason': reason},
+    );
   }
 
   @override

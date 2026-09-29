@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
@@ -224,6 +225,18 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
                               '初回 ${candidate.dateLabel('first_seen_at')}  最終 ${candidate.dateLabel('last_seen_at')}',
                             ),
                             isThreeLine: true,
+                            onTap: () async {
+                              await Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => _CandidateDetail(
+                                    candidate: candidate,
+                                    repo: repo,
+                                  ),
+                                ),
+                              );
+                              if (mounted) load();
+                            },
                           );
                         },
                       ),
@@ -317,6 +330,134 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
       ),
     ),
   );
+}
+
+class _CandidateDetail extends StatefulWidget {
+  const _CandidateDetail({required this.candidate, required this.repo});
+  final AdminCandidate candidate;
+  final ReportRepository repo;
+
+  @override
+  State<_CandidateDetail> createState() => _CandidateDetailState();
+}
+
+class _CandidateDetailState extends State<_CandidateDetail> {
+  bool busy = false;
+  String? error;
+  final rollbackReason = TextEditingController();
+
+  @override
+  void dispose() {
+    rollbackReason.dispose();
+    super.dispose();
+  }
+
+  Future<void> _rollback() async {
+    if (busy) return;
+    rollbackReason.clear();
+    final reason = await showDialog<String>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, refresh) => AlertDialog(
+          title: const Text('この変更を元に戻しますか？'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('反映前の設備状態に戻します。現在の状態が別途変更されている場合は実行できません。'),
+              TextField(
+                key: const Key('candidateRollbackReason'),
+                controller: rollbackReason,
+                maxLength: 1000,
+                onChanged: (_) => refresh(() {}),
+                decoration: const InputDecoration(labelText: '理由（必須）'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('キャンセル'),
+            ),
+            FilledButton(
+              key: const Key('confirmCandidateRollback'),
+              onPressed: rollbackReason.text.trim().isEmpty
+                  ? null
+                  : () => Navigator.pop(context, rollbackReason.text.trim()),
+              child: const Text('元に戻す'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (reason == null || !mounted) return;
+    setState(() {
+      busy = true;
+      error = null;
+    });
+    try {
+      await widget.repo.rollbackCandidate(widget.candidate.id, reason);
+      if (mounted) Navigator.pop(context);
+    } catch (_) {
+      if (mounted) setState(() => error = '変更を元に戻せませんでした。最新の状態を確認してください。');
+    } finally {
+      if (mounted) setState(() => busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final c = widget.candidate;
+    const encoder = JsonEncoder.withIndent('  ');
+    return Scaffold(
+      appBar: AppBar(title: const Text('変更候補の詳細')),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Text(c.storeName, style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 8),
+            Text('${c.changeLabel} ・ ${c.targetName}'),
+            Text('状態：${c.statusLabel}'),
+            Text(
+              '支持 ${c.supportScore} / 反対 ${c.opposeScore} ・ 報告者 ${c.uniqueReporters}人',
+            ),
+            Text('初回 ${c.dateLabel('first_seen_at')}'),
+            Text('最終 ${c.dateLabel('last_seen_at')}'),
+            if (c.appliedAt != null) Text('反映日時 ${c.dateLabel('applied_at')}'),
+            if (c.afterData != null) ...[
+              const SizedBox(height: 16),
+              Text('変更前', style: Theme.of(context).textTheme.titleMedium),
+              SelectableText(
+                c.beforeData == null
+                    ? 'この店舗に設備登録なし'
+                    : encoder.convert(c.beforeData),
+              ),
+              const SizedBox(height: 12),
+              Text('変更後', style: Theme.of(context).textTheme.titleMedium),
+              SelectableText(encoder.convert(c.afterData)),
+            ],
+            if (error != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Text(
+                  error!,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+              ),
+            if (c.status == 'auto_applied') ...[
+              const SizedBox(height: 16),
+              OutlinedButton.icon(
+                key: const Key('rollbackCandidate'),
+                onPressed: busy ? null : _rollback,
+                icon: const Icon(Icons.undo),
+                label: const Text('この変更を元に戻す'),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _ReportDetail extends StatefulWidget {
