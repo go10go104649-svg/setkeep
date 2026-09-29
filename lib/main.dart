@@ -8,6 +8,7 @@ export 'gym/custom_gym_preference.dart';
 import 'gym/training_place_preference.dart';
 import 'gym/gym_equipment_cache.dart';
 import 'gym/gym_repository.dart';
+import 'gym/training_equipment_confirmation.dart';
 import 'gym/gym_pages.dart';
 import 'trainer/trainer_sharing_page.dart';
 import 'trainer/trainer_repository.dart';
@@ -1092,6 +1093,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _historyReady = _loadHistory();
     unawaited(_historyReady.then((_) => _syncTrainerHistory()));
+    unawaited(_syncTrainingEquipment());
     if (SupabaseConfig.initialized) {
       _trainerAuthSubscription = Supabase.instance.client.auth.onAuthStateChange
           .listen((state) {
@@ -1099,7 +1101,10 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
                 state.event == AuthChangeEvent.initialSession ||
                 state.event == AuthChangeEvent.signedOut) {
               if (mounted) setState(() {});
-              if (state.session != null) unawaited(_syncTrainerHistory());
+              if (state.session != null) {
+                unawaited(_syncTrainerHistory());
+                unawaited(_syncTrainingEquipment());
+              }
             }
           });
     }
@@ -1107,7 +1112,10 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) unawaited(_syncTrainerHistory());
+    if (state == AppLifecycleState.resumed) {
+      unawaited(_syncTrainerHistory());
+      unawaited(_syncTrainingEquipment());
+    }
   }
 
   @override
@@ -1128,6 +1136,18 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
               (userId != null && w.trainerOwnerUserId == userId),
         )
         .toList();
+  }
+
+  Future<void> _syncTrainingEquipment() async {
+    await _historyReady;
+    if (!mounted) return;
+    try {
+      await TrainingEquipmentServices.journal.reconcile(
+        _history.map(equipmentWorkoutFromRecord).toList(),
+      );
+    } catch (error) {
+      debugPrint('Equipment confirmation sync deferred: $error');
+    }
   }
 
   Future<void> _syncTrainerHistory() async {
@@ -1252,6 +1272,13 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
       jsonEncode(history.map((item) => item.toJson()).toList()),
     );
     if (!saved) throw StateError('Workout history could not be saved');
+    unawaited(
+      TrainingEquipmentServices.journal
+          .reconcile(history.map(equipmentWorkoutFromRecord).toList())
+          .catchError((Object error) {
+            debugPrint('Equipment confirmation sync deferred: $error');
+          }),
+    );
   }
 
   Future<void> _saveBodyWeight(BodyWeightEntry entry) async {
@@ -7376,6 +7403,18 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       return;
     }
     if (!mounted) return;
+    if (!widget.isEditing) {
+      await confirmWorkoutEquipment(
+        context,
+        equipmentWorkoutFromRecord(record),
+      );
+      unawaited(
+        syncSavedTrainingEquipment().catchError((Object error) {
+          debugPrint('Equipment confirmation sync deferred: $error');
+        }),
+      );
+    }
+    if (!mounted) return;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -10120,6 +10159,37 @@ Map<String, List<RecordedSet>> groupRecordedSets(
   }
   return groups;
 }
+
+// WorkoutPage.history can be a subset (e.g. repeat one past workout). Always
+// reconcile consents against the full persisted history, never that UI subset.
+Future<void> syncSavedTrainingEquipment() async {
+  final prefs = await SharedPreferences.getInstance();
+  await TrainingEquipmentServices.journal.reconcile(
+    decodeWorkoutHistory(prefs.getString('workout_history'))
+        .map(equipmentWorkoutFromRecord)
+        .toList(),
+  );
+}
+
+EquipmentWorkout equipmentWorkoutFromRecord(WorkoutRecord record) =>
+    EquipmentWorkout(
+      key: record.date.toIso8601String(),
+      storeId: record.customPlaceId == null ? record.gymStoreId : null,
+      completed: record.trainerWorkoutId == null,
+      exercises: {
+        for (final set in record.sets)
+          if (set.completed &&
+              set.hasRequiredValues &&
+              set.exerciseId != null &&
+              ExerciseFormCatalog.byId.containsKey(set.exerciseId))
+            ExerciseFormCatalog.canonicalId(
+              set.exerciseId!,
+            ): exerciseDisplayName(
+              set.exerciseName,
+              exerciseId: set.exerciseId,
+            ),
+      },
+    );
 
 class WorkoutRecord {
   const WorkoutRecord({

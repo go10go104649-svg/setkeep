@@ -519,6 +519,8 @@ class _CandidateDetailState extends State<_CandidateDetail> {
                         title: Text(
                           e['source_type'] == 'official'
                               ? '公式サイト確認'
+                              : e['source_type'] == 'training_confirmation'
+                              ? 'トレーニング後の設備確認'
                               : '報告・確認情報',
                         ),
                         subtitle: Text(

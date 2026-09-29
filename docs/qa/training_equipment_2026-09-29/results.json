@@ -1,0 +1,198 @@
+{
+  "base_sha": "0762968f6e2f9d8a30dac655a0225125b8b306d6",
+  "migration": "202609290032",
+  "master_before": [
+    {
+      "digest": "744dfe96128b0390dbfe9caf5ecffffb",
+      "rows": 2699,
+      "table_name": "gym_stores"
+    },
+    {
+      "digest": "d59e203049bae31263caf68b7bdef5eb",
+      "rows": 2604,
+      "table_name": "equipment"
+    },
+    {
+      "digest": "8466f81e2e6574ed69d1642f601dc2fd",
+      "rows": 9513,
+      "table_name": "gym_store_equipment"
+    },
+    {
+      "digest": "4a2d89478c7706449c50a9a8a79f00e8",
+      "rows": 2507,
+      "table_name": "equipment_exercise_mapping"
+    },
+    {
+      "digest": "e3bb1a1459aa75a1978f7a8ff743607d",
+      "rows": 1117,
+      "table_name": "exercise_equipment_rules"
+    },
+    {
+      "digest": "4962bbc692af1d95e476c5b806a54b8e",
+      "rows": 916,
+      "table_name": "equipment_canonical_memberships"
+    }
+  ],
+  "master_after": [
+    {
+      "digest": "744dfe96128b0390dbfe9caf5ecffffb",
+      "rows": 2699,
+      "table_name": "gym_stores"
+    },
+    {
+      "digest": "d59e203049bae31263caf68b7bdef5eb",
+      "rows": 2604,
+      "table_name": "equipment"
+    },
+    {
+      "digest": "8466f81e2e6574ed69d1642f601dc2fd",
+      "rows": 9513,
+      "table_name": "gym_store_equipment"
+    },
+    {
+      "digest": "4a2d89478c7706449c50a9a8a79f00e8",
+      "rows": 2507,
+      "table_name": "equipment_exercise_mapping"
+    },
+    {
+      "digest": "e3bb1a1459aa75a1978f7a8ff743607d",
+      "rows": 1117,
+      "table_name": "exercise_equipment_rules"
+    },
+    {
+      "digest": "4962bbc692af1d95e476c5b806a54b8e",
+      "rows": 916,
+      "table_name": "equipment_canonical_memberships"
+    }
+  ],
+  "protected_stores_before": [
+    {
+      "equipment_count": 52,
+      "id": "fit-place24:fitplace_ichikawa",
+      "inventory_hash": "272804e9b2c0b7cee6754a1840b542d6",
+      "name": "市川"
+    },
+    {
+      "equipment_count": 49,
+      "id": "fit-place24:fitplace_matsudo_ekimae",
+      "inventory_hash": "bfd60d50114150536674b5f4c72f4fc3",
+      "name": "松戸駅前"
+    },
+    {
+      "equipment_count": 0,
+      "id": "fit-place24:fitplace_matsudo_rokkodai",
+      "inventory_hash": "d41d8cd98f00b204e9800998ecf8427e",
+      "name": "松戸六高台"
+    },
+    {
+      "equipment_count": 47,
+      "id": "fit-place24:fitplace_minami_kashiwa",
+      "inventory_hash": "6e5e2ae54a055ef0785d85660dde3556",
+      "name": "南柏"
+    },
+    {
+      "equipment_count": 33,
+      "id": "fit-place24:fitplace_shin_matsudo",
+      "inventory_hash": "371432d06b38905ca352a5fa9a779ae0",
+      "name": "新松戸"
+    },
+    {
+      "equipment_count": 37,
+      "id": "kanekin-fitness-gym:matsudo",
+      "inventory_hash": "0f8a7e81eb63da65d7f43740c35dec4f",
+      "name": "松戸店"
+    }
+  ],
+  "protected_stores_after": [
+    {
+      "equipment_count": 52,
+      "id": "fit-place24:fitplace_ichikawa",
+      "inventory_hash": "272804e9b2c0b7cee6754a1840b542d6",
+      "name": "市川"
+    },
+    {
+      "equipment_count": 49,
+      "id": "fit-place24:fitplace_matsudo_ekimae",
+      "inventory_hash": "bfd60d50114150536674b5f4c72f4fc3",
+      "name": "松戸駅前"
+    },
+    {
+      "equipment_count": 0,
+      "id": "fit-place24:fitplace_matsudo_rokkodai",
+      "inventory_hash": "d41d8cd98f00b204e9800998ecf8427e",
+      "name": "松戸六高台"
+    },
+    {
+      "equipment_count": 47,
+      "id": "fit-place24:fitplace_minami_kashiwa",
+      "inventory_hash": "6e5e2ae54a055ef0785d85660dde3556",
+      "name": "南柏"
+    },
+    {
+      "equipment_count": 33,
+      "id": "fit-place24:fitplace_shin_matsudo",
+      "inventory_hash": "371432d06b38905ca352a5fa9a779ae0",
+      "name": "新松戸"
+    },
+    {
+      "equipment_count": 37,
+      "id": "kanekin-fitness-gym:matsudo",
+      "inventory_hash": "0f8a7e81eb63da65d7f43740c35dec4f",
+      "name": "松戸店"
+    }
+  ],
+  "settings_after": {
+    "migration_versions": [
+      "202609290030",
+      "202609290031",
+      "202609290032"
+    ],
+    "official_active_cron": false,
+    "official_enabled_global": false,
+    "official_enabled_sources": 0,
+    "rules": {
+      "auto_apply_enabled": true,
+      "change_type": "added",
+      "cooldown_days": 7,
+      "evidence_window_days": 30,
+      "max_oppose_score": 0,
+      "min_support_score": 3,
+      "min_unique_reporters": 3,
+      "official_review_only": true,
+      "official_weight": 3,
+      "source_protection_days": 0,
+      "updated_at": "2026-09-29T10:13:29.312228+00:00"
+    }
+  },
+  "sql_regressions_passed": [
+    "training_equipment_confirmation",
+    "gym_change_candidates",
+    "gym_auto_application",
+    "gym_equipment_state_reports",
+    "gym_store_lifecycle",
+    "canonical_equipment",
+    "anytime_mabashi_equipment_mappings",
+    "gym_multi_equipment_rules",
+    "report_admin",
+    "gym_equipment",
+    "private_place_equipment",
+    "gym_places_details",
+    "gym_official_sources",
+    "gym_official_scheduler"
+  ],
+  "live_sql_retest": [
+    {
+      "result": "training confirmation aggregation, thresholds, privacy and withdrawal passed"
+    }
+  ],
+  "seed_exercises": 78,
+  "seed_rules": 105,
+  "seed_equipment": 7,
+  "device_qa": false,
+  "commit": false,
+  "push": false,
+  "flutter_analyze": "No issues found",
+  "flutter_tests_passed": 382,
+  "new_flutter_tests_passed": 11,
+  "diff_check": "passed"
+}
