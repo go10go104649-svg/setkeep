@@ -11,6 +11,7 @@ import '../design/app_colors.dart';
 import '../exercise_form_catalog.dart';
 import '../config/supabase_config.dart';
 import 'gym_repository.dart';
+import 'store_report_sheet.dart';
 import 'training_place_preference.dart';
 import 'custom_gym_preference.dart';
 import 'place_equipment_pages.dart';
@@ -123,9 +124,7 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
       if (!mounted || request != _request) return;
       setState(() {
         _registered = registered
-            .where(
-              (s) => s.isSelectable && (_chain == null || s.chainId == _chain),
-            )
+            .where((s) => _chain == null || s.chainId == _chain)
             .toList();
         _registeredFailed = registeredFailed;
         _stores = more ? [..._stores, ...rows] : rows;
@@ -145,7 +144,7 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
     subtitle: Text(
       [
         s.city,
-        if (s.isPreopening) 'オープン準備中',
+        if (!s.isSelectable) s.statusLabel,
       ].whereType<String>().where((v) => v.isNotEmpty).join(' ・ '),
     ),
     trailing: const Icon(Icons.chevron_right),
@@ -228,6 +227,12 @@ class _GymStoreSearchPageState extends State<GymStoreSearchPage> {
           Expanded(
             child: ListView(
               children: [
+                TextButton.icon(
+                  key: const Key('reportMissingStore'),
+                  onPressed: () => showGymStoreReport(context),
+                  icon: const Icon(Icons.outlined_flag),
+                  label: const Text('掲載されていない店舗を報告'),
+                ),
                 if (_controller.text.trim().isEmpty &&
                     _registered.isNotEmpty) ...[
                   const ListTile(title: Text('登録済み店舗')),
@@ -451,12 +456,12 @@ class _RegisteredGymsPageState extends State<RegisteredGymsPage> {
                       title: Text(store.displayName),
                       subtitle: Text(
                         _defaultPlace.storeId == store.id
-                            ? 'いつもの場所 ✓ ・ 設備を見る'
-                            : store.isPreopening
-                            ? 'オープン準備中'
-                            : store.active
+                            ? (store.isSelectable
+                                  ? 'いつもの場所 ✓ ・ 設備を見る'
+                                  : 'いつもの場所 ✓ ・ ${store.statusLabel}')
+                            : store.isSelectable
                             ? '設備を見る'
-                            : '閉店 ・ 登録解除できます',
+                            : '${store.statusLabel} ・ 過去情報を参照できます',
                       ),
                       onTap: () => Navigator.push<void>(
                         context,
@@ -652,7 +657,14 @@ class _GymStoreEquipmentPageState extends State<GymStoreEquipmentPage> {
             padding: const EdgeInsets.all(16),
             children: [
               if (store.city != null) Text(store.city!),
-              if (!store.active) const Text('この店舗は閉店しています。過去の記録は保持されます。'),
+              if (!store.isSelectable && !store.isPreopening)
+                Text('${store.statusLabel}。現在の利用場所には選択できません。過去の記録は保持されます。'),
+              TextButton.icon(
+                key: const Key('reportGymStore'),
+                onPressed: () => showGymStoreReport(context, store: store),
+                icon: const Icon(Icons.outlined_flag),
+                label: const Text('店舗情報を報告'),
+              ),
               if (store.isPreopening)
                 const Text('この店舗はオープン準備中です。現在の利用場所には登録できません。'),
               Text('設備情報：$status', key: const Key('gymEquipmentStatus')),

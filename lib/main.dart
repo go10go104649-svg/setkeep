@@ -5907,11 +5907,13 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   }
 
   Future<void> _initializePlaceAndDraft() async {
+    String? placeNotice = widget.initialPlace?.notice;
     try {
       if (widget.initialPlace == null &&
           (widget.useDefaultPlace || widget.gymName == null)) {
         final place = await TrainingPlacePreference.forNewWorkout();
         if (!mounted) return;
+        placeNotice = place.notice;
         setState(() {
           _gymName = place.name;
           _gymStore = place.store;
@@ -5923,6 +5925,15 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       }
     } finally {
       _placeInitializing = false;
+      if (mounted && placeNotice != null && !widget.isEditing) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(placeNotice!)),
+            );
+          }
+        });
+      }
     }
   }
 

@@ -10,6 +10,14 @@ const reportStatuses = {
   'rejected': '却下',
 };
 const reportKinds = {
+  'store_temporarily_closed': '一時休業している',
+  'store_reopened': '営業再開している',
+  'store_closed': '閉店している',
+  'store_new_store': '掲載されていない店舗',
+  'store_relocated': '移転している',
+  'store_wrong_name': '店舗名が違う',
+  'store_wrong_address': '住所が違う',
+  'store_other': 'その他の店舗情報',
   'missing_exercise': 'できるのに表示されていない',
   'incorrect_exercise': '表示されているができない',
   'not_present': '設置されていない',
@@ -39,14 +47,16 @@ class AdminCandidate {
   String get id => data['id'] as String;
   String get status => data['status'] as String;
   String get statusLabel => candidateStatuses[status] ?? status;
+  bool get isStore => data['entity_type'] == 'store';
   String get changeType => data['change_type'] as String;
   String get changeLabel => reportKinds[changeType] ?? changeType;
   String get storeName =>
-      data['store_name'] as String? ?? data['store_id'] as String;
+      data['store_name'] as String? ?? data['store_id'] as String? ?? '新店舗';
   String get targetName {
     final proposed = Map<String, dynamic>.from(
       data['proposed_value'] as Map? ?? {},
     );
+    if (isStore) return proposed['name'] as String? ?? '店舗の営業情報';
     return proposed['equipment_name'] as String? ??
         data['equipment_name'] as String? ??
         data['equipment_id'] as String? ??
@@ -71,6 +81,9 @@ class AdminCandidate {
       Map<String, dynamic>.from(data['proposed_value'] as Map? ?? {});
   String? get stateSummary {
     final current = beforeData ?? currentData;
+    if (isStore) {
+      return '現在: ${currentData?['operational_status'] ?? current?['operational_status'] ?? '未登録'} → 候補: ${proposedValue['operational_status'] ?? proposedValue['name'] ?? proposedValue['address'] ?? '管理者確認'}';
+    }
     if (changeType == 'quantity_changed') {
       return '現在値: ${current?['quantity'] ?? '不明'}台 → 変更候補: ${proposedValue['reported_quantity']}台';
     }
@@ -144,7 +157,12 @@ abstract class ReportRepository {
     String query,
     int offset,
   );
-  Future<List<AdminCandidate>> listCandidates(int offset);
+  Future<List<AdminCandidate>> listCandidates(
+    int offset, {
+    String entityType = 'store_equipment',
+  });
+  Future<List<Map<String, dynamic>>> candidateEvidence(String id);
+  Future<void> reviewStoreCandidate(String id, String action, String note);
   Future<void> rollbackCandidate(String candidateId, String reason);
   Future<void> update(AdminReport report, String status, String note);
 }
@@ -206,15 +224,41 @@ class SupabaseReportRepository implements ReportRepository {
   }
 
   @override
-  Future<List<AdminCandidate>> listCandidates(int offset) async {
+  Future<List<AdminCandidate>> listCandidates(
+    int offset, {
+    String entityType = 'store_equipment',
+  }) async {
     final rows = await client
         .from('admin_gym_change_candidates')
         .select()
+        .eq('entity_type', entityType)
         .order('last_seen_at', ascending: false)
         .range(offset, offset + 49);
     return rows
         .map((row) => AdminCandidate(Map<String, dynamic>.from(row)))
         .toList();
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> candidateEvidence(String id) async {
+    return await client
+        .from('gym_change_evidence')
+        .select()
+        .eq('candidate_id', id)
+        .order('observed_at', ascending: false)
+        .limit(100);
+  }
+
+  @override
+  Future<void> reviewStoreCandidate(
+    String id,
+    String action,
+    String note,
+  ) async {
+    await client.rpc(
+      'review_gym_store_candidate',
+      params: {'target_id': id, 'action': action, 'note': note},
+    );
   }
 
   @override

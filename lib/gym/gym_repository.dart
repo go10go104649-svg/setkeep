@@ -19,14 +19,30 @@ class GymStore {
     this.active = true,
     this.equipmentStatus = 'not_collected',
     this.pageStatus,
+    this.operationalStatus,
   });
   final String id, chainName, name, equipmentStatus;
   final String? city, address, station, chainId, officialUrl, pageStatus;
   final DateTime? checkedAt;
   final bool active;
+  final String? operationalStatus;
+  String get effectiveStatus =>
+      operationalStatus ??
+      (pageStatus == 'preopening_text'
+          ? 'preopening'
+          : active
+          ? 'active'
+          : 'unknown');
+  String get statusLabel => switch (effectiveStatus) {
+    'preopening' => 'オープン準備中',
+    'temporarily_closed' => '一時休業中',
+    'closed' => '閉店',
+    'unknown' => '営業状況未確認',
+    _ => '営業中',
+  };
   String get displayName => '$chainName $name'.trim();
-  bool get isPreopening => pageStatus == 'preopening_text';
-  bool get isSelectable => active && !isPreopening;
+  bool get isPreopening => effectiveStatus == 'preopening';
+  bool get isSelectable => active && effectiveStatus == 'active';
   factory GymStore.fromJson(Map<String, dynamic> j) => GymStore(
     id: j['id'] as String,
     chainName:
@@ -41,6 +57,7 @@ class GymStore {
     officialUrl: j['official_url'] as String?,
     checkedAt: DateTime.tryParse(j['checked_at'] as String? ?? ''),
     active: j['active'] != false,
+    operationalStatus: j['operational_status'] as String?,
     equipmentStatus: j['equipment_status'] as String? ?? 'not_collected',
     pageStatus:
         j['page_status'] as String? ??
@@ -57,6 +74,7 @@ class GymStore {
     'official_url': officialUrl,
     'checked_at': checkedAt?.toIso8601String(),
     'active': active,
+    'operational_status': operationalStatus,
     'equipment_status': equipmentStatus,
     'page_status': pageStatus,
   };
@@ -254,6 +272,19 @@ abstract class GymRepository {
         for (final id in e.exerciseIds)
           GymExerciseEvidence(id, [e.id], [e.name]),
     ];
+  }
+
+  Future<void> reportStore({
+    String? storeId,
+    String? chainId,
+    String? chainName,
+    required String kind,
+    String? name,
+    String? address,
+    String? officialUrl,
+    required String comment,
+  }) async {
+    throw StateError('店舗情報の報告を利用できません');
   }
 
   Future<void> reportExercise({
@@ -614,6 +645,30 @@ class SupabaseGymRepository extends GymRepository {
         .delete()
         .eq('user_id', user)
         .eq('store_id', storeId);
+  }
+
+  @override
+  Future<void> reportStore({
+    String? storeId,
+    String? chainId,
+    String? chainName,
+    required String kind,
+    String? name,
+    String? address,
+    String? officialUrl,
+    required String comment,
+  }) async {
+    if (!canReport) throw StateError('報告にはログインが必要です');
+    await _client.from('gym_store_reports').insert({
+      'store_id': storeId,
+      'chain_id': chainId,
+      'reported_chain_name': chainName,
+      'kind': kind,
+      'reported_name': name,
+      'reported_address': address,
+      'reported_official_url': officialUrl,
+      'comment': comment.trim(),
+    });
   }
 
   @override

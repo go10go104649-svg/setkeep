@@ -117,8 +117,11 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
         });
         return;
       }
-      if (type == 'candidate') {
-        final batch = await repo.listCandidates(append ? candidates.length : 0);
+      if (type == 'candidate' || type == 'store') {
+        final batch = await repo.listCandidates(
+          append ? candidates.length : 0,
+          entityType: type == 'store' ? 'store' : 'store_equipment',
+        );
         if (!mounted || version != request) return;
         setState(() {
           admin = true;
@@ -186,22 +189,26 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
           if (admin) ...[
             Padding(
               padding: const EdgeInsets.all(8),
-              child: SegmentedButton<String>(
-                segments: const [
-                  ButtonSegment(value: 'exercise', label: Text('対応種目')),
-                  ButtonSegment(value: 'equipment', label: Text('設備情報')),
-                  ButtonSegment(value: 'candidate', label: Text('変更候補')),
-                ],
-                selected: {type},
-                onSelectionChanged: busy
-                    ? null
-                    : (v) {
-                        type = v.single;
-                        load();
-                      },
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SegmentedButton<String>(
+                  segments: const [
+                    ButtonSegment(value: 'exercise', label: Text('対応種目')),
+                    ButtonSegment(value: 'equipment', label: Text('設備情報')),
+                    ButtonSegment(value: 'candidate', label: Text('変更候補')),
+                    ButtonSegment(value: 'store', label: Text('店舗情報')),
+                  ],
+                  selected: {type},
+                  onSelectionChanged: busy
+                      ? null
+                      : (v) {
+                          type = v.single;
+                          load();
+                        },
+                ),
               ),
             ),
-            if (type == 'candidate')
+            if (type == 'candidate' || type == 'store')
               Expanded(
                 child: candidates.isEmpty
                     ? const Center(child: Text('変更候補はありません'))
@@ -223,7 +230,7 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
                             subtitle: Text(
                               '${candidate.statusLabel}  支持 ${candidate.supportScore} / 反対 ${candidate.opposeScore}  報告者 ${candidate.uniqueReporters}人\n'
                               '${candidate.stateSummary == null ? '' : '${candidate.stateSummary}\n'}'
-                              '初回 ${candidate.dateLabel('first_seen_at')}  最終 ${candidate.dateLabel('last_seen_at')}',
+                              '根拠 ${candidate.data['evidence_count'] ?? 0}件 ・ 初回 ${candidate.dateLabel('first_seen_at')}  最終 ${candidate.dateLabel('last_seen_at')}',
                             ),
                             isThreeLine: true,
                             onTap: () async {
@@ -242,7 +249,7 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
                         },
                       ),
               ),
-            if (type != 'candidate') ...[
+            if (type != 'candidate' && type != 'store') ...[
               SizedBox(
                 height: 48,
                 child: ListView(
@@ -346,6 +353,7 @@ class _CandidateDetailState extends State<_CandidateDetail> {
   bool busy = false;
   String? error;
   final rollbackReason = TextEditingController();
+  late final evidence = widget.repo.candidateEvidence(widget.candidate.id);
 
   @override
   void dispose() {
@@ -364,7 +372,7 @@ class _CandidateDetailState extends State<_CandidateDetail> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('反映前の設備状態に戻します。現在の状態が別途変更されている場合は実行できません。'),
+              const Text('反映前の状態に戻します。現在の状態が別途変更されている場合は実行できません。'),
               TextField(
                 key: const Key('candidateRollbackReason'),
                 controller: rollbackReason,
@@ -405,6 +413,67 @@ class _CandidateDetailState extends State<_CandidateDetail> {
     }
   }
 
+  Future<void> review(String action) async {
+    final note = rollbackReason;
+    note.clear();
+    final answer = await showDialog<String>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, refresh) => AlertDialog(
+          title: Text(
+            action == 'apply'
+                ? '確認した店舗状態を反映しますか？'
+                : action == 'reject'
+                ? 'この報告を却下しますか？'
+                : '確認を開始',
+          ),
+          content: TextField(
+            key: const Key('storeCandidateNote'),
+            controller: note,
+            maxLength: 1000,
+            decoration: InputDecoration(
+              labelText: action == 'reviewing' ? '管理者メモ' : '確認根拠・理由（必須）',
+            ),
+            onChanged: (_) => refresh(() {}),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('キャンセル'),
+            ),
+            FilledButton(
+              key: const Key('confirmStoreCandidate'),
+              onPressed: action != 'reviewing' && note.text.trim().isEmpty
+                  ? null
+                  : () => Navigator.pop(ctx, note.text.trim()),
+              child: const Text('確定'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (answer == null || !mounted) return;
+    setState(() {
+      busy = true;
+      error = null;
+    });
+    try {
+      await widget.repo.reviewStoreCandidate(
+        widget.candidate.id,
+        action,
+        answer,
+      );
+      if (mounted) Navigator.pop(context);
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          busy = false;
+          error = '更新できませんでした。最新の状態と権限を確認してください。';
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final c = widget.candidate;
@@ -425,6 +494,60 @@ class _CandidateDetailState extends State<_CandidateDetail> {
             ),
             Text('初回 ${c.dateLabel('first_seen_at')}'),
             Text('最終 ${c.dateLabel('last_seen_at')}'),
+            if (c.isStore) ...[
+              Text('判定理由: ${c.data['decision_reason'] ?? '未評価'}'),
+              Text('根拠: ${c.data['evidence_count'] ?? 0}件'),
+              const Text('変更提案・既存店舗の可能性'),
+              SelectableText(encoder.convert(c.proposedValue)),
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: evidence,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) return const Text('報告内容を取得できませんでした。');
+                  if (!snapshot.hasData) return const LinearProgressIndicator();
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (final e in snapshot.data!)
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(
+                            '${e['source_type']} ・ ${e['direction']}',
+                          ),
+                          subtitle: Text(
+                            '${e['observed_at']}\n${encoder.convert(e['data'])}',
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
+              if ([
+                'collecting',
+                'needs_review',
+                'auto_ready',
+              ].contains(c.status)) ...[
+                TextButton(
+                  key: const Key('reviewStoreCandidate'),
+                  onPressed: busy ? null : () => review('reviewing'),
+                  child: const Text('確認を開始'),
+                ),
+                if ([
+                  'store_closed',
+                  'store_temporarily_closed',
+                  'store_reopened',
+                ].contains(c.changeType))
+                  FilledButton(
+                    key: const Key('applyStoreCandidate'),
+                    onPressed: busy ? null : () => review('apply'),
+                    child: const Text('確認した店舗状態を反映'),
+                  ),
+                TextButton(
+                  key: const Key('rejectStoreCandidate'),
+                  onPressed: busy ? null : () => review('reject'),
+                  child: const Text('却下'),
+                ),
+              ],
+            ],
             if (c.appliedAt != null) Text('反映日時 ${c.dateLabel('applied_at')}'),
             if (c.afterData != null) ...[
               const SizedBox(height: 16),
@@ -446,7 +569,8 @@ class _CandidateDetailState extends State<_CandidateDetail> {
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
               ),
-            if (c.status == 'auto_applied') ...[
+            if (c.status == 'auto_applied' ||
+                (c.isStore && c.status == 'admin_applied')) ...[
               const SizedBox(height: 16),
               OutlinedButton.icon(
                 key: const Key('rollbackCandidate'),

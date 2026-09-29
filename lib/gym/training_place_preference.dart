@@ -8,15 +8,19 @@ import 'gym_repository.dart';
 import 'custom_gym_preference.dart';
 
 class TrainingPlace {
-  const TrainingPlace.home()
+  const TrainingPlace.home({this.notice})
     : store = null,
       manualName = null,
       storedCustomPlaceId = null;
-  const TrainingPlace.store(this.store)
+  const TrainingPlace.store(this.store, {this.notice})
     : manualName = null,
       storedCustomPlaceId = null;
-  const TrainingPlace.manual(this.manualName, {this.storedCustomPlaceId})
-    : store = null;
+  const TrainingPlace.manual(
+    this.manualName, {
+    this.storedCustomPlaceId,
+    this.notice,
+  }) : store = null;
+  final String? notice;
   final String? storedCustomPlaceId;
   String? get customPlaceId => manualName == null
       ? null
@@ -56,7 +60,7 @@ class TrainingPlacePreference {
       final store = json['store'];
       if (store is Map<String, dynamic>) {
         final parsed = GymStore.fromJson(store);
-        if (parsed.id.isNotEmpty && parsed.active) {
+        if (parsed.id.isNotEmpty) {
           return TrainingPlace.store(parsed);
         }
       }
@@ -134,7 +138,7 @@ class TrainingPlacePreference {
     try {
       final repo = GymServices.repository;
       final registered = await repo.registered();
-      if (!registered.any((s) => s.id == current.storeId && s.isSelectable)) {
+      if (!registered.any((s) => s.id == current.storeId)) {
         await save(const TrainingPlace.home());
         return const TrainingPlace.home();
       }
@@ -144,11 +148,23 @@ class TrainingPlacePreference {
         await save(fresh);
         return fresh;
       }
+      if (store != null) {
+        await save(TrainingPlace.store(store));
+        return TrainingPlace.home(
+          notice:
+              '${store.displayName}は${store.statusLabel}のため、今回は自宅で開始します。いつもの場所の設定は保持しています。',
+        );
+      }
       await save(const TrainingPlace.home());
       return const TrainingPlace.home();
     } catch (_) {
       // A temporary connection failure is not evidence of deletion.
-      return current;
+      return current.store?.isSelectable == true
+          ? TrainingPlace.store(
+              current.store,
+              notice: '店舗の最新の営業状況を確認できませんでした。必要に応じて場所を変更してください。',
+            )
+          : TrainingPlace.home(notice: 'いつもの場所は現在選択できません。設定は保持しています。');
     }
   }
 
@@ -169,7 +185,7 @@ class TrainingPlacePreference {
     }
     if (current.storeId == null) return current;
     for (final store in registered) {
-      if (store.id == current.storeId && store.isSelectable) {
+      if (store.id == current.storeId) {
         final fresh = TrainingPlace.store(store);
         await save(fresh);
         return fresh;

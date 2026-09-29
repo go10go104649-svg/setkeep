@@ -4,6 +4,24 @@ import 'package:setkeep/admin/report_repository.dart';
 import 'package:setkeep/admin/report_management_page.dart';
 
 class FakeReports implements ReportRepository {
+  @override
+  Future<List<Map<String, dynamic>>> candidateEvidence(String id) async => [];
+  @override
+  Future<void> reviewStoreCandidate(
+    String id,
+    String action,
+    String note,
+  ) async {
+    if (!admin || fail) throw StateError('denied');
+    if (action != 'reviewing' && note.trim().isEmpty) throw StateError('note');
+    final c = candidates.firstWhere((c) => c.id == id);
+    c.data['status'] = action == 'apply'
+        ? 'admin_applied'
+        : action == 'reject'
+        ? 'rejected'
+        : 'needs_review';
+  }
+
   bool admin = true, fail = false;
   String? rollbackReason;
   final candidates = [
@@ -123,9 +141,16 @@ class FakeReports implements ReportRepository {
   }
 
   @override
-  Future<List<AdminCandidate>> listCandidates(int offset) async {
+  Future<List<AdminCandidate>> listCandidates(
+    int offset, {
+    String entityType = 'store_equipment',
+  }) async {
     if (fail || !admin) throw StateError('denied');
-    return candidates.skip(offset).take(50).toList();
+    return candidates
+        .where((c) => (c.isStore ? 'store' : 'store_equipment') == entityType)
+        .skip(offset)
+        .take(50)
+        .toList();
   }
 
   @override
@@ -305,7 +330,10 @@ void main() {
       await t.tap(find.byKey(const Key('confirmCandidateRollback')));
       await t.pumpAndSettle();
       expect(repo.rollbackReason, '設備の撤去情報に誤り');
-      expect(repo.candidates.firstWhere((c) => c.id == 'candidate-2').status, 'rolled_back');
+      expect(
+        repo.candidates.firstWhere((c) => c.id == 'candidate-2').status,
+        'rolled_back',
+      );
     },
   );
 }

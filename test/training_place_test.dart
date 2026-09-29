@@ -72,7 +72,7 @@ void main() {
       const TrainingPlace.store(preopeningStore),
     );
     expect((await TrainingPlacePreference.forNewWorkout()).isHome, isTrue);
-    expect((await TrainingPlacePreference.load()).isHome, isTrue);
+    expect((await TrainingPlacePreference.load()).storeId, preopeningStore.id);
   });
 
   test(
