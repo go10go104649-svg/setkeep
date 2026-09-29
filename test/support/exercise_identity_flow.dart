@@ -1,3 +1,4 @@
+import 'signed_in_auth.dart';
 import 'legal_consent_fixture.dart';
 import 'bulk_exercise_flow.dart' show exercisePickerScrollable;
 import 'dart:convert';
@@ -13,7 +14,7 @@ Future<void> verifyIdentityFlow(
 }) async {
   SharedPreferences.setMockInitialValues({'onboarding_completed': true, 'legal_consent': acceptedLegalConsentJson});
   CustomExercisePreference.exercises = [];
-  await t.pumpWidget(const SetkeepApp());
+  await t.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
   await t.pumpAndSettle();
   Future<void> tap(Key key) async {
     if (find.byKey(key).evaluate().isEmpty) {
@@ -53,7 +54,7 @@ Future<void> verifyIdentityFlow(
   // Re-create the actual app to exercise the existing draft read path.
   await t.pumpWidget(const SizedBox.shrink());
   await t.pumpAndSettle();
-  await t.pumpWidget(const SetkeepApp());
+  await t.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
   await t.pumpAndSettle();
   await tap(const Key('activeWorkoutDraftCard'));
   final cards = t
@@ -102,7 +103,7 @@ Future<void> verifyIdentityFlow(
   await screenshot?.call('same_name_edit');
   await t.pumpWidget(const SizedBox.shrink());
   await t.pumpAndSettle();
-  await t.pumpWidget(const SetkeepApp());
+  await t.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
   await t.pumpAndSettle();
   await tap(const Key('startWorkoutButton'));
   await tap(const Key('addExerciseButton'));

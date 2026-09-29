@@ -1,3 +1,4 @@
+import 'support/signed_in_auth.dart';
 import 'dart:async';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -290,7 +291,7 @@ void main() {
         'legal_consent': acceptedLegalConsentJson,
       });
       expect(SupabaseConfig.initialized, isFalse);
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.person_outline_rounded));
       await tester.pumpAndSettle();
@@ -712,7 +713,7 @@ void main() {
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({'onboarding_completed': true, 'legal_consent': acceptedLegalConsentJson});
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     expect(find.byType(WeeklySummary), findsNothing);
     expect(find.byType(LastWorkoutCard), findsNothing);

@@ -1,3 +1,4 @@
+import 'support/signed_in_auth.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ void main() {
     'general startup reaches onboarding without an extra loading gate',
     (tester) async {
       SharedPreferences.setMockInitialValues({});
-      await tester.pumpWidget(const SetkeepApp(showStartup: true));
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth(), showStartup: true));
       final splash = tester.widget(
         find.byWidgetPredicate((widget) => widget is StartupSplash),
       ) as StartupSplash;
@@ -32,7 +33,7 @@ void main() {
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({'onboarding_completed': true});
-    await tester.pumpWidget(const SetkeepApp(showStartup: true));
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth(), showStartup: true));
     await tester.pumpAndSettle();
     expect(find.text('利用規約を読む'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);

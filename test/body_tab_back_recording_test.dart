@@ -1,3 +1,4 @@
+import 'support/signed_in_auth.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ void main() {
         'legal_consent': acceptedLegalConsentJson,
       });
       CustomExercisePreference.exercises = [];
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       Future<void> tap(String key) async {
         final target = find.byKey(Key(key));

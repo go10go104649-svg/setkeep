@@ -1,3 +1,4 @@
+import 'support/signed_in_auth.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -37,7 +38,7 @@ void main() {
     await tester.pumpWidget(
       Builder(
         builder: (context) {
-          app = const SetkeepApp().build(context) as MaterialApp;
+          app = const SetkeepApp(auth: SignedInTestAuth()).build(context) as MaterialApp;
           return const SizedBox();
         },
       ),

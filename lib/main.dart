@@ -44,6 +44,7 @@ import 'services/account_auth_service.dart';
 import 'services/workout_draft_store.dart';
 import 'services/android_workout_draft.dart';
 import 'startup/startup_splash.dart';
+import 'legal/legal_text.dart';
 
 const activeWorkoutDraftStorageKey = AndroidWorkoutDraft.key;
 const appDisplayName = 'SETKEEP';
@@ -422,9 +423,10 @@ class WorkoutUiPreference {
 }
 
 class SetkeepApp extends StatelessWidget {
-  const SetkeepApp({super.key, this.showStartup = false});
+  const SetkeepApp({super.key, this.showStartup = false, this.auth});
 
   final bool showStartup;
+  final AccountAuthService? auth;
 
   @override
   Widget build(BuildContext context) {
@@ -436,13 +438,17 @@ class SetkeepApp extends StatelessWidget {
       supportedLocales: const [Locale('ja', 'JP')],
       theme: familyTheme(),
       navigatorObservers: [exerciseMediaRouteObserver],
-      home: showStartup ? const _SetkeepStartup() : const _OnboardingGate(),
+      home: showStartup
+          ? _SetkeepStartup(auth: auth)
+          : _OnboardingGate(auth: auth),
     );
   }
 }
 
 class _SetkeepStartup extends StatelessWidget {
-  const _SetkeepStartup();
+  const _SetkeepStartup({this.auth});
+
+  final AccountAuthService? auth;
 
   @override
   Widget build(
@@ -461,11 +467,9 @@ class _SetkeepStartup extends StatelessWidget {
       progress(0.34);
       await CustomExercisePreference.load();
       progress(0.51);
-      if (!offline) {
-        await SupabaseConfig.initialize();
-        if (SupabaseConfig.initializationError != null) {
-          throw SupabaseConfig.initializationError!;
-        }
+      await SupabaseConfig.initialize();
+      if (!offline && SupabaseConfig.initializationError != null) {
+        throw SupabaseConfig.initializationError!;
       }
       progress(0.70);
       final onboarded = await OnboardingPreference.load();
@@ -476,6 +480,7 @@ class _SetkeepStartup extends StatelessWidget {
     destination: (result) => _SetkeepInitialScreen(
       onboarded: result.onboarded,
       consented: result.consented,
+      auth: auth,
     ),
   );
 }
@@ -484,10 +489,12 @@ class _SetkeepInitialScreen extends StatefulWidget {
   const _SetkeepInitialScreen({
     required this.onboarded,
     required this.consented,
+    this.auth,
   });
 
   final bool onboarded;
   final bool consented;
+  final AccountAuthService? auth;
 
   @override
   State<_SetkeepInitialScreen> createState() => _SetkeepInitialScreenState();
@@ -509,7 +516,7 @@ class _SetkeepInitialScreenState extends State<_SetkeepInitialScreen> {
         onFinished: () => setState(() => _consented = true),
       );
     }
-    return const HomeShell();
+    return _RequiredAccountGate(auth: widget.auth);
   }
 }
 
@@ -531,18 +538,14 @@ class OnboardingPreference {
   }
 }
 
-// Provisional documents: replace content AND versions before formal publication.
 class LegalDocuments {
-  static const termsVersion = 'provisional-1';
-  static const privacyVersion = 'provisional-1';
-  static const terms =
-      '正式版公開前の暫定内容です。\n\n'
-      '現在、正式な利用規約を準備しています。本ページは正式な利用規約ではありません。'
-      '\n正式版の公開後に、内容をご確認のうえ改めて同意をお願いします。';
-  static const privacy =
-      '正式版公開前の暫定内容です。\n\n'
-      '現在、正式なプライバシーポリシーを準備しています。本ページは正式なポリシーではありません。'
-      '\n正式版の公開後に、内容をご確認のうえ改めて同意をお願いします。';
+  static const termsVersion = 'terms-1.0';
+  static const privacyVersion = 'privacy-1.0';
+  // These can later be served at public URLs without changing consent storage.
+  static const String? termsUrl = null;
+  static const String? privacyUrl = null;
+  static const terms = setkeepTerms;
+  static const privacy = setkeepPrivacy;
 }
 
 class LegalConsentPreference {
@@ -591,7 +594,9 @@ class LegalConsentPreference {
 }
 
 class _LegalConsentGate extends StatefulWidget {
-  const _LegalConsentGate();
+  const _LegalConsentGate({this.auth});
+
+  final AccountAuthService? auth;
 
   @override
   State<_LegalConsentGate> createState() => _LegalConsentGateState();
@@ -603,7 +608,7 @@ class _LegalConsentGateState extends State<_LegalConsentGate> {
 
   @override
   Widget build(BuildContext context) {
-    if (_finished) return const HomeShell();
+    if (_finished) return _RequiredAccountGate(auth: widget.auth);
     return FutureBuilder<bool>(
       future: _accepted,
       builder: (context, snapshot) {
@@ -612,7 +617,9 @@ class _LegalConsentGateState extends State<_LegalConsentGate> {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-        if (snapshot.data == true) return const HomeShell();
+        if (snapshot.data == true) {
+          return _RequiredAccountGate(auth: widget.auth);
+        }
         return _LegalConsentPage(
           onFinished: () => setState(() => _finished = true),
         );
@@ -691,7 +698,7 @@ class _LegalConsentPageState extends State<_LegalConsentPage> {
             const SizedBox(height: 12),
             const Text('内容をご確認のうえ、3項目すべてにチェックしてください。'),
             const SizedBox(height: 12),
-            const Text('利用規約・プライバシーポリシーは正式版公開前の暫定内容です。正式版公開時には改めて確認をお願いします。'),
+            const Text('利用規約とプライバシーポリシーをご確認ください。'),
             TextButton(
               key: const Key('openTerms'),
               onPressed: () => _openDocument('利用規約', LegalDocuments.terms),
@@ -736,7 +743,7 @@ class _LegalConsentPageState extends State<_LegalConsentPage> {
               onPressed: _over16 && _terms && _privacy && !_saving
                   ? _save
                   : null,
-              child: const Text('同意してはじめる'),
+              child: const Text('同意して次へ'),
             ),
           ],
         ),
@@ -746,7 +753,9 @@ class _LegalConsentPageState extends State<_LegalConsentPage> {
 }
 
 class _OnboardingGate extends StatefulWidget {
-  const _OnboardingGate();
+  const _OnboardingGate({this.auth});
+
+  final AccountAuthService? auth;
 
   @override
   State<_OnboardingGate> createState() => _OnboardingGateState();
@@ -758,7 +767,7 @@ class _OnboardingGateState extends State<_OnboardingGate> {
 
   @override
   Widget build(BuildContext context) {
-    if (_finished) return const _LegalConsentGate();
+    if (_finished) return _LegalConsentGate(auth: widget.auth);
     return FutureBuilder<bool>(
       future: _completed,
       builder: (context, snapshot) {
@@ -767,7 +776,7 @@ class _OnboardingGateState extends State<_OnboardingGate> {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-        if (snapshot.data == true) return const _LegalConsentGate();
+        if (snapshot.data == true) return _LegalConsentGate(auth: widget.auth);
         return _OnboardingPage(
           onFinished: () => setState(() => _finished = true),
         );
@@ -783,6 +792,113 @@ class _OnboardingPage extends StatefulWidget {
 
   @override
   State<_OnboardingPage> createState() => _OnboardingPageState();
+}
+
+/// The only route from onboarding and consent into the general app.
+/// Supabase restores its persisted session during startup; no guest route is
+/// available when configuration or authentication is missing.
+class _RequiredAccountGate extends StatefulWidget {
+  const _RequiredAccountGate({this.auth});
+
+  final AccountAuthService? auth;
+
+  @override
+  State<_RequiredAccountGate> createState() => _RequiredAccountGateState();
+}
+
+class _RequiredAccountGateState extends State<_RequiredAccountGate> {
+  AccountAuthService? _auth;
+  StreamSubscription<void>? _subscription;
+  bool _signedIn = false;
+  bool _authError = false;
+  bool _retrying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _attach(widget.auth ?? SupabaseAccountAuthService.configured());
+  }
+
+  void _attach(AccountAuthService? auth) {
+    _subscription?.cancel();
+    _auth = auth;
+    _signedIn = auth?.isSignedIn ?? false;
+    _subscription = auth?.changes.listen(
+      (_) {
+        if (!mounted) return;
+        final wasSignedIn = _signedIn;
+        setState(() {
+          _signedIn = auth.isSignedIn;
+          _authError = false;
+        });
+        if (wasSignedIn && !_signedIn) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            }
+          });
+        }
+      },
+      onError: (Object error, StackTrace stackTrace) {
+        // A transient refresh error must not hide local history when a
+        // restored session is still available on this device.
+        if (mounted && !_signedIn) setState(() => _authError = true);
+      },
+    );
+  }
+
+  Future<void> _retry() async {
+    if (_retrying) return;
+    setState(() => _retrying = true);
+    await SupabaseConfig.initialize();
+    if (!mounted) return;
+    setState(() {
+      _authError = SupabaseConfig.initializationError != null;
+      _attach(widget.auth ?? SupabaseAccountAuthService.configured());
+      _retrying = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_retrying) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    if (_auth == null || _authError) {
+      return Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('現在アカウント機能を利用できません'),
+                Text(
+                  _authError || SupabaseConfig.initializationError != null
+                      ? 'ログイン状態を確認できませんでした。通信状態を確認してください。'
+                      : '接続設定を確認してください。',
+                ),
+                TextButton(onPressed: _retry, child: const Text('再試行')),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    if (_signedIn) return const HomeShell();
+    return CloudAccountPage(
+      key: const Key('requiredAccountPage'),
+      historyCount: 0,
+      onSyncRequested: () async => 0,
+      auth: _auth,
+      showBackupSection: false,
+    );
+  }
 }
 
 class _OnboardingPageState extends State<_OnboardingPage> {
@@ -12242,11 +12358,13 @@ class CloudAccountPage extends StatefulWidget {
     required this.historyCount,
     required this.onSyncRequested,
     this.auth,
+    this.showBackupSection = true,
   });
 
   final int historyCount;
   final Future<int> Function() onSyncRequested;
   final AccountAuthService? auth;
+  final bool showBackupSection;
 
   @override
   State<CloudAccountPage> createState() => _CloudAccountPageState();
@@ -12275,7 +12393,7 @@ class _CloudAccountPageState extends State<CloudAccountPage> {
         _passwordController.clear();
         _passwordConfirmationController.clear();
         setState(() {
-          if (_auth.isSignedIn) _isSignUp = false;
+          if (_auth?.isSignedIn == true) _isSignUp = false;
           if (_message == _authStateErrorMessage) _message = null;
         });
       },
@@ -12401,11 +12519,11 @@ class _CloudAccountPageState extends State<CloudAccountPage> {
     _confirmingDeletion = false;
     if (confirmed != true || !mounted) return;
     setState(() {});
-    if (!_auth.isSignedIn || _auth.email != email) {
+    if (_auth?.isSignedIn != true || _auth?.email != email) {
       _message = 'ログイン状態が変わりました。もう一度お試しください。';
       return;
     }
-    await _auth.deleteAccount();
+    await _auth!.deleteAccount();
     _message = 'アカウントを削除しました。この端末のトレーニング記録は残っています。';
   });
 
@@ -12529,7 +12647,7 @@ class _CloudAccountPageState extends State<CloudAccountPage> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 8),
-            Text(_auth.email ?? '', key: const Key('accountSignedInEmail')),
+            Text(_auth?.email ?? '', key: const Key('accountSignedInEmail')),
             TextButton(
               key: const Key('accountSignOutButton'),
               onPressed: _busy ? null : _signOut,
@@ -12552,11 +12670,13 @@ class _CloudAccountPageState extends State<CloudAccountPage> {
             const SizedBox(height: 16),
             Text(_message!, textAlign: TextAlign.center),
           ],
-          const SizedBox(height: 24),
-          CloudBackupSection(
-            premium: SupabaseSyncService.canUseCloud,
-            onOpen: signedIn && !_busy ? _sync : null,
-          ),
+          if (widget.showBackupSection) ...[
+            const SizedBox(height: 24),
+            CloudBackupSection(
+              premium: SupabaseSyncService.canUseCloud,
+              onOpen: signedIn && !_busy ? _sync : null,
+            ),
+          ],
         ],
       ),
     );

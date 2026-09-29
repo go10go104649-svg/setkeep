@@ -1,3 +1,4 @@
+import 'signed_in_auth.dart';
 import 'legal_consent_fixture.dart';
 import 'dart:convert';
 
@@ -58,7 +59,7 @@ Future<void> verifyBulkExerciseFlow(
     'legal_consent': acceptedLegalConsentJson,
     'workout_templates': jsonEncode([menu.toJson()]),
   });
-  await tester.pumpWidget(const SetkeepApp());
+  await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
   await tester.pumpAndSettle();
   await tester.tap(find.byKey(const Key('startWorkoutButton')));
   await tester.pumpAndSettle();

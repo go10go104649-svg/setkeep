@@ -1,3 +1,4 @@
+import 'support/signed_in_auth.dart';
 import 'dart:convert';
 
 import 'support/legal_consent_fixture.dart';
@@ -306,7 +307,7 @@ void main() {
     t.view.devicePixelRatio = 1;
     addTearDown(t.view.resetPhysicalSize);
     addTearDown(t.view.resetDevicePixelRatio);
-    await t.pumpWidget(const SetkeepApp());
+    await t.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await t.pumpAndSettle();
     await t.tap(find.byIcon(Icons.person_outline_rounded));
     await t.pumpAndSettle();

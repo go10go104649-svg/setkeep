@@ -1,3 +1,4 @@
+import 'support/signed_in_auth.dart';
 import 'package:setkeep/exercise_form_catalog.dart';
 
 import 'support/bulk_exercise_flow.dart';
@@ -64,7 +65,7 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('legalConsent')), findsOneWidget);
     expect(find.byKey(const Key('onboarding')), findsNothing);
@@ -90,7 +91,8 @@ void main() {
       await scrollTo(find.byKey(Key(key)));
       await tester.tap(find.byKey(Key(key)));
       await tester.pumpAndSettle();
-      expect(find.textContaining('正式版公開前の暫定内容'), findsOneWidget);
+      expect(find.textContaining(key == 'openTerms' ? 'SETKEEP 利用規約' : 'SETKEEP プライバシーポリシー'), findsOneWidget);
+      expect(find.textContaining('正式版公開前の暫定内容'), findsNothing);
       expect(tester.takeException(), isNull);
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
@@ -111,7 +113,7 @@ void main() {
     expect(find.byType(HomeShell), findsOneWidget);
     expect(await LegalConsentPreference.load(), isTrue);
     await tester.pumpWidget(const SizedBox.shrink());
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     expect(find.byType(HomeShell), findsOneWidget);
     expect(find.byKey(const Key('legalConsent')), findsNothing);
@@ -121,7 +123,7 @@ void main() {
     'onboarding completes only at the last page and stays completed',
     (tester) async {
       SharedPreferences.setMockInitialValues({'selected_gym': '自宅'});
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('onboarding')), findsOneWidget);
       expect(find.text('ジムと一緒にトレーニングを記録'), findsOneWidget);
@@ -137,7 +139,7 @@ void main() {
 
       // Closing before completion must not persist the flag.
       await tester.pumpWidget(const SizedBox.shrink());
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       expect(find.text('1 / 4'), findsOneWidget);
       for (var page = 2; page <= 4; page++) {
@@ -163,7 +165,7 @@ void main() {
       expect(preferences.getBool('onboarding_completed'), isTrue);
       expect(preferences.getString('selected_gym'), '自宅');
       await tester.pumpWidget(const SizedBox.shrink());
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       expect(find.byType(HomeShell), findsOneWidget);
       expect(find.byKey(const Key('onboarding')), findsNothing);
@@ -177,7 +179,7 @@ void main() {
       'onboarding_completed': true,
       'legal_consent': acceptedLegalConsentJson,
     });
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     expect(find.byType(HomeShell), findsOneWidget);
     expect(find.byKey(const Key('onboarding')), findsNothing);
@@ -191,7 +193,7 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     for (var page = 1; page <= 4; page++) {
       expect(find.text('$page / 4'), findsOneWidget);
@@ -1422,7 +1424,7 @@ void main() {
   testWidgets('app opens when saved history is corrupted', (tester) async {
     _setExistingUserPreferences({'workout_history': 'broken json'});
 
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     expect(find.text('今日も積み上げよう'), findsNothing);
@@ -1575,7 +1577,7 @@ void main() {
     _setExistingUserPreferences({});
 
     Future<void> openProfile() async {
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.person_outline_rounded));
       await tester.pumpAndSettle();
@@ -1651,7 +1653,7 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.person_outline_rounded));
     await tester.pumpAndSettle();
@@ -1714,7 +1716,7 @@ void main() {
       });
       await RestTimerPreference.load();
       await WorkoutUiPreference.load();
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.person_outline_rounded));
       await tester.pumpAndSettle();
@@ -1792,7 +1794,7 @@ void main() {
       });
       await RestTimerPreference.load();
       await WorkoutUiPreference.load();
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.person_outline_rounded));
       await tester.pumpAndSettle();
@@ -1952,7 +1954,7 @@ void main() {
       });
       await RestTimerPreference.load();
       await WorkoutUiPreference.load();
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('startWorkoutButton')));
       await tester.pumpAndSettle();
@@ -1981,7 +1983,7 @@ void main() {
     _setExistingUserPreferences({'selected_gym': '以前の体育館'});
     CustomGymPreference.gyms = [];
 
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     expect(CustomGymPreference.gyms, ['以前の体育館']);
@@ -2377,7 +2379,7 @@ void main() {
     _setExistingUserPreferences({
       'workout_history': jsonEncode([workout.toJson()]),
     });
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('lastWorkoutCard')), findsNothing);
@@ -2794,7 +2796,7 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     expect(find.text('今日も積み上げよう'), findsNothing);
@@ -2875,7 +2877,7 @@ void main() {
       WorkoutUiPreference.completionCheckEnabled = true;
       WorkoutUiPreference.workoutTimerEnabled = true;
     });
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
     await tester.pumpAndSettle();
@@ -2902,7 +2904,7 @@ void main() {
     _setExistingUserPreferences({});
     WorkoutUiPreference.completionCheckEnabled = true;
     WorkoutUiPreference.workoutTimerEnabled = true;
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
     await tester.pumpAndSettle();
@@ -2944,7 +2946,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     _setExistingUserPreferences({});
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
@@ -3014,7 +3016,7 @@ void main() {
 
   testWidgets('completed workout appears in history', (tester) async {
     _setExistingUserPreferences({});
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
@@ -3088,7 +3090,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.calendar_month_outlined));
     await tester.pumpAndSettle();
@@ -3145,7 +3147,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('savedMenu0')), findsOneWidget);
@@ -3189,7 +3191,7 @@ void main() {
       'rest_timer_seconds': 60,
     });
     await RestTimerPreference.load();
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
@@ -3213,7 +3215,7 @@ void main() {
       'rest_timer_seconds': 1,
     });
     await RestTimerPreference.load();
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
     await tester.pumpAndSettle();
@@ -3247,7 +3249,7 @@ void main() {
   ) async {
     _setExistingUserPreferences({});
     await RestTimerPreference.load();
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('startWorkoutButton')));
@@ -3496,7 +3498,7 @@ void main() {
         ],
       });
       _setExistingUserPreferences({activeWorkoutDraftStorageKey: draft});
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('activeWorkoutDraftCard')));
       await tester.pumpAndSettle();
@@ -3532,7 +3534,7 @@ void main() {
         ],
       }),
     });
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('activeWorkoutDraftCard')));
     await tester.pumpAndSettle();
@@ -3572,7 +3574,7 @@ void main() {
         ],
       }),
     });
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('activeWorkoutDraftCard')));
@@ -3758,7 +3760,7 @@ void main() {
           weightKg: 80,
         ),
       ]);
-      await tester.pumpWidget(const SetkeepApp());
+      await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
       await tester.pumpAndSettle();
       final edit = find.byKey(const Key('editBodyWeightdelete-me'));
       await tester.scrollUntilVisible(
@@ -3797,7 +3799,7 @@ void main() {
         ).toJson(),
       ]),
     });
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('bodyWeightTrendSection')), findsOneWidget);
 
@@ -3813,7 +3815,7 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.person_outline_rounded));
     await tester.pumpAndSettle();
@@ -3831,7 +3833,7 @@ void main() {
 
   testWidgets('weekly goal UI is removed', (tester) async {
     _setExistingUserPreferences(const {});
-    await tester.pumpWidget(const SetkeepApp());
+    await tester.pumpWidget(const SetkeepApp(auth: SignedInTestAuth()));
     await tester.pumpAndSettle();
     expect(find.text('1週間の目標'), findsNothing);
   });
