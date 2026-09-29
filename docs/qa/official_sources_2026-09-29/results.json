@@ -1,0 +1,137 @@
+{
+  "start_main": "bb23c0cb9537848242d4680f8c2a83d0cc4cc90a",
+  "pilot_mode": "saved_response_dry_run",
+  "pages": [
+    {
+      "source": "mabashi",
+      "url": "https://www.anytimefitness.co.jp/matsudomabashi/",
+      "parse_success": true,
+      "equipment_count": 0,
+      "store_status": "unknown",
+      "parsed_hash": "55ee9b1605212c41499603972ab3f684daf4ac04048d1ced5156f6f7b2eeec7c"
+    },
+    {
+      "source": "facility",
+      "url": "https://www.anytimefitness.co.jp/matsudomabashi/facility/",
+      "parse_success": true,
+      "equipment_count": 45,
+      "store_status": "unknown",
+      "parsed_hash": "2d90ac60557ec0c159406350eaedb4fe4483ceedadfbbc99405c88ed5980dec3"
+    },
+    {
+      "source": "rich",
+      "url": "https://www.anytimefitness.co.jp/shinmatsudo/",
+      "parse_success": true,
+      "equipment_count": 0,
+      "store_status": "unknown",
+      "parsed_hash": "99c4eb363e3d8cf410f6127889575d96ed810cbf36c7f2849ca6c829a8d5eefd"
+    },
+    {
+      "source": "private",
+      "url": "https://www.anytimefitness.co.jp/iwakionahama/",
+      "parse_success": true,
+      "equipment_count": 0,
+      "store_status": "unknown",
+      "parsed_hash": "ddc082abd28f5d08353c7a32af13259db489c2a12bace7c41f8668c4eb408045"
+    },
+    {
+      "source": "pre",
+      "url": "https://www.anytimefitness.co.jp/aeontown-warabi/",
+      "parse_success": true,
+      "equipment_count": 0,
+      "store_status": "preopening",
+      "parsed_hash": "15af88015419affae29ee9a34071c53af53f55ab221d0695b31f90e7508a7f6f"
+    }
+  ],
+  "equipment_identification": {
+    "total": 45,
+    "matched": 43,
+    "unmatched": 2,
+    "matched_needs_review": 24
+  },
+  "master_before": [
+    {
+      "digest": "744dfe96128b0390dbfe9caf5ecffffb",
+      "rows": 2699,
+      "table_name": "gym_stores"
+    },
+    {
+      "digest": "d59e203049bae31263caf68b7bdef5eb",
+      "rows": 2604,
+      "table_name": "equipment"
+    },
+    {
+      "digest": "8466f81e2e6574ed69d1642f601dc2fd",
+      "rows": 9513,
+      "table_name": "gym_store_equipment"
+    },
+    {
+      "digest": "4a2d89478c7706449c50a9a8a79f00e8",
+      "rows": 2507,
+      "table_name": "equipment_exercise_mapping"
+    },
+    {
+      "digest": "e3bb1a1459aa75a1978f7a8ff743607d",
+      "rows": 1117,
+      "table_name": "exercise_equipment_rules"
+    },
+    {
+      "digest": "4962bbc692af1d95e476c5b806a54b8e",
+      "rows": 916,
+      "table_name": "equipment_canonical_memberships"
+    }
+  ],
+  "master_after": [
+    {
+      "digest": "744dfe96128b0390dbfe9caf5ecffffb",
+      "rows": 2699,
+      "table_name": "gym_stores"
+    },
+    {
+      "digest": "d59e203049bae31263caf68b7bdef5eb",
+      "rows": 2604,
+      "table_name": "equipment"
+    },
+    {
+      "digest": "8466f81e2e6574ed69d1642f601dc2fd",
+      "rows": 9513,
+      "table_name": "gym_store_equipment"
+    },
+    {
+      "digest": "4a2d89478c7706449c50a9a8a79f00e8",
+      "rows": 2507,
+      "table_name": "equipment_exercise_mapping"
+    },
+    {
+      "digest": "e3bb1a1459aa75a1978f7a8ff743607d",
+      "rows": 1117,
+      "table_name": "exercise_equipment_rules"
+    },
+    {
+      "digest": "4962bbc692af1d95e476c5b806a54b8e",
+      "rows": 916,
+      "table_name": "equipment_canonical_memberships"
+    }
+  ],
+  "master_hashes_equal": true,
+  "production_monitor": {
+    "cron_active": false,
+    "enabled_sources": 0,
+    "jobs": 0,
+    "scheduler_enabled": false,
+    "snapshots": 0,
+    "sources": 5
+  },
+  "noise_control": {
+    "pages": 5,
+    "synthetic_noise_false_diffs": 0
+  },
+  "tests": {
+    "backend_passed": 16,
+    "flutter_unique_passed": 57,
+    "sql_files_passed": 13,
+    "flutter_analyze": "No issues found",
+    "git_diff_check": "passed",
+    "device_qa": false
+  }
+}

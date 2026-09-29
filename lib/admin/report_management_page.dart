@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'report_repository.dart';
+import 'official_source_page.dart';
+import 'official_source_repository.dart';
 import '../gym/gym_repository.dart';
 import '../gym/gym_pages.dart';
 
@@ -168,6 +170,15 @@ class _ReportManagementPageState extends State<ReportManagementPage> {
     appBar: AppBar(
       title: const Text('報告管理'),
       actions: [
+        if (admin)
+          IconButton(
+            tooltip: '公式情報の取得状況',
+            icon: const Icon(Icons.public),
+            onPressed: () => Navigator.push<void>(
+              context,
+              MaterialPageRoute(builder: (_) => const OfficialSourcePage()),
+            ),
+          ),
         IconButton(
           onPressed: busy ? null : () => load(),
           icon: const Icon(Icons.refresh),
@@ -494,33 +505,35 @@ class _CandidateDetailState extends State<_CandidateDetail> {
             ),
             Text('初回 ${c.dateLabel('first_seen_at')}'),
             Text('最終 ${c.dateLabel('last_seen_at')}'),
+            FutureBuilder<List<Map<String, dynamic>>>(
+              future: evidence,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) return const Text('根拠を取得できませんでした。');
+                if (!snapshot.hasData) return const LinearProgressIndicator();
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (final e in snapshot.data!)
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          e['source_type'] == 'official'
+                              ? '公式サイト確認'
+                              : '報告・確認情報',
+                        ),
+                        subtitle: Text(
+                          '${e['direction'] == 'oppose' ? '反対' : '支持'} ・ ${officialDate(e['observed_at'])}\n${e['source_url'] ?? ''}\n${encoder.convert(e['data'])}',
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
             if (c.isStore) ...[
               Text('判定理由: ${c.data['decision_reason'] ?? '未評価'}'),
               Text('根拠: ${c.data['evidence_count'] ?? 0}件'),
               const Text('変更提案・既存店舗の可能性'),
               SelectableText(encoder.convert(c.proposedValue)),
-              FutureBuilder<List<Map<String, dynamic>>>(
-                future: evidence,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) return const Text('報告内容を取得できませんでした。');
-                  if (!snapshot.hasData) return const LinearProgressIndicator();
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (final e in snapshot.data!)
-                        ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
-                            '${e['source_type']} ・ ${e['direction']}',
-                          ),
-                          subtitle: Text(
-                            '${e['observed_at']}\n${encoder.convert(e['data'])}',
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
               if ([
                 'collecting',
                 'needs_review',

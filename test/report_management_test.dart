@@ -5,7 +5,9 @@ import 'package:setkeep/admin/report_management_page.dart';
 
 class FakeReports implements ReportRepository {
   @override
-  Future<List<Map<String, dynamic>>> candidateEvidence(String id) async => [];
+  Future<List<Map<String, dynamic>>> candidateEvidence(String id) async =>
+      evidence;
+  List<Map<String, dynamic>> evidence = [];
   @override
   Future<void> reviewStoreCandidate(
     String id,
@@ -289,6 +291,33 @@ void main() {
       await t.tap(find.text('設備情報'));
       await t.pumpAndSettle();
       expect(find.byKey(const Key('adminReportequipment')), findsOneWidget);
+    },
+  );
+  testWidgets(
+    'equipment candidate distinguishes official evidence and source URL',
+    (t) async {
+      repo.evidence = [
+        {
+          'source_type': 'official',
+          'direction': 'support',
+          'observed_at': '2026-09-29T00:00:00Z',
+          'source_url': 'https://www.anytimefitness.co.jp/qa/',
+          'data': {'parser_version': 'anytime-1'},
+        },
+      ];
+      await t.pumpWidget(const MaterialApp(home: ReportManagementPage()));
+      await t.pumpAndSettle();
+      expect(find.byTooltip('公式情報の取得状況'), findsOneWidget);
+      await t.tap(find.text('変更候補'));
+      await t.pumpAndSettle();
+      await t.tap(find.byKey(const Key('adminCandidatecandidate-1')));
+      await t.pumpAndSettle();
+      expect(find.text('公式サイト確認'), findsOneWidget);
+      expect(
+        find.textContaining('https://www.anytimefitness.co.jp/qa/'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('2026/09/29'), findsOneWidget);
     },
   );
   testWidgets('admin sees current and proposed equipment state', (t) async {

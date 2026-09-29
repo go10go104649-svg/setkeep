@@ -129,3 +129,19 @@ Vital Animations動画を製品の種目フォームガイドとして使用す�
 - 管理画面の「店舗情報」で元報告/提案/根拠/判定/確認・却下・適用・rollbackを扱う。
   一般ユーザーのMaster直接更新は禁止。反映後に別変更があればrollbackで上書きしない。
 - 本番migration028/029適用済み。詳細・検証範囲は[店舗営業状態QA](qa/store_lifecycle_2026-09-29/README.md)を参照。
+
+## 公式サイト情報取得基盤（2026-09-29追記）
+
+- Anytimeの4店舗・5sourceをpilot登録。Edge fetcher→ブランドparser→
+  semantic snapshot→公式Evidence→既存Candidate/安全判定の順に処理する。
+  クローラーから店舗・設備Masterを直接変更しない。
+- 同内容の再取得は票を加算せず、再評価もしない。掲載消失は撤去ではない。
+  HTTP失敗/構造変化は取得エラー。parser更新は管理者確認holdを維持する。
+- 公式情報は初期ruleで全件review対象。管理者は報告管理の地球アイコンから
+  source状態・抽出結果・取得履歴を確認でき、Candidateで公式根拠を区別できる。
+- migration030/031とEdgeを本番配置済み。
+  **利用条件未確認というユーザー判断により、Cron・全体設定・5sourceすべて無効。**
+  全国取得を開始した状態ではない。
+- 保存済み5ページのdry-run成功、馬橋設備43/45同定（曖昧な2件は未同定）。
+  詳細/確認範囲/再開条件は[公式取得QA](qa/official_sources_2026-09-29/README.md)、
+  [運用手順](../tool/official_sources/README.md)を参照。
