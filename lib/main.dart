@@ -1,3 +1,5 @@
+import 'ads/ads_config.dart';
+import 'ads/setkeep_banner_ad.dart';
 import 'trainer/trainer_inbox_page.dart';
 import 'trainer/trainer_inbox_repository.dart';
 import 'design/family_theme.dart';
@@ -433,6 +435,11 @@ class SetkeepApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appDisplayName,
+      builder: (context, child) => AdsScope(
+        config: const AdsConfig(generalApp: true),
+        entitlement: setkeepAdsEntitlement,
+        child: child!,
+      ),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ja', 'JP'),
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
@@ -1558,7 +1565,12 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
       ),
     ];
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: pages),
+      body: Column(
+        children: [
+          Expanded(child: IndexedStack(index: _selectedIndex, children: pages)),
+          if (_selectedIndex == 0) const SetkeepBannerAd(),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         height: 72,
