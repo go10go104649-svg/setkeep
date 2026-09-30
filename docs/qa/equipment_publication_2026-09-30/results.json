@@ -1,0 +1,1127 @@
+{
+  "base_sha": "a5489b11bd6655864f86edd110af4a007c3dcbf0",
+  "project_ref": "meyrtimwibqonozsewbt",
+  "latest_migration": "202609290032",
+  "migration_applied": false,
+  "publication_block_found": false,
+  "source_counts": [
+    {
+      "presence_status": "present",
+      "rows": 9513,
+      "source_kind": "official"
+    }
+  ],
+  "chains": [
+    {
+      "equipment_rows": 90,
+      "id": "auns-gym",
+      "name": "AUN'S GYM",
+      "present_rows": 90,
+      "stores": 19,
+      "stores_with_equipment": 3
+    },
+    {
+      "equipment_rows": 1954,
+      "id": "fastgym24",
+      "name": "FASTGYM24",
+      "present_rows": 1954,
+      "stores": 91,
+      "stores_with_equipment": 88
+    },
+    {
+      "equipment_rows": 1582,
+      "id": "fit-place24",
+      "name": "FIT PLACE24",
+      "present_rows": 1582,
+      "stores": 244,
+      "stores_with_equipment": 35
+    },
+    {
+      "equipment_rows": 31,
+      "id": "fit-easy",
+      "name": "FIT-EASY",
+      "present_rows": 31,
+      "stores": 322,
+      "stores_with_equipment": 13
+    },
+    {
+      "equipment_rows": 683,
+      "id": "fit24",
+      "name": "FiT24",
+      "present_rows": 683,
+      "stores": 122,
+      "stores_with_equipment": 18
+    },
+    {
+      "equipment_rows": 250,
+      "id": "golds-gym",
+      "name": "GOLD'S GYM",
+      "present_rows": 250,
+      "stores": 114,
+      "stores_with_equipment": 39
+    },
+    {
+      "equipment_rows": 923,
+      "id": "hyper-fit24",
+      "name": "HYPER FIT24",
+      "present_rows": 923,
+      "stores": 46,
+      "stores_with_equipment": 24
+    },
+    {
+      "equipment_rows": 1116,
+      "id": "joyfit24",
+      "name": "JOYFIT24",
+      "present_rows": 1116,
+      "stores": 195,
+      "stores_with_equipment": 47
+    },
+    {
+      "equipment_rows": 0,
+      "id": "joyfit24-lite",
+      "name": "JOYFIT24 LITE",
+      "present_rows": 0,
+      "stores": 1,
+      "stores_with_equipment": 0
+    },
+    {
+      "equipment_rows": 37,
+      "id": "kanekin-fitness-gym",
+      "name": "KANEKIN FITNESS GYM",
+      "present_rows": 37,
+      "stores": 1,
+      "stores_with_equipment": 1
+    },
+    {
+      "equipment_rows": 73,
+      "id": "smart-fit100",
+      "name": "SMART FIT100",
+      "present_rows": 73,
+      "stores": 57,
+      "stores_with_equipment": 4
+    },
+    {
+      "equipment_rows": 385,
+      "id": "world-plus-gym",
+      "name": "WORLD+GYM",
+      "present_rows": 385,
+      "stores": 160,
+      "stores_with_equipment": 20
+    },
+    {
+      "equipment_rows": 2389,
+      "id": "anytime-fitness",
+      "name": "エニタイムフィットネス",
+      "present_rows": 2389,
+      "stores": 1327,
+      "stores_with_equipment": 60
+    }
+  ],
+  "scheduler": {
+    "cron_active": false,
+    "enabled": false,
+    "enabled_sources": 0
+  },
+  "store_results": [
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "name": "エニタイムフィットネス 松戸馬橋店",
+      "equipment": 45,
+      "rpc_exercises": 87,
+      "visible_catalog_forms": 87,
+      "mapped_equipment": 30
+    },
+    {
+      "store_id": "fit-place24:fitplace_ichikawa",
+      "name": "FIT PLACE24 市川",
+      "equipment": 52,
+      "rpc_exercises": 106,
+      "visible_catalog_forms": 106,
+      "mapped_equipment": 52
+    },
+    {
+      "store_id": "fit-place24:fitplace_matsudo_ekimae",
+      "name": "FIT PLACE24 松戸駅前",
+      "equipment": 49,
+      "rpc_exercises": 98,
+      "visible_catalog_forms": 98,
+      "mapped_equipment": 49
+    },
+    {
+      "store_id": "fit-place24:fitplace_minami_kashiwa",
+      "name": "FIT PLACE24 南柏",
+      "equipment": 47,
+      "rpc_exercises": 101,
+      "visible_catalog_forms": 101,
+      "mapped_equipment": 47
+    },
+    {
+      "store_id": "fit-place24:fitplace_shin_matsudo",
+      "name": "FIT PLACE24 新松戸",
+      "equipment": 33,
+      "rpc_exercises": 88,
+      "visible_catalog_forms": 88,
+      "mapped_equipment": 32
+    },
+    {
+      "store_id": "kanekin-fitness-gym:matsudo",
+      "name": "KANEKIN FITNESS GYM 松戸店",
+      "equipment": 37,
+      "rpc_exercises": 83,
+      "visible_catalog_forms": 81,
+      "mapped_equipment": 34
+    }
+  ],
+  "unmapped_display_equipment": [
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_6801f7b02b31",
+      "name": "SYNRGY360",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_edc24b707bc9",
+      "name": "インクラインプレス",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_e34e5fa4a91d",
+      "name": "ウエイトツリー",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_eeae53bbf939",
+      "name": "シーテッド・アームカール",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_821f39b9c595",
+      "name": "ショルダープレス",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "golds-gym:fp_eq_27cf33988bc3",
+      "name": "ユーティリティベンチ",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_ead32b554141",
+      "name": "ローイング",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_7de7891e6e4f",
+      "name": "ワイドチェスト",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_63ad50c69c26",
+      "name": "アークレッグプレス",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_f90fabed6c45",
+      "name": "プルダウン",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_35596173f779",
+      "name": "マルチジャングル・8スタック",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_a454ff2d21e9",
+      "name": "レッグレイズ",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "anytime-fitness:anytime_eq_e97bdf4f3186",
+      "name": "腹筋台",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "golds-gym:fp_eq_1a1b98bdc1a6",
+      "name": "グルートドライブ",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+      "equipment_id": "fit24:fp_eq_f8db33dbd981",
+      "name": "トライセップスエクステンション",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "fit-place24:fitplace_shin_matsudo",
+      "equipment_id": "fit-place24:fp_eq_958968fb4ea2",
+      "name": "デルツ",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "kanekin-fitness-gym:matsudo",
+      "equipment_id": "kanekin:delta-utility-bench",
+      "name": "ユーティリティーベンチ",
+      "mapped_ids": [],
+      "reason": "No resolved mapping or satisfied rule"
+    },
+    {
+      "store_id": "kanekin-fitness-gym:matsudo",
+      "equipment_id": "kanekin:cybex-calf-raise",
+      "name": "カーフレイズ",
+      "mapped_ids": [
+        "calf_raise"
+      ],
+      "reason": "No selectable current catalog ID"
+    },
+    {
+      "store_id": "kanekin-fitness-gym:matsudo",
+      "equipment_id": "kanekin:hammer-strength-leg-curl",
+      "name": "レッグカール",
+      "mapped_ids": [
+        "leg_curl"
+      ],
+      "reason": "No selectable current catalog ID"
+    }
+  ],
+  "master_before": [
+    {
+      "digest": "23d4ee70c91c4255ff98629fa2b1c62b",
+      "name": "gym_stores",
+      "rows": 2699
+    },
+    {
+      "digest": "846dcd177a0eb1d9ffc2f814ad03933e",
+      "name": "equipment",
+      "rows": 2604
+    },
+    {
+      "digest": "35767fe361f40696ace85a3ae7e9928a",
+      "name": "gym_store_equipment",
+      "rows": 9513
+    },
+    {
+      "digest": "f08ff7683f7dfe15049afc090dbae1b5",
+      "name": "equipment_exercise_mapping",
+      "rows": 2507
+    },
+    {
+      "digest": "7e523e5b88b474c5165d88926fedbdaa",
+      "name": "exercise_equipment_rules",
+      "rows": 1117
+    },
+    {
+      "digest": "be8b4265df5af35a5325e62e4bfdc545",
+      "name": "exercise_equipment_rule_items",
+      "rows": 2234
+    },
+    {
+      "digest": "1c712789891483437bf5bf0c4168468a",
+      "name": "equipment_canonical_memberships",
+      "rows": 916
+    }
+  ],
+  "master_after": [
+    {
+      "digest": "23d4ee70c91c4255ff98629fa2b1c62b",
+      "name": "gym_stores",
+      "rows": 2699
+    },
+    {
+      "digest": "846dcd177a0eb1d9ffc2f814ad03933e",
+      "name": "equipment",
+      "rows": 2604
+    },
+    {
+      "digest": "35767fe361f40696ace85a3ae7e9928a",
+      "name": "gym_store_equipment",
+      "rows": 9513
+    },
+    {
+      "digest": "f08ff7683f7dfe15049afc090dbae1b5",
+      "name": "equipment_exercise_mapping",
+      "rows": 2507
+    },
+    {
+      "digest": "7e523e5b88b474c5165d88926fedbdaa",
+      "name": "exercise_equipment_rules",
+      "rows": 1117
+    },
+    {
+      "digest": "be8b4265df5af35a5325e62e4bfdc545",
+      "name": "exercise_equipment_rule_items",
+      "rows": 2234
+    },
+    {
+      "digest": "1c712789891483437bf5bf0c4168468a",
+      "name": "equipment_canonical_memberships",
+      "rows": 916
+    }
+  ],
+  "db_tests": {
+    "gym_equipment_publication": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "canonical_equipment": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "anytime_mabashi_equipment_mappings": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_multi_equipment_rules": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_equipment": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_places_details": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_change_candidates": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_auto_application": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_equipment_state_reports": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "gym_store_lifecycle": {
+      "exit_code": 0,
+      "false_assertions": []
+    },
+    "training_equipment_confirmation": {
+      "exit_code": 0,
+      "false_assertions": []
+    }
+  },
+  "validation": {
+    "flutter_analyze": "passed",
+    "flutter_tests": {
+      "passed": 393,
+      "failed": 0
+    },
+    "live_rpc_flutter_contract": "passed",
+    "git_diff_check": "passed",
+    "device_qa": "not_performed",
+    "migration_applied": false,
+    "commit_push": false
+  },
+  "anytime_workbook_reconciliation": {
+    "source_file": "SETKEEP/data/import/SETKEEP_エニタイムフィットネス_全国店舗設備マスター_v1.0.xlsx",
+    "sha256": "697751fb84ef6a9895dda8e17dfc4c341af44b70ad3f198ddfafe3d30bac4bdc",
+    "sheets": {
+      "店舗": {
+        "rows": 1327,
+        "columns": [
+          "gym_id",
+          "gym_chain",
+          "gym_name",
+          "prefecture",
+          "municipality",
+          "address_raw",
+          "official_url",
+          "directory_url",
+          "directory_checked_at",
+          "machine_data_status",
+          "equipment_checked_at",
+          "equipment_data_origin",
+          "page_status",
+          "address_needs_review",
+          "review_note",
+          "equipment_rows"
+        ]
+      },
+      "設備マスター": {
+        "rows": 665,
+        "columns": [
+          "equipment_id",
+          "category",
+          "normalized_name",
+          "sample_raw_name",
+          "record_count",
+          "quantity_known_count",
+          "sample_source_url"
+        ]
+      },
+      "店舗設備": {
+        "rows": 2389,
+        "columns": [
+          "gym_id",
+          "equipment_id",
+          "gym_name",
+          "prefecture",
+          "category",
+          "raw_name",
+          "normalized_name",
+          "quantity",
+          "spec",
+          "available",
+          "source_url",
+          "checked_at",
+          "data_origin",
+          "source_occurrences",
+          "review_note"
+        ]
+      }
+    },
+    "source_stores": 1327,
+    "matched_stores": 1327,
+    "source_equipment_ids": 665,
+    "matched_source_equipment_ids": 665,
+    "distinct_target_equipment_ids": 662,
+    "source_relations": 2389,
+    "matched_relation_keys": 2389,
+    "missing_store_ids": [],
+    "missing_equipment_ids": [],
+    "missing_relation_keys": [],
+    "extra_relation_keys": [],
+    "store_and_relation_field_differences": [],
+    "equipment_status": {
+      "published": 60,
+      "not_published": 17,
+      "not_collected": 1250
+    },
+    "workbook_unchanged": true,
+    "authenticated_rpc_all_equipment_stores": [
+      {
+        "exercise_count": 53,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_0b2548b95f26",
+        "inventory_ids_match": true,
+        "name": "鶴岡店",
+        "official_rows": 41,
+        "stored_equipment": 41,
+        "visible_equipment": 41
+      },
+      {
+        "exercise_count": 69,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_0da8d2c08d1e",
+        "inventory_ids_match": true,
+        "name": "利府店",
+        "official_rows": 38,
+        "stored_equipment": 38,
+        "visible_equipment": 38
+      },
+      {
+        "exercise_count": 66,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_1084804db249",
+        "inventory_ids_match": true,
+        "name": "吉岡大和町店",
+        "official_rows": 34,
+        "stored_equipment": 34,
+        "visible_equipment": 34
+      },
+      {
+        "exercise_count": 47,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_1b46ca0f86af",
+        "inventory_ids_match": true,
+        "name": "札幌山鼻店",
+        "official_rows": 29,
+        "stored_equipment": 29,
+        "visible_equipment": 29
+      },
+      {
+        "exercise_count": 82,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_1c2d3891be5d",
+        "inventory_ids_match": true,
+        "name": "元町店",
+        "official_rows": 55,
+        "stored_equipment": 55,
+        "visible_equipment": 55
+      },
+      {
+        "exercise_count": 87,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_1d4bdbb1432e",
+        "inventory_ids_match": true,
+        "name": "松戸馬橋店",
+        "official_rows": 45,
+        "stored_equipment": 45,
+        "visible_equipment": 45
+      },
+      {
+        "exercise_count": 51,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_21bf9081663e",
+        "inventory_ids_match": true,
+        "name": "北上店",
+        "official_rows": 40,
+        "stored_equipment": 40,
+        "visible_equipment": 40
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_29aa5bce673e",
+        "inventory_ids_match": true,
+        "name": "帯広店",
+        "official_rows": 46,
+        "stored_equipment": 46,
+        "visible_equipment": 46
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_2b7a2cc34c91",
+        "inventory_ids_match": true,
+        "name": "屯田店",
+        "official_rows": 52,
+        "stored_equipment": 52,
+        "visible_equipment": 52
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_2d638de071a5",
+        "inventory_ids_match": true,
+        "name": "松戸松飛台店",
+        "official_rows": 45,
+        "stored_equipment": 45,
+        "visible_equipment": 45
+      },
+      {
+        "exercise_count": 73,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_2e62ed911092",
+        "inventory_ids_match": true,
+        "name": "松戸駅前店",
+        "official_rows": 45,
+        "stored_equipment": 45,
+        "visible_equipment": 45
+      },
+      {
+        "exercise_count": 69,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_2ed10618d1df",
+        "inventory_ids_match": true,
+        "name": "会津若松店",
+        "official_rows": 45,
+        "stored_equipment": 45,
+        "visible_equipment": 45
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_3177959a21c9",
+        "inventory_ids_match": true,
+        "name": "水沢店",
+        "official_rows": 45,
+        "stored_equipment": 45,
+        "visible_equipment": 45
+      },
+      {
+        "exercise_count": 68,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_4011377b5cba",
+        "inventory_ids_match": true,
+        "name": "福島黒岩店",
+        "official_rows": 45,
+        "stored_equipment": 45,
+        "visible_equipment": 45
+      },
+      {
+        "exercise_count": 45,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_444e90b0030e",
+        "inventory_ids_match": true,
+        "name": "西町店",
+        "official_rows": 39,
+        "stored_equipment": 39,
+        "visible_equipment": 39
+      },
+      {
+        "exercise_count": 39,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_51e14160e0d4",
+        "inventory_ids_match": true,
+        "name": "八軒店",
+        "official_rows": 41,
+        "stored_equipment": 41,
+        "visible_equipment": 41
+      },
+      {
+        "exercise_count": 49,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_56a3695a18ed",
+        "inventory_ids_match": true,
+        "name": "天童店",
+        "official_rows": 40,
+        "stored_equipment": 40,
+        "visible_equipment": 40
+      },
+      {
+        "exercise_count": 71,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_59abdeabcebb",
+        "inventory_ids_match": true,
+        "name": "泉バイパス市名坂店",
+        "official_rows": 41,
+        "stored_equipment": 41,
+        "visible_equipment": 41
+      },
+      {
+        "exercise_count": 78,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_5d9f5766325d",
+        "inventory_ids_match": true,
+        "name": "東札幌店",
+        "official_rows": 43,
+        "stored_equipment": 43,
+        "visible_equipment": 43
+      },
+      {
+        "exercise_count": 81,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_60689a18a4ab",
+        "inventory_ids_match": true,
+        "name": "松戸二十世紀が丘店",
+        "official_rows": 34,
+        "stored_equipment": 34,
+        "visible_equipment": 34
+      },
+      {
+        "exercise_count": 72,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_608182ae0327",
+        "inventory_ids_match": true,
+        "name": "青森サンロード店",
+        "official_rows": 43,
+        "stored_equipment": 43,
+        "visible_equipment": 43
+      },
+      {
+        "exercise_count": 48,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_6b4dde83b2ef",
+        "inventory_ids_match": true,
+        "name": "酒田店",
+        "official_rows": 27,
+        "stored_equipment": 27,
+        "visible_equipment": 27
+      },
+      {
+        "exercise_count": 42,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_6d8a4ba14754",
+        "inventory_ids_match": true,
+        "name": "にかほTSUGUBA店",
+        "official_rows": 19,
+        "stored_equipment": 19,
+        "visible_equipment": 19
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_79a43c947971",
+        "inventory_ids_match": true,
+        "name": "松戸八柱店",
+        "official_rows": 42,
+        "stored_equipment": 42,
+        "visible_equipment": 42
+      },
+      {
+        "exercise_count": 62,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_7b63eafebe21",
+        "inventory_ids_match": true,
+        "name": "仙台宮城野店",
+        "official_rows": 62,
+        "stored_equipment": 62,
+        "visible_equipment": 62
+      },
+      {
+        "exercise_count": 79,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_8686569aba28",
+        "inventory_ids_match": true,
+        "name": "鈎取店",
+        "official_rows": 44,
+        "stored_equipment": 44,
+        "visible_equipment": 44
+      },
+      {
+        "exercise_count": 68,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_86cd0d331276",
+        "inventory_ids_match": true,
+        "name": "一関店",
+        "official_rows": 59,
+        "stored_equipment": 59,
+        "visible_equipment": 59
+      },
+      {
+        "exercise_count": 77,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_89b0fe7569f9",
+        "inventory_ids_match": true,
+        "name": "杜せきのした店",
+        "official_rows": 37,
+        "stored_equipment": 37,
+        "visible_equipment": 37
+      },
+      {
+        "exercise_count": 71,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_92d1c1916bfc",
+        "inventory_ids_match": true,
+        "name": "北見店",
+        "official_rows": 54,
+        "stored_equipment": 54,
+        "visible_equipment": 54
+      },
+      {
+        "exercise_count": 78,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_930032d9bc6b",
+        "inventory_ids_match": true,
+        "name": "南仙台店",
+        "official_rows": 51,
+        "stored_equipment": 51,
+        "visible_equipment": 51
+      },
+      {
+        "exercise_count": 63,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_932f678a5e0c",
+        "inventory_ids_match": true,
+        "name": "広瀬通り店",
+        "official_rows": 25,
+        "stored_equipment": 25,
+        "visible_equipment": 25
+      },
+      {
+        "exercise_count": 46,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_94c337b1bb8d",
+        "inventory_ids_match": true,
+        "name": "中島公園店",
+        "official_rows": 29,
+        "stored_equipment": 29,
+        "visible_equipment": 29
+      },
+      {
+        "exercise_count": 79,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_953168063896",
+        "inventory_ids_match": true,
+        "name": "神山店",
+        "official_rows": 60,
+        "stored_equipment": 60,
+        "visible_equipment": 60
+      },
+      {
+        "exercise_count": 78,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_95957dc6997b",
+        "inventory_ids_match": true,
+        "name": "松戸新田店",
+        "official_rows": 34,
+        "stored_equipment": 34,
+        "visible_equipment": 34
+      },
+      {
+        "exercise_count": 69,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_996a0e2d1358",
+        "inventory_ids_match": true,
+        "name": "村崎野NEILo店",
+        "official_rows": 24,
+        "stored_equipment": 24,
+        "visible_equipment": 24
+      },
+      {
+        "exercise_count": 48,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_9f4b7f4ccda0",
+        "inventory_ids_match": true,
+        "name": "伊達店",
+        "official_rows": 33,
+        "stored_equipment": 33,
+        "visible_equipment": 33
+      },
+      {
+        "exercise_count": 58,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_a3863fd2d91a",
+        "inventory_ids_match": true,
+        "name": "野幌店",
+        "official_rows": 47,
+        "stored_equipment": 47,
+        "visible_equipment": 47
+      },
+      {
+        "exercise_count": 72,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_a708286d3051",
+        "inventory_ids_match": true,
+        "name": "平岡店",
+        "official_rows": 47,
+        "stored_equipment": 47,
+        "visible_equipment": 47
+      },
+      {
+        "exercise_count": 74,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_a7a127d59c49",
+        "inventory_ids_match": true,
+        "name": "新松戸7丁目店",
+        "official_rows": 51,
+        "stored_equipment": 51,
+        "visible_equipment": 51
+      },
+      {
+        "exercise_count": 53,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_a8c739cf8b52",
+        "inventory_ids_match": true,
+        "name": "松戸小金店",
+        "official_rows": 30,
+        "stored_equipment": 30,
+        "visible_equipment": 30
+      },
+      {
+        "exercise_count": 59,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_af07e10da456",
+        "inventory_ids_match": true,
+        "name": "二本松店",
+        "official_rows": 28,
+        "stored_equipment": 28,
+        "visible_equipment": 28
+      },
+      {
+        "exercise_count": 60,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_b0acefd39697",
+        "inventory_ids_match": true,
+        "name": "勾当台通り店",
+        "official_rows": 36,
+        "stored_equipment": 36,
+        "visible_equipment": 36
+      },
+      {
+        "exercise_count": 73,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_b2cbb93d53d5",
+        "inventory_ids_match": true,
+        "name": "滝川店",
+        "official_rows": 49,
+        "stored_equipment": 49,
+        "visible_equipment": 49
+      },
+      {
+        "exercise_count": 76,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_b37387615b02",
+        "inventory_ids_match": true,
+        "name": "いわき内郷店",
+        "official_rows": 29,
+        "stored_equipment": 29,
+        "visible_equipment": 29
+      },
+      {
+        "exercise_count": 34,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_b771e1061968",
+        "inventory_ids_match": true,
+        "name": "さつきた店",
+        "official_rows": 30,
+        "stored_equipment": 30,
+        "visible_equipment": 30
+      },
+      {
+        "exercise_count": 77,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_badd760326a5",
+        "inventory_ids_match": true,
+        "name": "長命ヶ丘BRANCH店",
+        "official_rows": 42,
+        "stored_equipment": 42,
+        "visible_equipment": 42
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_bd8f17500726",
+        "inventory_ids_match": true,
+        "name": "フレスポ仙台東照宮店",
+        "official_rows": 39,
+        "stored_equipment": 39,
+        "visible_equipment": 39
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_c7648632dfc7",
+        "inventory_ids_match": true,
+        "name": "苫小牧西店",
+        "official_rows": 34,
+        "stored_equipment": 34,
+        "visible_equipment": 34
+      },
+      {
+        "exercise_count": 67,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_c7badb119987",
+        "inventory_ids_match": true,
+        "name": "札幌植物園店",
+        "official_rows": 34,
+        "stored_equipment": 34,
+        "visible_equipment": 34
+      },
+      {
+        "exercise_count": 69,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_c9ccc8aedc52",
+        "inventory_ids_match": true,
+        "name": "宮城の萩大通り店",
+        "official_rows": 36,
+        "stored_equipment": 36,
+        "visible_equipment": 36
+      },
+      {
+        "exercise_count": 67,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_cd17035f934d",
+        "inventory_ids_match": true,
+        "name": "あすと長町店",
+        "official_rows": 25,
+        "stored_equipment": 25,
+        "visible_equipment": 25
+      },
+      {
+        "exercise_count": 47,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_da6c7124ff9e",
+        "inventory_ids_match": true,
+        "name": "大野田店",
+        "official_rows": 36,
+        "stored_equipment": 36,
+        "visible_equipment": 36
+      },
+      {
+        "exercise_count": 63,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_e42a49dbdacb",
+        "inventory_ids_match": true,
+        "name": "札幌大通店",
+        "official_rows": 27,
+        "stored_equipment": 27,
+        "visible_equipment": 27
+      },
+      {
+        "exercise_count": 65,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_e4aac813e6fa",
+        "inventory_ids_match": true,
+        "name": "盛岡菜園店",
+        "official_rows": 41,
+        "stored_equipment": 41,
+        "visible_equipment": 41
+      },
+      {
+        "exercise_count": 80,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_e831f512b64d",
+        "inventory_ids_match": true,
+        "name": "美園店",
+        "official_rows": 49,
+        "stored_equipment": 49,
+        "visible_equipment": 49
+      },
+      {
+        "exercise_count": 32,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_ed63cab68afd",
+        "inventory_ids_match": true,
+        "name": "いわき鹿島SC店",
+        "official_rows": 24,
+        "stored_equipment": 24,
+        "visible_equipment": 24
+      },
+      {
+        "exercise_count": 76,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_f20c381ea2be",
+        "inventory_ids_match": true,
+        "name": "富谷店",
+        "official_rows": 48,
+        "stored_equipment": 48,
+        "visible_equipment": 48
+      },
+      {
+        "exercise_count": 75,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_f4165558a9b2",
+        "inventory_ids_match": true,
+        "name": "仙台中野店",
+        "official_rows": 43,
+        "stored_equipment": 43,
+        "visible_equipment": 43
+      },
+      {
+        "exercise_count": 69,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_fd5dc0fdde3e",
+        "inventory_ids_match": true,
+        "name": "アクロスプラザ古川南店",
+        "official_rows": 37,
+        "stored_equipment": 37,
+        "visible_equipment": 37
+      },
+      {
+        "exercise_count": 70,
+        "filter_matches_detail": true,
+        "id": "anytime-fitness:anytime_jp_fffb9d5947ad",
+        "inventory_ids_match": true,
+        "name": "石巻あけぼの店",
+        "official_rows": 41,
+        "stored_equipment": 41,
+        "visible_equipment": 41
+      }
+    ],
+    "importer_unit_tests_passed": 5,
+    "database_written": false
+  }
+}
