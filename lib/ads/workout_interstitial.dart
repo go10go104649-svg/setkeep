@@ -8,22 +8,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ads_config.dart';
 
-/// Frequency belongs to the ad policy, never to a workout screen or history.
+/// Interstitial frequency is based on an actual display in the local calendar
+/// day. The former completed-workout counter is intentionally ignored.
 class WorkoutInterstitialPolicy {
-  const WorkoutInterstitialPolicy({this.everyCompletions = 3});
-  final int everyCompletions;
-  static const _countKey = 'ads_completed_workouts_v1';
+  const WorkoutInterstitialPolicy([this._now]);
 
-  Future<bool> recordCompletion(SharedPreferences prefs) async {
-    final count = prefs.getInt(_countKey) ?? 0;
-    final next = count + 1;
-    if (!await prefs.setInt(_countKey, next)) return false;
-    return next > 1 && next % everyCompletions == 0;
-  }
+  static const lastShownLocalDateKey =
+      'ads_last_interstitial_shown_local_date_v1';
+  final DateTime Function()? _now;
+
+  DateTime get _localNow => (_now?.call() ?? DateTime.now()).toLocal();
+
+  String _dateKey(DateTime value) =>
+      '${value.year.toString().padLeft(4, '0')}-'
+      '${value.month.toString().padLeft(2, '0')}-'
+      '${value.day.toString().padLeft(2, '0')}';
+
+  Future<bool> canShow(SharedPreferences prefs) async =>
+      prefs.getString(lastShownLocalDateKey) != _dateKey(_localNow);
+
+  Future<bool> recordShown(SharedPreferences prefs) =>
+      prefs.setString(lastShownLocalDateKey, _dateKey(_localNow));
 }
 
 abstract class InterstitialHandle {
-  Future<void> show();
+  /// Returns true only after the SDK reports full-screen content was shown.
+  Future<bool> show({required Future<void> Function() onShown});
   void dispose();
 }
 
@@ -86,19 +96,29 @@ class _GoogleInterstitialHandle implements InterstitialHandle {
   bool _disposed = false;
 
   @override
-  Future<void> show() async {
-    final finished = Completer<void>();
-    void finish() {
-      if (!finished.isCompleted) finished.complete();
+  Future<bool> show({required Future<void> Function() onShown}) async {
+    final finished = Completer<bool>();
+    var shown = false;
+    Future<void>? recording;
+    Future<void> finish(bool value) async {
+      if (finished.isCompleted) return;
+      if (value) await recording;
+      finished.complete(value);
     }
 
     _ad.fullScreenContentCallback = FullScreenContentCallback<InterstitialAd>(
-      onAdDismissedFullScreenContent: (_) => finish(),
-      onAdFailedToShowFullScreenContent: (_, error) => finish(),
+      onAdShowedFullScreenContent: (_) {
+        shown = true;
+        recording = onShown();
+      },
+      onAdDismissedFullScreenContent: (_) => unawaited(finish(shown)),
+      onAdFailedToShowFullScreenContent: (_, error) => unawaited(finish(false)),
     );
     try {
       await _ad.show();
-      await finished.future;
+      return await finished.future;
+    } catch (_) {
+      return false;
     } finally {
       dispose();
     }
@@ -115,23 +135,34 @@ class _GoogleInterstitialHandle implements InterstitialHandle {
 /// One instance is passed from the completed workout to its share page.
 /// It can attempt display only once, even if save and Back race each other.
 class WorkoutInterstitialSession with WidgetsBindingObserver {
-  WorkoutInterstitialSession._(this._entitlement, this._backend, this._unitId) {
+  WorkoutInterstitialSession._(
+    this._entitlement,
+    this._backend,
+    this._unitId,
+    this._preferences,
+    this._policy,
+  ) {
     final state = WidgetsBinding.instance.lifecycleState;
     _foreground = state == null || state == AppLifecycleState.resumed;
     _entitlement.addListener(_onEntitlement);
     WidgetsBinding.instance.addObserver(this);
   }
 
+  static const loadWaitBeforeNavigation = Duration(seconds: 1);
+
   final AdsEntitlement _entitlement;
   final InterstitialBackend _backend;
   final String _unitId;
+  final SharedPreferences _preferences;
+  final WorkoutInterstitialPolicy _policy;
   InterstitialHandle? _ad;
+  Future<InterstitialHandle?>? _loadFuture;
   bool _disposed = false;
   bool _foreground = true;
   bool _attempted = false;
   bool get attempted => _attempted;
 
-  static Future<WorkoutInterstitialSession?> afterSavedWorkout({
+  static Future<WorkoutInterstitialSession?> prepareForWorkoutCompletion({
     required AdsConfig config,
     required AdsEntitlement entitlement,
     required TargetPlatform platform,
@@ -145,12 +176,13 @@ class WorkoutInterstitialSession with WidgetsBindingObserver {
       return null;
     }
     final prefs = preferences ?? await SharedPreferences.getInstance();
-    final eligible = await policy.recordCompletion(prefs);
-    if (!eligible) return null;
+    if (!await policy.canShow(prefs)) return null;
     final session = WorkoutInterstitialSession._(
       entitlement,
       resolvedBackend,
       id,
+      prefs,
+      policy,
     );
     session.preload();
     return session;
@@ -158,33 +190,71 @@ class WorkoutInterstitialSession with WidgetsBindingObserver {
 
   void preload() {
     if (_disposed || _entitlement.adFree || !_foreground) return;
-    unawaited(_load());
+    _loadFuture ??= _load();
   }
 
-  Future<void> _load() async {
+  Future<InterstitialHandle?> _load() async {
     try {
       final ad = await _backend.load(_unitId);
-      if (_disposed || _entitlement.adFree || !_foreground || _attempted) {
+      if (_disposed || _entitlement.adFree || !_foreground) {
         ad?.dispose();
-      } else {
-        _ad = ad;
+        return null;
       }
+      _ad = ad;
+      return ad;
     } catch (_) {
-      // Ads are optional and must never affect saved workouts or navigation.
+      return null;
     }
   }
 
   Future<void> tryShow() async {
     if (_attempted || _disposed) return;
     _attempted = true;
-    final ad = _ad;
-    _ad = null;
-    if (ad == null || _entitlement.adFree || !_foreground) {
+    if (_entitlement.adFree || !_foreground) return;
+    if (!await _policy.canShow(_preferences)) return;
+
+    var ad = _ad;
+    if (ad == null) {
+      final loading = _loadFuture;
+      if (loading != null) {
+        try {
+          ad = await loading.timeout(
+            loadWaitBeforeNavigation,
+            onTimeout: () => null,
+          );
+        } catch (_) {
+          ad = null;
+        }
+      }
+    }
+    if (ad == null || _disposed || _entitlement.adFree || !_foreground) {
       ad?.dispose();
+      final loading = _loadFuture;
+      if (ad == null && loading != null) {
+        unawaited(
+          loading
+              .then((lateAd) {
+                if (identical(_ad, lateAd)) _ad = null;
+                lateAd?.dispose();
+              })
+              .catchError((Object _) {}),
+        );
+      }
       return;
     }
+    if (identical(_ad, ad)) _ad = null;
     try {
-      await ad.show().timeout(const Duration(seconds: 30));
+      await ad
+          .show(
+            onShown: () async {
+              try {
+                await _policy.recordShown(_preferences);
+              } catch (_) {
+                // A local preference failure must not block ad dismissal.
+              }
+            },
+          )
+          .timeout(const Duration(seconds: 30), onTimeout: () => false);
     } catch (_) {
       // A failed/missing native callback must not trap the user on this page.
     } finally {

@@ -4,9 +4,10 @@
 
 ## 動作
 
-- 新規トレーニング記録の保存とactive draft削除を終え、任意の設備確認を閉じた後に広告判定を行う。編集と履歴からの画像作成は対象外。
-- 完了回数を端末のSharedPreferencesへ保存し、初回は出さず3回目ごとに候補とする。履歴やSupabaseの個人データは広告頻度へ使用しない。
-- 候補回は完了ダイアログ中にGoogle公式テストInterstitialを事前ロードする。未ロード、失敗、バックグラウンド、adFree時は表示をスキップする。
+- 入力検証通過後に広告ロードを開始するが、新規トレーニング記録の保存、active draft削除、任意の設備確認を先に確定してから表示を試行する。編集と履歴からの画像作成は対象外。
+- トレーニング完了時は毎回候補とし、実表示は端末のローカルカレンダー日ごとに最大1回とする。履歴やSupabaseの個人データは広告頻度へ使用しない。旧3回カウンターは参照しない。
+- 入力検証通過後の完了処理開始時にGoogle公式テストInterstitialを事前ロードする。表示時にロード中なら最大1秒待ち、未ロード、失敗、バックグラウンド、adFree時は表示をスキップする。
+- `onAdShowedFullScreenContent`で実表示を確認できた場合だけ日付を保存する。ロード失敗、未ロード、show失敗では日付を保存せず、同日の次回トレーニングで再挑戦できる。
 - 画像保存成功後、または画像を保存せずHOMEへ戻る直前に表示を最大1回だけ試行する。保存失敗時は表示せず、後で画面を閉じる際の1回のみ候補にする。
 - 広告callbackが来ない場合にも30秒で待機を終える。広告の成否は記録保存、画像保存、HOME遷移を巻き戻さない。
 - 一般版のみ`AdsScope`からInterstitialのSDK境界を取得。TRAINERにはscopeも広告要求もない。`AdsEntitlement.adFree`はBannerとInterstitialの両方を止める。
@@ -19,13 +20,17 @@
 - 一般版のrelease署名は外部ファイルを要求する構成。本番広告ID、UMP/ATT・プライバシー申告は未実装で、本番ストア公開前の別工程。
 - 機密値の新規ハードコード、店舗・認証・トレーニング履歴データの変更なし。
 
-## 検証
+## 日次仕様への更新後の検証
 
 - 一般版/ TRAINER `flutter analyze --no-pub`: 両方成功、0 issues。
-- `test/workout_interstitial_test.dart`に頻度、adFree、失敗/未ロード、二重show、バックグラウンド、保存済み記録後の遷移、SNS画像保存後の遷移、TRAINER隔離のfake SDKテストを追加。
-- 一般版/ TRAINER `flutter test --no-pub`: **未完了**。実行環境がテストランナーの`127.0.0.1`ソケット作成を拒否し、テスト本文に到達しない。
-- 一般版/ TRAINER Android debug build: **未完了**。実行環境が`~/.gradle`のwrapper lock書込を拒否。
-- 一般版/ TRAINER iOS Simulator debug build: **未完了**。CoreSimulatorService接続とSwiftPM/clangキャッシュ書込が実行環境に拒否された。
-- Galaxy: ADB daemonのソケット起動が実行環境に拒否されたため、実機での表示確認は未実施。
+- `test/workout_interstitial_test.dart`にローカル日付制限、実表示時だけの記録、adFree、失敗/未ロード、500ms遅延ロード、二重show、バックグラウンド、保存済み記録後の遷移、SNS画像保存後の遷移、TRAINER隔離のfake SDKテストを追加。
+- 一般版 `flutter test --no-pub`: 408件成功。TRAINER `flutter test --no-pub`: 24件成功。
+- 一般版 Android debug build: 成功（`build/app/outputs/flutter-apk/app-debug.apk`）。
+- `git diff --check`: 成功。
+- Galaxy: `flutter devices`で接続を確認できなかったため、日次1回の実表示確認は未実施。
 
-制限のないMac環境で、両アプリのFlutter tests/debug builds、Galaxyで3回目のテスト広告、画像保存後/非保存時の遷移、オフライン、TRAINER広告なしを再確認すること。
+Galaxyで当日最初の完了時のテスト広告、同日2回目の非表示、画像保存後/非保存時の遷移、オフライン時の同日再挑戦を確認すること。
+
+## 旧仕様
+
+初回実装では初回を非表示、完了3回目ごとを候補とし、表示時に未ロードなら即時スキップしていた。この仕様はGalaxyで5回完了しても表示されない結果を受けて廃止した。

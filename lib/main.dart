@@ -288,6 +288,8 @@ class WorkoutImageService {
   static const _channel = MethodChannel('com.setkeep.app/workout_image');
   @visibleForTesting
   static Future<void> Function(Uint8List)? saveOverride;
+  @visibleForTesting
+  static Future<Uint8List> Function()? captureOverride;
 
   static Future<void> save(Uint8List bytes) async {
     if (saveOverride case final override?) {
@@ -1574,7 +1576,9 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(child: IndexedStack(index: _selectedIndex, children: pages)),
+          Expanded(
+            child: IndexedStack(index: _selectedIndex, children: pages),
+          ),
           if (_selectedIndex == 0) const SetkeepBannerAd(),
         ],
       ),
@@ -5620,19 +5624,23 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
     setState(() => _sharing = true);
     var saved = false;
     try {
-      await WidgetsBinding.instance.endOfFrame;
-      final boundary =
-          _previewKey.currentContext?.findRenderObject()
-              as RenderRepaintBoundary?;
-      if (boundary == null) throw StateError('preview not ready');
-      final image = await boundary.toImage(pixelRatio: 3);
       late final Uint8List bytes;
-      try {
-        final data = await image.toByteData(format: ui.ImageByteFormat.png);
-        if (data == null) throw StateError('image conversion failed');
-        bytes = data.buffer.asUint8List();
-      } finally {
-        image.dispose();
+      if (WorkoutImageService.captureOverride case final capture?) {
+        bytes = await capture();
+      } else {
+        await WidgetsBinding.instance.endOfFrame;
+        final boundary =
+            _previewKey.currentContext?.findRenderObject()
+                as RenderRepaintBoundary?;
+        if (boundary == null) throw StateError('preview not ready');
+        final image = await boundary.toImage(pixelRatio: 3);
+        try {
+          final data = await image.toByteData(format: ui.ImageByteFormat.png);
+          if (data == null) throw StateError('image conversion failed');
+          bytes = data.buffer.asUint8List();
+        } finally {
+          image.dispose();
+        }
       }
       if (!mounted) return;
       await WorkoutImageService.save(bytes);
@@ -5897,6 +5905,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   bool _completing = false;
   WorkoutRecord? _savedRecord;
   WorkoutInterstitialSession? _completionAd;
+  Future<WorkoutInterstitialSession?>? _completionAdLoading;
   late final _draftStore = WorkoutDraftStore(
     write: (value) async {
       final saved = await AndroidWorkoutDraft.write(value);
@@ -6011,9 +6020,8 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       if (mounted && placeNotice != null && !widget.isEditing) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(placeNotice!)),
-            );
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(placeNotice!)));
           }
         });
       }
@@ -6023,6 +6031,15 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     _completionAd?.dispose();
+    final loadingAd = _completionAdLoading;
+    _completionAdLoading = null;
+    if (loadingAd != null) {
+      unawaited(
+        loadingAd
+            .then((session) => session?.dispose())
+            .catchError((Object _) {}),
+      );
+    }
     WidgetsBinding.instance.removeObserver(this);
     RestNotificationService.listen(null);
     _timer?.cancel();
@@ -6031,6 +6048,35 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     _noteController.dispose();
     _numericInput.dispose();
     super.dispose();
+  }
+
+  void _prepareCompletionInterstitial() {
+    if (widget.isEditing ||
+        _completionAd != null ||
+        _completionAdLoading != null) {
+      return;
+    }
+    final ads = AdsScope.of(context);
+    if (ads == null) return;
+    _completionAdLoading =
+        WorkoutInterstitialSession.prepareForWorkoutCompletion(
+          config: ads.config,
+          entitlement: ads.entitlement,
+          platform: Theme.of(context).platform,
+          backend: ads.interstitialBackend,
+        );
+  }
+
+  Future<void> _resolveCompletionInterstitial() async {
+    if (_completionAd != null) return;
+    final loading = _completionAdLoading;
+    _completionAdLoading = null;
+    if (loading == null) return;
+    try {
+      _completionAd = await loading;
+    } catch (_) {
+      // Ads never affect workout storage, equipment confirmation or navigation.
+    }
   }
 
   @override
@@ -7402,11 +7448,28 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       return;
     }
 
-    if (completedSets.any((set) => !set.hasRequiredValues)) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('記録項目に1以上の数字を入力してください')));
+    final invalidSet = completedSets
+        .where((set) => !set.hasRequiredValues)
+        .firstOrNull;
+    if (invalidSet != null) {
+      final message = invalidSet.isTreadmill
+          ? '時間または距離を入力してください'
+          : '記録項目に1以上の数字を入力してください';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.fromLTRB(
+            16,
+            0,
+            16,
+            16 + MediaQuery.viewPaddingOf(context).bottom,
+          ),
+        ),
+      );
       return;
     }
+    _prepareCompletionInterstitial();
     FocusScope.of(context).unfocus();
     late final Duration finalElapsed;
     setState(() {
@@ -7472,21 +7535,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       );
     }
     if (!mounted) return;
-    if (!widget.isEditing && _completionAd == null) {
-      final ads = AdsScope.of(context);
-      if (ads != null) {
-        try {
-          _completionAd = await WorkoutInterstitialSession.afterSavedWorkout(
-            config: ads.config,
-            entitlement: ads.entitlement,
-            platform: Theme.of(context).platform,
-            backend: ads.interstitialBackend,
-          );
-        } catch (_) {
-          // Ad policy/storage failure cannot affect the completed workout.
-        }
-      }
-    }
+    await _resolveCompletionInterstitial();
     if (!mounted) return;
     await showDialog<void>(
       context: context,
@@ -10090,6 +10139,10 @@ class RecordedSet {
   final int paceSecondsPerKm;
   final bool completed;
 
+  bool get isTreadmill =>
+      exerciseId == 'treadmill' ||
+      (exerciseId == null && exerciseName == 'トレッドミル');
+
   bool get hasRequiredValues => switch (recordType) {
     ExerciseRecordType.assistedReps =>
       weight.isFinite && weight >= 0 && reps > 0,
@@ -10109,6 +10162,9 @@ class RecordedSet {
   };
 
   bool get _hasActivityValues {
+    if (isTreadmill) {
+      return durationSeconds > 0 || (distanceKm.isFinite && distanceKm > 0);
+    }
     if (durationSeconds <= 0) return false;
     final fields = ExerciseFormCatalog.byId[exerciseId]?.recordFields;
     if (fields != null && !fields.contains('distance')) {
@@ -10780,6 +10836,9 @@ class _ActivityInputGrid extends StatelessWidget {
         fields?.contains('pace') ??
         (exerciseName == 'ローイングマシン' ||
             recordType == ExerciseRecordType.distance);
+    final isTreadmill =
+        exerciseId == 'treadmill' ||
+        (exerciseId == null && exerciseName == 'トレッドミル');
     return Wrap(
       spacing: 10,
       runSpacing: 10,
@@ -10808,14 +10867,14 @@ class _ActivityInputGrid extends StatelessWidget {
         if (showSpeed)
           _MetricInput(
             key: Key('speedField$fieldPrefix'),
-            label: '速度（km/h）',
+            label: isTreadmill ? '速度（km/h・任意）' : '速度（km/h）',
             value: set.speedKmh,
             onChanged: onSpeedChanged,
           ),
         if (showIncline)
           _MetricInput(
             key: Key('inclineField$fieldPrefix'),
-            label: '傾斜（%）',
+            label: isTreadmill ? '傾斜（%・任意）' : '傾斜（%）',
             value: set.inclinePercent,
             onChanged: onInclineChanged,
           ),
@@ -10893,6 +10952,24 @@ class NumericLeadingZeroFormatter extends TextInputFormatter {
       ),
       composing: TextRange.empty,
     );
+  }
+}
+
+/// Accept decimal separators supplied by Android IMEs without dropping them.
+class DecimalNumberInputFormatter extends TextInputFormatter {
+  const DecimalNumberInputFormatter();
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (!newValue.composing.isCollapsed) return newValue;
+    final normalized = newValue.text.replaceAll(RegExp(r'[,．。٫]'), '.');
+    if (!RegExp(r'^\d*(\.\d{0,2})?$').hasMatch(normalized)) {
+      return oldValue;
+    }
+    return newValue.copyWith(text: normalized);
   }
 }
 
@@ -11357,10 +11434,7 @@ class _ValueBoxState extends State<ValueBox> {
       textAlign: TextAlign.center,
       inputFormatters: [
         if (widget.allowDecimal)
-          TextInputFormatter.withFunction((oldValue, newValue) {
-            final valid = RegExp(r'^\d*([\.,]\d{0,2})?$');
-            return valid.hasMatch(newValue.text) ? newValue : oldValue;
-          })
+          const DecimalNumberInputFormatter()
         else
           FilteringTextInputFormatter.digitsOnly,
         if (widget.normalizeZeros) const NumericLeadingZeroFormatter(),

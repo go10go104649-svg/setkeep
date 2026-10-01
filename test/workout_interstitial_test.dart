@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,11 +25,14 @@ class _NoBanner implements BannerBackend {
 class _FakeAd implements InterstitialHandle {
   int shows = 0;
   int disposals = 0;
+  bool showSucceeds = true;
   Completer<void>? pending;
   @override
-  Future<void> show() {
+  Future<bool> show({required Future<void> Function() onShown}) async {
     shows++;
-    return pending?.future ?? Future<void>.value();
+    await pending?.future;
+    if (showSucceeds) await onShown();
+    return showSucceeds;
   }
 
   @override
@@ -41,6 +45,7 @@ class _FakeBackend implements InterstitialBackend {
   int loads = 0;
   bool fail = false;
   bool pending = false;
+  Duration? delay;
   Completer<InterstitialHandle?>? loading;
   @override
   bool get supported => true;
@@ -48,6 +53,7 @@ class _FakeBackend implements InterstitialBackend {
   Future<InterstitialHandle?> load(String unitId) async {
     loads++;
     if (fail) throw StateError('offline');
+    if (delay != null) await Future<void>.delayed(delay!);
     if (pending) {
       loading = Completer<InterstitialHandle?>();
       return loading!.future;
@@ -56,22 +62,19 @@ class _FakeBackend implements InterstitialBackend {
   }
 }
 
-Future<void> _primeTwoCompletions() async {
-  final prefs = await SharedPreferences.getInstance();
-  const policy = WorkoutInterstitialPolicy();
-  expect(await policy.recordCompletion(prefs), false);
-  expect(await policy.recordCompletion(prefs), false);
-}
-
 Future<WorkoutInterstitialSession?> _finish(
   AdsEntitlement entitlement,
   _FakeBackend backend, {
   AdsConfig config = const AdsConfig(generalApp: true),
-}) => WorkoutInterstitialSession.afterSavedWorkout(
+  SharedPreferences? preferences,
+  WorkoutInterstitialPolicy policy = const WorkoutInterstitialPolicy(),
+}) => WorkoutInterstitialSession.prepareForWorkoutCompletion(
   config: config,
   entitlement: entitlement,
   platform: TargetPlatform.android,
   backend: backend,
+  preferences: preferences,
+  policy: policy,
 );
 
 String _draft() => jsonEncode({
@@ -127,70 +130,153 @@ void main() {
     entitlement.dispose();
   });
 
+  testWidgets('actual display is limited to once per local calendar day', (
+    tester,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final entitlement = AdsEntitlement();
+    final backend = _FakeBackend(_FakeAd());
+    final octoberFirst = WorkoutInterstitialPolicy(
+      () => DateTime(2026, 10, 1, 23, 50),
+    );
+    final first = await _finish(
+      entitlement,
+      backend,
+      preferences: prefs,
+      policy: octoberFirst,
+    );
+    await tester.pump();
+    expect(first, isNotNull);
+    await first!.tryShow();
+    expect(backend.ad.shows, 1);
+    expect(
+      prefs.getString(WorkoutInterstitialPolicy.lastShownLocalDateKey),
+      '2026-10-01',
+    );
+    expect(
+      await _finish(
+        entitlement,
+        backend,
+        preferences: prefs,
+        policy: octoberFirst,
+      ),
+      isNull,
+    );
+    expect(backend.loads, 1);
+
+    final octoberSecond = WorkoutInterstitialPolicy(
+      () => DateTime(2026, 10, 2, 0, 10),
+    );
+    final nextDay = await _finish(
+      entitlement,
+      backend,
+      preferences: prefs,
+      policy: octoberSecond,
+    );
+    expect(
+      nextDay,
+      isNotNull,
+      reason: 'local date changed after only 20 minutes',
+    );
+    nextDay!.dispose();
+    first.dispose();
+    entitlement.dispose();
+  });
+
   testWidgets(
-    'first completion suppressed; third eligible across prefs reads',
+    'old completion counter is ignored and first completion is eligible',
     (tester) async {
+      SharedPreferences.setMockInitialValues({'ads_completed_workouts_v1': 1});
       final entitlement = AdsEntitlement();
       final backend = _FakeBackend(_FakeAd());
-      expect(await _finish(entitlement, backend), isNull);
-      expect(await _finish(entitlement, backend), isNull);
       final session = await _finish(entitlement, backend);
       await tester.pump();
       expect(session, isNotNull);
       expect(backend.loads, 1);
-      await session!.tryShow();
-      expect(backend.ad.shows, 1);
-      session.dispose();
-      final fourth = await _finish(entitlement, backend);
-      expect(fourth, isNull);
+      session!.dispose();
       entitlement.dispose();
     },
   );
 
-  testWidgets('adFree skips load; unloaded and failed load skip immediately', (
+  testWidgets('load and show failures do not consume the daily allowance', (
     tester,
   ) async {
-    await _primeTwoCompletions();
-    final entitlement = AdsEntitlement(adFree: true);
-    final backend = _FakeBackend(_FakeAd());
-    expect(await _finish(entitlement, backend), isNull);
-    expect(backend.loads, 0);
-    entitlement.adFree = false;
-    backend.pending = true;
-    final session = await _finish(entitlement, backend);
-    await session!.tryShow();
-    expect(session.attempted, true);
-    expect(backend.ad.shows, 0);
-    backend.loading!.complete(backend.ad);
+    final prefs = await SharedPreferences.getInstance();
+    final entitlement = AdsEntitlement();
+    final failedBackend = _FakeBackend(_FakeAd())..fail = true;
+    final failedLoad = await _finish(
+      entitlement,
+      failedBackend,
+      preferences: prefs,
+    );
     await tester.pump();
-    expect(backend.ad.disposals, greaterThan(0));
+    await failedLoad!.tryShow();
+    expect(
+      prefs.getString(WorkoutInterstitialPolicy.lastShownLocalDateKey),
+      isNull,
+    );
+    failedLoad.dispose();
+
+    final failedAd = _FakeAd()..showSucceeds = false;
+    final failedShow = await _finish(
+      entitlement,
+      _FakeBackend(failedAd),
+      preferences: prefs,
+    );
+    await tester.pump();
+    await failedShow!.tryShow();
+    expect(failedAd.shows, 1);
+    expect(
+      prefs.getString(WorkoutInterstitialPolicy.lastShownLocalDateKey),
+      isNull,
+    );
+    failedShow.dispose();
+
+    final retryBackend = _FakeBackend(_FakeAd());
+    final retry = await _finish(entitlement, retryBackend, preferences: prefs);
+    await tester.pump();
+    expect(retry, isNotNull);
+    await retry!.tryShow();
+    expect(retryBackend.ad.shows, 1);
+    retry.dispose();
+    entitlement.dispose();
+  });
+
+  testWidgets('tryShow waits briefly for a 500ms preload race', (tester) async {
+    final entitlement = AdsEntitlement();
+    final backend = _FakeBackend(_FakeAd())
+      ..delay = const Duration(milliseconds: 500);
+    final session = await _finish(entitlement, backend);
+    final showing = session!.tryShow();
+    await tester.pump(const Duration(milliseconds: 500));
+    await showing;
+    expect(backend.ad.shows, 1);
     session.dispose();
     entitlement.dispose();
   });
 
-  testWidgets('load failure, entitlement change and background never block', (
+  testWidgets('adFree, unloaded, background and dispose remain safe', (
     tester,
   ) async {
-    await _primeTwoCompletions();
-    final entitlement = AdsEntitlement();
-    final backend = _FakeBackend(_FakeAd())..fail = true;
-    final failed = await _finish(entitlement, backend);
-    await tester.pump();
-    await failed!.tryShow();
-    expect(backend.ad.shows, 0);
-    failed.dispose();
+    final entitlement = AdsEntitlement(adFree: true);
+    final backend = _FakeBackend(_FakeAd());
+    expect(await _finish(entitlement, backend), isNull);
+    expect(backend.loads, 0);
 
-    SharedPreferences.setMockInitialValues({'ads_completed_workouts_v1': 2});
-    backend.fail = false;
-    final adFree = await _finish(entitlement, backend);
-    await tester.pump();
-    entitlement.adFree = true;
-    await adFree!.tryShow();
-    expect(backend.ad.shows, 0);
-    adFree.dispose();
     entitlement.adFree = false;
+    backend.pending = true;
+    final unloaded = await _finish(entitlement, backend);
+    final skipped = unloaded!.tryShow();
+    await tester.pump(WorkoutInterstitialSession.loadWaitBeforeNavigation);
+    await skipped;
+    expect(unloaded.attempted, true);
+    expect(backend.ad.shows, 0);
+    backend.loading!.complete(backend.ad);
+    await tester.pump();
+    expect(backend.ad.disposals, greaterThan(0));
+    unloaded.dispose();
 
-    SharedPreferences.setMockInitialValues({'ads_completed_workouts_v1': 2});
+    backend.pending = false;
     final background = await _finish(entitlement, backend);
     await tester.pump();
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
@@ -201,31 +287,30 @@ void main() {
     entitlement.dispose();
   });
 
-  testWidgets('double show, lifecycle, entitlement and dispose are safe', (
-    tester,
-  ) async {
-    await _primeTwoCompletions();
-    final entitlement = AdsEntitlement();
-    final backend = _FakeBackend(_FakeAd()..pending = Completer<void>());
-    final session = await _finish(entitlement, backend);
-    await tester.pump();
-    final first = session!.tryShow();
-    await session.tryShow();
-    expect(backend.ad.shows, 1);
-    backend.ad.pending!.complete();
-    await first;
-    session.dispose();
-    await session.tryShow();
-    expect(backend.ad.shows, 1);
-    entitlement.dispose();
-  });
+  testWidgets(
+    'same workout can show at most once and late callbacks are safe',
+    (tester) async {
+      final entitlement = AdsEntitlement();
+      final backend = _FakeBackend(_FakeAd()..pending = Completer<void>());
+      final session = await _finish(entitlement, backend);
+      await tester.pump();
+      final first = session!.tryShow();
+      await session.tryShow();
+      expect(backend.ad.shows, 1);
+      backend.ad.pending!.complete();
+      await first;
+      session.dispose();
+      await session.tryShow();
+      expect(backend.ad.shows, 1);
+      entitlement.dispose();
+    },
+  );
 
   testWidgets('no-save exit attempts ad after saved workout, once', (
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({
       activeWorkoutDraftStorageKey: _draft(),
-      'ads_completed_workouts_v1': 2,
     });
     final entitlement = AdsEntitlement();
     final backend = _FakeBackend(_FakeAd());
@@ -264,15 +349,22 @@ void main() {
   testWidgets('saved image shows then returns home; Back does not show twice', (
     tester,
   ) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
     SharedPreferences.setMockInitialValues({
       activeWorkoutDraftStorageKey: _draft(),
-      'ads_completed_workouts_v1': 2,
     });
     int saves = 0;
+    WorkoutImageService.captureOverride = () async => Uint8List(1);
     WorkoutImageService.saveOverride = (_) async {
       saves++;
     };
-    addTearDown(() => WorkoutImageService.saveOverride = null);
+    addTearDown(() {
+      WorkoutImageService.captureOverride = null;
+      WorkoutImageService.saveOverride = null;
+    });
     final entitlement = AdsEntitlement();
     final backend = _FakeBackend(_FakeAd());
     await tester.pumpWidget(
@@ -296,7 +388,16 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(WorkoutSharePage), findsOneWidget);
     await tester.tap(find.byKey(const Key('shareWorkoutImageButton')));
-    await tester.pumpAndSettle();
+    for (var i = 0; i < 30 && saves == 0; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    for (
+      var i = 0;
+      i < 20 && find.byType(WorkoutSharePage).evaluate().isNotEmpty;
+      i++
+    ) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(saves, 1);
     expect(backend.ad.shows, 1);
     expect(find.byType(WorkoutSharePage), findsNothing);
