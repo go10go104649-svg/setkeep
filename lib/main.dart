@@ -1,5 +1,6 @@
 import 'ads/ads_config.dart';
 import 'ads/setkeep_banner_ad.dart';
+import 'ads/workout_interstitial.dart';
 import 'trainer/trainer_inbox_page.dart';
 import 'trainer/trainer_inbox_repository.dart';
 import 'design/family_theme.dart';
@@ -285,8 +286,14 @@ class WorkoutImageService {
   WorkoutImageService._();
 
   static const _channel = MethodChannel('com.setkeep.app/workout_image');
+  @visibleForTesting
+  static Future<void> Function(Uint8List)? saveOverride;
 
   static Future<void> save(Uint8List bytes) async {
+    if (saveOverride case final override?) {
+      await override(bytes);
+      return;
+    }
     if (!(Platform.isIOS || Platform.isAndroid)) {
       throw UnsupportedError('Image saving is only supported on mobile');
     }
@@ -5557,9 +5564,16 @@ class WorkoutDetailPage extends StatelessWidget {
 }
 
 class WorkoutSharePage extends StatefulWidget {
-  const WorkoutSharePage({super.key, required this.workout});
+  const WorkoutSharePage({
+    super.key,
+    required this.workout,
+    this.completionFlow = false,
+    this.completionAd,
+  });
 
   final WorkoutRecord workout;
+  final bool completionFlow;
+  final WorkoutInterstitialSession? completionAd;
 
   @override
   State<WorkoutSharePage> createState() => _WorkoutSharePageState();
@@ -5569,6 +5583,20 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
   final GlobalKey _previewKey = GlobalKey();
   Uint8List? _backgroundBytes;
   bool _sharing = false;
+  bool _leaving = false;
+
+  Future<void> _leaveCompletedShare() async {
+    if (_leaving || !widget.completionFlow) return;
+    _leaving = true;
+    await widget.completionAd?.tryShow();
+    if (mounted) Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    widget.completionAd?.dispose();
+    super.dispose();
+  }
 
   Future<void> _choosePhoto() async {
     try {
@@ -5590,6 +5618,7 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
   Future<void> _saveImage() async {
     if (_sharing) return;
     setState(() => _sharing = true);
+    var saved = false;
     try {
       await WidgetsBinding.instance.endOfFrame;
       final boundary =
@@ -5607,6 +5636,7 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
       }
       if (!mounted) return;
       await WorkoutImageService.save(bytes);
+      saved = true;
       if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('画像を写真へ保存しました')));
@@ -5618,10 +5648,23 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
     } finally {
       if (mounted) setState(() => _sharing = false);
     }
+    if (saved && mounted && widget.completionFlow) {
+      await _leaveCompletedShare();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    return PopScope(
+      canPop: !widget.completionFlow,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) unawaited(_leaveCompletedShare());
+      },
+      child: _buildShareScaffold(context),
+    );
+  }
+
+  Widget _buildShareScaffold(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('SNS用画像')),
       body: ListView(
@@ -5853,6 +5896,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   bool _exiting = false;
   bool _completing = false;
   WorkoutRecord? _savedRecord;
+  WorkoutInterstitialSession? _completionAd;
   late final _draftStore = WorkoutDraftStore(
     write: (value) async {
       final saved = await AndroidWorkoutDraft.write(value);
@@ -5978,6 +6022,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    _completionAd?.dispose();
     WidgetsBinding.instance.removeObserver(this);
     RestNotificationService.listen(null);
     _timer?.cancel();
@@ -7427,6 +7472,22 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       );
     }
     if (!mounted) return;
+    if (!widget.isEditing && _completionAd == null) {
+      final ads = AdsScope.of(context);
+      if (ads != null) {
+        try {
+          _completionAd = await WorkoutInterstitialSession.afterSavedWorkout(
+            config: ads.config,
+            entitlement: ads.entitlement,
+            platform: Theme.of(context).platform,
+            backend: ads.interstitialBackend,
+          );
+        } catch (_) {
+          // Ad policy/storage failure cannot affect the completed workout.
+        }
+      }
+    }
+    if (!mounted) return;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -7472,7 +7533,8 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                 onPressed: () async {
                   if (!dialogContext.mounted || !mounted) return;
                   Navigator.of(dialogContext).pop();
-                  _exitWorkout(record);
+                  await _completionAd?.tryShow();
+                  await _exitWorkout(record);
                 },
                 child: const Text('ホームへ戻る'),
               ),
@@ -7487,10 +7549,16 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                 }
                 // Saving and draft cleanup have finished. Replace the ended
                 // workout so every share-page exit returns to its home caller.
+                final completionAd = _completionAd;
+                _completionAd = null;
                 _exiting = true;
                 Navigator.of(context).pushReplacement<void, WorkoutRecord>(
                   MaterialPageRoute<void>(
-                    builder: (_) => WorkoutSharePage(workout: record),
+                    builder: (_) => WorkoutSharePage(
+                      workout: record,
+                      completionFlow: true,
+                      completionAd: completionAd,
+                    ),
                   ),
                   result: record,
                 );

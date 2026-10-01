@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'ads_config.dart';
 import 'banner_backend.dart';
+import 'workout_interstitial.dart';
 
 /// No scope means no ads. Only SetkeepApp installs an enabled scope; TRAINER
 /// never opts in, even though it imports other components from this package.
@@ -12,17 +13,20 @@ class AdsScope extends InheritedWidget {
     required this.entitlement,
     required super.child,
     this.backend,
+    this.interstitialBackend,
   });
   final AdsConfig config;
   final AdsEntitlement entitlement;
   final BannerBackend? backend;
+  final InterstitialBackend? interstitialBackend;
   static AdsScope? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AdsScope>();
   @override
   bool updateShouldNotify(AdsScope oldWidget) =>
       config != oldWidget.config ||
       entitlement != oldWidget.entitlement ||
-      backend != oldWidget.backend;
+      backend != oldWidget.backend ||
+      interstitialBackend != oldWidget.interstitialBackend;
 }
 
 class SetkeepBannerAd extends StatefulWidget {

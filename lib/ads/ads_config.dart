@@ -22,6 +22,15 @@ class AdsConfig {
       _ => null,
     };
   }
+
+  String? interstitialId(TargetPlatform platform) {
+    if (!generalApp || mode != 'test') return null;
+    return switch (platform) {
+      TargetPlatform.android => 'ca-app-pub-3940256099942544/1033173712',
+      TargetPlatform.iOS => 'ca-app-pub-3940256099942544/4411468910',
+      _ => null,
+    };
+  }
 }
 
 /// Future verified purchase entitlement connects here, independently of Premium.
