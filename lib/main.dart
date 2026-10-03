@@ -1,3 +1,4 @@
+import 'sharing/share_photo_frame.dart';
 import 'friends/friends_ui.dart';
 import 'ads/ads_config.dart';
 import 'ads/setkeep_banner_ad.dart';
@@ -5707,25 +5708,9 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
                   key: _previewKey,
                   child: ClipRRect(
                     borderRadius: BorderRadius.zero,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        if (_backgroundBytes == null)
-                          const DecoratedBox(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [Color(0xFF26313A), Color(0xFF0D1216)],
-                              ),
-                            ),
-                          )
-                        else
-                          Image.memory(
-                            _backgroundBytes!,
-                            key: const Key('shareBackgroundPhoto'),
-                            fit: BoxFit.cover,
-                          ),
+                    child: SharePhotoFrame(
+                      bytes: _backgroundBytes,
+                      foreground: [
                         const DecoratedBox(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -5787,6 +5772,16 @@ class _WorkoutSharePageState extends State<WorkoutSharePage> {
               ),
             ),
           ),
+          if (_backgroundBytes != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                Localizations.localeOf(context).languageCode == 'en'
+                    ? 'Drag the photo to adjust its position'
+                    : '写真をドラッグして位置を調整できます',
+                textAlign: TextAlign.center,
+              ),
+            ),
           const SizedBox(height: 18),
           OutlinedButton.icon(
             key: const Key('chooseSharePhotoButton'),
