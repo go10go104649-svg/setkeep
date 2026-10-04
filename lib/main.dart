@@ -1,4 +1,5 @@
 import 'sharing/share_photo_frame.dart';
+import 'friends/friends_ui.dart';
 import 'ads/ads_config.dart';
 import 'ads/setkeep_banner_ad.dart';
 import 'ads/workout_interstitial.dart';
@@ -1088,6 +1089,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
   static const _gymStorageKey = 'selected_gym';
   int _selectedIndex = 0;
   List<WorkoutRecord> _history = [];
+  bool _historyLoaded = false;
   List<BodyWeightEntry> _bodyWeights = [];
   String? _selectedGym;
   List<SavedWorkoutTemplate> _workoutTemplates = [];
@@ -1223,6 +1225,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     final items = sortWorkoutsNewestFirst(decodeWorkoutHistory(encoded));
     setState(() {
       _history = items;
+      _historyLoaded = true;
       _bodyWeights = bodyWeights;
       _selectedGym = defaultPlace.name;
       _workoutTemplates = workoutTemplates;
@@ -1289,6 +1292,14 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
       jsonEncode(history.map((item) => item.toJson()).toList()),
     );
     if (!saved) throw StateError('Workout history could not be saved');
+    final friends = configuredFriends();
+    if (friends != null) {
+      unawaited(
+        friends.publish(history.map((w) => w.toJson()).toList()).catchError(
+          (Object _) { /* Retry from Friends & privacy on reconnect. */ },
+        ),
+      );
+    }
     unawaited(
       TrainingEquipmentServices.journal
           .reconcile(history.map(equipmentWorkoutFromRecord).toList())
@@ -1526,6 +1537,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     final pages = [
       DashboardPage(
         history: _visibleHistory,
+        friendsHistoryReady: _historyLoaded,
         bodyWeights: _bodyWeights,
         selectedGym: _selectedGym,
         onGymChanged: _saveGym,
@@ -1638,6 +1650,7 @@ class DashboardPage extends StatelessWidget {
     required this.onDraftChanged,
     required this.onDraftDiscarded,
     this.inboxRepository,
+    this.friendsHistoryReady = true,
   });
 
   final List<WorkoutRecord> history;
@@ -1656,6 +1669,7 @@ class DashboardPage extends StatelessWidget {
   final Future<void> Function() onDraftChanged;
   final Future<void> Function() onDraftDiscarded;
   final TrainerInboxRepository? inboxRepository;
+  final bool friendsHistoryReady;
 
   @override
   Widget build(BuildContext context) {
@@ -1705,6 +1719,12 @@ class DashboardPage extends StatelessWidget {
               onDeleted: onBodyWeightDeleted,
             ),
           ],
+          const SizedBox(height: 24),
+          FriendsSection(
+            key: ValueKey(configuredFriends()?.userId),
+            history: history,
+            historyReady: friendsHistoryReady,
+          ),
         ],
       ),
     );
